@@ -9,6 +9,7 @@
 #include "printf.h"
 #include "vesa.h"
 #include "termianl.h"
+#include "kernel.h"
 void kernel_entry();
 KERNEL_MEMORY_MAP g_kmap;
 int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
@@ -62,6 +63,7 @@ void kmain(unsigned long magic, unsigned long addr)
     // bios32_init();
     kprints("Staring kernel\n");
     int ret = vesa_init(1024, 768, 32);
+    keyboard_init();
         if (ret < 0)
         {
             kprints("Error: vesa_init() failed\n");
@@ -93,5 +95,9 @@ void kmain(unsigned long magic, unsigned long addr)
         kprints("Memory allocation failure\n");
     }
     // Infinite loop
-    for (;;);
+    while(1==1)
+    {
+        char *chr = kb_getchar_w();
+        printf(chr);
+    }
 }
