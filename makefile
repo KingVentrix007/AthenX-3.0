@@ -43,8 +43,9 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 	cp grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o AthenX.iso isodir
 #	mv AthenX.bin out/
-
-# ... (You can keep any other necessary targets)
+run:
+	bash ./scripts/boot32.sh
+	qemu-system-i386 AthenX.img
 
 clean:
-	rm -rf $(OUT_DIR)/*.bin $(OUT_DIR)/*.map $(OUT_DIR)/*.img $(OBJ_DIR)/*
+	rm -rf $(OUT_DIR)/*.bin $(OUT_DIR)/*.map $(OUT_DIR)/*.img $(OBJ_DIR)/* AthenX.iso AthenX.bin

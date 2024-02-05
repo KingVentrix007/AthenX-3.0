@@ -6,6 +6,9 @@
 #include "mem.h"
 #include "idt.h"
 #include "gdt.h"
+#include "printf.h"
+#include "vesa.h"
+#include "termianl.h"
 void kernel_entry();
 KERNEL_MEMORY_MAP g_kmap;
 int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
@@ -56,6 +59,14 @@ void kmain(unsigned long magic, unsigned long addr)
 {
     gdt_init();
     idt_init();
+    // bios32_init();
+    kprints("Staring kernel\n");
+    int ret = vesa_init(1024, 768, 32);
+        if (ret < 0)
+        {
+            kprints("Error: vesa_init() failed\n");
+        }
+    init_terminal();
     MULTIBOOT_INFO *mboot_info;
      if (magic == MULTIBOOT_BOOTLOADER_MAGIC)
      {
@@ -74,6 +85,9 @@ void kmain(unsigned long magic, unsigned long addr)
     kprints("Hello World!\nBye world");
     void *ptr = sys_allocate_memory(1024);
     void *ptr2 = sys_allocate_memory(1024);
+    char *string1 = sys_allocate_memory(1024);
+    strcpy(string1, "Hello World!");
+    printf("Memory allocation output: %s\n",string1);
     if(ptr == ptr2)
     {
         kprints("Memory allocation failure\n");

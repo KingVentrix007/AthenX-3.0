@@ -1,0 +1,1580 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000000000000                __kernel_section_start = .
+
+.text           0x0000000000100000    0x94000
+                0x0000000000100000                __kernel_text_section_start = .
+                0x0000000000100000                . = ALIGN (0x4)
+                0x0000000000100000        0x4 LONG 0x1badb002
+                0x0000000000100004        0x4 LONG 0x3
+                0x0000000000100008        0x4 LONG 0xe4524ffb
+                0x000000000010000c                code = .
+                0x000000000010000c                _code = .
+                0x000000000010000c                __code = .
+ *(.text)
+ .text          0x000000000010000c      0x125 obj/8259_pic.o
+                0x000000000010000c                pic8259_init
+                0x00000000001000e3                pic8259_eoi
+ .text          0x0000000000100131       0x54 obj/acpi.o
+                0x0000000000100131                find_rsdp
+ .text          0x0000000000100185      0x2cd obj/ahci.o
+                0x0000000000100185                debug_HBA_PORT
+                0x0000000000100245                debug_HBA_MEM
+                0x00000000001002a0                debug_HBA_CMD_HEADER
+                0x000000000010033f                debug_HBA_FIS
+                0x000000000010039b                debug_HBA_PRDT_ENTRY
+                0x000000000010041b                debug_HBA_CMD_TBL
+ .text          0x0000000000100452      0x191 obj/bios32.o
+                0x0000000000100452                bios32_init
+                0x00000000001004b1                bios32_service
+                0x00000000001005be                int86
+ *fill*         0x00000000001005e3        0xd 
+ .text          0x00000000001005f0      0x155 obj/bios32_call.o
+                0x00000000001005f0                BIOS32_START
+                0x0000000000100660                bios32_int_number_ptr
+                0x00000000001006bb                bios32_gdt_entries
+                0x00000000001006fb                bios32_gdt_ptr
+                0x0000000000100703                bios32_idt_ptr
+                0x000000000010070b                bios32_in_reg16_ptr
+                0x0000000000100727                bios32_out_reg16_ptr
+                0x0000000000100745                BIOS32_END
+ .text          0x0000000000100745      0x135 obj/bitmap.o
+                0x0000000000100745                bitmap_draw_char
+                0x00000000001007d4                bitmap_draw_string
+                0x000000000010082d                bitmap_draw_string_upper
+ .text          0x000000000010087a     0x1cc1 obj/cmdhandler.o
+                0x0000000000100a1c                display_available_commands
+                0x0000000000100b85                man
+                0x0000000000100bac                set_cwd
+                0x0000000000100bc8                removeFirstNChars
+                0x0000000000100c15                parse_command
+                0x00000000001023c3                cmd_handler
+                0x00000000001023da                kernel_command_handler
+                0x0000000000102531                get_cwd
+ .text          0x000000000010253b      0x882 obj/console.o
+                0x000000000010253b                console_clear
+                0x00000000001025bb                console_init
+                0x00000000001025fd                console_scroll
+                0x000000000010280b                console_putchar
+                0x0000000000102a19                console_ungetchar
+                0x0000000000102b33                console_ungetchar_bound
+                0x0000000000102c80                console_gotoxy
+                0x0000000000102ce5                console_putstr
+                0x0000000000102d3b                set_cursor_x
+                0x0000000000102d6d                set_cursor_y
+                0x0000000000102d9f                get_cursor_x
+                0x0000000000102dae                get_cursor_y
+ .text          0x0000000000102dbd      0xe6a obj/debug.o
+                0x0000000000102dbd                printMultibootInfo
+                0x0000000000102f28                screen_of_death
+                0x0000000000102f98                is_in_list
+                0x0000000000103008                append_to_list_if_not_exists
+                0x0000000000103099                append_name_addr
+                0x0000000000103149                get_name_addr
+                0x000000000010316a                get_name_adder_list
+                0x000000000010318b                find_by_address
+                0x00000000001031cb                print_list
+                0x00000000001032b2                check_similarity
+                0x0000000000103341                find_largest_smaller_address
+                0x00000000001033c1                print_stack_trace
+                0x0000000000103417                scan_debug
+                0x0000000000103496                ctos_debug
+                0x00000000001034b9                parse_command_debug
+                0x00000000001036b7                debug_terminal
+                0x00000000001037c5                getRegisters
+                0x0000000000103865                get_adder_map
+                0x00000000001038bd                findNextSpaceOrNewline
+                0x00000000001038e9                parseHex
+                0x0000000000103983                parseMemoryMap
+                0x0000000000103b51                resolve_function_name
+                0x0000000000103bd1                asser_1t
+                0x0000000000103c0e                assert
+ .text          0x0000000000103c27      0xe0d obj/display.o
+                0x0000000000103c27                display_init
+                0x0000000000103cc3                set_font_c
+                0x0000000000103cf1                get_font_color
+                0x0000000000103cfb                get_bg_color
+                0x0000000000103d05                set_background_color
+                0x0000000000103d33                next_line
+                0x0000000000103ddd                set_mode_screen
+                0x0000000000103deb                set_screen_x
+                0x0000000000103e47                set_screen_y
+                0x0000000000103ea3                get_screen_x
+                0x0000000000103ee7                get_screen_y
+                0x0000000000103f2b                set_font_color
+                0x0000000000103f42                clear_display
+                0x0000000000103fdf                reverse_d
+                0x0000000000104065                itoa_d
+                0x0000000000104128                ftoa_fixed_v
+                0x000000000010429c                ftoa_sci_v
+                0x00000000001043de                normalize_v
+                0x0000000000104442                printf_
+                0x00000000001049f2                kassert
+ .text          0x0000000000104a34      0xb2c obj/editor.o
+                0x0000000000104bd6                text_editor
+                0x0000000000104c80                is_c_file
+                0x0000000000104cc4                displayFileContents
+                0x0000000000104f8a                toggle_cursor_visibility_fim
+                0x0000000000104fad                length_of_last_line
+                0x0000000000105012                ftruncate
+                0x0000000000105060                fim_backspace
+                0x00000000001050d1                fim
+                0x0000000000105461                read_file_into_buffer
+                0x00000000001054c4                undraw_line
+                0x0000000000105513                draw_line_cursor
+ .text          0x0000000000105560       0x15 obj/entry.o
+                0x0000000000105560                _start
+ .text          0x0000000000105575      0x4b5 obj/env.o
+                0x0000000000105717                saveEnvironmentVariables
+                0x00000000001057bc                loadEnvironmentVariables
+                0x000000000010599b                init_env
+ .text          0x0000000000105a2a      0x9ea obj/errno.o
+                0x0000000000105a2a                decode_error
+                0x0000000000105afd                init_errors
+                0x0000000000105b0d                exit
+                0x0000000000105b68                main_exit
+                0x0000000000105f3b                inspect_errors
+                0x0000000000106054                init_complete
+                0x0000000000106061                logEvent
+                0x00000000001060ba                compareTime
+                0x000000000010610f                filterAndPrintEvents
+                0x00000000001062a2                print_events
+                0x0000000000106400                get_num_errors
+                0x000000000010640a                get_num_successes
+ .text          0x0000000000106414      0xeff obj/ethernet.o
+                0x0000000000106414                eth_error_to_string
+                0x0000000000106534                map_physical_mmio
+                0x0000000000106559                map_e82540EM_memory_regions
+                0x00000000001065d9                print_mac_address
+                0x000000000010663c                init_e82540EM_ethernet_card
+                0x00000000001067f8                detectEEProm
+                0x0000000000106895                readCommand
+                0x00000000001068cf                mmio_read8
+                0x00000000001068e9                mmio_read16
+                0x0000000000106903                mmio_read32
+                0x000000000010691c                mmio_read64
+                0x0000000000106938                mmio_write8
+                0x0000000000106960                mmio_write16
+                0x000000000010698a                mmio_write32
+                0x00000000001069a9                mmio_write64
+                0x00000000001069da                writeCommand
+                0x0000000000106a18                eepromRead
+                0x0000000000106adb                read_mac_address
+                0x0000000000106b76                read_eep_mac
+                0x0000000000106c81                compare_mac_addresses
+                0x0000000000106cc8                e1000_rxinit
+                0x0000000000106e17                e1000_txinit
+                0x0000000000106f3a                sendPacket
+                0x0000000000107088                send_raw
+                0x0000000000107183                enableInterrupt
+                0x00000000001071c0                fire
+                0x000000000010722a                handleReceive
+                0x00000000001072e6                setup_link
+ *fill*         0x0000000000107313        0xd 
+ .text          0x0000000000107320      0x13c obj/exception.o
+                0x0000000000107345                exception_0
+                0x000000000010734c                exception_1
+                0x0000000000107353                exception_2
+                0x000000000010735a                exception_3
+                0x0000000000107361                exception_4
+                0x0000000000107368                exception_5
+                0x000000000010736f                exception_6
+                0x0000000000107376                exception_7
+                0x000000000010737d                exception_8
+                0x0000000000107382                exception_9
+                0x0000000000107389                exception_10
+                0x000000000010738e                exception_11
+                0x0000000000107393                exception_12
+                0x0000000000107398                exception_13
+                0x000000000010739d                exception_14
+                0x00000000001073a5                exception_15
+                0x00000000001073af                exception_16
+                0x00000000001073b9                exception_17
+                0x00000000001073c3                exception_18
+                0x00000000001073cd                exception_19
+                0x00000000001073d7                exception_20
+                0x00000000001073e1                exception_21
+                0x00000000001073eb                exception_22
+                0x00000000001073f5                exception_23
+                0x00000000001073ff                exception_24
+                0x0000000000107409                exception_25
+                0x0000000000107413                exception_26
+                0x000000000010741d                exception_27
+                0x0000000000107427                exception_28
+                0x0000000000107431                exception_29
+                0x000000000010743b                exception_30
+                0x0000000000107445                exception_31
+                0x000000000010744f                exception_128
+ .text          0x000000000010745c      0x490 obj/fat32.o
+                0x000000000010745c                init_fat_32
+                0x000000000010771b                get_boot_sector_fat32
+                0x0000000000107721                readRootDirectory
+ .text          0x00000000001078ec     0x1356 obj/fat_access.o
+                0x00000000001078ec                fatfs_init
+                0x0000000000107ea1                fatfs_lba_of_cluster
+                0x0000000000107efd                fatfs_sector_read
+                0x0000000000107f1c                fatfs_sector_write
+                0x0000000000107f3b                fatfs_sector_reader
+                0x000000000010807a                fatfs_read_sector
+                0x000000000010818a                fatfs_write_sector
+                0x00000000001082ae                fatfs_show_details
+                0x000000000010834e                fatfs_get_root_cluster
+                0x0000000000108359                fatfs_get_file_entry
+                0x00000000001085d6                fatfs_sfn_exists
+                0x00000000001086a1                fatfs_update_file_length
+                0x00000000001087cd                fatfs_mark_file_deleted
+                0x00000000001088f6                fatfs_list_directory_start
+                0x0000000000108915                fatfs_list_directory_next
+ .text          0x0000000000108c42      0x1c0 obj/fat_cache.o
+                0x0000000000108de4                fatfs_cache_init
+                0x0000000000108dee                fatfs_cache_get_next_cluster
+                0x0000000000108df8                fatfs_cache_set_next_cluster
+ .text          0x0000000000108e02     0x202a obj/fat_filelib.o
+                0x0000000000109c59                fl_init
+                0x0000000000109cbd                fl_attach_locks
+                0x0000000000109cd3                fl_attach_media
+                0x0000000000109d39                fl_shutdown
+                0x0000000000109d80                fl_fopen
+                0x000000000010a149                fl_fflush
+                0x000000000010a1cf                fl_fclose
+                0x000000000010a2bc                fl_fgetc
+                0x000000000010a2f0                fl_fgets
+                0x000000000010a36b                fl_fread
+                0x000000000010a58a                fl_fseek
+                0x000000000010a6dc                fl_fgetpos
+                0x000000000010a727                fl_ftell
+                0x000000000010a74b                fl_feof
+                0x000000000010a7a9                fl_fputc
+                0x000000000010a7db                fl_fwrite
+                0x000000000010aa9e                fl_fputs
+                0x000000000010aadd                fl_remove
+                0x000000000010ab7f                fl_createdirectory
+                0x000000000010abc9                fl_listdirectory
+                0x000000000010ac93                fl_opendir
+                0x000000000010ad4a                fl_readdir
+                0x000000000010adb2                fl_closedir
+                0x000000000010adbc                fl_is_dir
+                0x000000000010adfa                fl_format
+                0x000000000010ae18                ungetc
+                0x000000000010ae22                ferror
+ .text          0x000000000010ae2c      0xbba obj/fat_format.o
+                0x000000000010b6c3                fatfs_format_fat16
+                0x000000000010b846                fatfs_format_fat32
+                0x000000000010b9ab                fatfs_format
+ .text          0x000000000010b9e6      0x9f9 obj/fat_misc.o
+                0x000000000010b9e6                fatfs_lfn_cache_init
+                0x000000000010ba3c                fatfs_lfn_cache_entry
+                0x000000000010bca7                fatfs_lfn_cache_get
+                0x000000000010bcff                fatfs_entry_lfn_text
+                0x000000000010bd22                fatfs_entry_lfn_invalid
+                0x000000000010bd63                fatfs_entry_lfn_exists
+                0x000000000010bdbd                fatfs_entry_sfn_only
+                0x000000000010be09                fatfs_entry_is_dir
+                0x000000000010be2b                fatfs_entry_is_file
+                0x000000000010be4d                fatfs_lfn_entries_required
+                0x000000000010be8e                fatfs_filename_to_lfn
+                0x000000000010bffd                fatfs_sfn_create_entry
+                0x000000000010c0ca                fatfs_lfn_create_sfn
+                0x000000000010c34e                fatfs_lfn_generate_tail
+ .text          0x000000000010c3df      0x6f2 obj/fat_string.o
+                0x000000000010c3df                fatfs_total_path_levels
+                0x000000000010c46f                fatfs_get_substring
+                0x000000000010c574                fatfs_split_path
+                0x000000000010c736                fatfs_compare_names
+                0x000000000010c8a3                fatfs_string_ends_with_slash
+                0x000000000010c8eb                fatfs_get_sfn_display_name
+                0x000000000010c957                fatfs_get_extension
+                0x000000000010c9f0                fatfs_create_path_string
+ .text          0x000000000010cad1      0xaa8 obj/fat_table.o
+                0x000000000010cad1                fatfs_fat_init
+                0x000000000010cdb9                fatfs_fat_purge
+                0x000000000010ce0f                fatfs_find_next_cluster
+                0x000000000010cf99                fatfs_set_fs_info_next_free_cluster
+                0x000000000010d093                fatfs_find_blank_cluster
+                0x000000000010d214                fatfs_fat_set_cluster
+                0x000000000010d367                fatfs_free_cluster_chain
+                0x000000000010d3b5                fatfs_fat_add_cluster_to_chain
+                0x000000000010d430                fatfs_count_free_clusters
+ .text          0x000000000010d579      0x5f6 obj/fat_write.o
+                0x000000000010d579                fatfs_add_free_space
+                0x000000000010d621                fatfs_allocate_free_space
+                0x000000000010d939                fatfs_add_file_entry
+ .text          0x000000000010db6f      0x4b7 obj/fis.o
+                0x000000000010db6f                debug_FIS_REG_H2D
+                0x000000000010dcce                debug_FIS_REG_D2H
+                0x000000000010de30                debug_FIS_DATA
+                0x000000000010de8a                debug_FIS_PIO_SETUP
+                0x000000000010dffd                debug_FIS_DMA_SETUP
+ .text          0x000000000010e026       0x83 obj/fpu.o
+                0x000000000010e026                fpu_set_control_word
+                0x000000000010e039                fpu_enable
+ .text          0x000000000010e0a9     0x1292 obj/fs.o
+                0x000000000010e0a9                init_fs
+                0x000000000010e1e5                run_once
+                0x000000000010e24e                update_table
+                0x000000000010e2d1                make_dir
+                0x000000000010e45e                isInArray
+                0x000000000010e49d                addIfNotInArray
+                0x000000000010e4fd                removeIntFromArray
+                0x000000000010e5c9                clean_fs_partition_table_main
+                0x000000000010e60a                list_files
+                0x000000000010e7a1                format_disk
+                0x000000000010e86a                fs_partition_table_main_p
+                0x000000000010e8cf                str_len
+                0x000000000010e8fa                write
+                0x000000000010ec79                read
+                0x000000000010ef16                read_add
+                0x000000000010f1e0                delete_file
+                0x000000000010f2de                fs_partition_table_main_update
+ .text          0x000000000010f33b      0x12a obj/gdt.o
+                0x000000000010f33b                gdt_set_entry
+                0x000000000010f3c6                gdt_init
+ .text          0x000000000010f465     0x298e obj/graphics.o
+                0x000000000010f607                printChar
+                0x000000000010f709                print_null
+                0x000000000010f766                draw_char_g
+                0x000000000010f805                cool_colors
+                0x000000000010f996                plot_pixel
+                0x000000000010f9f4                clear_screen
+                0x000000000010fa45                draw_large_img
+                0x000000000010fa4b                draw_logo
+                0x000000000010fba6                draw_square
+                0x000000000010fc0b                draw_image
+                0x000000000010fd32                logo
+                0x000000000010fdb4                vbe_drawline
+                0x000000000010fe78                draw3DShape
+                0x00000000001101df                demo_3D
+                0x000000000011025c                bresenham_line
+                0x00000000001103af                drawPixel
+                0x00000000001103b5                drawWireframeSquare
+                0x0000000000110542                ArtemisVision
+                0x000000000011058c                draw_line
+                0x0000000000110639                draw_rect
+                0x0000000000110735                fill_rect
+                0x0000000000110891                draw_bresenham_circle
+                0x00000000001109a8                draw_circle
+                0x0000000000110a79                draw_diamond
+                0x0000000000110b72                drawLine
+                0x0000000000110c0c                drawEmptySquare
+                0x0000000000110ca9                draw_window
+                0x0000000000110cc6                draw_error_image
+                0x0000000000110de5                draw_low_res_img
+                0x0000000000110f35                draw_low_res_img_ptr
+                0x0000000000111097                rgb_to_color
+                0x00000000001110af                draw_hi_res_img
+                0x00000000001110fa                init_window
+                0x0000000000111140                draw_image_stb
+                0x0000000000111216                loadAndDrawImage
+                0x0000000000111457                tga_parse
+ .text          0x0000000000111df3     0x1b43 obj/ide.o
+                0x00000000001120a8                insl
+                0x00000000001120f4                outsl
+                0x000000000011213c                ide_read_buffer
+                0x0000000000112283                getList
+                0x000000000011228d                getListSize
+                0x0000000000112297                ide_write_buffer
+                0x0000000000112402                ide_polling
+                0x00000000001124a8                ide_print_error
+                0x00000000001126b8                appendIndexToList
+                0x0000000000112740                ide_init
+                0x0000000000112d2b                ide_ata_access
+                0x00000000001132a5                ide_wait_irq
+                0x00000000001132be                ide_irq
+                0x00000000001132cb                ide_read_sectors
+                0x00000000001133dd                ide_read_sectors_fat
+                0x000000000011350f                ide_write_sectors
+                0x00000000001135fa                ide_write_sectors_fat
+                0x00000000001136f8                ata_init
+                0x0000000000113722                ata_get_drive_by_model
+                0x000000000011376b                print_drives
+                0x00000000001138d4                get_sectors
+ .text          0x0000000000113936      0x4fe obj/idt.o
+                0x0000000000113936                idt_set_entry
+                0x0000000000113997                idt_init
+ .text          0x0000000000113e34      0xee3 obj/installer.o
+                0x0000000000113e34                display_percentage
+                0x0000000000113ebf                remove_athenx_install_section
+                0x0000000000113f4b                is_sector_all_zeros
+                0x0000000000113f83                calculateRectanglePosition
+                0x0000000000113fc2                install
+                0x0000000000114526                select_drives_from_list
+                0x000000000011470e                display_image
+                0x000000000011484c                drawHDD
+                0x00000000001148c8                drawSSD
+                0x0000000000114944                drawDVD
+                0x00000000001149c0                draw_loading_bar
+                0x0000000000114bd6                draw_sliding_image
+                0x0000000000114cf8                select_install_mode
+ .text          0x0000000000114d17      0x168 obj/io_ports.o
+                0x0000000000114d17                inportb
+                0x0000000000114d34                outportb
+                0x0000000000114d55                inports
+                0x0000000000114d74                outports
+                0x0000000000114d95                inportl
+                0x0000000000114db1                outportl
+                0x0000000000114dc9                input_bytes
+                0x0000000000114de6                out_bytes
+                0x0000000000114e07                scan
+ *fill*         0x0000000000114e7f        0x1 
+ .text          0x0000000000114e80       0xa3 obj/irq.o
+                0x0000000000114ea7                irq_0
+                0x0000000000114eae                irq_1
+                0x0000000000114eb5                irq_2
+                0x0000000000114ebc                irq_3
+                0x0000000000114ec3                irq_4
+                0x0000000000114eca                irq_5
+                0x0000000000114ed1                irq_6
+                0x0000000000114ed8                irq_7
+                0x0000000000114edf                irq_8
+                0x0000000000114ee6                irq_9
+                0x0000000000114eed                irq_10
+                0x0000000000114ef4                irq_11
+                0x0000000000114efb                irq_12
+                0x0000000000114f05                irq_13
+                0x0000000000114f0f                irq_14
+                0x0000000000114f19                irq_15
+ .text          0x0000000000114f23      0xcd7 obj/isr.o
+                0x0000000000114f23                isr_register_interrupt_handler
+                0x0000000000114f55                isr_end_interrupt
+                0x0000000000114f70                isr_irq_handler
+                0x0000000000115078                unwind_stack
+                0x000000000011534b                display_call_sequnce
+                0x00000000001153d0                inspect_stack_frame
+                0x00000000001155ec                extractLocalVars
+                0x000000000011577c                extractLocalVarsReverse
+                0x0000000000115806                Trace
+                0x0000000000115879                TraceStackTrace
+                0x000000000011597b                get_regs
+                0x0000000000115a03                isr_exception_handler
+                0x0000000000115bf4                resolve_symbol
+ .text          0x0000000000115bfa     0x13ed obj/kernel.o
+                0x0000000000115d9c                testRead
+                0x0000000000115def                testWrite
+                0x0000000000115e48                setup
+                0x0000000000115ec3                get_mb_info
+                0x0000000000115f0f                mac_cmp
+                0x0000000000115f46                access_grub_module
+                0x0000000000115fbe                get_kernel_memory_map
+                0x0000000000116143                display_kernel_memory_map
+                0x000000000011624e                get_map
+                0x000000000011626d                getSizeInSectors
+                0x00000000001162cd                kmain
+                0x00000000001168c2                login
+                0x0000000000116b1a                getstr_bound
+                0x0000000000116ba6                toggle_cursor_visibility
+                0x0000000000116bc9                terminal_main
+                0x0000000000116e3d                is_all_one_type
+                0x0000000000116e97                dummy_start
+                0x0000000000116ecc                dummy2
+                0x0000000000116f16                dummy3
+                0x0000000000116f5d                dummy4
+                0x0000000000116fa4                fake_err
+ .text          0x0000000000116fe7      0x6c7 obj/keyboard.o
+                0x0000000000117046                alternate_chars
+                0x000000000011710d                keyboard_handler
+                0x000000000011739a                keyboard_init
+                0x00000000001173c9                kb_getchar
+                0x0000000000117410                kb_get_scancode
+                0x000000000011745c                get_input
+                0x0000000000117498                inter_key
+                0x0000000000117622                get_char
+                0x000000000011765f                unget_char
+ .text          0x00000000001176ae      0x635 obj/kheap.o
+                0x00000000001176ae                kheap_init
+                0x0000000000117715                kbrk
+                0x00000000001177ca                kheap_print_blocks
+                0x0000000000117879                is_block_free
+                0x00000000001178c1                worst_fit
+                0x000000000011792c                allocate_new_block
+                0x00000000001179be                kmalloc
+                0x0000000000117b56                kcalloc
+                0x0000000000117bcf                krealloc
+                0x0000000000117c87                kfree
+ *fill*         0x0000000000117ce3        0xd 
+ .text          0x0000000000117cf0       0x27 obj/load_gdt.o
+                0x0000000000117cf0                load_gdt
+ *fill*         0x0000000000117d17        0x9 
+ .text          0x0000000000117d20        0x8 obj/load_idt.o
+                0x0000000000117d20                load_idt
+ .text          0x0000000000117d28      0xe8a obj/man.o
+                0x0000000000117d28                man_inspect
+                0x0000000000117f31                man_pci
+                0x0000000000117fca                man_write
+                0x0000000000118033                man_read
+                0x000000000011809c                man_ls
+                0x0000000000118105                man_rm
+                0x000000000011816e                man_cls
+                0x00000000001181d7                man_bg
+                0x0000000000118240                man_logo
+                0x00000000001182a9                man_mkdir
+                0x0000000000118312                man_exit
+                0x000000000011837b                man_set_xy
+                0x00000000001183e4                man_song
+                0x000000000011844d                man_format
+                0x00000000001184b6                man_table
+                0x000000000011851f                man_3d
+                0x0000000000118588                man_rle
+                0x00000000001185f1                man_fs
+                0x000000000011865a                man_exe
+                0x00000000001186c3                man_sect
+                0x000000000011872c                man_raw
+                0x0000000000118815                man_edit
+                0x000000000011887e                man_main
+                0x0000000000118b64                man_list
+ .text          0x0000000000118bb2      0xc86 obj/maths.o
+                0x0000000000118bb2                max
+                0x0000000000118be6                min
+                0x0000000000118c1a                log2
+                0x0000000000118c5e                machine_eps
+                0x0000000000118c90                fact
+                0x0000000000118cc1                abs
+                0x0000000000118cd0                exp
+                0x0000000000118d5a                inv_sqrt
+                0x0000000000118dd5                sqrt
+                0x0000000000118dfb                msb
+                0x0000000000118e4a                ln
+                0x0000000000118f02                pow
+                0x0000000000119078                log
+                0x00000000001190ba                log10
+                0x00000000001190e4                ipow
+                0x000000000011911e                sin_1st_quadrant
+                0x00000000001191b5                sin
+                0x0000000000119300                cos
+                0x000000000011932c                tan
+                0x0000000000119362                sinh
+                0x00000000001193a8                cosh
+                0x00000000001193ee                tanh
+                0x0000000000119429                asinh
+                0x0000000000119469                acosh
+                0x00000000001194a9                atanh
+                0x00000000001194e2                asin
+                0x00000000001195b9                acos
+                0x00000000001196a3                atan
+                0x00000000001196ec                fac
+                0x0000000000119717                srand
+                0x0000000000119727                rand
+                0x000000000011977d                small_rand
+                0x00000000001197db                fabs
+                0x0000000000119804                fmax
+ .text          0x0000000000119838        0x0 obj/memory.o
+ .text          0x0000000000119838      0x53c obj/mouse.o
+                0x0000000000119838                mouse_getx
+                0x0000000000119842                mouse_gety
+                0x000000000011984c                mouse_wait
+                0x00000000001198b4                mouse_write
+                0x0000000000119901                mouse_read
+                0x0000000000119923                get_mouse_status
+                0x00000000001199ef                print_mouse_info
+                0x0000000000119a6f                mouse_handler
+                0x0000000000119b93                set_mouse_rate
+                0x0000000000119c04                mouse_init
+ .text          0x0000000000119d74        0x6 obj/multitasking.o
+                0x0000000000119d74                init_multitasking
+ .text          0x0000000000119d7a        0x0 obj/panic.o
+ .text          0x0000000000119d7a     0x1a6e obj/pci.o
+                0x0000000000119d7a                pci_read
+                0x0000000000119def                read_bits_23_to_16
+                0x0000000000119e04                pci_scan
+                0x000000000011a2c9                pci_read_bar
+                0x000000000011a33c                pci_write_bar
+                0x000000000011a3b3                calculate_pci_slot
+                0x000000000011a3e5                dummy
+                0x000000000011a410                init_pci_device
+                0x000000000011a5af                create_device_list
+                0x000000000011a693                add_pci_device
+                0x000000000011a796                log_devices
+                0x000000000011a8f8                find_pci_device
+                0x000000000011aaeb                extractBits31to24
+                0x000000000011aaf6                extractBits23to16
+                0x000000000011ab01                extractBits15to8
+                0x000000000011ab0c                extractBits7to0
+                0x000000000011ab14                find_pci_device_header
+                0x000000000011ae62                append_pci_device
+                0x000000000011af18                list_pci_devices
+                0x000000000011aff1                list_pic_class_code
+                0x000000000011b20a                list_registered_device
+                0x000000000011b3b0                list_running_devices
+                0x000000000011b524                initialize_registered_devices
+                0x000000000011b657                return_registered_pci_device
+                0x000000000011b6f3                PCI_search_device
+ .text          0x000000000011b7e8      0x4ab obj/pmm.o
+                0x000000000011b880                pmm_get_max_blocks
+                0x000000000011b88a                pmm_get_used_blocks
+                0x000000000011b894                pmm_mmap_first_free
+                0x000000000011b919                pmm_mmap_first_free_by_size
+                0x000000000011ba1f                pmm_next_free_frame
+                0x000000000011ba30                pmm_init
+                0x000000000011ba93                pmm_init_region
+                0x000000000011bada                pmm_deinit_region
+                0x000000000011bb21                pmm_alloc_block
+                0x000000000011bb81                pmm_free_block
+                0x000000000011bbb9                pmm_alloc_blocks
+                0x000000000011bc40                pmm_free_blocks
+ .text          0x000000000011bc93     0x1686 obj/printf.o
+                0x000000000011d1e3                printf
+                0x000000000011d214                sprintf_
+                0x000000000011d244                snprintf_
+                0x000000000011d275                vprintf_
+                0x000000000011d299                vsnprintf_
+                0x000000000011d2bd                fctprintf
+                0x000000000011d2fa                _putchar
+ .text          0x000000000011d319      0x237 obj/read.o
+                0x000000000011d319                sata_read
+ .text          0x000000000011d550      0x3cc obj/rle.o
+                0x000000000011d550                rle_encode
+                0x000000000011d667                rle_decode
+                0x000000000011d6fb                main
+ .text          0x000000000011d91c      0x1f8 obj/serial.o
+                0x000000000011d91c                is_transmit_empty
+                0x000000000011d93a                write_serial
+                0x000000000011d96d                write_serial_i
+                0x000000000011d997                init_serial
+                0x000000000011da7f                write_string_serial
+                0x000000000011dad4                serial_received
+                0x000000000011daf2                read_serial
+ .text          0x000000000011db14      0x1c3 obj/speaker.o
+                0x000000000011db14                play_sound
+                0x000000000011db9e                nosound
+                0x000000000011dbcc                beep
+                0x000000000011dbfe                controlled_beep
+                0x000000000011dc37                crude_song
+                0x000000000011dc9a                sound_error
+ .text          0x000000000011dcd7      0x82d obj/ssfs.o
+                0x000000000011dcd7                padString
+                0x000000000011dd4a                ssfs_format_disk
+                0x000000000011ded3                read_ssfs_partion
+                0x000000000011dfe6                mount
+                0x000000000011dfec                find_partion
+                0x000000000011dff2                is_sector_free
+                0x000000000011e039                ssfs_write_file
+                0x000000000011e1f7                ssfs_update_table
+                0x000000000011e29c                read_file_data
+                0x000000000011e34d                ssfs_read
+                0x000000000011e42b                splitStringIntoChunks
+ .text          0x000000000011e504      0x41d obj/stdio.o
+                0x000000000011e6a6                get_chr
+                0x000000000011e6f4                get_int
+                0x000000000011e759                scanf
+                0x000000000011e85d                perror
+ .text          0x000000000011e921      0xf48 obj/string.o
+                0x000000000011e921                memset
+                0x000000000011e953                strchr
+                0x000000000011e980                strtok
+                0x000000000011ea41                memmove
+                0x000000000011eacd                memcpy
+                0x000000000011eb10                strtok_r
+                0x000000000011eb9e                memcmp
+                0x000000000011ebd6                memcmp_string
+                0x000000000011ec46                strlen
+                0x000000000011ec6e                malloc
+                0x000000000011ecf4                strcmp
+                0x000000000011ed42                strstr
+                0x000000000011ed8d                ctos
+                0x000000000011edb0                strcpy
+                0x000000000011ede6                backspace
+                0x000000000011ee20                atoi
+                0x000000000011ef1e                strcat
+                0x000000000011ef6a                isspace
+                0x000000000011efa8                isalpha
+                0x000000000011efda                upper
+                0x000000000011f001                lower
+                0x000000000011f028                strncpy
+                0x000000000011f087                strncmp
+                0x000000000011f0d8                itoa
+                0x000000000011f1b7                string_length
+                0x000000000011f1de                append
+                0x000000000011f217                parse_string
+                0x000000000011f263                hex_string_to_uint16
+                0x000000000011f2d4                strtoul
+                0x000000000011f461                isalnum
+                0x000000000011f499                strtol
+                0x000000000011f5e2                strtoull
+                0x000000000011f760                tolower
+                0x000000000011f77c                isdigit
+                0x000000000011f799                isxdigit
+                0x000000000011f7d1                strrchr
+                0x000000000011f821                strcspn
+ .text          0x000000000011f869       0x28 obj/terminal.o
+                0x000000000011f869                kprintf
+ .text          0x000000000011f891      0x46b obj/timer.o
+                0x000000000011f891                get_RTC_register
+                0x000000000011f8c8                timer_set_frequency
+                0x000000000011f953                timer_handler
+                0x000000000011f9f4                timer_register_function
+                0x000000000011fa73                timer_init
+                0x000000000011fabf                sleep
+                0x000000000011fb24                get_ticks
+                0x000000000011fb2e                reset_ticks
+                0x000000000011fb3e                get_time
+ .text          0x000000000011fcfc      0x867 obj/tui.o
+                0x000000000011fcfc                init_tui
+                0x000000000011fd1d                printArrayWithSelection
+                0x000000000011ff8d                repaint_rect
+                0x00000000001200bc                tui_main
+                0x000000000012055d                tui_install
+ .text          0x0000000000120563        0xc obj/user.o
+                0x0000000000120563                init_user
+                0x0000000000120569                get_user
+ .text          0x000000000012056f       0x53 obj/utils.o
+                0x000000000012056f                find_cmdslot
+ .text          0x00000000001205c2      0x6e9 obj/vesa.o
+                0x00000000001205c2                vbe_get_width
+                0x00000000001205cc                vbe_get_height
+                0x00000000001205d6                get_vbe_info
+                0x0000000000120665                get_vbe_mode_info
+                0x00000000001206f4                vbe_set_mode
+                0x000000000012075d                vbe_find_mode
+                0x00000000001207f3                vese_mem
+                0x0000000000120817                vbe_print_available_modes
+                0x00000000001208b1                find_biggest_mode
+                0x0000000000120981                vbe_rgb
+                0x00000000001209ba                vbe_rgba
+                0x0000000000120a05                vbe_putpixel
+                0x0000000000120a34                scroll_lines
+                0x0000000000120ae9                shift_text_lines_up
+                0x0000000000120b13                vesa_scroll
+                0x0000000000120b47                vbe_putpixel_v2
+                0x0000000000120b70                vesa_init
+ .text          0x0000000000120cab      0x633 obj/vesa_display.o
+                0x0000000000120cbd                vesa_putentryat
+                0x0000000000120d84                vesa_putchar
+                0x0000000000120f10                vesa_write
+                0x0000000000120f49                putchar_vesa
+                0x0000000000120f6b                cls_screen
+                0x0000000000120ffe                print_vesa_d
+                0x0000000000121037                get_vesa_row
+                0x0000000000121041                get_vesa_col
+                0x000000000012104b                set_vesa_row
+                0x0000000000121059                set_vesa_colum
+                0x0000000000121067                vesa_set_colors
+                0x0000000000121090                drawchar
+                0x000000000012116e                draw_square_cursor
+                0x00000000001211bb                undraw_square
+                0x000000000012120a                draw_character_1d
+ .text          0x00000000001212de       0x34 obj/vfs.o
+                0x00000000001212de                init_disk
+ .text          0x0000000000121312      0x7c3 obj/vga.o
+                0x0000000000121312                vga_item_entry
+                0x000000000012135e                vga_set_cursor_pos
+                0x00000000001213e5                vga_disable_cursor
+                0x0000000000121412                output_bytes
+                0x0000000000121433                write_registers
+                0x000000000012163a                vga_graphics_init
+                0x0000000000121674                VGA_clear_screen
+                0x00000000001216e7                vga_initialize
+                0x000000000012172e                vga_scroll
+                0x00000000001217c9                vga_putentryat
+                0x000000000012187a                vga_putchar
+                0x0000000000121991                vga_write
+                0x00000000001219ca                cls_screen_vga
+                0x0000000000121a6c                print_g
+                0x0000000000121aa5                set_vga_row
+                0x0000000000121ab3                set_vga_column
+                0x0000000000121ac1                get_vga_row
+                0x0000000000121acb                get_vga_column
+ .text          0x0000000000121ad5      0x24b obj/write.o
+                0x0000000000121ad5                sata_write
+ *(.rodata)
+ .rodata        0x0000000000121d20        0x9 obj/acpi.o
+ *fill*         0x0000000000121d29        0x3 
+ .rodata        0x0000000000121d2c      0x1bf obj/ahci.o
+ *fill*         0x0000000000121eeb       0x15 
+ .rodata        0x0000000000121f00     0x3200 obj/bitmap.o
+                0x0000000000124500                arr_5x6_font
+                0x0000000000124b00                arr_4x6_font
+ .rodata        0x0000000000125100      0x730 obj/cmdhandler.o
+ .rodata        0x0000000000125830      0x280 obj/debug.o
+ .rodata        0x0000000000125ab0       0x30 obj/display.o
+ .rodata        0x0000000000125ae0      0x200 obj/editor.o
+ .rodata        0x0000000000125ce0        0xd obj/env.o
+ *fill*         0x0000000000125ced        0x3 
+ .rodata        0x0000000000125cf0      0x44e obj/errno.o
+ *fill*         0x000000000012613e        0x2 
+ .rodata        0x0000000000126140      0x59f obj/ethernet.o
+ .rodata        0x00000000001266df       0xe0 obj/fat32.o
+ *fill*         0x00000000001267bf        0x1 
+ .rodata        0x00000000001267c0       0x97 obj/fat_access.o
+ *fill*         0x0000000000126857        0x1 
+ .rodata        0x0000000000126858      0x142 obj/fat_filelib.o
+ .rodata        0x000000000012699a      0x114 obj/fis.o
+ *fill*         0x0000000000126aae        0x2 
+ .rodata        0x0000000000126ab0       0x17 obj/fpu.o
+ *fill*         0x0000000000126ac7        0x1 
+ .rodata        0x0000000000126ac8      0x125 obj/fs.o
+ *fill*         0x0000000000126bed       0x13 
+ .rodata        0x0000000000126c00    0x34eb0 obj/graphics.o
+                0x0000000000126c00                test
+ .rodata        0x000000000015bab0      0x2e5 obj/ide.o
+ *fill*         0x000000000015bd95        0x3 
+ .rodata        0x000000000015bd98      0x21c obj/installer.o
+ .rodata        0x000000000015bfb4        0x3 obj/io_ports.o
+ *fill*         0x000000000015bfb7        0x1 
+ .rodata        0x000000000015bfb8      0x688 obj/isr.o
+ .rodata        0x000000000015c640    0x320b0 obj/kernel.o
+ .rodata        0x000000000018e6f0      0x2c8 obj/keyboard.o
+ .rodata        0x000000000018e9b8      0x29a obj/kheap.o
+ *fill*         0x000000000018ec52        0xe 
+ .rodata        0x000000000018ec60     0x1018 obj/man.o
+ *fill*         0x000000000018fc78        0x8 
+ .rodata        0x000000000018fc80      0x248 obj/maths.o
+                0x000000000018fc80                tab32
+ .rodata        0x000000000018fec8      0x144 obj/mouse.o
+ .rodata        0x000000000019000c      0x624 obj/pci.o
+ *fill*         0x0000000000190630       0x10 
+ .rodata        0x0000000000190640      0x2a0 obj/printf.o
+ .rodata        0x00000000001908e0       0x22 obj/read.o
+ .rodata        0x0000000000190902       0x30 obj/rle.o
+ *fill*         0x0000000000190932        0xe 
+ .rodata        0x0000000000190940       0x70 obj/speaker.o
+ .rodata        0x00000000001909b0       0x70 obj/ssfs.o
+ .rodata        0x0000000000190a20       0x2a obj/stdio.o
+ *fill*         0x0000000000190a4a        0x2 
+ .rodata        0x0000000000190a4c       0x6f obj/timer.o
+ .rodata        0x0000000000190abb       0x10 obj/tui.o
+ *fill*         0x0000000000190acb        0x1 
+ .rodata        0x0000000000190acc       0x25 obj/utils.o
+ *fill*         0x0000000000190af1        0x3 
+ .rodata        0x0000000000190af4       0xb9 obj/vesa.o
+ *fill*         0x0000000000190bad       0x13 
+ .rodata        0x0000000000190bc0     0x3201 obj/vesa_display.o
+ *fill*         0x0000000000193dc1        0x3 
+ .rodata        0x0000000000193dc4       0x20 obj/vfs.o
+ .rodata        0x0000000000193de4       0x22 obj/write.o
+                0x0000000000194000                . = ALIGN (0x1000)
+ *fill*         0x0000000000193e06      0x1fa 
+                0x0000000000194000                __kernel_text_section_end = .
+
+.iplt           0x0000000000194000        0x0
+ .iplt          0x0000000000194000        0x0 obj/8259_pic.o
+
+.data           0x0000000000194000   0x5b4000
+                0x0000000000194000                __kernel_data_section_start = .
+                0x0000000000194000                data = .
+                0x0000000000194000                _data = .
+                0x0000000000194000                __data = .
+ *(.data)
+ .data          0x0000000000194000        0x0 obj/8259_pic.o
+ .data          0x0000000000194000        0x0 obj/acpi.o
+ .data          0x0000000000194000        0x0 obj/ahci.o
+ .data          0x0000000000194000        0x4 obj/bios32.o
+                0x0000000000194000                exec_bios32_function
+ *fill*         0x0000000000194004       0x1c 
+ .data          0x0000000000194020     0x33b0 obj/bitmap.o
+                0x0000000000194020                font8x8_basic
+                0x0000000000194420                font8x16
+                0x0000000000194c20                ASCII_BITMAPS
+ *fill*         0x00000000001973d0       0x10 
+ .data          0x00000000001973e0      0x104 obj/cmdhandler.o
+                0x00000000001973e0                cwd
+ .data          0x00000000001974e4        0x1 obj/console.o
+                0x00000000001974e4                g_fore_color
+ *fill*         0x00000000001974e5       0x1b 
+ .data          0x0000000000197500      0x600 obj/debug.o
+ .data          0x0000000000197b00        0x4 obj/display.o
+ *fill*         0x0000000000197b04       0x1c 
+ .data          0x0000000000197b20      0x2f1 obj/editor.o
+                0x0000000000197b20                keywordFontColors
+                0x0000000000197e10                cursor_visible_fim
+ *fill*         0x0000000000197e11      0x1ef 
+ .data          0x0000000000198000        0x0 obj/entry.o
+ .data          0x0000000000198000        0x0 obj/env.o
+ .data          0x0000000000198000        0x1 obj/errno.o
+                0x0000000000198000                init_message
+ *fill*         0x0000000000198001        0x3 
+ .data          0x0000000000198004        0x8 obj/ethernet.o
+                0x0000000000198008                physical_memory_base
+ .data          0x000000000019800c        0x0 obj/fat32.o
+ .data          0x000000000019800c        0x0 obj/fat_access.o
+ .data          0x000000000019800c        0x0 obj/fat_cache.o
+ .data          0x000000000019800c        0x0 obj/fat_filelib.o
+ *fill*         0x000000000019800c       0x14 
+ .data          0x0000000000198020       0x70 obj/fat_format.o
+                0x0000000000198020                _cluster_size_table16
+                0x0000000000198060                _cluster_size_table32
+ .data          0x0000000000198090        0x0 obj/fat_misc.o
+ .data          0x0000000000198090        0x0 obj/fat_string.o
+ .data          0x0000000000198090        0x0 obj/fat_table.o
+ .data          0x0000000000198090        0x0 obj/fat_write.o
+ .data          0x0000000000198090        0x0 obj/fis.o
+ .data          0x0000000000198090        0x0 obj/fpu.o
+ .data          0x0000000000198090        0x8 obj/fs.o
+                0x0000000000198090                current_dir
+ .data          0x0000000000198098        0x0 obj/gdt.o
+ *fill*         0x0000000000198098        0x8 
+ .data          0x00000000001980a0   0x2da364 obj/graphics.o
+                0x00000000001980a0                error_skull
+                0x00000000001b01a0                athenx_logo
+                0x0000000000267360                background
+                0x0000000000461760                font
+                0x0000000000462440                fontdata
+                0x0000000000463840                logo_img
+                0x00000000004723cc                VGA_address_13
+ .data          0x0000000000472404        0x0 obj/ide.o
+ .data          0x0000000000472404        0x0 obj/idt.o
+ *fill*         0x0000000000472404       0x1c 
+ .data          0x0000000000472420     0x9020 obj/installer.o
+                0x0000000000472440                HDD_map
+                0x0000000000474840                SDD_map
+                0x0000000000476c40                DVD_ROM_map
+                0x0000000000479040                transefer_map
+ .data          0x000000000047b440        0x0 obj/io_ports.o
+ .data          0x000000000047b440       0x80 obj/isr.o
+                0x000000000047b440                exception_messages
+ .data          0x000000000047b4c0   0x2c9ce1 obj/kernel.o
+                0x00000000007451a0                cursor_visible
+ *fill*         0x00000000007451a1       0x1f 
+ .data          0x00000000007451c0       0x80 obj/keyboard.o
+                0x00000000007451c0                g_scan_code_chars
+ .data          0x0000000000745240        0x0 obj/kheap.o
+ .data          0x0000000000745240        0x0 obj/man.o
+ .data          0x0000000000745240        0x0 obj/maths.o
+ .data          0x0000000000745240        0x0 obj/memory.o
+ .data          0x0000000000745240        0x0 obj/mouse.o
+ .data          0x0000000000745240        0x0 obj/multitasking.o
+ .data          0x0000000000745240        0x0 obj/panic.o
+ .data          0x0000000000745240        0x4 obj/pci.o
+ .data          0x0000000000745244        0x0 obj/pmm.o
+ .data          0x0000000000745244        0x4 obj/printf.o
+ .data          0x0000000000745248        0x0 obj/read.o
+ .data          0x0000000000745248        0x0 obj/rle.o
+ .data          0x0000000000745248        0x0 obj/serial.o
+ .data          0x0000000000745248        0x0 obj/speaker.o
+ .data          0x0000000000745248        0x0 obj/ssfs.o
+ .data          0x0000000000745248        0x0 obj/stdio.o
+ .data          0x0000000000745248        0x0 obj/string.o
+ .data          0x0000000000745248        0x0 obj/terminal.o
+ .data          0x0000000000745248        0x8 obj/timer.o
+                0x0000000000745248                cmos_address
+                0x000000000074524c                cmos_data
+ .data          0x0000000000745250        0x5 obj/tui.o
+ .data          0x0000000000745255        0x0 obj/user.o
+ .data          0x0000000000745255        0x0 obj/utils.o
+ *fill*         0x0000000000745255        0x3 
+ .data          0x0000000000745258        0x8 obj/vesa.o
+                0x000000000074525c                g_selected_mode
+ .data          0x0000000000745260     0x2100 obj/vesa_display.o
+ .data          0x0000000000747360        0x0 obj/vfs.o
+ .data          0x0000000000747360       0x5d obj/vga.o
+                0x0000000000747380                mode_320_200_256
+ .data          0x00000000007473bd        0x0 obj/write.o
+                0x0000000000748000                . = ALIGN (0x1000)
+ *fill*         0x00000000007473bd      0xc43 
+                0x0000000000748000                __kernel_data_section_end = .
+
+.got            0x0000000000748000        0x0
+ .got           0x0000000000748000        0x0 obj/8259_pic.o
+
+.got.plt        0x0000000000748000        0x0
+ .got.plt       0x0000000000748000        0x0 obj/8259_pic.o
+
+.igot.plt       0x0000000000748000        0x0
+ .igot.plt      0x0000000000748000        0x0 obj/8259_pic.o
+
+.rodata         0x0000000000748000        0x0
+                0x0000000000748000                __kernel_rodata_section_start = .
+ *(.rodata)
+                0x0000000000748000                __kernel_rodata_section_end = .
+
+.eh_frame       0x0000000000748000     0x5fa8
+ .eh_frame      0x0000000000748000       0x58 obj/8259_pic.o
+ .eh_frame      0x0000000000748058       0x20 obj/acpi.o
+                                         0x38 (size before relaxing)
+ .eh_frame      0x0000000000748078       0xc0 obj/ahci.o
+                                         0xd8 (size before relaxing)
+ .eh_frame      0x0000000000748138       0x60 obj/bios32.o
+                                         0x78 (size before relaxing)
+ .eh_frame      0x0000000000748198       0x60 obj/bitmap.o
+                                         0x78 (size before relaxing)
+ .eh_frame      0x00000000007481f8      0x21c obj/cmdhandler.o
+                                        0x234 (size before relaxing)
+ .eh_frame      0x0000000000748414      0x1d0 obj/console.o
+                                        0x1e8 (size before relaxing)
+ .eh_frame      0x00000000007485e4      0x328 obj/debug.o
+                                        0x340 (size before relaxing)
+ .eh_frame      0x000000000074890c      0x2a8 obj/display.o
+                                        0x2c0 (size before relaxing)
+ .eh_frame      0x0000000000748bb4      0x270 obj/editor.o
+                                        0x288 (size before relaxing)
+ .eh_frame      0x0000000000748e24      0x164 obj/env.o
+                                        0x17c (size before relaxing)
+ .eh_frame      0x0000000000748f88      0x1c0 obj/errno.o
+                                        0x1d8 (size before relaxing)
+ .eh_frame      0x0000000000749148      0x3ac obj/ethernet.o
+                                        0x3c4 (size before relaxing)
+ .eh_frame      0x00000000007494f4       0x6c obj/fat32.o
+                                         0x84 (size before relaxing)
+ .eh_frame      0x0000000000749560      0x1e0 obj/fat_access.o
+                                        0x1f8 (size before relaxing)
+ .eh_frame      0x0000000000749740      0x160 obj/fat_cache.o
+                                        0x178 (size before relaxing)
+ .eh_frame      0x00000000007498a0      0x58c obj/fat_filelib.o
+                                        0x5a4 (size before relaxing)
+ .eh_frame      0x0000000000749e2c      0x10c obj/fat_format.o
+                                        0x124 (size before relaxing)
+ .eh_frame      0x0000000000749f38      0x1e4 obj/fat_misc.o
+                                        0x1fc (size before relaxing)
+ .eh_frame      0x000000000074a11c      0x168 obj/fat_string.o
+                                        0x180 (size before relaxing)
+ .eh_frame      0x000000000074a284      0x160 obj/fat_table.o
+                                        0x178 (size before relaxing)
+ .eh_frame      0x000000000074a3e4       0x80 obj/fat_write.o
+                                         0x98 (size before relaxing)
+ .eh_frame      0x000000000074a464       0xa0 obj/fis.o
+                                         0xb8 (size before relaxing)
+ .eh_frame      0x000000000074a504       0x40 obj/fpu.o
+                                         0x58 (size before relaxing)
+ .eh_frame      0x000000000074a544      0x24c obj/fs.o
+                                        0x264 (size before relaxing)
+ .eh_frame      0x000000000074a790       0x40 obj/gdt.o
+                                         0x58 (size before relaxing)
+ .eh_frame      0x000000000074a7d0      0x5dc obj/graphics.o
+                                        0x5f4 (size before relaxing)
+ .eh_frame      0x000000000074adac      0x300 obj/ide.o
+                                        0x318 (size before relaxing)
+ .eh_frame      0x000000000074b0ac       0x40 obj/idt.o
+                                         0x58 (size before relaxing)
+ .eh_frame      0x000000000074b0ec      0x1d0 obj/installer.o
+                                        0x1e8 (size before relaxing)
+ .eh_frame      0x000000000074b2bc      0x120 obj/io_ports.o
+                                        0x138 (size before relaxing)
+ .eh_frame      0x000000000074b3dc      0x1cc obj/isr.o
+                                        0x1e4 (size before relaxing)
+ .eh_frame      0x000000000074b5a8      0x3c4 obj/kernel.o
+                                        0x3dc (size before relaxing)
+ .eh_frame      0x000000000074b96c      0x140 obj/keyboard.o
+                                        0x158 (size before relaxing)
+ .eh_frame      0x000000000074baac      0x148 obj/kheap.o
+                                        0x160 (size before relaxing)
+ .eh_frame      0x000000000074bbf4      0x30c obj/man.o
+                                        0x324 (size before relaxing)
+ .eh_frame      0x000000000074bf00      0x44c obj/maths.o
+                                        0x464 (size before relaxing)
+ .eh_frame      0x000000000074c34c      0x140 obj/mouse.o
+                                        0x158 (size before relaxing)
+ .eh_frame      0x000000000074c48c       0x20 obj/multitasking.o
+                                         0x38 (size before relaxing)
+ .eh_frame      0x000000000074c4ac      0x36c obj/pci.o
+                                        0x384 (size before relaxing)
+ .eh_frame      0x000000000074c818      0x1d0 obj/pmm.o
+                                        0x1e8 (size before relaxing)
+ .eh_frame      0x000000000074c9e8      0x298 obj/printf.o
+                                        0x2b0 (size before relaxing)
+ .eh_frame      0x000000000074cc80       0x24 obj/read.o
+                                         0x3c (size before relaxing)
+ .eh_frame      0x000000000074cca4       0x70 obj/rle.o
+                                         0x88 (size before relaxing)
+ .eh_frame      0x000000000074cd14       0xe0 obj/serial.o
+                                         0xf8 (size before relaxing)
+ .eh_frame      0x000000000074cdf4       0xcc obj/speaker.o
+                                         0xe4 (size before relaxing)
+ .eh_frame      0x000000000074cec0      0x178 obj/ssfs.o
+                                        0x190 (size before relaxing)
+ .eh_frame      0x000000000074d038      0x180 obj/stdio.o
+                                        0x198 (size before relaxing)
+ .eh_frame      0x000000000074d1b8      0x4a8 obj/string.o
+                                        0x4c0 (size before relaxing)
+ .eh_frame      0x000000000074d660       0x20 obj/terminal.o
+                                         0x38 (size before relaxing)
+ .eh_frame      0x000000000074d680      0x120 obj/timer.o
+                                        0x138 (size before relaxing)
+ .eh_frame      0x000000000074d7a0       0xc0 obj/tui.o
+                                         0xd8 (size before relaxing)
+ .eh_frame      0x000000000074d860       0x40 obj/user.o
+                                         0x58 (size before relaxing)
+ .eh_frame      0x000000000074d8a0       0x20 obj/utils.o
+                                         0x38 (size before relaxing)
+ .eh_frame      0x000000000074d8c0      0x22c obj/vesa.o
+                                        0x244 (size before relaxing)
+ .eh_frame      0x000000000074daec      0x20c obj/vesa_display.o
+                                        0x224 (size before relaxing)
+ .eh_frame      0x000000000074dcf8       0x20 obj/vfs.o
+                                         0x38 (size before relaxing)
+ .eh_frame      0x000000000074dd18      0x26c obj/vga.o
+                                        0x284 (size before relaxing)
+ .eh_frame      0x000000000074df84       0x24 obj/write.o
+                                         0x3c (size before relaxing)
+
+.multiboot      0x000000000074dfa8        0xc
+ .multiboot     0x000000000074dfa8        0xc obj/entry.o
+
+.rel.dyn        0x000000000074dfb4        0x0
+ .rel.got       0x000000000074dfb4        0x0 obj/8259_pic.o
+ .rel.iplt      0x000000000074dfb4        0x0 obj/8259_pic.o
+ .rel.text      0x000000000074dfb4        0x0 obj/8259_pic.o
+
+.bss            0x000000000074dfc0   0x1f9040
+                0x000000000074dfc0                __kernel_bss_section_start = .
+                0x000000000074dfc0                bss = .
+                0x000000000074dfc0                _bss = .
+                0x000000000074dfc0                __bss = .
+ *(.bss)
+ .bss           0x000000000074dfc0        0x0 obj/8259_pic.o
+ .bss           0x000000000074dfc0        0x0 obj/acpi.o
+ .bss           0x000000000074dfc0        0x0 obj/ahci.o
+ .bss           0x000000000074dfc0        0xe obj/bios32.o
+                0x000000000074dfc0                g_real_mode_gdt
+                0x000000000074dfc8                g_real_mode_idt
+ .bss           0x000000000074dfce        0x0 obj/bitmap.o
+ *fill*         0x000000000074dfce        0x2 
+ .bss           0x000000000074dfd0       0x1c obj/cmdhandler.o
+ *fill*         0x000000000074dfec       0x14 
+ .bss           0x000000000074e000    0x11320 obj/console.o
+                0x000000000074e000                g_back_color
+                0x000000000074e004                g_current_temp_page
+ .bss           0x000000000075f320   0x1483e9 obj/debug.o
+                0x000000000075f320                addr_name
+                0x000000000075f4e0                myList
+                0x000000000079fc40                functions
+                0x00000000008a7700                numFunctions
+ *fill*         0x00000000008a7709        0x3 
+ .bss           0x00000000008a770c       0x18 obj/display.o
+                0x00000000008a770c                display_mode_screen
+                0x00000000008a7710                screen_x
+                0x00000000008a7714                screen_y
+                0x00000000008a7718                font_color
+                0x00000000008a771c                background_color
+ .bss           0x00000000008a7724        0x0 obj/editor.o
+ .bss           0x00000000008a7724        0x0 obj/env.o
+ *fill*         0x00000000008a7724       0x1c 
+ .bss           0x00000000008a7740     0x41c4 obj/errno.o
+                0x00000000008a7740                errors
+                0x00000000008a7748                error_count
+                0x00000000008a774c                success_count
+                0x00000000008a7760                eventLog
+                0x00000000008ab900                eventCount
+ *fill*         0x00000000008ab904       0x1c 
+ .bss           0x00000000008ab920      0x1d4 obj/ethernet.o
+                0x00000000008ab920                mem_base
+                0x00000000008ab928                ee82540EM_BAR_MMIO
+                0x00000000008ab940                card
+                0x00000000008aba20                tx_descs
+                0x00000000008aba40                rx_descs
+                0x00000000008abac0                bar_type
+                0x00000000008abac2                io_base
+                0x00000000008abac4                eerprom_exists
+                0x00000000008abac8                mac
+                0x00000000008abace                rx_cur
+                0x00000000008abad0                tx_cur
+ .bss           0x00000000008abaf4        0x0 obj/fat32.o
+ .bss           0x00000000008abaf4        0x0 obj/fat_access.o
+ .bss           0x00000000008abaf4        0x0 obj/fat_cache.o
+ *fill*         0x00000000008abaf4        0xc 
+ .bss           0x00000000008abb00      0xd18 obj/fat_filelib.o
+ .bss           0x00000000008ac818        0x0 obj/fat_format.o
+ .bss           0x00000000008ac818        0x0 obj/fat_misc.o
+ .bss           0x00000000008ac818        0x0 obj/fat_string.o
+ .bss           0x00000000008ac818        0x0 obj/fat_table.o
+ .bss           0x00000000008ac818        0x0 obj/fat_write.o
+ .bss           0x00000000008ac818        0x0 obj/fis.o
+ .bss           0x00000000008ac818        0x0 obj/fpu.o
+ *fill*         0x00000000008ac818        0x8 
+ .bss           0x00000000008ac820      0x21c obj/fs.o
+                0x00000000008ac820                fs_partition_table_main
+                0x00000000008aca20                fs_format_table
+ *fill*         0x00000000008aca3c        0x4 
+ .bss           0x00000000008aca40       0x46 obj/gdt.o
+                0x00000000008aca40                g_gdt
+                0x00000000008aca80                g_gdt_ptr
+ *fill*         0x00000000008aca86        0x2 
+ .bss           0x00000000008aca88       0x28 obj/graphics.o
+                0x00000000008aca88                x
+                0x00000000008aca8c                y
+ *fill*         0x00000000008acab0       0x10 
+ .bss           0x00000000008acac0      0x255 obj/ide.o
+                0x00000000008acac0                g_ide_channels
+                0x00000000008acae0                g_ide_devices
+                0x00000000008acc20                device_index
+                0x00000000008acd10                list_size
+ *fill*         0x00000000008acd15        0xb 
+ .bss           0x00000000008acd20      0x806 obj/idt.o
+                0x00000000008acd20                g_idt
+                0x00000000008ad520                g_idt_ptr
+ *fill*         0x00000000008ad526        0x2 
+ .bss           0x00000000008ad528        0x4 obj/installer.o
+ .bss           0x00000000008ad52c        0x1 obj/io_ports.o
+ *fill*         0x00000000008ad52d       0x13 
+ .bss           0x00000000008ad540      0x404 obj/isr.o
+                0x00000000008ad540                g_interrupt_handlers
+                0x00000000008ad940                isr_count
+ *fill*         0x00000000008ad944       0x1c 
+ .bss           0x00000000008ad960       0x58 obj/kernel.o
+                0x00000000008ad960                g_kmap
+                0x00000000008ad9ac                multi_boot_info
+ *fill*         0x00000000008ad9b8        0x8 
+ .bss           0x00000000008ad9c0      0xfb4 obj/keyboard.o
+                0x00000000008ad9c0                kb_buffer
+                0x00000000008ae964                g_ch
+                0x00000000008ae968                g_scan_code
+ .bss           0x00000000008ae974       0x14 obj/kheap.o
+                0x00000000008ae974                g_kheap_start_addr
+                0x00000000008ae978                g_kheap_end_addr
+                0x00000000008ae97c                g_total_size
+                0x00000000008ae980                g_total_used_size
+                0x00000000008ae984                g_head
+ .bss           0x00000000008ae988        0x0 obj/man.o
+ .bss           0x00000000008ae988        0x8 obj/maths.o
+ .bss           0x00000000008ae990        0x0 obj/memory.o
+ .bss           0x00000000008ae990        0xd obj/mouse.o
+                0x00000000008ae990                g_mouse_x_pos
+                0x00000000008ae994                g_mouse_y_pos
+                0x00000000008ae998                g_status
+ .bss           0x00000000008ae99d        0x0 obj/multitasking.o
+ .bss           0x00000000008ae99d        0x0 obj/panic.o
+ *fill*         0x00000000008ae99d        0x3 
+ .bss           0x00000000008ae9a0    0x966f0 obj/pci.o
+                0x00000000008ae9a0                pci_list
+                0x00000000008b66c0                pci_registered_device_list
+                0x00000000008f1820                pci_registered_device_list_running
+                0x000000000092c970                running_drivers
+                0x000000000092c974                num_devices_added_devices
+                0x000000000092c980                found_devices
+                0x0000000000945020                num_found_devices__registered
+                0x0000000000945024                Unclassified
+                0x0000000000945028                Mass_Storage_Controller
+                0x000000000094502c                Network_Controller
+                0x0000000000945030                Display_Controller
+                0x0000000000945034                Multimedia_Controller
+                0x0000000000945038                Memory_Controller
+                0x000000000094503c                Bridge
+                0x0000000000945040                Simple_Communication_Controller
+                0x0000000000945044                Base_System_Peripheral
+                0x0000000000945048                Input_Device_Controller
+                0x000000000094504c                Docking_Station
+                0x0000000000945050                Processor
+                0x0000000000945054                Serial_Bus_Controller
+                0x0000000000945058                Wireless_Controller
+                0x000000000094505c                Intelligent_I_O_Controller
+                0x0000000000945060                Satellite_Communication_Controller
+                0x0000000000945064                Encryption_Decryption_Controller
+                0x0000000000945068                Data_Acquisition_and_Signal_Processing_Controller
+                0x000000000094506c                Processing_Accelerator
+ .bss           0x0000000000945090       0x14 obj/pmm.o
+ .bss           0x00000000009450a4        0x4 obj/printf.o
+ .bss           0x00000000009450a8        0x0 obj/read.o
+ .bss           0x00000000009450a8        0x0 obj/rle.o
+ .bss           0x00000000009450a8        0x0 obj/serial.o
+ .bss           0x00000000009450a8       0x1c obj/speaker.o
+ *fill*         0x00000000009450c4       0x1c 
+ .bss           0x00000000009450e0      0x7a4 obj/ssfs.o
+                0x00000000009450e0                free_sectors
+                0x000000000094546c                start
+                0x0000000000945480                tab
+ *fill*         0x0000000000945884       0x1c 
+ .bss           0x00000000009458a0      0xfa4 obj/stdio.o
+                0x00000000009458a0                std_stream
+ .bss           0x0000000000946844        0x4 obj/string.o
+ .bss           0x0000000000946848        0x0 obj/terminal.o
+ *fill*         0x0000000000946848       0x18 
+ .bss           0x0000000000946860      0x1a4 obj/timer.o
+                0x0000000000946860                g_ticks
+                0x0000000000946864                g_freq_hz
+                0x0000000000946880                g_timer_function_manager
+ .bss           0x0000000000946a04        0xc obj/tui.o
+                0x0000000000946a04                text_input_start
+                0x0000000000946a08                text_input_end
+ .bss           0x0000000000946a10        0x0 obj/user.o
+ .bss           0x0000000000946a10        0x0 obj/utils.o
+ *fill*         0x0000000000946a10       0x10 
+ .bss           0x0000000000946a20      0x31c obj/vesa.o
+                0x0000000000946a20                g_vbe_infoblock
+                0x0000000000946c20                g_vbe_modeinfoblock
+                0x0000000000946d20                g_width
+                0x0000000000946d24                g_height
+                0x0000000000946d28                g_vbe_buffer
+                0x0000000000946d2c                BackBuffer
+                0x0000000000946d30                Bpp
+                0x0000000000946d31                PixelStride
+                0x0000000000946d34                Pitch
+ .bss           0x0000000000946d3c       0x14 obj/vesa_display.o
+                0x0000000000946d3c                vesa_row
+                0x0000000000946d40                vesa_column
+                0x0000000000946d44                vesa_color
+                0x0000000000946d45                controlled_scroll
+                0x0000000000946d46                scroll
+ .bss           0x0000000000946d50        0x4 obj/vfs.o
+                0x0000000000946d50                fs_type
+ .bss           0x0000000000946d54       0x28 obj/vga.o
+                0x0000000000946d54                vga_row
+                0x0000000000946d58                vga_column
+                0x0000000000946d5c                vga_color
+                0x0000000000946d60                VGA_width
+                0x0000000000946d64                VGA_height
+                0x0000000000946d68                VGA_bpp
+                0x0000000000946d6c                VGA_colum
+                0x0000000000946d70                VGA_row
+ .bss           0x0000000000946d7c        0x0 obj/write.o
+                0x0000000000947000                . = ALIGN (0x1000)
+ *fill*         0x0000000000946d7c      0x284 
+                0x0000000000947000                __kernel_bss_section_end = .
+                0x0000000000947000                end = .
+                0x0000000000947000                _end = .
+                0x0000000000947000                __end = .
+                0x0000000000947000                __kernel_section_end = .
+LOAD obj/8259_pic.o
+LOAD obj/acpi.o
+LOAD obj/ahci.o
+LOAD obj/bios32.o
+LOAD obj/bios32_call.o
+LOAD obj/bitmap.o
+LOAD obj/cmdhandler.o
+LOAD obj/console.o
+LOAD obj/debug.o
+LOAD obj/display.o
+LOAD obj/editor.o
+LOAD obj/entry.o
+LOAD obj/env.o
+LOAD obj/errno.o
+LOAD obj/ethernet.o
+LOAD obj/exception.o
+LOAD obj/fat32.o
+LOAD obj/fat_access.o
+LOAD obj/fat_cache.o
+LOAD obj/fat_filelib.o
+LOAD obj/fat_format.o
+LOAD obj/fat_misc.o
+LOAD obj/fat_string.o
+LOAD obj/fat_table.o
+LOAD obj/fat_write.o
+LOAD obj/fis.o
+LOAD obj/fpu.o
+LOAD obj/fs.o
+LOAD obj/gdt.o
+LOAD obj/graphics.o
+LOAD obj/ide.o
+LOAD obj/idt.o
+LOAD obj/installer.o
+LOAD obj/io_ports.o
+LOAD obj/irq.o
+LOAD obj/isr.o
+LOAD obj/kernel.o
+LOAD obj/keyboard.o
+LOAD obj/kheap.o
+LOAD obj/load_gdt.o
+LOAD obj/load_idt.o
+LOAD obj/man.o
+LOAD obj/maths.o
+LOAD obj/memory.o
+LOAD obj/mouse.o
+LOAD obj/multitasking.o
+LOAD obj/panic.o
+LOAD obj/pci.o
+LOAD obj/pmm.o
+LOAD obj/printf.o
+LOAD obj/read.o
+LOAD obj/rle.o
+LOAD obj/serial.o
+LOAD obj/speaker.o
+LOAD obj/ssfs.o
+LOAD obj/stdio.o
+LOAD obj/string.o
+LOAD obj/terminal.o
+LOAD obj/timer.o
+LOAD obj/tui.o
+LOAD obj/user.o
+LOAD obj/utils.o
+LOAD obj/vesa.o
+LOAD obj/vesa_display.o
+LOAD obj/vfs.o
+LOAD obj/vga.o
+LOAD obj/write.o
+OUTPUT(HackOS.bin elf32-i386)
+
+.initial_stack,
+                0x0000000000947000    0x19998
+ .initial_stack,
+                0x0000000000947000    0x19998 obj/entry.o
+
+.comment        0x0000000000000000       0x2b
+ .comment       0x0000000000000000       0x2b obj/8259_pic.o
+                                         0x2c (size before relaxing)
+ .comment       0x000000000000002b       0x2c obj/acpi.o
+ .comment       0x000000000000002b       0x2c obj/ahci.o
+ .comment       0x000000000000002b       0x2c obj/bios32.o
+ .comment       0x000000000000002b       0x2c obj/bitmap.o
+ .comment       0x000000000000002b       0x2c obj/cmdhandler.o
+ .comment       0x000000000000002b       0x2c obj/console.o
+ .comment       0x000000000000002b       0x2c obj/debug.o
+ .comment       0x000000000000002b       0x2c obj/display.o
+ .comment       0x000000000000002b       0x2c obj/editor.o
+ .comment       0x000000000000002b       0x2c obj/env.o
+ .comment       0x000000000000002b       0x2c obj/errno.o
+ .comment       0x000000000000002b       0x2c obj/ethernet.o
+ .comment       0x000000000000002b       0x2c obj/fat32.o
+ .comment       0x000000000000002b       0x2c obj/fat_access.o
+ .comment       0x000000000000002b       0x2c obj/fat_cache.o
+ .comment       0x000000000000002b       0x2c obj/fat_filelib.o
+ .comment       0x000000000000002b       0x2c obj/fat_format.o
+ .comment       0x000000000000002b       0x2c obj/fat_misc.o
+ .comment       0x000000000000002b       0x2c obj/fat_string.o
+ .comment       0x000000000000002b       0x2c obj/fat_table.o
+ .comment       0x000000000000002b       0x2c obj/fat_write.o
+ .comment       0x000000000000002b       0x2c obj/fis.o
+ .comment       0x000000000000002b       0x2c obj/fpu.o
+ .comment       0x000000000000002b       0x2c obj/fs.o
+ .comment       0x000000000000002b       0x2c obj/gdt.o
+ .comment       0x000000000000002b       0x2c obj/graphics.o
+ .comment       0x000000000000002b       0x2c obj/ide.o
+ .comment       0x000000000000002b       0x2c obj/idt.o
+ .comment       0x000000000000002b       0x2c obj/installer.o
+ .comment       0x000000000000002b       0x2c obj/io_ports.o
+ .comment       0x000000000000002b       0x2c obj/isr.o
+ .comment       0x000000000000002b       0x2c obj/kernel.o
+ .comment       0x000000000000002b       0x2c obj/keyboard.o
+ .comment       0x000000000000002b       0x2c obj/kheap.o
+ .comment       0x000000000000002b       0x2c obj/man.o
+ .comment       0x000000000000002b       0x2c obj/maths.o
+ .comment       0x000000000000002b       0x2c obj/memory.o
+ .comment       0x000000000000002b       0x2c obj/mouse.o
+ .comment       0x000000000000002b       0x2c obj/multitasking.o
+ .comment       0x000000000000002b       0x2c obj/panic.o
+ .comment       0x000000000000002b       0x2c obj/pci.o
+ .comment       0x000000000000002b       0x2c obj/pmm.o
+ .comment       0x000000000000002b       0x2c obj/printf.o
+ .comment       0x000000000000002b       0x2c obj/read.o
+ .comment       0x000000000000002b       0x2c obj/rle.o
+ .comment       0x000000000000002b       0x2c obj/serial.o
+ .comment       0x000000000000002b       0x2c obj/speaker.o
+ .comment       0x000000000000002b       0x2c obj/ssfs.o
+ .comment       0x000000000000002b       0x2c obj/stdio.o
+ .comment       0x000000000000002b       0x2c obj/string.o
+ .comment       0x000000000000002b       0x2c obj/terminal.o
+ .comment       0x000000000000002b       0x2c obj/timer.o
+ .comment       0x000000000000002b       0x2c obj/tui.o
+ .comment       0x000000000000002b       0x2c obj/user.o
+ .comment       0x000000000000002b       0x2c obj/utils.o
+ .comment       0x000000000000002b       0x2c obj/vesa.o
+ .comment       0x000000000000002b       0x2c obj/vesa_display.o
+ .comment       0x000000000000002b       0x2c obj/vfs.o
+ .comment       0x000000000000002b       0x2c obj/vga.o
+ .comment       0x000000000000002b       0x2c obj/write.o
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/8259_pic.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/acpi.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/ahci.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/bios32.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/bitmap.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/cmdhandler.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/console.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/debug.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/display.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/editor.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/env.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/errno.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/ethernet.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat32.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_access.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_cache.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_filelib.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_format.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_misc.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_string.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_table.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fat_write.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fis.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fpu.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/fs.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/gdt.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/graphics.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/ide.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/idt.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/installer.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/io_ports.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/isr.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/kernel.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/keyboard.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/kheap.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/man.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/maths.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/memory.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/mouse.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/multitasking.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/panic.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/pci.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/pmm.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/printf.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/read.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/rle.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/serial.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/speaker.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/ssfs.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/stdio.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/string.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/terminal.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/timer.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/tui.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/user.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/utils.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/vesa.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/vesa_display.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/vfs.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/vga.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 obj/write.o
