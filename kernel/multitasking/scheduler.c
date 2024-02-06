@@ -257,6 +257,8 @@ void Schedule(void)
 
     if (next) {
         next->quantumLeft = TIMESLICE;
+            // STI();
+
         SwitchToTask(next);
     } else if (currentPCB->state == RUNNING) {
         return;
@@ -275,6 +277,7 @@ void Schedule(void)
         currentPCB = task;
         next->quantumLeft = TIMESLICE;
         if (next != currentPCB) {
+            // STI();
             SwitchToTask(next);
         }
     }

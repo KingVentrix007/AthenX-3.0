@@ -57,7 +57,7 @@ char alternate_chars(char ch) {
 
 void keyboard_handler(REGISTERS *r) {
     int scancode;
-
+    // printf("called keyboard handler\n");
     g_ch = 0;
     scancode = get_scancode();
     g_scan_code = scancode;
@@ -164,7 +164,7 @@ void keyboard_handler(REGISTERS *r) {
 }
 char* kb_getchar_w() {
     int count = 0;
-    //printf_("HERE");
+    // printf("HERE\n");
     char *c;
     
     while(g_ch <= 0)
@@ -182,6 +182,6 @@ char* kb_getchar_w() {
     return c;
 }
 void keyboard_init() {
-    
+    printf("registering keyboard\n");
     isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler);
 }

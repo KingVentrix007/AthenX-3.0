@@ -41,8 +41,15 @@ void timer_handler(REGISTERS* r) {
             g_timer_function_manager.functions[i](args);
         }
     }
-     TimerHandler();
-    // printf("Timer\n");
+    //  printf("Timer\n");
+    // isr_end_interrupt(r->int_no);
+    // UnlockScheduler();
+     pic8259_eoi(r->int_no);
+     LockAndPostpone();
+    IrqTimerHandler();
+     UnlockAndSchedule();
+     
+    // printf("hello\n");
     // switchTask();
 }
 
@@ -71,3 +78,59 @@ void sleep(int sec) {
     while (g_ticks < end);
 }
 
+// void TimerCallBack(REGISTERS *r)
+// {
+//     uint64_t now = 0;
+
+//     TimerEoi(timerControl);     // take care of this while interrupts are disabled!
+
+//     ProcessLockAndPostpone();
+
+// #if DEBUG_ENABLED(TimerCallBack)
+//     kprintf("handling timer\n");
+// #endif
+
+//     if (timerControl->TimerPlatformTick && thisCpu->cpuNum == 0) TimerPlatformTick(timerControl);
+
+//     //
+//     // -- here we look for any sleeping tasks to wake
+//     //    -------------------------------------------
+//     now = TimerCurrentCount(timerControl);
+//     if (now >= scheduler.nextWake && IsListEmpty(&scheduler.listSleeping) == false) {
+//         uint64_t newWake = (uint64_t)-1;
+
+
+//         //
+//         // -- loop through and find the processes to wake up
+//         //    ----------------------------------------------
+//         ListHead_t::List_t *list = scheduler.listSleeping.list.next;
+//         while (list != &scheduler.listSleeping.list) {
+//             ListHead_t::List_t *next = list->next;      // must be saved before it is changed below
+//             Process_t *wrk = FIND_PARENT(list, Process_t, stsQueue);
+//             if (now >= wrk->wakeAtMicros) {
+//                 wrk->wakeAtMicros = 0;
+//                 ListRemoveInit(&wrk->stsQueue);
+//                 ProcessDoUnblock(wrk);
+//             } else if (wrk->wakeAtMicros < newWake) newWake = wrk->wakeAtMicros;
+
+//             list = next;
+//         }
+
+//         scheduler.nextWake = newWake;
+//     }
+
+
+//     //
+//     // -- adjust the quantum and see if it is time to change tasks
+//     //    --------------------------------------------------------
+//     if (currentThread != NULL) {
+//         if (AtomicDec(&currentThread->quantumLeft) <= 0) {
+// // #if DEBUG_ENABLED(TimerCallBack)
+// //             kprintf("Preempt\n");
+// // #endif
+//             scheduler.processChangePending = true;
+//         }
+//     }
+
+//     ProcessUnlockAndSchedule();
+// }

@@ -12,10 +12,10 @@
 #include "kernel.h"
 #include "timer.h"
 #include "scheduler.h"
+#include "cpu.h"
 void kernel_entry();
-void multi1(void);
-void multi2(void);
-void multi3(void);
+void command_line(void);
+void loop(void);
 char pch = 'A';
 void Process(void)
 {
@@ -31,7 +31,16 @@ void Process(void)
         }
     }
 }
-
+void loop_timer(void)
+{
+    // sleep(10);
+    
+    while(1)
+    {
+        // printf("loo");
+        // sleep(1);
+    }
+}
 KERNEL_MEMORY_MAP g_kmap;
 int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
     uint32 i;
@@ -85,14 +94,13 @@ void kmain(unsigned long magic, unsigned long addr)
     kprints("Staring kernel\n");
     int ret = vesa_init(1024, 768, 32);
    
-    keyboard_init();
         if (ret < 0)
         {
             kprints("Error: vesa_init() failed\n");
         }
     init_terminal();
-    InitScheduler();
-     timer_init();
+    
+    
     MULTIBOOT_INFO *mboot_info;
      if (magic == MULTIBOOT_BOOTLOADER_MAGIC)
      {
@@ -118,34 +126,55 @@ void kmain(unsigned long magic, unsigned long addr)
     {
         kprints("Memory allocation failure\n");
     }
+    InitScheduler();
+    timer_init();
+    // TIMER_FUNC_ARGS timer;
+    // timer.timeout = 100;
+    // timer.user = TimerHandler;
+    // timer_register_function(TimerHandler,&timer);
+    keyboard_init();
+    STI();
+    // command_line();
+    CreateProcess(Process);
+    CreateProcess(command_line);
+    // // CreateProcess(loop);
+    CreateProcess(loop_timer);
     CreateProcess(Process);
     CreateProcess(Process);
     CreateProcess(Process);
     CreateProcess(Process);
     CreateProcess(Process);
     CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-     PerformButler();
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    PerformButler();
+
     // switchTask();
     // while(1)
     // {
     //     switchTask();
     // }
         // Infinite loop
+    
+}
+void command_line(void)
+{
+    // STI();
     char *input_buffer = (char *)sys_allocate_memory(KB);
     int buffer_pos = 0;
     memset(input_buffer,0,KB);
-    while(1==1)
+    while(1)
     {
-
+        // printf("c");
         char chr = (char)kb_getchar_w();
+        // printf("next");
+        if(chr == '\0')
+        {
+            continue;
+        }
         if(chr != '\n')
         {
             input_buffer[buffer_pos] = chr;
@@ -170,19 +199,14 @@ void kmain(unsigned long magic, unsigned long addr)
         // }
         
     }
-}
-// Example task functions
-void multi1(void) {
-    printf("Task Multi1 running!\n");
-    
+    // TerminateProcess();
 }
 
-void multi2(void) {
-    printf("Task Multi2 running!\n");
-   
-}
-
-void multi3(void) {
-    printf("Task Multi3 running!\n");
-    
+void loop(void)
+{
+    // while(1)
+    // {
+    //     printf("l\n");
+    // }
+    TerminateProcess();
 }
