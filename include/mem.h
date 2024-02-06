@@ -226,4 +226,29 @@ int buffer_overflow_detector();
 
 long double get_average_free_time();
 #endif
+
+//Useful Defines
+// Define for kibibyte (KiB)
+#define KB 1024
+
+// Define for mebibyte (MiB)
+#define MB (KB * 1024)
+
+// Define for gibibyte (GiB)
+#define GB (MB * 1024)
+
+// Define for tebibyte (TiB)
+#define TB (GB * 1024)
+
+// Define for pebibyte (PiB)
+#define PB (TB * 1024)
+
+// Define for exbibyte (EiB)
+#define EB (PB * 1024)
+
+// Define for zebibyte (ZiB)
+#define ZB (EB * 1024)
+
+// Define for yobibyte (YiB)
+#define YB (ZB * 1024)
 #endif // MEMORY_MANAGER_H

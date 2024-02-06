@@ -10,7 +10,28 @@
 #include "vesa.h"
 #include "termianl.h"
 #include "kernel.h"
+#include "timer.h"
+#include "scheduler.h"
 void kernel_entry();
+void multi1(void);
+void multi2(void);
+void multi3(void);
+char pch = 'A';
+void Process(void)
+{
+    char ch = pch ++;
+    while (true) {
+        printf("%c",ch);
+        sleep(500 + (ch * 100));
+
+        if ((ch % 2) == 0) {
+            printf("%c",ch);
+            printf('!');
+            TerminateProcess();
+        }
+    }
+}
+
 KERNEL_MEMORY_MAP g_kmap;
 int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
     uint32 i;
@@ -63,12 +84,15 @@ void kmain(unsigned long magic, unsigned long addr)
     // bios32_init();
     kprints("Staring kernel\n");
     int ret = vesa_init(1024, 768, 32);
+   
     keyboard_init();
         if (ret < 0)
         {
             kprints("Error: vesa_init() failed\n");
         }
     init_terminal();
+    InitScheduler();
+     timer_init();
     MULTIBOOT_INFO *mboot_info;
      if (magic == MULTIBOOT_BOOTLOADER_MAGIC)
      {
@@ -85,19 +109,80 @@ void kmain(unsigned long magic, unsigned long addr)
     // Print a 'X' character with color attribute 0x0F (white on black)
     print_char('X', 0x0A);
     kprints("Hello World!\nBye world");
-    void *ptr = sys_allocate_memory(1024);
-    void *ptr2 = sys_allocate_memory(1024);
-    char *string1 = sys_allocate_memory(1024);
+    void *ptr = sys_allocate_memory(KB);
+    void *ptr2 = sys_allocate_memory(KB);
+    char *string1 = sys_allocate_memory(KB);
     strcpy(string1, "Hello World!");
     printf("Memory allocation output: %s\n",string1);
     if(ptr == ptr2)
     {
         kprints("Memory allocation failure\n");
     }
-    // Infinite loop
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+    CreateProcess(Process);
+     PerformButler();
+    // switchTask();
+    // while(1)
+    // {
+    //     switchTask();
+    // }
+        // Infinite loop
+    char *input_buffer = (char *)sys_allocate_memory(KB);
+    int buffer_pos = 0;
+    memset(input_buffer,0,KB);
     while(1==1)
     {
-        char *chr = kb_getchar_w();
-        printf(chr);
+
+        char chr = (char)kb_getchar_w();
+        if(chr != '\n')
+        {
+            input_buffer[buffer_pos] = chr;
+            buffer_pos++;
+            printf("%c",chr);
+           
+        }
+        else if (chr == '\n')
+        {
+           printf("\nOuput: %s\n",input_buffer);
+           memset(input_buffer, 0,1024);
+           buffer_pos = 0;
+        }
+        // if(buffer_pos >= get_memory_size(input_buffer)-10)
+        // {
+        //     printf("Resizing input buffer\n");
+        //     input_buffer = sys_reallocate_memory(input_buffer, get_memory_size(input_buffer),get_memory_size(input_buffer)+KB);
+        // }
+        // else
+        // {
+        //     pr
+        // }
+        
     }
+}
+// Example task functions
+void multi1(void) {
+    printf("Task Multi1 running!\n");
+    
+}
+
+void multi2(void) {
+    printf("Task Multi2 running!\n");
+   
+}
+
+void multi3(void) {
+    printf("Task Multi3 running!\n");
+    
 }

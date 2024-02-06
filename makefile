@@ -10,7 +10,7 @@ ASPARAMS = --32
 LDPARAMS = -m elf_i386 -T linker.ld -nostdlib 
 
 OBJ_DIR = obj
-SRC_DIRS = arch kernel drivers libk
+SRC_DIRS = arch kernel drivers libk asm
 OBJ_DIRS = $(addprefix $(OBJ_DIR)/,$(SRC_DIRS))
 
 $(shell mkdir -p $(OBJ_DIRS))

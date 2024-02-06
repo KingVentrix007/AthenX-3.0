@@ -33,6 +33,12 @@
         "typeinfo": "c",
         "utility": "c",
         "bit": "c",
-        "printf.h": "c"
+        "printf.h": "c",
+        "kernel.h": "c",
+        "termianl.h": "c",
+        "timer.h": "c",
+        "scheduler.h": "c",
+        "process.h": "c",
+        "stdbool.h": "c"
     }
 }
