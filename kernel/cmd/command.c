@@ -1,7 +1,19 @@
 #include "scheduler.h"
 #include "string.h"
 #include "printf.h"
+#include "fat_filelib.h"
+#include "command.h"
 void loop_test();
+char current_path[FATFS_MAX_LONG_FILENAME];
+
+void set_cwd(char *path)
+{
+
+}
+char *get_cwd()
+{
+
+}
 int cmd(char *command)
 {
     if(strcmp(command, "task") == 0)
@@ -10,6 +22,7 @@ int cmd(char *command)
         CreateProcess(loop_test);
 
     }
+    
 }
 
 void loop_test()

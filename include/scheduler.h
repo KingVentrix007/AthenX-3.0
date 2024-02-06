@@ -48,6 +48,7 @@ typedef struct PCB_t {
     unsigned long used;
     unsigned long sleepUntil;
     int quantumLeft;
+    char current_path[100];
     
 } PCB_t;
 

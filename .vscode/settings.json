@@ -46,6 +46,7 @@
         "stdio.h": "c",
         "fat_access.h": "c",
         "fat_filelib.h": "c",
-        "fat_list.h": "c"
+        "fat_list.h": "c",
+        "command.h": "c"
     }
 }

@@ -134,6 +134,7 @@ void kmain(unsigned long magic, unsigned long addr)
     // create_blank_pageing_dictionary();
     // create_first_page();
     // enable();
+
     ata_init();
     fl_init();
     if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK)
@@ -146,6 +147,7 @@ void kmain(unsigned long magic, unsigned long addr)
     Entry dirs[MAX];
     fl_listdirectory("/",dirs,files,&num_dir,&num_files);
     mkdir("/root");
+    printf("%u\n", g_kmap.available.size);
     InitScheduler();
     timer_init();
     // TIMER_FUNC_ARGS timer;

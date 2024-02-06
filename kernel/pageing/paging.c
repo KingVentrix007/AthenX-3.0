@@ -34,5 +34,5 @@ void enable()
 {
     loadPageDirectory(page_directory);
     enablePaging();
-    printf("New line\n");
+    // printf("New line\n");
 }

@@ -45,8 +45,8 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 #	mv AthenX.bin out/
 run: AthenX.bin
 	bash ./scripts/boot32.sh
-	qemu-system-i386 AthenX.img
+	qemu-system-i386 AthenX.img -m 4G
 runt:
-	qemu-system-i386 AthenX.img
+	qemu-system-i386 AthenX.img -m 4G
 clean:
 	rm -rf $(OUT_DIR)/*.bin $(OUT_DIR)/*.map $(OUT_DIR)/*.img $(OBJ_DIR)/* AthenX.iso AthenX.bin
