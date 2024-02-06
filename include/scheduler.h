@@ -48,6 +48,7 @@ typedef struct PCB_t {
     unsigned long used;
     unsigned long sleepUntil;
     int quantumLeft;
+    
 } PCB_t;
 
 
@@ -99,6 +100,7 @@ extern PCB_t pcbArray[MAX_TASKS];
 
     void TerminateProcess(void);
     void PerformButler(void);
+    PCB_t *GetCurrentTask(void);
 
 
 inline void Sleep(unsigned long millis) { SleepUntil(millis + GetCurrentCounter()); }

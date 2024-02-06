@@ -13,6 +13,11 @@
 #include "timer.h"
 #include "scheduler.h"
 #include "cpu.h"
+#include "command.h"
+#include "pageing.h"
+#include "ide.h"
+#include "fat_access.h"
+#include "fat_filelib.h"
 void kernel_entry();
 void command_line(void);
 void loop(void);
@@ -33,12 +38,12 @@ void Process(void)
 }
 void loop_timer(void)
 {
-    // sleep(10);
+    // 
     
     while(1)
     {
-        // printf("loo");
         // sleep(1);
+        // printf("Hello from the loop");
     }
 }
 KERNEL_MEMORY_MAP g_kmap;
@@ -126,6 +131,21 @@ void kmain(unsigned long magic, unsigned long addr)
     {
         kprints("Memory allocation failure\n");
     }
+    // create_blank_pageing_dictionary();
+    // create_first_page();
+    // enable();
+    ata_init();
+    fl_init();
+    if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK)
+    {
+        printf("ERROR: Failed to init file system\n");
+    }
+    int num_dir;
+    int num_files;
+    Entry files[MAX];
+    Entry dirs[MAX];
+    fl_listdirectory("/",dirs,files,&num_dir,&num_files);
+    mkdir("/root");
     InitScheduler();
     timer_init();
     // TIMER_FUNC_ARGS timer;
@@ -135,16 +155,17 @@ void kmain(unsigned long magic, unsigned long addr)
     keyboard_init();
     STI();
     // command_line();
-    CreateProcess(Process);
+    // CreateProcess(Process);
     CreateProcess(command_line);
+    // SwitchToTask
     // // CreateProcess(loop);
     CreateProcess(loop_timer);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
-    CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
+    // CreateProcess(Process);
     // CreateProcess(Process);
     // CreateProcess(Process);
     // CreateProcess(Process);
@@ -180,11 +201,13 @@ void command_line(void)
             input_buffer[buffer_pos] = chr;
             buffer_pos++;
             printf("%c",chr);
-           
+            // cmd(input_buffer);
+
         }
         else if (chr == '\n')
         {
            printf("\nOuput: %s\n",input_buffer);
+            cmd(input_buffer);
            memset(input_buffer, 0,1024);
            buffer_pos = 0;
         }

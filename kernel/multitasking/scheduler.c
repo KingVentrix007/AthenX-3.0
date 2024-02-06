@@ -499,3 +499,6 @@ void PerformButler(void)
         UnlockAndSchedule();
     }
 }
+PCB_t *GetCurrentTask(void) {
+    return currentPCB;
+}

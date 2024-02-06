@@ -32,6 +32,7 @@ void timer_handler(REGISTERS* r) {
     uint32 i;
     TIMER_FUNC_ARGS *args = NULL;
     g_ticks++;
+    counter++;
     //printf("timer triggered at frequency %d\n", g_ticks);
     for (i = 0; i < MAXIMUM_TIMER_FUNCTIONS; i++) {
         args = &g_timer_function_manager.func_args[i];
@@ -46,7 +47,7 @@ void timer_handler(REGISTERS* r) {
     // UnlockScheduler();
      pic8259_eoi(r->int_no);
      LockAndPostpone();
-    IrqTimerHandler();
+        IrqTimerHandler();
      UnlockAndSchedule();
      
     // printf("hello\n");

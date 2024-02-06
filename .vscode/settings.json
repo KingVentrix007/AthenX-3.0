@@ -40,6 +40,12 @@
         "scheduler.h": "c",
         "process.h": "c",
         "stdbool.h": "c",
-        "compare": "c"
+        "compare": "c",
+        "stddef.h": "c",
+        "algorithm": "c",
+        "stdio.h": "c",
+        "fat_access.h": "c",
+        "fat_filelib.h": "c",
+        "fat_list.h": "c"
     }
 }

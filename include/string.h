@@ -80,5 +80,7 @@ void* memcpy(void* dest, const void* src, size_t size);
  *   (void*) - Pointer to the memory block.
  */
 void* memset(void* ptr, int value, size_t size);
-
+int strcmp(const char* str1, const char* str2);
+int strncmp(const char* str1, const char* str2, size_t n);
+char* strncpy(char* dest, const char* src, size_t n);
 #endif // STRING_FUNCTIONS_H
