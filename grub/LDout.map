@@ -399,7 +399,7 @@ Linker script and memory map
                 0x0000000000113997                idt_init
  .text          0x0000000000113e34      0xee3 obj/installer.o
                 0x0000000000113e34                display_percentage
-                0x0000000000113ebf                remove_athenx_install_section
+                0x0000000000113ebf                remove_install_section
                 0x0000000000113f4b                is_sector_all_zeros
                 0x0000000000113f83                calculateRectanglePosition
                 0x0000000000113fc2                install

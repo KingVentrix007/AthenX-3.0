@@ -18,7 +18,7 @@
 #include "ide.h"
 #include "fat_access.h"
 #include "fat_filelib.h"
-void kernel_entry();
+
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -117,7 +117,7 @@ void kmain(unsigned long magic, unsigned long addr)
             kprints("error: failed to get kernel memory map\n");
             return;
         }
-        init_memory_allocation(g_kmap.available.start_addr, g_kmap.available.size);
+        mem_main(g_kmap.available.start_addr, g_kmap.available.size);
      }
     // Print a 'X' character with color attribute 0x0F (white on black)
     print_char('X', 0x0A);
@@ -189,6 +189,7 @@ void command_line(void)
     char *input_buffer = (char *)sys_allocate_memory(KB);
     int buffer_pos = 0;
     memset(input_buffer,0,KB);
+    printf("\n>");
     while(1)
     {
         // printf("c");
@@ -208,10 +209,11 @@ void command_line(void)
         }
         else if (chr == '\n')
         {
-           printf("\nOuput: %s\n",input_buffer);
+           
             cmd(input_buffer);
            memset(input_buffer, 0,1024);
            buffer_pos = 0;
+           printf("\n>");
         }
         // if(buffer_pos >= get_memory_size(input_buffer)-10)
         // {

@@ -47,6 +47,9 @@
         "fat_access.h": "c",
         "fat_filelib.h": "c",
         "fat_list.h": "c",
-        "command.h": "c"
+        "command.h": "c",
+        "mem.h": "c",
+        "fat_format.h": "c",
+        "fat_cache.h": "c"
     }
 }

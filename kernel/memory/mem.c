@@ -100,7 +100,12 @@ void *sys_allocate_memory(int size)
     // Calculate the number of blocks needed
     if (size > (memory_region_end - memory_region))
     {
+        if((memory_region_end - memory_region) < 0)
+        {
+            printf("ERROR: Memory region is negative\n");
+        }
         MEM_ALLOC_LOG(0, "Size is too large");
+        printf("Size = %d|%d\n", size,memory_region_end - memory_region);
         return NULL;
     }
     int num_blocks_needed = (size + 1023) / BLOCK_SIZE; // Round up to the nearest whole block

@@ -116,6 +116,9 @@ int                 fl_is_dir(const char *path);
 
 int                 fl_format(uint32 volume_sectors, const char *name);
 
+//Custom Extensions:
+int chdir(char *path);
+char *getcwd();
 
 // Test hooks
 #ifdef FATFS_INC_TEST_HOOKS

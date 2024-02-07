@@ -51,6 +51,7 @@ static int                _filelib_valid = 0;
 static struct fatfs       _fs;
 static struct fat_list    _open_file_list;
 static struct fat_list    _free_file_list;
+char current_path[260] = "/"; //Current Path
 
 //-----------------------------------------------------------------------------
 // Macros
@@ -641,7 +642,7 @@ static uint32 _read_sectors(FL_FILE* file, uint32 offset, uint8 *buffer, uint32 
 void fl_init(void)
 {
     int i;
-
+    memset(current_path, 0,260);
     fat_list_init(&_free_file_list);
     fat_list_init(&_open_file_list);
 
@@ -1749,4 +1750,29 @@ int rename(const char* old_name, const char* new_name) {
     }
 
     return 0; // Success
+}
+
+//Custom Functions:
+
+int chdir(char *path) {
+    if (strcmp(path, "..") == 0) {
+        // If the path is "..", move back one directory
+        size_t len = strlen(current_path);
+        if (len > 1) { // Ensure we're not at the root directory
+            // Find the last occurrence of '/' to remove the last directory
+            char *last_slash = strrchr(current_path, '/');
+            if (last_slash != NULL) {
+                *last_slash = '\0';
+            }
+        }
+        return 0;
+    } else {
+        // Otherwise, set the current directory to the provided path
+        strcpy(current_path, path);
+        return 0;
+    }
+}
+char *getcwd()
+{
+    return current_path;
 }
