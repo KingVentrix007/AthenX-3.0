@@ -7,3 +7,6 @@ AthenX.img
 AthenX.iso
 AthenX.iso
 disk.img
+.o
+./obj/
+./obj
