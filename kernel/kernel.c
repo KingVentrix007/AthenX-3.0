@@ -188,6 +188,7 @@ void command_line(void)
     // STI();
     char *input_buffer = (char *)sys_allocate_memory(KB);
     int buffer_pos = 0;
+    char user[] = "Dev";
     memset(input_buffer,0,KB);
     printf("\n>");
     while(1)
@@ -213,7 +214,7 @@ void command_line(void)
             cmd(input_buffer);
            memset(input_buffer, 0,1024);
            buffer_pos = 0;
-           printf("\n>");
+           printf("\n%s@%s>",user,getcwd());
         }
         // if(buffer_pos >= get_memory_size(input_buffer)-10)
         // {

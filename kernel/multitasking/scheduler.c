@@ -25,6 +25,7 @@
 #include "scheduler.h"
 #include "types.h"
 #include "stdbool.h"
+#include "fat_filelib.h"
 //
 // -- PUSH a value on the stack for a new process
 //    -------------------------------------------
@@ -231,7 +232,7 @@ PCB_t *CreateProcess(void (*ent)())
     rv->virtAddr = GetCR3();
     rv->sleepUntil = (unsigned long)-1;
     rv->quantumLeft = 0;
-
+    strcpy(rv->current_path,getcwd());
     LockAndPostpone();
     AddReady(rv);
     UnlockAndSchedule();
@@ -258,7 +259,7 @@ void Schedule(void)
     if (next) {
         next->quantumLeft = TIMESLICE;
             // STI();
-
+        // chdir(next->current_path);
         SwitchToTask(next);
     } else if (currentPCB->state == RUNNING) {
         return;
@@ -278,6 +279,7 @@ void Schedule(void)
         next->quantumLeft = TIMESLICE;
         if (next != currentPCB) {
             // STI();
+            // chdir(next->current_path);
             SwitchToTask(next);
         }
     }

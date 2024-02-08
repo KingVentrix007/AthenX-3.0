@@ -1774,5 +1774,6 @@ int chdir(char *path) {
 }
 char *getcwd()
 {
+    // printf("called getcwd");
     return current_path;
 }

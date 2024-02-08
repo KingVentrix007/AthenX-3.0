@@ -85,7 +85,7 @@ void set_cwd(char *path) {
         chdir("..");
     } else {
         // Otherwise, it's a relative path
-        getcwd(current_path, FATFS_MAX_LONG_FILENAME); // Get the current working directory
+        strcpy(current_path,getcwd()); // Get the current working directory
         strcat(current_path, "/"); // Append "/" to the current path
         strcat(current_path, path); // Append the provided path
         chdir(current_path);
@@ -96,6 +96,14 @@ char *get_cwd() {
     static char current_path[FATFS_MAX_LONG_FILENAME];
     getcwd(current_path, FATFS_MAX_LONG_FILENAME);
     return current_path;
+}
+void ls()
+{
+    int num_dir;
+    int num_files;
+    Entry files[MAX];
+    Entry dirs[MAX];
+    fl_listdirectory(getcwd(),dirs,files,&num_dir,&num_files);
 }
 int cmd(char *command)
 {
@@ -110,6 +118,11 @@ int cmd(char *command)
     {
         set_cwd(argv[1]);
     }
+    else if (strcmp(argv[0],"ls") ==0)
+    {
+        ls();
+    }
+    
     free_command(argv, argc);
 
     return 0;

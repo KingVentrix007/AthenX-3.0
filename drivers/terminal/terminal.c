@@ -25,6 +25,10 @@ int draw_vbe_char(char c)
     }
     else
     {
+        if(terminal_postion_y+=terminal_font_height >= 768)
+        {
+            
+        }
         terminal_postion_x = 0;
         terminal_postion_y+=terminal_font_height;
     }
