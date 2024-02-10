@@ -18,7 +18,11 @@
 #include "ide.h"
 #include "fat_access.h"
 #include "fat_filelib.h"
-
+#include "syscall.h"
+#include "vmm.h"
+#include "io_ports.h"
+#include "pagepmm.h"
+#include "pageing.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -93,9 +97,10 @@ int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
 // Kernel entry point
 void kmain(unsigned long magic, unsigned long addr)
 {
+     idt_init();
+    
+    // init_vmm();
     gdt_init();
-    idt_init();
-    // bios32_init();
     kprints("Staring kernel\n");
     int ret = vesa_init(1024, 768, 32);
    
@@ -104,9 +109,8 @@ void kmain(unsigned long magic, unsigned long addr)
             kprints("Error: vesa_init() failed\n");
         }
     init_terminal();
-    
-    
-    MULTIBOOT_INFO *mboot_info;
+    init_com1();
+     MULTIBOOT_INFO *mboot_info;
      if (magic == MULTIBOOT_BOOTLOADER_MAGIC)
      {
         kprints("MULTIBOOT_BOOTLOADER_MAGIC is TRUE\n");
@@ -117,22 +121,32 @@ void kmain(unsigned long magic, unsigned long addr)
             kprints("error: failed to get kernel memory map\n");
             return;
         }
-        mem_main(g_kmap.available.start_addr, g_kmap.available.size);
+        mem_main(g_kmap.available.start_addr, (g_kmap.available.size/2));
      }
+   
+
+    
+    // bios32_init();
+    
+    
+    
+   
+     
+    //  for(;;);
     // Print a 'X' character with color attribute 0x0F (white on black)
     print_char('X', 0x0A);
     kprints("Hello World!\nBye world");
-    void *ptr = sys_allocate_memory(KB);
-    void *ptr2 = sys_allocate_memory(KB);
+    // void *ptr = sys_allocate_memory(KB);
+    // void *ptr2 = sys_allocate_memory(KB);
     char *string1 = sys_allocate_memory(KB);
     strcpy(string1, "Hello World!");
     printf("Memory allocation output: %s\n",string1);
-    if(ptr == ptr2)
-    {
-        kprints("Memory allocation failure\n");
-    }
-    // create_blank_pageing_dictionary();
-    // create_first_page();
+    // if(ptr == ptr2)
+    // {
+        // kprints("Memory allocation failure\n");
+    // }/
+    // // create_blank_pageing_dictionary();
+    // // create_first_page();
     // enable();
 
     ata_init();
@@ -148,8 +162,25 @@ void kmain(unsigned long magic, unsigned long addr)
     fl_listdirectory("/",dirs,files,&num_dir,&num_files);
     mkdir("/root");
     printf("%u\n", g_kmap.available.size);
+    
     InitScheduler();
-    timer_init();
+   
+    printf("Enabling paging\n");
+    uint32_t pmm_start =  g_kmap.available.start_addr+(g_kmap.available.size/2);
+    printf("Num pages == %d\n", (g_kmap.available.size/2)/PAGE_SIZE);
+    if(pmm_start == NULL)
+    {
+        printf("Couldn't allocate memory\n");
+    }
+    asm("cli");
+    init_pmm_page(pmm_start);
+    init_vmm();
+    pmm_collect_pages(mboot_info);
+    map_vesa();
+    // kprints("Shup\n");
+    // printf("Paging enabled\n");
+     timer_init();
+    // int x = 1/0;
     // TIMER_FUNC_ARGS timer;
     // timer.timeout = 100;
     // timer.user = TimerHandler;

@@ -576,7 +576,7 @@ Linker script and memory map
                 0x0000000000119c04                mouse_init
  .text          0x0000000000119d74        0x6 obj/multitasking.o
                 0x0000000000119d74                init_multitasking
- .text          0x0000000000119d7a        0x0 obj/panic.o
+ .text          0x0000000000119d7a        0x0 obj/printf.o
  .text          0x0000000000119d7a     0x1a6e obj/pci.o
                 0x0000000000119d7a                pci_read
                 0x0000000000119def                read_bits_23_to_16
@@ -937,7 +937,7 @@ Linker script and memory map
  .data          0x0000000000745240        0x0 obj/memory.o
  .data          0x0000000000745240        0x0 obj/mouse.o
  .data          0x0000000000745240        0x0 obj/multitasking.o
- .data          0x0000000000745240        0x0 obj/panic.o
+ .data          0x0000000000745240        0x0 obj/printf.o
  .data          0x0000000000745240        0x4 obj/pci.o
  .data          0x0000000000745244        0x0 obj/pmm.o
  .data          0x0000000000745244        0x4 obj/printf.o
@@ -1225,7 +1225,7 @@ Linker script and memory map
                 0x00000000008ae994                g_mouse_y_pos
                 0x00000000008ae998                g_status
  .bss           0x00000000008ae99d        0x0 obj/multitasking.o
- .bss           0x00000000008ae99d        0x0 obj/panic.o
+ .bss           0x00000000008ae99d        0x0 obj/printf.o
  *fill*         0x00000000008ae99d        0x3 
  .bss           0x00000000008ae9a0    0x966f0 obj/pci.o
                 0x00000000008ae9a0                pci_list
@@ -1362,7 +1362,7 @@ LOAD obj/maths.o
 LOAD obj/memory.o
 LOAD obj/mouse.o
 LOAD obj/multitasking.o
-LOAD obj/panic.o
+LOAD obj/printf.o
 LOAD obj/pci.o
 LOAD obj/pmm.o
 LOAD obj/printf.o
@@ -1432,7 +1432,7 @@ OUTPUT(HackOS.bin elf32-i386)
  .comment       0x000000000000002b       0x2c obj/memory.o
  .comment       0x000000000000002b       0x2c obj/mouse.o
  .comment       0x000000000000002b       0x2c obj/multitasking.o
- .comment       0x000000000000002b       0x2c obj/panic.o
+ .comment       0x000000000000002b       0x2c obj/printf.o
  .comment       0x000000000000002b       0x2c obj/pci.o
  .comment       0x000000000000002b       0x2c obj/pmm.o
  .comment       0x000000000000002b       0x2c obj/printf.o
@@ -1537,7 +1537,7 @@ OUTPUT(HackOS.bin elf32-i386)
  .note.GNU-stack
                 0x0000000000000000        0x0 obj/multitasking.o
  .note.GNU-stack
-                0x0000000000000000        0x0 obj/panic.o
+                0x0000000000000000        0x0 obj/printf.o
  .note.GNU-stack
                 0x0000000000000000        0x0 obj/pci.o
  .note.GNU-stack

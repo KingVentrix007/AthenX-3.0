@@ -50,6 +50,13 @@
         "command.h": "c",
         "mem.h": "c",
         "fat_format.h": "c",
-        "fat_cache.h": "c"
+        "fat_cache.h": "c",
+        "syscall.h": "c",
+        "vmm.h": "c",
+        "layout.h": "c",
+        "pageing.h": "c",
+        "io_ports.h": "c",
+        "isr.h": "c",
+        "bios32.h": "c"
     }
 }

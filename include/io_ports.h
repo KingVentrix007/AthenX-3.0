@@ -33,4 +33,9 @@ uint32 inportl(uint16 port);
  */
 void outportl(uint16 port, uint32 data);
 
+void init_com1();
+
+void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity);
+void write_to_com1(uint8 data);
+void write_to_com1_string(char *s);
 #endif

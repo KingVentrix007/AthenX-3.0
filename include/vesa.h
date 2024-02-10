@@ -69,5 +69,5 @@ uint32 vbe_rgb(uint8 red, uint8 green, uint8 blue);
 void vbe_putpixel(int x, int y, int color);
 
 #define VBE_RGB(r, g, b) vbe_rgb(r, g, b)
-
+int map_vesa();
 #endif

@@ -10,3 +10,9 @@ disk.img
 .o
 ./obj/
 ./obj
+isodir/boot/AthenX.bin
+obj/arch/i686/sys_call.o
+obj/
+AthenX.bin
+isodir/boot/AthenX.bin
+AthenX.iso

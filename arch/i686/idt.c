@@ -5,7 +5,7 @@
 #include "idt.h"
 #include "isr.h"
 #include "8259_pic.h"
-
+#include "syscall.h"
 IDT g_idt[NO_IDT_DESCRIPTORS];
 IDT_PTR g_idt_ptr;
 
@@ -69,7 +69,7 @@ void idt_init() {
     idt_set_entry(39, (uint32)irq_7, 0x08, 0x8E);
     idt_set_entry(40, (uint32)irq_8, 0x08, 0x8E);
     idt_set_entry(41, (uint32)irq_9, 0x08, 0x8E);
-    idt_set_entry(42, (uint32)irq_10, 0x08, 0x8E);
+    idt_set_entry(42, (uint32)system_call_handler, 0x08, 0x8E);
     idt_set_entry(43, (uint32)irq_11, 0x08, 0x8E);
     idt_set_entry(44, (uint32)irq_12, 0x08, 0x8E);
     idt_set_entry(45, (uint32)irq_13, 0x08, 0x8E);

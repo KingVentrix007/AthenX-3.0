@@ -4,8 +4,11 @@
 #include "isr.h"
 #include "string.h"
 #include "types.h"
+#include "vmm.h"
+#include "pagepmm.h"
 #define PRINT_MODES 1
 // vbe information
+void test_memory_mapping(uint32_t start_address, uint32_t size);
 VBE20_INFOBLOCK g_vbe_infoblock;
 VBE20_MODEINFOBLOCK g_vbe_modeinfoblock;
 // selected mode
@@ -125,5 +128,49 @@ int vesa_init(uint32 width, uint32 height, uint32 bpp) {
         vbe_set_mode(g_selected_mode);
     #endif
     
+    return 0;
+}
+#define VESA_VIRTUAL_BASE 0xB8000000
+
+#define VESA_VIRTUAL_BASE 0xB8000000
+
+int map_vesa() {
+    uint32_t vesa_size = g_vbe_modeinfoblock.YResolution*g_vbe_modeinfoblock.XResolution*g_vbe_modeinfoblock.BitsPerPixel;
+    if (g_vbe_buffer == NULL) {
+        // If the VBE buffer is not initialized, return an error
+        return -1;
+    }
+
+    uint32_t vesa_virtual_address = VESA_VIRTUAL_BASE;
+    uint32_t vesa_physical_address = (uint32_t)g_vbe_buffer;
+    uint32_t vesa_size_in_pages = (vesa_size + PAGE_SIZE - 1) / PAGE_SIZE; // Calculate the number of pages needed
+
+    for (uint32_t i = 0; i < vesa_size_in_pages; i++) {
+        map(vesa_virtual_address, vesa_physical_address, PAGE_PRESENT | PAGE_WRITE);
+        vesa_virtual_address += PAGE_SIZE;
+        vesa_physical_address += PAGE_SIZE;
+    }
+
+    // Update the global VBE buffer pointer
+    g_vbe_buffer = (uint32_t *)VESA_VIRTUAL_BASE;
+
+    return 0;
+}
+void test_memory_mapping(uint32_t start_address, uint32_t size) {
+    // Pattern to write to memory (just an example)
+    uint32_t pattern = VBE_RGB(255,0,0);
+    
+    // Write the pattern to memory
+    for (uint32_t i = 0; i < size / sizeof(uint32_t); i++) {
+        *((uint32_t *)(start_address + i * sizeof(uint32_t))) = pattern;
+    }
+    
+    write_to_com1_string("Memory written successfully!\n");
+}
+int leave_vesa_mode() {
+    REGISTERS regs;
+    regs.eax = 0x0003; // Function 00h - Set Video Mode
+    // regs.h.al = 0x03; // VGA mode number 03h (80x25 text mode)
+    int86(0x10, &regs, &regs); // Call BIOS interrupt
     return 0;
 }

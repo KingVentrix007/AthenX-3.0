@@ -1,5 +1,6 @@
 #include "io_ports.h"
-
+#include "string.h"
+#define COM1_PORT 0x3F8 // COM1 base port address
 /**
  * read a byte from given port number
  */
@@ -47,4 +48,35 @@ uint32 inportl(uint16 port) {
 void outportl(uint16 port, uint32 data) {
     asm volatile ("outl %%eax, %%dx" : : "dN" (port), "a" (data));
 }
+void write_to_com1(uint8 data) {
+    outportb(COM1_PORT, data);
+}
+void write_to_com1_string(char *s)
+{
+    write_to_com1(':');
+    for (size_t i = 0; i < strlen(s); i++)
+    {
+        write_to_com1(s[i]);
+    }
+    
+}
+void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity) {
+    // Disable interrupts
+    outportb(COM1_PORT + 1, 0x00);
+    
+    // Set baud rate divisor
+    uint16 divisor = 115200 / baud_rate;
+    outportb(COM1_PORT + 3, 0x80);    // Enable DLAB (divisor latch access bit)
+    outportb(COM1_PORT + 0, divisor & 0xFF); // Set low byte of divisor
+    outportb(COM1_PORT + 1, divisor >> 8);   // Set high byte of divisor
+    outportb(COM1_PORT + 3, 0x03);    // 8 bits, no parity, one stop bit
+    outportb(COM1_PORT + 2, 0xC7);    // Enable FIFO, clear them, with 14-byte threshold
+    outportb(COM1_PORT + 4, 0x0B);    // Enable IRQs, RTS/DSR set
+}
 
+/**
+ * Initialize COM1 serial port with default settings
+ */
+void init_com1() {
+    configure_com1(9600, 8, 1, 0); // Default settings: 9600 baud, 8 data bits, 1 stop bit, no parity
+}
