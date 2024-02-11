@@ -57,6 +57,10 @@
         "pageing.h": "c",
         "io_ports.h": "c",
         "isr.h": "c",
-        "bios32.h": "c"
+        "bios32.h": "c",
+        "mem_utils.h": "c",
+        "mem_config.h": "c",
+        "pmm.h": "c",
+        "maths.h": "c"
     }
 }

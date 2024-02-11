@@ -23,6 +23,7 @@
 #include "io_ports.h"
 #include "pagepmm.h"
 #include "pageing.h"
+#include "pmm.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -121,7 +122,7 @@ void kmain(unsigned long magic, unsigned long addr)
             kprints("error: failed to get kernel memory map\n");
             return;
         }
-        mem_main(g_kmap.available.start_addr, (g_kmap.available.size/2));
+        mem_main(g_kmap.available.start_addr, g_kmap.available.size);
      }
    
 
@@ -166,8 +167,15 @@ void kmain(unsigned long magic, unsigned long addr)
     InitScheduler();
    
     printf("Enabling paging\n");
-    uint32_t pmm_start =  g_kmap.available.start_addr+(g_kmap.available.size/2);
-    printf("Num pages == %d\n", (g_kmap.available.size/2)/PAGE_SIZE);
+    size_t size = (g_kmap.available.size/2)-10;
+    printf("Size of page frame earea == %u\n", size);
+    uint32_t pmm_start =  (uint32_t)g_kmap.available.start_addr+ (g_kmap.available.size/2)+5;
+    // if(pmm_start == NULL)
+    // {
+    //     printf("We got issues with paging\n");
+    // }
+
+    printf("Num pages == %d\n",(g_kmap.available.size/2)/PAGE_SIZE);
     if(pmm_start == NULL)
     {
         printf("Couldn't allocate memory\n");

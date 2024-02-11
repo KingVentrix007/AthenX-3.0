@@ -1,6 +1,6 @@
 
 
-
+#include "syscall.h"
 int syscall(int syscall_number, void *param1, int param2) {
     int result;
     asm volatile ( 
@@ -12,4 +12,10 @@ int syscall(int syscall_number, void *param1, int param2) {
     // {
     // }
     return result;
+}
+
+int sys_call_puts(char chr)
+{
+    
+    syscall(SYS_PRINT,chr,chr);
 }

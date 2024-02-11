@@ -15,38 +15,55 @@ OBJ_DIRS = $(addprefix $(OBJ_DIR)/,$(SRC_DIRS))
 
 $(shell mkdir -p $(OBJ_DIRS))
 
-SRC_FILES_C := $(shell find $(SRC_DIRS) -type f -name '*.c')
-SRC_FILES_S := $(shell find $(SRC_DIRS) -type f -name '*.s')
-SRC_FILES_ASM := $(shell find $(SRC_DIRS) -type f -name '*.asm')
+# List of directories to be blacklisted
+BLACKLIST_DIRS := elf
+# Function to filter out blacklisted directories
+define filter-out-dir
+$(foreach dir,$(1),$(shell find . -type d -name '$(dir)'))
+endef
 
+# Update SRC_FILES_C, SRC_FILES_S, and SRC_FILES_ASM to exclude blacklisted directories
+SRC_FILES_C := $(filter-out $(call filter-out-dir,$(BLACKLIST_DIRS)),$(shell find $(SRC_DIRS) -type f -name '*.c'))
+SRC_FILES_S := $(filter-out $(call filter-out-dir,$(BLACKLIST_DIRS)),$(shell find $(SRC_DIRS) -type f -name '*.s'))
+SRC_FILES_ASM := $(filter-out $(call filter-out-dir,$(BLACKLIST_DIRS)),$(shell find $(SRC_DIRS) -type f -name '*.asm'))
+
+# Generate object file paths
 OBJ_FILES_C := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES_C))
 OBJ_FILES_S := $(patsubst %.s, $(OBJ_DIR)/%.o, $(SRC_FILES_S))
 OBJ_FILES_ASM := $(patsubst %.asm, $(OBJ_DIR)/%.o, $(SRC_FILES_ASM))
 
+# Compile C files
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(GCCPARAMS) -c -o $@ $<
 
-
+# Assemble assembly files
 $(OBJ_DIR)/%.o: %.s
 	@mkdir -p $(@D)
 	$(AS) $(ASPARAMS) -o $@ $<
 
+# Assemble NASM files
 $(OBJ_DIR)/%.o: %.asm
 	@mkdir -p $(@D)
 	$(ASM) -f elf32 -o $@ $<
 
+# Link object files into binary
 AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 	ld $(LDPARAMS) -o $@ $^
 	mkdir -p isodir/boot/grub
 	cp AthenX.bin isodir/boot/AthenX.bin
 	cp grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o AthenX.iso isodir
-#	mv AthenX.bin out/
+
+# Run the OS in QEMU
 run: AthenX.bin
 	bash ./scripts/boot32.sh
 	qemu-system-i386 AthenX.img -m 4G -serial stdio
+
+# Run the OS in QEMU without debugging output
 runt:
 	qemu-system-i386 AthenX.img -m 4G
+
+# Clean up generated files
 clean:
 	rm -rf $(OUT_DIR)/*.bin $(OUT_DIR)/*.map $(OUT_DIR)/*.img $(OBJ_DIR)/* AthenX.iso AthenX.bin

@@ -33,10 +33,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
-#include "vesa.h"
+
 #include "printf.h"
-#include "vga.h"
-#include "termianl.h"
+#include "vesa.h"
 
 // define this globally (e.g. gcc -DPRINTF_INCLUDE_CONFIG_H ...) to include the
 // printf_config.h header file
@@ -996,10 +995,10 @@ int fctprintf(void (*out)(char character, void* arg), void* arg, const char* for
 
 void _putchar(char chr)
 {
-  char string[2];
-  string[0] = chr;
-  string[1] = '\0';
-  // kprints(string);
+  // char string[2];
+  // string[0] = chr;
+  // string[1] = '\0';
+  // // kprints(string);
   write_to_com1(chr);
   draw_vbe_char(chr);
   // putchar_vesa(chr);

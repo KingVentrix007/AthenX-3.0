@@ -4,6 +4,7 @@
 #include "fat_filelib.h"
 #include "command.h"
 #include "mem.h"
+#include "elf_exe.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
 // Function to parse command line arguments
@@ -122,7 +123,10 @@ int cmd(char *command)
     {
         ls();
     }
-    
+    else if (strcmp(argv[0],"exe") == 0)
+    {
+         load_elf_file("/test/test.elf", argc, argv);
+    }
     free_command(argv, argc);
 
     return 0;
