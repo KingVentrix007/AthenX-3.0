@@ -13,7 +13,7 @@
 #ifndef LOG_LEVEL
 #define LOG_LEVEL DEFAULT_LOG_LEVEL // Sets the default log level
 #endif
-// #define MEMORY_ALLOCATION_VERBOSE_OUTPUT
+#define MEMORY_ALLOCATION_VERBOSE_OUTPUT
 #ifdef MEMORY_ALLOCATION_VERBOSE_OUTPUT
 
 // Function to print memory allocation log with additional information

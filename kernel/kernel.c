@@ -122,7 +122,8 @@ void kmain(unsigned long magic, unsigned long addr)
             kprints("error: failed to get kernel memory map\n");
             return;
         }
-        mem_main(g_kmap.available.start_addr, (g_kmap.available.size/2));
+        size_t alloc_size = (g_kmap.available.size/2);
+        mem_main(g_kmap.available.start_addr,alloc_size);
      }
    
 
@@ -208,6 +209,7 @@ void kmain(unsigned long magic, unsigned long addr)
     // timer.user = TimerHandler;
     // timer_register_function(TimerHandler,&timer);
     keyboard_init();
+    printf("Here\n");
     STI();
     // command_line();
     // CreateProcess(Process);
@@ -239,7 +241,9 @@ void kmain(unsigned long magic, unsigned long addr)
 void command_line(void)
 {
     // STI();
+    printf("Commnd command\n================================\n");
     char *input_buffer = (char *)sys_allocate_memory(KB);
+    printf("HERE\n");
     int buffer_pos = 0;
     char user[] = "Dev";
     memset(input_buffer,0,KB);
