@@ -10,6 +10,7 @@
 #include "../include/isr.h"
 // #include "../include/x86_reg.h"
 #include "printf.h"
+#include "vmm.h"
 // #include "../include/sys_handler.h"
 #define PT_GNU_STACK	(PT_LOOS + 0x474e551)
 addr original_esp;
@@ -45,7 +46,7 @@ struct elf_exe {
 
 
 
-
+struct elf_exe executable_file;
 /**
  * Function Name: run_elf
  * Description: Load and run an ELF executable.
@@ -193,68 +194,50 @@ void switch_to_user_mode(UserProcessContext *user_context, KernelContext *kernel
     );
 }
 // Function to load and execute an ELF executable
-void load_elf_executable(uint8_t* elf_data,int myArgc,char **myArgv) {
-    printf("ARR = %s\n",myArgv[1]);
-    // FUNC_ADDR_NAME(&load_elf_executable,1,"u");
-    // Verify ELF magic number.
-    size_t stack_size = 0;
+void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
     Elf32_Ehdr* elf_header = (Elf32_Ehdr*)elf_data;
-    
-    if (elf_header->e_ident[EI_MAG0] != ELFMAG0 ||
-        elf_header->e_ident[EI_MAG1] != ELFMAG1 ||
-        elf_header->e_ident[EI_MAG2] != ELFMAG2 ||
-        elf_header->e_ident[EI_MAG3] != ELFMAG3) {
-        // Invalid ELF format.
-        // Handle error.
+
+    // Verify ELF magic number.
+    if (memcmp(elf_header->e_ident, ELFMAG, SELFMAG) != 0) {
+        printf("Not an ELF file\n");
         return;
     }
-    
-    // Read program headers.
-    Elf32_Phdr* program_headers = (Elf32_Phdr*)(elf_data + elf_header->e_phoff);
-  
-  
-    bool over = check_overlap(__kernel_section_start,__kernel_section_end,elf_header);
-    if(over)
-    {
-        printf("Overlap detected\n");
-        return -1;
-    }
-    else
-    {
-        // printf("Continuing execution\n");
-    }
+
     // Iterate through program headers and load loadable segments.
     for (int i = 0; i < elf_header->e_phnum; i++) {
-        if (program_headers[i].p_type == PT_LOAD) {
-            // Calculate the load address by adding p_vaddr to __kernel_section_end
-            uint8_t* load_address = (uint8_t*)(uint32_t)(program_headers[i].p_vaddr);
+        Elf32_Phdr* program_header = (Elf32_Phdr*)(elf_data + elf_header->e_phoff + i * elf_header->e_phentsize);
 
-            // Allocate memory and copy segment data.
-            uint8_t* file_data = elf_data + program_headers[i].p_offset;
-            uint32_t file_size = program_headers[i].p_filesz;
-
-            // Zero-fill any padding.
-            for (uint32_t j = program_headers[i].p_filesz; j < program_headers[i].p_memsz; j++) {
-                load_address[j] = 0;
+        if (program_header->p_type == PT_LOAD) {
+            // Allocate virtual memory for the segment
+            void* virtual_address = sys_allocate_virtual_memory(program_header->p_vaddr, program_header->p_memsz, program_header->p_flags);
+            if (!virtual_address) {
+                printf("Failed to allocate virtual memory\n");
+                return;
             }
 
-            // Copy data.
-            memcpy(load_address, file_data, file_size);
-        }
-        if (program_headers[i].p_type == PT_GNU_STACK) {
-            stack_size = program_headers[i].p_memsz;
-            break;
+            // Copy segment data to the virtual memory
+            memcpy(virtual_address, elf_data + program_header->p_offset, program_header->p_filesz);
+
+            // Zero-fill any remaining memory in the segment
+            memset((uint8_t*)virtual_address + program_header->p_filesz, 0, program_header->p_memsz - program_header->p_filesz);
+
+            // Update page tables to map the virtual memory pages to physical memory addresses
+            for (size_t offset = 0; offset < program_header->p_memsz; offset += PAGE_SIZE) {
+                uint32_t page_va = program_header->p_vaddr + offset;
+                uint32_t page_pa = (uint32_t)virtual_address + offset;
+                map(page_va, page_pa, program_header->p_flags);
+            }
         }
     }
-     struct elf_exe my_elf;
+    struct elf_exe my_elf;
     my_elf.elf_start = (uint32_t*)(elf_header->e_entry);
-    my_elf.stack_size = stack_size;
-    if (stack_size > 0) {
-        printf("Stack size: %zu bytes\n", stack_size);
-    } else {
-        printf("\n");
-        // printf("No stack size information found in the ELF header\n");
-    }
+    // my_elf.stack_size = stack_size;
+    // if (stack_size > 0) {
+    //     printf("Stack size: %zu bytes\n", stack_size);
+    // } else {
+    //     printf("\n");
+    //     // printf("No stack size information found in the ELF header\n");
+    // }
     run_elf(my_elf,myArgc,myArgv);
 
     return 0;

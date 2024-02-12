@@ -32,6 +32,26 @@ $(DEST_DIR):
 $(DEST_DIR)/%.c: $(SRC_DIR)/%.c | $(DEST_DIR)
 	cp $^ $@
 
+# Copy the contents of the include directory to ../user/include
+copy_include:
+	cp -r include/* ../user/include
+
+# Copy libc.a to ../user/libc.a
+copy_libc:
+	cp $(LIB) ../user/$(LIB)
+
+# Phony target to build the library and copy necessary files
+all: $(LIB) copy_include copy_libc
+
 # Rule for cleaning up build artifacts
 clean:
-	rm -rf $(BUILD_DIR)/*.o $(LIB) $(DEST_DIR)
+	rm -rf $(BUILD_DIR)/*.o $(LIB) $(DEST_DIR) ../user/include ../user/$(LIB)
+
+# Custom target to compile ANSI library
+ansi:
+	$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" SRC_DIR="ansi" all
+
+# Custom target to compile POSIX library
+posix:
+	$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" SRC_DIR="posix" all
+.PHONY: posix ansi

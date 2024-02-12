@@ -174,3 +174,21 @@ int leave_vesa_mode() {
     int86(0x10, &regs, &regs); // Call BIOS interrupt
     return 0;
 }
+
+int vesa_scroll(int lines)
+{
+    scroll_screen(g_vbe_buffer,g_width,g_height,lines);
+}
+void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines) {
+    // Calculate the number of pixels to shift up
+    int pixels_to_shift = num_lines * width;
+
+    // Calculate the number of pixels to copy
+    int pixels_to_copy = width * (height - num_lines);
+
+    // Copy pixels upwards
+    memmove(framebuffer, framebuffer + pixels_to_shift, pixels_to_copy * sizeof(uint32_t));
+
+    // Clear the bottom lines
+    memset(framebuffer + pixels_to_copy, 0, pixels_to_shift * sizeof(uint32_t));
+}

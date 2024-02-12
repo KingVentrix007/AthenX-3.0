@@ -319,3 +319,31 @@ int memcmp(const void* ptr1, const void* ptr2, size_t n) {
     }
     return 0;
 }
+/**
+ * Function Name: memmove
+ * Description: Copies a block of memory, handling overlapping regions.
+ *
+ * Parameters:
+ *   dest (void*) - Pointer to the destination buffer where the content is to be copied
+ *   src (const void*) - Pointer to the source of data to be copied
+ *   n (size_t) - Number of bytes to copy
+ *
+ * Return:
+ *   (void*) - Returns a pointer to the destination buffer (dest)
+ */
+void* memmove(void* dest, const void* src, size_t n) {
+    unsigned char* d = (unsigned char*)dest;
+    const unsigned char* s = (const unsigned char*)src;
+
+    if (s < d) {
+        for (size_t i = n; i > 0; --i) {
+            d[i - 1] = s[i - 1];
+        }
+    } else {
+        for (size_t i = 0; i < n; ++i) {
+            d[i] = s[i];
+        }
+    }
+
+    return dest;
+}

@@ -109,7 +109,7 @@ void kmain(unsigned long magic, unsigned long addr)
         {
             kprints("Error: vesa_init() failed\n");
         }
-    init_terminal();
+    init_terminal(1024, 768);
     init_com1();
      MULTIBOOT_INFO *mboot_info;
      if (magic == MULTIBOOT_BOOTLOADER_MAGIC)

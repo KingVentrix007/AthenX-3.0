@@ -2,7 +2,7 @@
 #define VESA_H
 
 #include "types.h"
-
+#include "stdint.h"
 // refer to documents under ref directory
 
 typedef struct {
@@ -70,4 +70,6 @@ void vbe_putpixel(int x, int y, int color);
 
 #define VBE_RGB(r, g, b) vbe_rgb(r, g, b)
 int map_vesa();
+void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines);
+int vesa_scroll(int lines);
 #endif

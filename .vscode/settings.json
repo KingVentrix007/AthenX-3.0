@@ -61,6 +61,7 @@
         "mem_utils.h": "c",
         "mem_config.h": "c",
         "pmm.h": "c",
-        "maths.h": "c"
+        "maths.h": "c",
+        "pagepmm.h": "c"
     }
 }

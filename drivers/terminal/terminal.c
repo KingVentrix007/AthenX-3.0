@@ -1,6 +1,7 @@
 #include "vesa.h"
 #include "stdint.h"
 #include "stddef.h"
+#include "termianl.h"
 size_t terminal_postion_x;
 size_t terminal_postion_y;
 size_t terminal_font_width;
@@ -8,7 +9,7 @@ size_t terminal_font_height;
 extern unsigned char arr_8x16_font[];
 
 
-int init_terminal()
+int init_terminal(int x, int y)
 {
     terminal_postion_x = 0;
     terminal_postion_y = 0;
@@ -23,15 +24,24 @@ int draw_vbe_char(char c)
         draw_char_8x16(terminal_postion_x, terminal_postion_y, c);
         terminal_postion_x+=terminal_font_width;
     }
-    else
+    else if(c == '\n')
     {
-        if(terminal_postion_y+=terminal_font_height >= 768)
+        if(terminal_postion_y >= 768-(terminal_font_height*2))
         {
-            
+            vesa_scroll(terminal_font_height*2);
+            terminal_postion_x = 0;
+            // printf("768 reached\n");
+            // for(;;);
+            terminal_postion_y=terminal_postion_y-(terminal_font_height);
         }
-        terminal_postion_x = 0;
-        terminal_postion_y+=terminal_font_height;
+        else
+        {
+            terminal_postion_x = 0;
+            terminal_postion_y+=terminal_font_height;
+        }
+        
     }
+    
     
 
 }

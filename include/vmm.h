@@ -69,5 +69,5 @@ page_directory_t* clone_directory(page_directory_t* src);
 void destroy_directory(page_directory_t* dir);
 
 void diff_directories(page_directory_t* adir, page_directory_t* bdir);
-
+uint32_t sys_allocate_virtual_memory(uint32_t va, uint32_t size, uint32_t flags);
 #endif

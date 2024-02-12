@@ -391,3 +391,22 @@ void page_fault(REGISTERS *regs) {
 	printf("Error code: %x\n", regs->err_code);
 	printf("");
 }
+uint32_t sys_allocate_virtual_memory(uint32_t va, uint32_t size, uint32_t flags) {
+    // Round up the size to the nearest page size
+    size = PAGE_ROUND_UP(size);
+
+    // Allocate physical memory
+    uint32_t pa = pmm_alloc_page();
+    if (pa == 0) {
+        // Allocation failed
+        return 0;
+    }
+
+    // Map the physical memory to virtual memory
+    for (uint32_t offset = 0; offset < size; offset += PAGE_SIZE) {
+        uint32_t virtual_address = va + offset;
+        map(virtual_address, pa + offset, flags);
+    }
+
+    return va;
+}
