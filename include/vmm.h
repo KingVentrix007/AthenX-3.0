@@ -70,4 +70,5 @@ void destroy_directory(page_directory_t* dir);
 
 void diff_directories(page_directory_t* adir, page_directory_t* bdir);
 uint32_t sys_allocate_virtual_memory(uint32_t va, uint32_t size, uint32_t flags);
+uint32_t pmm_alloc_pages(uint32_t num_pages);
 #endif

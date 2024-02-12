@@ -2,7 +2,7 @@
 #include "mem.h"
 #define ARCH_X86
 #include "mem_config.h"
-int mem_main(void *free_region_start_address,size_t size);
+
 #ifdef STANDALONE_MEMORY_ALLOCATION
 
 #ifndef AUTOMATED_TESTING_MEMORY_ALLOCATION

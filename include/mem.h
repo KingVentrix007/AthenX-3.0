@@ -206,7 +206,7 @@ int* run_checks();
  */
 size_t get_memory_size(const void *ptr);
 
-
+int mem_main(void* free_region_start_address,size_t size);
 int main_automated_testing();
 int main_automated_testing_end();
 /**

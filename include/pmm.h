@@ -26,7 +26,7 @@ int start();
  * Return:
  *   None
  */
-int init_pmm(void *start_adder, size_t size);
+int init_pmm(void * start_adder, size_t size);
 
 /**
  * Function Name: allocate_pmm_block

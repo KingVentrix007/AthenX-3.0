@@ -41,7 +41,7 @@ void Process(void)
         }
     }
 }
-void loop_timer(void)
+void loop_timer(int input)
 {
     // 
     
@@ -122,7 +122,7 @@ void kmain(unsigned long magic, unsigned long addr)
             kprints("error: failed to get kernel memory map\n");
             return;
         }
-        mem_main(g_kmap.available.start_addr, g_kmap.available.size);
+        mem_main(g_kmap.available.start_addr, (g_kmap.available.size/2));
      }
    
 
@@ -140,6 +140,10 @@ void kmain(unsigned long magic, unsigned long addr)
     // void *ptr = sys_allocate_memory(KB);
     // void *ptr2 = sys_allocate_memory(KB);
     char *string1 = sys_allocate_memory(KB);
+    // if(string1 < g_kmap.available.start_addr)
+    // {
+    //     printf("String allocation failure\n");
+    // }
     strcpy(string1, "Hello World!");
     printf("Memory allocation output: %s\n",string1);
     // if(ptr == ptr2)
@@ -166,22 +170,32 @@ void kmain(unsigned long magic, unsigned long addr)
     
     InitScheduler();
    
-    printf("Enabling paging\n");
-    size_t size = (g_kmap.available.size/2)-10;
+    
+    size_t size = (g_kmap.available.size/2)+10;
     printf("Size of page frame earea == %u\n", size);
     uint32_t pmm_start =  (uint32_t)g_kmap.available.start_addr+ (g_kmap.available.size/2)+5;
+    // if(pmm_start < g_kmap.available.start_addr)
+    // {
+    //     printf("Address error\n");
+    // }
+    // printf("PMM as pointer == 0x%x\n",pmm_start);
+    // uint32_t pmm_start_2 = pmm_start;
+    // printf("PMM as non pointer == %u\n",pmm_start_2);
+    // printf("Old pmm value == %u\n",g_kmap.available.start_addr);
     // if(pmm_start == NULL)
     // {
     //     printf("We got issues with paging\n");
     // }
 
-    printf("Num pages == %d\n",(g_kmap.available.size/2)/PAGE_SIZE);
-    if(pmm_start == NULL)
-    {
-        printf("Couldn't allocate memory\n");
-    }
+    // printf("Num pages == %d\n",(g_kmap.available.size/2)/PAGE_SIZE);
+    // if(pmm_start_2 == NULL)
+    // {
+    //     printf("Couldn't allocate memory\n");
+    // }
     asm("cli");
+    printf("Enabling PMM\n");
     init_pmm_page(pmm_start);
+    printf("PMM enabled\n");
     init_vmm();
     pmm_collect_pages(mboot_info);
     map_vesa();
