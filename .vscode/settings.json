@@ -63,6 +63,9 @@
         "pmm.h": "c",
         "maths.h": "c",
         "pagepmm.h": "c",
-        "kheap.h": "c"
+        "kheap.h": "c",
+        "elf.h": "c",
+        "i386.h": "c",
+        "exe.h": "c"
     }
 }

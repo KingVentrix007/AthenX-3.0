@@ -220,7 +220,7 @@ void kmain(unsigned long magic, unsigned long addr)
     char *file_path = "/init/programs.elf";
     int argc = 3;
     char **argv = {"program_name", "arg1", "arg2", NULL};
-    load_elf_file(file_path,argc,argv);
+    // load_elf_file(file_path,argc,argv);
     timer_init();
     
     // Initialize keyboard
@@ -235,7 +235,7 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // Create command line process
     CreateProcess(command_line);
-    
+    execute_file(file_path,argc,argv);
     // Create loop timer process
     CreateProcess(loop_timer);
     

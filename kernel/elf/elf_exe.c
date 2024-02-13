@@ -13,6 +13,8 @@
 #include "printf.h"
 #include "vmm.h"
 #include "kheap.h"
+#include "scheduler.h"
+void internal_run_exe();
 // #include "../include/sys_handler.h"
 #define PT_GNU_STACK	(PT_LOOS + 0x474e551)
 addr original_esp;
@@ -46,7 +48,9 @@ struct elf_exe {
 
 
 
-
+char global_file_path[1000];
+int global_argc;
+char **global_argv;
 
 struct elf_exe executable_file;
 /**
@@ -488,3 +492,21 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 
 //     return 0;
 // }
+
+int execute_file(const char *path,int argc, char **argv)
+{
+    // global_file_path = path;
+    strcpy(global_file_path,path);
+    global_argc = argc;
+    global_argv = argv;
+    CreateProcess(internal_run_exe);
+    
+
+}
+
+void internal_run_exe()
+{
+    load_elf_file(global_file_path,global_argc,global_argv);
+    TerminateProcess();
+
+}
