@@ -17,7 +17,7 @@
 #define SYS_VM_MAP 14
 #define SYS_VM_UNMAP 15
 #define SYS_VM_PROTECT 16
-
+#define SYS_PUTS 17
 int system_call_handler_c(int syscall_number, int param1,int param2);
 extern void system_call_handler();
 int syscall(int syscall_number, int param1, int param2);

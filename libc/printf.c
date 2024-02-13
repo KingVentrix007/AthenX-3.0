@@ -35,7 +35,7 @@
 #include <stddef.h>
 
 #include "printf.h"
-
+#include "../include/syscall.h"
 
 // define this globally (e.g. gcc -DPRINTF_INCLUDE_CONFIG_H ...) to include the
 // printf_config.h header file
@@ -1002,4 +1002,5 @@ void _putchar(char chr)
   // write_to_com1(chr);
   // draw_vbe_char(chr);
   // putchar_vesa(chr);
+  syscall(SYS_PUTS,chr,0);
 }

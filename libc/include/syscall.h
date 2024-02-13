@@ -19,5 +19,6 @@
 #define SYS_COPY_FILE       13  // Copy a file
 #define SYS_MOVE_FILE       14  // Move a file
 #define SYS_GET_TIME        15  // Get current system time
+#define SYS_PUTS 17
 int sys_call_puts(char chr);
 #endif /* SYS_CALLS_H */

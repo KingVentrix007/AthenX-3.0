@@ -73,6 +73,11 @@ int system_call_handler_c(int syscall_number, int param1, int param2)
     {
         // Handle VM_PROTECT syscall
     }
+    else if (syscall_number == SYS_PUTS)
+    {
+        printf("%c",param1);
+    }
+    
 }
 //Triggers system call
 int syscall(int syscall_number, int param1, int param2) {

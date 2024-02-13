@@ -16,7 +16,7 @@ dd if=/dev/zero of="$image_file" bs=1M count=1024
     sudo grub-install --target=i386-pc --boot-directory=/mnt/AthenX-3.0 --root-directory=/mnt/AthenX-3.0 --force --no-floppy --modules="part_msdos fat" /dev/loop0
     echo "saved_entry=grub.cfg" | sudo tee /grub/grubenv
     sudo cp -r "grub/." "/mnt/AthenX-3.0/grub"
-    
+    sudo cp -r sysroot /mnt/AthenX-3.0/
     # Verify the root directory's LBA address using the file command
 
     # Unmount the image

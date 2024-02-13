@@ -175,17 +175,17 @@ void kmain(unsigned long magic, unsigned long addr)
     fl_listdirectory("/", dirs, files, &num_dir, &num_files);
     
     // Create root directory
-    mkdir("/root");
+    // mkdir("/root");
     
     // Print available memory size
-    printf("%u\n", g_kmap.available.size);
+    // printf("%u\n", g_kmap.available.size);
 
     // Initialize scheduler
     InitScheduler();
 
     // Calculate size of page frame area
     size_t size = (g_kmap.available.size / 2) + 10;
-    printf("Size of page frame area == %u\n", size);
+    // printf("Size of page frame area == %u\n", size);
     
     // Calculate start address of physical memory manager
     uint32_t pmm_start = (uint32_t)g_kmap.available.start_addr;
@@ -210,9 +210,9 @@ void kmain(unsigned long magic, unsigned long addr)
     {
         printf("Overlap detected\n");
     }
-    char *string = kmalloc(1024);
-    strcpy(string, "hello world");
-    printf("%s\n",string);
+    // char *string = kmalloc(1024);
+    // strcpy(string, "hello world");
+    // printf("%s\n",string);
     // Initialize timer
     timer_init();
     
@@ -220,7 +220,8 @@ void kmain(unsigned long magic, unsigned long addr)
     keyboard_init();
     
     // Print message
-    printf("Here\n");
+    // printf("Here\n");
+    
     
     // Enable interrupts
     STI();
@@ -238,9 +239,9 @@ void kmain(unsigned long magic, unsigned long addr)
 void command_line(void)
 {
     // STI();
-    printf("Commnd command\n================================\n");
+    // printf("Commnd command\n================================\n");
     char *input_buffer = (char *)kmalloc(1024);
-    printf("HERE\n");
+    // printf("HERE\n");
     int buffer_pos = 0;
     char user[] = "Dev";
     memset(input_buffer,0,1024);
