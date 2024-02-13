@@ -19,7 +19,7 @@ all: $(OUT_FILE)
 # Rule to build the program from its source files
 $(OUT_FILE): $(SRC_FILES)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(LIBS)
-
+	cp $(OUT_FILE) ../sysroot/init
 # Clean rule to remove the generated file
 clean:
 	rm -f $(OUT_FILE)

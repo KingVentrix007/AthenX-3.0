@@ -57,6 +57,8 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 
 # Run the OS in QEMU
 run: AthenX.bin
+	(cd libc  && make )
+	(cd user && make)
 	bash ./scripts/boot32.sh
 	qemu-system-i386 AthenX.img -m 4G -serial stdio -no-reboot -no-shutdown
 
@@ -66,4 +68,4 @@ runt:
 
 # Clean up generated files
 clean:
-	rm -rf $(OUT_DIR)/*.bin $(OUT_DIR)/*.map $(OUT_DIR)/*.img $(OBJ_DIR)/* AthenX.iso AthenX.bin
+	rm -rf $(OUT_DIR)/*.bin $(OUT_DIR)/*.map $(OUT_DIR)/*.img $(OBJ_DIR)/* AthenX.iso AthenX.bin libc/libc.a

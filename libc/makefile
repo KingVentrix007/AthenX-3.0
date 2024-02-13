@@ -3,7 +3,7 @@ CFLAGS = -m32 -nostdlib -nostartfiles -nodefaultlibs -ffreestanding -Iinclude
 
 SRC_DIR = ./
 BUILD_DIR = obj
-DEST_DIR = ../../sysroot/usr/source
+DEST_DIR = ../user/
 
 # List all source files in the SRC_DIR
 SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
@@ -17,6 +17,7 @@ LIB = libc.a
 # Compile and create the static library
 $(LIB): $(OBJ_FILES)
 	ar rcs $@ $^
+	cp libc.a ../user/libc
 
 # Compile each source file to an object file
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)

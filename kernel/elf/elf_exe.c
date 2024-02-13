@@ -288,7 +288,7 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
         : "=r" (ret) // Output operand
     );
     
-    //printf("\nComplete ELF execution with exit code %d\n",ret);
+    printf("\nComplete ELF execution with exit code %d\n",ret);
     // Restore the stack pointer (ESP)
     asm volatile (
         "mov %0, %%esp"
