@@ -3,7 +3,7 @@
 #include "vga.h"
 #include "multiboot.h"
 #include "kernel.h"
-#include "mem.h"
+
 #include "idt.h"
 #include "gdt.h"
 #include "printf.h"
@@ -24,6 +24,8 @@
 #include "pagepmm.h"
 #include "pageing.h"
 #include "pmm.h"
+#include "kheap.h"
+#include "stdbool.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -95,158 +97,153 @@ int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
     return -1;
 }
 
-// Kernel entry point
+/**
+ * Function Name: kmain
+ * Description: Kernel main function, entry point of the operating system.
+ * 
+ * Parameters:
+ *   magic (unsigned long) - Magic number indicating Multiboot compatibility.
+ *   addr (unsigned long) - Address of Multiboot information structure.
+ * 
+ * Return:
+ *   void
+ */
 void kmain(unsigned long magic, unsigned long addr)
 {
-     idt_init();
+    // Initialize Interrupt Descriptor Table
+    idt_init();
     
-    // init_vmm();
+    // Initialize Global Descriptor Table
     gdt_init();
+    
+    // Print kernel start message
     kprints("Staring kernel\n");
+    
+    // Initialize VESA graphics mode with resolution 1024x768 and 32-bit color depth
     int ret = vesa_init(1024, 768, 32);
-   
-        if (ret < 0)
-        {
-            kprints("Error: vesa_init() failed\n");
-        }
+    if (ret < 0)
+    {
+        kprints("Error: vesa_init() failed\n");
+    }
+    
+    // Initialize terminal with specified resolution
     init_terminal(1024, 768);
+    
+    // Initialize COM1 (serial port)
     init_com1();
-     MULTIBOOT_INFO *mboot_info;
-     if (magic == MULTIBOOT_BOOTLOADER_MAGIC)
-     {
+    
+    MULTIBOOT_INFO *mboot_info;
+    if (magic == MULTIBOOT_BOOTLOADER_MAGIC)
+    {
+        // Print message if Multiboot magic number is detected
         kprints("MULTIBOOT_BOOTLOADER_MAGIC is TRUE\n");
         kprints("Getting Kernel Memory Map\n");
+        
+        // Cast addr to MULTIBOOT_INFO pointer
         mboot_info = (MULTIBOOT_INFO *)addr;
+        
+        // Clear kernel memory map structure
         memset(&g_kmap, 0, sizeof(KERNEL_MEMORY_MAP));
-        if (get_kernel_memory_map(&g_kmap, mboot_info) < 0) {
+        
+        // Get kernel memory map
+        if (get_kernel_memory_map(&g_kmap, mboot_info) < 0)
+        {
             kprints("error: failed to get kernel memory map\n");
             return;
         }
-        size_t alloc_size = (g_kmap.available.size/2);
-        mem_main(g_kmap.available.start_addr,alloc_size);
-     }
-   
+        // Calculate allocation size for memory
+        size_t alloc_size = (g_kmap.available.size / 2);
+    }
 
-    
-    // bios32_init();
-    
-    
-    
-   
-     
-    //  for(;;);
-    // Print a 'X' character with color attribute 0x0F (white on black)
-    print_char('X', 0x0A);
-    kprints("Hello World!\nBye world");
-    // void *ptr = sys_allocate_memory(KB);
-    // void *ptr2 = sys_allocate_memory(KB);
-    char *string1 = sys_allocate_memory(KB);
-    // if(string1 < g_kmap.available.start_addr)
-    // {
-    //     printf("String allocation failure\n");
-    // }
-    strcpy(string1, "Hello World!");
-    printf("Memory allocation output: %s\n",string1);
-    // if(ptr == ptr2)
-    // {
-        // kprints("Memory allocation failure\n");
-    // }/
-    // // create_blank_pageing_dictionary();
-    // // create_first_page();
-    // enable();
-
+    // Initialize ATA (IDE) interface
     ata_init();
+    
+    // Initialize FAT file system
     fl_init();
     if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK)
     {
         printf("ERROR: Failed to init file system\n");
     }
+    
+    // Variables for directory and file listing
     int num_dir;
     int num_files;
     Entry files[MAX];
     Entry dirs[MAX];
-    fl_listdirectory("/",dirs,files,&num_dir,&num_files);
+    
+    // List root directory
+    fl_listdirectory("/", dirs, files, &num_dir, &num_files);
+    
+    // Create root directory
     mkdir("/root");
+    
+    // Print available memory size
     printf("%u\n", g_kmap.available.size);
-    
-    InitScheduler();
-   
-    
-    size_t size = (g_kmap.available.size/2)+10;
-    printf("Size of page frame earea == %u\n", size);
-    uint32_t pmm_start =  (uint32_t)g_kmap.available.start_addr+ (g_kmap.available.size/2)+5;
-    // if(pmm_start < g_kmap.available.start_addr)
-    // {
-    //     printf("Address error\n");
-    // }
-    // printf("PMM as pointer == 0x%x\n",pmm_start);
-    // uint32_t pmm_start_2 = pmm_start;
-    // printf("PMM as non pointer == %u\n",pmm_start_2);
-    // printf("Old pmm value == %u\n",g_kmap.available.start_addr);
-    // if(pmm_start == NULL)
-    // {
-    //     printf("We got issues with paging\n");
-    // }
 
-    // printf("Num pages == %d\n",(g_kmap.available.size/2)/PAGE_SIZE);
-    // if(pmm_start_2 == NULL)
-    // {
-    //     printf("Couldn't allocate memory\n");
-    // }
+    // Initialize scheduler
+    InitScheduler();
+
+    // Calculate size of page frame area
+    size_t size = (g_kmap.available.size / 2) + 10;
+    printf("Size of page frame area == %u\n", size);
+    
+    // Calculate start address of physical memory manager
+    uint32_t pmm_start = (uint32_t)g_kmap.available.start_addr;
+    // Disable interrupts
     asm("cli");
+    
+    // Enable Physical Memory Manager
     printf("Enabling PMM\n");
     init_pmm_page(pmm_start);
     printf("PMM enabled\n");
-    init_vmm();
-    pmm_collect_pages(mboot_info);
-    map_vesa();
-    // kprints("Shup\n");
-    // printf("Paging enabled\n");
-     timer_init();
-    // int x = 1/0;
-    // TIMER_FUNC_ARGS timer;
-    // timer.timeout = 100;
-    // timer.user = TimerHandler;
-    // timer_register_function(TimerHandler,&timer);
-    keyboard_init();
-    printf("Here\n");
-    STI();
-    // command_line();
-    // CreateProcess(Process);
-    CreateProcess(command_line);
-    // SwitchToTask
-    // // CreateProcess(loop);
-    CreateProcess(loop_timer);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    // CreateProcess(Process);
-    PerformButler();
-
-    // switchTask();
-    // while(1)
-    // {
-    //     switchTask();
-    // }
-        // Infinite loop
     
+    // Initialize Virtual Memory Manager
+    init_vmm();
+    
+    // Collect pages for Physical Memory Manager
+    pmm_collect_pages(mboot_info);
+    
+    // Map VESA memory
+    map_vesa();
+    init_kheap(pmm_start);
+    if(KHEAP_START < __kernel_section_end)
+    {
+        printf("Overlap detected\n");
+    }
+    char *string = kmalloc(1024);
+    strcpy(string, "hello world");
+    printf("%s\n",string);
+    // Initialize timer
+    timer_init();
+    
+    // Initialize keyboard
+    keyboard_init();
+    
+    // Print message
+    printf("Here\n");
+    
+    // Enable interrupts
+    STI();
+    
+    // Create command line process
+    CreateProcess(command_line);
+    
+    // Create loop timer process
+    CreateProcess(loop_timer);
+    
+    // Perform Butler routine
+    PerformButler();
 }
+
 void command_line(void)
 {
     // STI();
     printf("Commnd command\n================================\n");
-    char *input_buffer = (char *)sys_allocate_memory(KB);
+    char *input_buffer = (char *)kmalloc(1024);
     printf("HERE\n");
     int buffer_pos = 0;
     char user[] = "Dev";
-    memset(input_buffer,0,KB);
+    memset(input_buffer,0,1024);
     printf("\n>");
     while(1)
     {

@@ -3,14 +3,19 @@
 #include "printf.h"
 #include "fat_filelib.h"
 #include "command.h"
-#include "mem.h"
+// #include "mem.h"
 #include "elf_exe.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
 // Function to parse command line arguments
 char** parse_command(char* cmd_line, int* argc) {
     // Allocate memory for the arguments array
-    char** argv = (char**)sys_allocate_memory(sizeof(char*) * 64);
+    char** argv = (char**)kmalloc(sizeof(char*) * 64);
+    if(argv == NULL)
+    {
+        printf("allocation error\n");
+        return NULL;
+    }
     if (!argv) {
         *argc = -1;
         return NULL;
@@ -29,7 +34,7 @@ char** parse_command(char* cmd_line, int* argc) {
                 arg_count++;
             } else {
                 // Allocate memory for the argument
-                argv[arg_count] = (char*)sys_allocate_memory(sizeof(char) * (closing_quote - token + 1));
+                argv[arg_count] = (char*)kmalloc(sizeof(char) * (closing_quote - token + 1));
                 if (!argv[arg_count]) {
                     // Memory allocation failed
                     *argc = -1;
@@ -44,7 +49,7 @@ char** parse_command(char* cmd_line, int* argc) {
             token = strtok(NULL, " ");
         } else {
             // Allocate memory for the argument
-            argv[arg_count] = (char*)sys_allocate_memory(sizeof(char) * (strlen(token) + 1));
+            argv[arg_count] = (char*)kmalloc(sizeof(char) * (strlen(token) + 1));
             if (!argv[arg_count]) {
                 // Memory allocation failed
                 *argc = -1;
@@ -65,9 +70,9 @@ char** parse_command(char* cmd_line, int* argc) {
 // Function to free memory allocated by the command parser
 void free_command(char** argv, int argc) {
     for (int i = 0; i < argc; i++) {
-        sys_free_memory(argv[i]);
+        kfree(argv[i]);
     }
-    sys_free_memory(argv);
+    kfree(argv);
 }
 
 void set_cwd(char *path) {

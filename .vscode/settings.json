@@ -62,6 +62,7 @@
         "mem_config.h": "c",
         "pmm.h": "c",
         "maths.h": "c",
-        "pagepmm.h": "c"
+        "pagepmm.h": "c",
+        "kheap.h": "c"
     }
 }

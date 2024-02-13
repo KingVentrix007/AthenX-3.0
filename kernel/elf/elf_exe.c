@@ -1,6 +1,7 @@
 #include <elf.h>
 #include "../include/fat_filelib.h"
-#include "mem.h"
+// #include "mem.h"
+#include "stdbool.h"
 #include "string.h"
 #include "../include/maths.h"
 #include "../include/exe.h"
@@ -264,7 +265,7 @@ void load_elf_file(const char* filename, int argc, char **argv) {
     long file_size = ftell(file);
     fseek(file, 0, SEEK_SET);
 
-    uint8_t* elf_data = (uint8_t*)sys_allocate_memory(file_size);
+    uint8_t* elf_data = (uint8_t*)kmalloc(file_size);
     if (elf_data == NULL) {
         printf("Malloc error in elf\n");
         // Handle memory allocation error.
@@ -280,8 +281,8 @@ void load_elf_file(const char* filename, int argc, char **argv) {
     //printf("HERE");
     // Now, you can parse the ELF data and load it into memory as described in the previous responses.
 
-    // Don't forget to sys_free_memory the allocated memory when you're done.
-    sys_free_memory(elf_data);
+    // Don't forget to kfree the allocated memory when you're done.
+    kfree(elf_data);
 }
 
 
@@ -324,7 +325,7 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 //     void* entry_point = (void*)elf_header.e_entry;
 
 //     // Allocate memory for the stack
-//     void* stack = sys_allocate_memory(STACK_SIZE);
+//     void* stack = kmalloc(STACK_SIZE);
 //     if (!stack) {
 //         perror("Failed to allocate stack memory");
 //         fclose(file);
@@ -340,7 +341,7 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 //     // Execute the ELF program (load it and start execution)
 
 //     // Free the allocated stack memory when it's no longer needed
-//     sys_free_memory(stack);
+//     kfree(stack);
 
 //     return 0;
 // }

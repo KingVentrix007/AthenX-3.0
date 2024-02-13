@@ -1,6 +1,6 @@
 #include "syscall.h"
 #include "printf.h"
-#include "mem.h"
+// #include "mem.h"
 #include "fat_filelib.h"
 int system_call_handler_c(int syscall_number, int param1, int param2)
 {
@@ -33,12 +33,12 @@ int system_call_handler_c(int syscall_number, int param1, int param2)
     }
     else if(syscall_number == SYS_ANON_ALLOCATE)
     {
-        void *ptr = sys_allocate_memory(param1);
+        void *ptr = kmalloc(param1);
         return ptr;
     }
     else if(syscall_number == SYS_ANON_FREE)
     {
-        sys_free_memory(param1);
+        kfree(param1);
     }
     else if(syscall_number == SYS_OPEN)
     {

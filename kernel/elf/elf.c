@@ -1,7 +1,7 @@
 #include "elf.h"
 #include "fat_filelib.h"
 #include "printf.h"
-#include "mem.h"
+// #include "mem.h"
 
 char* read_txt_section(const char* file_path) {
     FILE* file = fopen(file_path, "rb");
@@ -30,7 +30,7 @@ char* read_txt_section(const char* file_path) {
     fread(&shstrtab_header, sizeof(Elf64_Shdr), 1, file);
 
     // Read the section names
-    char* section_names = sys_allocate_memory(shstrtab_header.sh_size);
+    char* section_names = kmalloc(shstrtab_header.sh_size);
     fseek(file, shstrtab_header.sh_offset, SEEK_SET);
     fread(section_names, shstrtab_header.sh_size, 1, file);
 
@@ -52,7 +52,7 @@ char* read_txt_section(const char* file_path) {
     char* txt_section_contents = NULL;
 
     if (txt_section_found) {
-        txt_section_contents = sys_allocate_memory(txt_section_header.sh_size);
+        txt_section_contents = kmalloc(txt_section_header.sh_size);
         fseek(file, txt_section_header.sh_offset, SEEK_SET);
         fread(txt_section_contents, txt_section_header.sh_size, 1, file);
     } else {
@@ -60,7 +60,7 @@ char* read_txt_section(const char* file_path) {
     }
 
     // Clean up and close the file
-    sys_free_memory(section_names);
+    kfree(section_names);
     fclose(file);
 
     return txt_section_contents;

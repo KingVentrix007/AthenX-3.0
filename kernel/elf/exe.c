@@ -8,7 +8,7 @@
 #include "../include/kernel.h"
 // #include "../include/x86_reg.h"
 #include "printf.h"
-#include "mem.h"
+// #include "mem.h"
 #define MAX_ARRAY_SIZE 100
 char programs[MAX_ARRAY_SIZE][20];
 int num_programs = 0;
@@ -187,7 +187,7 @@ void load_exe_file(const char* filename, uint8_t* stack) {
     long file_size = ftell(file);
     fseek(file, 0, SEEK_SET);
 
-    uint8_t* exe_data = (uint8_t*)sys_allocate_memory(file_size);
+    uint8_t* exe_data = (uint8_t*)kmalloc(file_size);
     if (exe_data == NULL) {
         printf("Error: Memory allocation failed.\n");
         fclose(file);
@@ -200,7 +200,7 @@ void load_exe_file(const char* filename, uint8_t* stack) {
     // Check if the stack is 16-byte aligned
     if ((uintptr_t)stack % 16 != 0) {
         printf("Error: Stack is not 16-byte aligned.\n");
-        sys_free_memory(exe_data);
+        kfree(exe_data);
         return;
     }
 
@@ -213,5 +213,5 @@ void load_exe_file(const char* filename, uint8_t* stack) {
     run_exe(my_exe);
 
     // Free the allocated memory for the EXE data
-    sys_free_memory(exe_data);
+    kfree(exe_data);
 }
