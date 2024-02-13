@@ -16,3 +16,5 @@ obj/
 AthenX.bin
 isodir/boot/AthenX.bin
 AthenX.iso
+*.iso
+AthenX.*
