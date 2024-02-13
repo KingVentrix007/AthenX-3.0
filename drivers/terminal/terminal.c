@@ -21,6 +21,11 @@ int draw_vbe_char(char c)
 {
     if(c != '\n')
     {
+        if(terminal_postion_x > 1024-terminal_font_width)
+        {
+            terminal_postion_x=0;
+            terminal_postion_y = terminal_postion_y + terminal_font_height;
+        }
         draw_char_8x16(terminal_postion_x, terminal_postion_y, c);
         terminal_postion_x+=terminal_font_width;
     }

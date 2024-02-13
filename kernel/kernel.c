@@ -26,6 +26,9 @@
 #include "pmm.h"
 #include "kheap.h"
 #include "stdbool.h"
+#include "elf.h"
+#include "elf_exe.h"
+#include "exe.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -214,6 +217,10 @@ void kmain(unsigned long magic, unsigned long addr)
     // strcpy(string, "hello world");
     // printf("%s\n",string);
     // Initialize timer
+    char *file_path = "/init/programs.elf";
+    int argc = 3;
+    char **argv = {"program_name", "arg1", "arg2", NULL};
+    load_elf_file(file_path,argc,argv);
     timer_init();
     
     // Initialize keyboard

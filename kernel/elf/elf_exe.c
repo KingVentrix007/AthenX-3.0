@@ -12,6 +12,7 @@
 // #include "../include/x86_reg.h"
 #include "printf.h"
 #include "vmm.h"
+#include "kheap.h"
 // #include "../include/sys_handler.h"
 #define PT_GNU_STACK	(PT_LOOS + 0x474e551)
 addr original_esp;
@@ -59,29 +60,33 @@ struct elf_exe executable_file;
  *   [Description of the return value, if applicable]
  */
 void run_elf(struct elf_exe elf, int myArgc,char* myArgv[]) {
+    //printf("Running elf\n");
     // Define a stack aligned to 16 bytes
-    uint8_t stack = process_stack[8192];
-    
-    memset(stack, 0, sizeof(stack));
+    uint8_t stack = process_stack;
+    //printf("Initializing Stack\n");
+    memset(stack, 0, 8192);
+   
     // Set up the stack pointer (ESP) to point to the top of the stack
     asm volatile (
         "mov %0, %%esp" // Set the stack pointer
         :
         : "r"(&stack)
     );
-
+    //  //printf("Initialzed stack\n");
     // Define the entry pointer as a function
+    
     void (*elf_entry)(int, char **) = (void (*)(int, char **))(elf.elf_start); // Assuming ELF entry point is at offset 0
-
+    //printf("Calling elf_entry point\n");
     // Call the ELF entry point function with the arguments
     elf_entry(myArgc, myArgv);
+    //printf("Execution completed\n");
     int ret = 0;
     asm volatile(
         "movl %%eax, %0" // mov the top value from the stack and store it in ret
         : "=r" (ret) // Output operand
     );
     
-    printf("\nComplete ELF execution with exit code %d\n",ret);
+    //printf("\nComplete ELF execution with exit code %d\n",ret);
     // Restore the stack pointer (ESP)
     asm volatile (
         "mov %0, %%esp"
@@ -153,18 +158,18 @@ int is_kernel_memory_overlap(Elf32_Phdr* segment) {
 
     // Calculate the load address based on ELF_LOAD_OFFSET
     uint8_t* load_address = (uint8_t*)((uint32_t)&__kernel_section_end + ELF_LOAD_OFFSET);
-    //printf("load->%p\n",load_address);
+    ////printf("load->%p\n",load_address);
     // Check for overlap with kernel memory region
     uint8_t* kernel_start = &__kernel_section_start;
     uint8_t* kernel_end = &__kernel_section_end;
 
     if (segment_start < (uint32_t)kernel_end && segment_end > (uint32_t)kernel_start) {
         // Handle overlap error (e.g., reject the load)
-        printf("Error: ELF segment overlaps with kernel memory\n");
-        printf("Segment Start: %p\n", (void*)segment_start);
-        printf("Segment End: %p\n", (void*)segment_end);
-        printf("Kernel Start: %p\n", (void*)kernel_start);
-        printf("Kernel End: %p\n", (void*)kernel_end);
+        //printf("Error: ELF segment overlaps with kernel memory\n");
+        //printf("Segment Start: %p\n", (void*)segment_start);
+        //printf("Segment End: %p\n", (void*)segment_end);
+        //printf("Kernel Start: %p\n", (void*)kernel_start);
+        //printf("Kernel End: %p\n", (void*)kernel_end);
         return 1;  // Overlap detected
     }
 
@@ -177,7 +182,7 @@ void switch_to_user_mode(UserProcessContext *user_context, KernelContext *kernel
         "movl %%esp, %0"
         : "=r" (kernel_context->esp)
     );
-     printf("here");
+     //printf("here");
     // Load the user process context
     asm volatile (
         "mov %0, %%esp \n"  // Load ESP
@@ -186,7 +191,7 @@ void switch_to_user_mode(UserProcessContext *user_context, KernelContext *kernel
         :
         : "r" (user_context->esp), "r" (user_context->eip)
     );
-    printf("\nhere2");
+    //printf("\nhere2");
     // Restore the kernel context
     asm volatile (
         "mov %0, %%esp"
@@ -196,54 +201,190 @@ void switch_to_user_mode(UserProcessContext *user_context, KernelContext *kernel
 }
 // Function to load and execute an ELF executable
 void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
+    //printf("Loading ELF executable here\n");
+    //printf("Address of fuction == 0x%08x\n", &load_elf_executable);
     Elf32_Ehdr* elf_header = (Elf32_Ehdr*)elf_data;
 
     // Verify ELF magic number.
     if (memcmp(elf_header->e_ident, ELFMAG, SELFMAG) != 0) {
-        printf("Not an ELF file\n");
+        //printf("Not an ELF file\n");
         return;
     }
-
+    //printf("Iterating over program headers %u\n",elf_header->e_phnum);
     // Iterate through program headers and load loadable segments.
     for (int i = 0; i < elf_header->e_phnum; i++) {
         Elf32_Phdr* program_header = (Elf32_Phdr*)(elf_data + elf_header->e_phoff + i * elf_header->e_phentsize);
 
         if (program_header->p_type == PT_LOAD) {
-            // Allocate virtual memory for the segment
-            void* virtual_address = sys_allocate_virtual_memory(program_header->p_vaddr, program_header->p_memsz, program_header->p_flags);
-            if (!virtual_address) {
-                printf("Failed to allocate virtual memory\n");
+            //printf("FOUND elf header of type PT_LOAD\n");
+            uint32_t *region = kmalloc(program_header->p_filesz);
+            if (region == NULL) {
+                //printf("Failed to allocate memory for program header of type PT_LOAD\n");
                 return;
             }
-
-            // Copy segment data to the virtual memory
-            memcpy(virtual_address, elf_data + program_header->p_offset, program_header->p_filesz);
-
-            // Zero-fill any remaining memory in the segment
-            memset((uint8_t*)virtual_address + program_header->p_filesz, 0, program_header->p_memsz - program_header->p_filesz);
-
-            // Update page tables to map the virtual memory pages to physical memory addresses
-            for (size_t offset = 0; offset < program_header->p_memsz; offset += PAGE_SIZE) {
-                uint32_t page_va = program_header->p_vaddr + offset;
-                uint32_t page_pa = (uint32_t)virtual_address + offset;
-                map(page_va, page_pa, program_header->p_flags);
+            //printf("allocation complete\n");
+            // Calculate the number of pages needed
+           
+            // if(memcmp(program_header->p_vaddr,&load_elf_executable,10)==0)
+            // {
+            //     //printf("GOT YA\n");
+            // }
+            //printf("Calculating number of pages needed\n");
+            // Copy segment data into memory, taking alignment into account
+            // //printf("Address of segment to load == 0x%08X\n",program_header->p_vaddr-page_offset);
+            
+             size_t num_pages = program_header->p_memsz / PAGE_SIZE;
+            if (program_header->p_memsz % PAGE_SIZE != 0) {
+                num_pages++; // Increment if there's a partial page
             }
+
+            // Align the page virtual address according to the alignment specified in the ELF header
+            uint32_t page_va = program_header->p_vaddr;
+            uint32_t page_offset = program_header->p_vaddr & (program_header->p_align - 1);
+
+            // Map each page individually
+            for (size_t i = 0; i < num_pages; i++) {
+                //printf("Mapping page %zu at virtual address 0x%08X\n", i, page_va);
+                map(page_va, region, PAGE_WRITE|PAGE_PRESENT);
+
+                page_va += PAGE_SIZE;
+                region += PAGE_SIZE;
+            }
+            // //printf("Copying segment of size %u into memory at offset 0x%08X with alignment %u\n", program_header->p_filesz, program_header->p_vaddr, program_header->p_align);
+            memcpy((void *)program_header->p_vaddr, elf_data + program_header->p_offset, program_header->p_filesz);
+            // //printf("memset extra space\n");
+            // Zero-fill any remaining memory in the segment
+            memset((void *)(program_header->p_vaddr) + program_header->p_filesz, 0, program_header->p_memsz - program_header->p_filesz);
         }
     }
+    //printf("Iterated over headers\n");
     struct elf_exe my_elf;
     my_elf.elf_start = (uint32_t*)(elf_header->e_entry);
-    // my_elf.stack_size = stack_size;
-    // if (stack_size > 0) {
-    //     printf("Stack size: %zu bytes\n", stack_size);
-    // } else {
-    //     printf("\n");
-    //     // printf("No stack size information found in the ELF header\n");
-    // }
-    run_elf(my_elf,myArgc,myArgv);
-
-    return 0;
+    //printf("Preparing to run elf program\n");
+    // run_elf(my_elf, myArgc, myArgv);
+    //printf("Running elf\n");
+    // Define a stack aligned to 16 bytes
+    uint8_t stack = process_stack;
+    //printf("Initializing Stack\n");
+    memset(stack, 0, 8192);
+   
+    // Set up the stack pointer (ESP) to point to the top of the stack
+    asm volatile (
+        "mov %0, %%esp" // Set the stack pointer
+        :
+        : "r"(&stack)
+    );
+    //  //printf("Initialzed stack\n");
+    // Define the entry pointer as a function
+    //printf("Entry pointer == %p\n",elf_header->e_entry);
+    void (*elf_entry)(int, char **) = (void (*)(int, char **))(elf_header->e_entry); // Assuming ELF entry point is at offset 0
+    //printf("Calling elf_entry point\n");
+    // Call the ELF entry point function with the arguments
+    elf_entry(myArgc, myArgv);
+    //printf("Execution completed\n");
+    int ret = 0;
+    asm volatile(
+        "movl %%eax, %0" // mov the top value from the stack and store it in ret
+        : "=r" (ret) // Output operand
+    );
     
+    //printf("\nComplete ELF execution with exit code %d\n",ret);
+    // Restore the stack pointer (ESP)
+    asm volatile (
+        "mov %0, %%esp"
+        :
+        : "r"(&stack)
+    );
+    // deallocate_untracked_memory();
+
+    return 0; // This line should be removed since the return type of the function is void
 }
+// void load_elf_executable(uint8_t* elf_data,int myArgc,char **myArgv) {
+//     // //printf("ARR = %s\n",myArgv[1]);
+//     // FUNC_ADDR_NAME(&load_elf_executable,1,"u");
+//     // Verify ELF magic number.
+//     size_t stack_size = 0;
+//     Elf32_Ehdr* elf_header = (Elf32_Ehdr*)elf_data;
+    
+//     if (elf_header->e_ident[EI_MAG0] != ELFMAG0 ||
+//         elf_header->e_ident[EI_MAG1] != ELFMAG1 ||
+//         elf_header->e_ident[EI_MAG2] != ELFMAG2 ||
+//         elf_header->e_ident[EI_MAG3] != ELFMAG3) {
+//         // Invalid ELF format.
+//         // Handle error.
+//         return;
+//     }
+    
+//     // Read program headers.
+//     Elf32_Phdr* program_headers = (Elf32_Phdr*)(elf_data + elf_header->e_phoff);
+  
+  
+//     // bool over = check_overlap(__kernel_section_start,__kernel_section_end,elf_header);
+//     // if(over)
+//     // {
+//     //     //printf("Overlap detected\n");
+//     //     return -1;
+//     // }
+//     // else
+//     // {
+//     //     // //printf("Continuing execution\n");
+//     // }
+//     // Iterate through program headers and load loadable segments.
+//     for (int i = 0; i < elf_header->e_phnum; i++) {
+//         if (program_headers[i].p_type == PT_LOAD) {
+//             // Calculate the load address by adding p_vaddr to __kernel_section_end
+//             uint8_t* load_address = (uint8_t*)(uint32_t)(program_headers[i].p_vaddr);
+//             uint32_t *physical_address = kmalloc(program_headers[i].p_filesz);
+//             size_t num_pages = program_headers[i].p_memsz / PAGE_SIZE;
+//             if (program_headers[i].p_memsz % PAGE_SIZE != 0) 
+//             {
+//                 num_pages++; // Increment if there's a partial page
+//             }
+
+//            for (size_t i = 0; i < num_pages; i++) 
+//             {
+//                 // Calculate the virtual address for this page
+//                 uint32_t page_va = program_headers[i].p_vaddr + i * PAGE_SIZE;
+//                 // Calculate the offset within the region for this page
+//                 size_t page_offset = i * PAGE_SIZE;
+//                 // Calculate the size of this page
+//                 size_t page_size = (program_headers[i].p_memsz - page_offset) < PAGE_SIZE ? 
+//                                 (program_headers[i].p_memsz - page_offset) : PAGE_SIZE;
+//                 // Map this page
+//                 map(page_va, physical_address + page_offset, program_headers[i].p_flags);
+//             }
+//             // Allocate memory and copy segment data.
+//             uint8_t* file_data = elf_data + program_headers[i].p_offset;
+//             uint32_t file_size = program_headers[i].p_filesz;
+
+//             // Zero-fill any padding.
+//             for (uint32_t j = program_headers[i].p_filesz; j < program_headers[i].p_memsz; j++) {
+//                 load_address[j] = 0;
+//             }
+
+//             // Copy data.
+//             memcpy(load_address, file_data, file_size);
+//         }
+//         if (program_headers[i].p_type == PT_GNU_STACK) {
+//             stack_size = program_headers[i].p_memsz;
+//             break;
+//         }
+//     }
+//      struct elf_exe my_elf;
+//     my_elf.elf_start = (uint32_t*)(elf_header->e_entry);
+//     my_elf.stack_size = stack_size;
+//     if (stack_size > 0) {
+//         //printf("Stack size: %zu bytes\n", stack_size);
+//     } else {
+//         //printf("\n");
+//         // //printf("No stack size information found in the ELF header\n");
+//     }
+//     //printf("\n----------------------------------------------------------------\n");
+//     run_elf(my_elf,myArgc,myArgv);
+
+//     return 0;
+    
+// }
 void exit_elf(KernelContext* location)
 {
      asm volatile (
@@ -254,9 +395,10 @@ void exit_elf(KernelContext* location)
     // terminal_main();
 }
 void load_elf_file(const char* filename, int argc, char **argv) {
-    printf("AR = %s\n",argv[1]);
+    // //printf("AR = %s\n",argv[1]);
     FILE* file = fopen(filename, "rb");
     if (file == NULL) {
+        //printf("Failed to open file %s\n",filename);
         // Handle file opening error.
         return;
     }
@@ -264,21 +406,22 @@ void load_elf_file(const char* filename, int argc, char **argv) {
     fl_fseek(file, 0, SEEK_END);
     long file_size = ftell(file);
     fseek(file, 0, SEEK_SET);
-
+    //printf("Allocating memory for elf file of size %lu bytes\n", file_size);
     uint8_t* elf_data = (uint8_t*)kmalloc(file_size);
     if (elf_data == NULL) {
-        printf("Malloc error in elf\n");
+        //printf("Malloc error in elf\n");
         // Handle memory allocation error.
         fclose(file);
         return;
     }
-    //printf("%d\n",__LINE__);
+    ////printf("%d\n",__LINE__);
     fread(elf_data, sizeof(uint8_t), file_size, file);
     fclose(file);
-    //printf("%d\n",__LINE__);
+    ////printf("%d\n",__LINE__);
+    
     load_elf_executable(elf_data,argc, argv);
-    // printf("Exited to prime\n");
-    //printf("HERE");
+    // //printf("Exited to prime\n");
+    ////printf("HERE");
     // Now, you can parse the ELF data and load it into memory as described in the previous responses.
 
     // Don't forget to kfree the allocated memory when you're done.
@@ -316,7 +459,7 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 
 //     // Check if it's an ELF file (verify the magic number)
 //     if (memcmp(elf_header.e_ident, ELFMAG, SELFMAG) != 0) {
-//         printf("Not an ELF file\n");
+//         //printf("Not an ELF file\n");
 //         fclose(file);
 //         return 1;
 //     }

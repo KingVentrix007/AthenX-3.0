@@ -1,7 +1,7 @@
 ENTRY(main)
 
 SECTIONS {
-    . = 0x100000; /* Start address of program memory */
+    . = 0x900000; /* Start address of program memory */
     
     .text : {
         *(.text)   /* .text sections (code) */

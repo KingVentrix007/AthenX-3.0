@@ -58,7 +58,7 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 # Run the OS in QEMU
 run: AthenX.bin
 	bash ./scripts/boot32.sh
-	qemu-system-i386 AthenX.img -m 4G -serial stdio
+	qemu-system-i386 AthenX.img -m 4G -serial stdio -no-reboot -no-shutdown
 
 # Run the OS in QEMU without debugging output
 runt:
