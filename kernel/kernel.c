@@ -29,9 +29,12 @@
 #include "elf.h"
 #include "elf_exe.h"
 #include "exe.h"
+#include "cursor.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
+int generate_random_number();
+static int generate_random_number_asm();
 void Process(void)
 {
     char ch = pch ++;
@@ -52,8 +55,7 @@ void loop_timer(int input)
     
     while(1)
     {
-        // sleep(1);
-        // printf("Hello from the loop");
+        update_cursor();
     }
 }
 KERNEL_MEMORY_MAP g_kmap;
@@ -220,12 +222,14 @@ void kmain(unsigned long magic, unsigned long addr)
     char *file_path = "/init/programs.elf";
     int argc = 3;
     char **argv = {"program_name", "arg1", "arg2", NULL};
+    // int rand = generate_random_number();
+    // printf("Random number generator output = %d\n",rand);
     // load_elf_file(file_path,argc,argv);
     timer_init();
     
     // Initialize keyboard
     keyboard_init();
-    
+    update_cursor_manual();
     // Print message
     // printf("Here\n");
     
@@ -235,7 +239,9 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // Create command line process
     CreateProcess(command_line);
-    execute_file(file_path,argc,argv);
+    // CreateProcess(update_cursor);
+
+    // execute_file(file_path,argc,argv);
     // Create loop timer process
     CreateProcess(loop_timer);
     
@@ -299,4 +305,18 @@ void loop(void)
     //     printf("l\n");
     // }
     TerminateProcess();
+}
+static int generate_random_number_asm() {
+    int result;
+    // Execute RDRAND instruction
+    asm volatile("rdrand %0" : "=r" (result));
+    return result;
+}
+
+int generate_random_number() {
+    int random_number;
+    do {
+        random_number = generate_random_number_asm();
+    } while (random_number == 0); // Retry if RDRAND returns 0 (failure)
+    return random_number;
 }

@@ -16,7 +16,14 @@ int init_terminal(int x, int y)
     terminal_font_width = 8;
     terminal_font_height = 16;
 }
-
+int get_terminal_postion_x(void)
+{
+    return terminal_postion_x;
+}
+int get_terminal_postion_y(void)
+{
+    return terminal_postion_y;
+}
 int draw_vbe_char(char c)
 {
     if(c != '\n')
@@ -46,6 +53,7 @@ int draw_vbe_char(char c)
         }
         
     }
+    update_cursor_manual();
     
     
 

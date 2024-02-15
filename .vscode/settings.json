@@ -74,6 +74,7 @@
         "ctype.h": "c",
         "cctype": "c",
         "io.h": "c",
-        "keyboard.h": "c"
+        "keyboard.h": "c",
+        "cursor.h": "c"
     }
 }
