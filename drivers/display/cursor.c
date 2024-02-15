@@ -10,7 +10,7 @@ void undraw_cursor(int sx, int sy);
 void draw_cursor(int sx, int sy);
 void draw_cursor(int sx, int sy)
 {
-    write_to_com1_string("Draw\n");
+    // write_to_com1_string("Draw\n");
     // printf("Drawing cursor\n");
     for (size_t x = 0; x < 8; x++)
     {
@@ -24,7 +24,7 @@ void draw_cursor(int sx, int sy)
 }
 void undraw_cursor(int sx, int sy)
 {
-    write_to_com1_string("Undraw\n");
+    // write_to_com1_string("Undraw\n");
      for (size_t x = 0; x < 8; x++)
     {
         for (size_t y = 0; y < 16; y++)
@@ -45,7 +45,7 @@ void update_cursor(void)
         cursor_visible = 0;
         // cursor_counter = 0
         // printf("%d\n",get_terminal_postion_x());
-        int x = get_terminal_postion_x()+8;
+        int x = get_terminal_postion_x();
         int y = get_terminal_postion_y();
         draw_cursor(x,y);
     }
@@ -53,7 +53,7 @@ void update_cursor(void)
     {
         cursor_counter = 0;
         cursor_visible = 1;
-        int x = get_terminal_postion_x()+8;
+        int x = get_terminal_postion_x();
         int y = get_terminal_postion_y();
         undraw_cursor(x,y);
     }
@@ -67,7 +67,7 @@ void update_cursor_manual(void)
 {
         // cursor_visible = 1;
         undraw_cursor(get_terminal_postion_x(),get_terminal_postion_y());
-        cursor_counter = 0;
+        // cursor_counter = 0;
     // if(cursor_visible == 1)
     // {
     //     //

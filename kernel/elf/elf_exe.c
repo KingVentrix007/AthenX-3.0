@@ -510,6 +510,8 @@ void internal_run_exe()
     lock_kb_input(127);
     load_elf_file(global_file_path,global_argc,global_argv);
     unlock_kb_input();
+    global_argc = 0;
+    
     TerminateProcess();
 
 }

@@ -75,6 +75,8 @@
         "cctype": "c",
         "io.h": "c",
         "keyboard.h": "c",
-        "cursor.h": "c"
+        "cursor.h": "c",
+        "fat_string.h": "c",
+        "elf_exe.h": "c"
     }
 }

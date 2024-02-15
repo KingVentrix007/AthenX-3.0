@@ -215,13 +215,14 @@ void kmain(unsigned long magic, unsigned long addr)
     {
         printf("Overlap detected\n");
     }
+
     // char *string = kmalloc(1024);
     // strcpy(string, "hello world");
     // printf("%s\n",string);
     // Initialize timer
-    char *file_path = "/init/programs.elf";
-    int argc = 3;
-    char **argv = {"program_name", "arg1", "arg2", NULL};
+    // char *file_path = "/init/programs.elf";
+    // int argc = 3;
+    // char **argv = {"program_name", "arg1", "arg2", NULL};
     // int rand = generate_random_number();
     // printf("Random number generator output = %d\n",rand);
     // load_elf_file(file_path,argc,argv);
@@ -229,7 +230,7 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // Initialize keyboard
     keyboard_init();
-    update_cursor_manual();
+    // update_cursor_manual();
     // Print message
     // printf("Here\n");
     

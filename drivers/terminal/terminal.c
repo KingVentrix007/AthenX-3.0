@@ -26,18 +26,20 @@ int get_terminal_postion_y(void)
 }
 int draw_vbe_char(char c)
 {
-    if(c != '\n')
+    if(c != '\n' && c != '\b')
     {
         if(terminal_postion_x > 1024-terminal_font_width)
         {
             terminal_postion_x=0;
             terminal_postion_y = terminal_postion_y + terminal_font_height;
         }
+        update_cursor_manual();
         draw_char_8x16(terminal_postion_x, terminal_postion_y, c);
         terminal_postion_x+=terminal_font_width;
     }
     else if(c == '\n')
     {
+        update_cursor_manual();
         if(terminal_postion_y >= 768-(terminal_font_height*2))
         {
             vesa_scroll(terminal_font_height*2);
@@ -52,8 +54,21 @@ int draw_vbe_char(char c)
             terminal_postion_y+=terminal_font_height;
         }
         
+        
     }
-    update_cursor_manual();
+    else if (c == '\b')
+    {
+        if(terminal_postion_x > 1024-terminal_font_width)
+        {
+            terminal_postion_x=0;
+            terminal_postion_y = terminal_postion_y + terminal_font_height;
+        }
+        update_cursor_manual();
+        draw_char_8x16(terminal_postion_x, terminal_postion_y, ' ');
+        terminal_postion_x-=terminal_font_width;
+    }
+    
+    
     
     
 

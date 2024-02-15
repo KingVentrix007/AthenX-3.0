@@ -42,6 +42,7 @@
 #include "../include/fat_format.h"
 #include <stddef.h>
 #include "stdint.h"
+#include "stdbool.h"
 //-----------------------------------------------------------------------------
 // Locals
 //-----------------------------------------------------------------------------
@@ -1475,6 +1476,7 @@ int fl_createdirectory(const char *path)
 // fl_listdirectory: List a directory based on a path
 //-----------------------------------------------------------------------------
 #if FATFS_DIR_LIST_SUPPORT
+bool fl_ouput = true;
 void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *dir_count, int *file_count)
 {
     FL_DIR dirstat;
@@ -1483,8 +1485,11 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
     CHECK_FL_INIT();
 
     FL_LOCK(&_fs);
-
-    FAT_PRINTF(("\r\nDirectory %s\r\n", path));
+    if(fl_ouput == true)
+    {
+        FAT_PRINTF(("\r\nDirectory %s\r\n", path));
+    }
+    
 
     if (fl_opendir(path, &dirstat))
     {
@@ -1502,7 +1507,11 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
                     dirs[*dir_count].name[sizeof(dirs[*dir_count].name) - 1] = '\0'; // Ensure null-terminated
                     (*dir_count)++;
                 }
-                FAT_PRINTF(("-  %s <DIR>\n", dirent.filename));
+                if(fl_ouput == true)
+                {
+                    FAT_PRINTF(("-  %s <DIR>\n", dirent.filename));
+                }
+                
             }
             else
             {
@@ -1512,7 +1521,11 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
                     files[*file_count].name[sizeof(files[*file_count].name) - 1] = '\0'; // Ensure null-terminated
                     (*file_count)++;
                 }
-                FAT_PRINTF(("-  %s [%d bytes]\n", dirent.filename, dirent.size));
+                if(fl_ouput == true)
+                {
+                    FAT_PRINTF(("-  %s [%d bytes]\n", dirent.filename, dirent.size));
+                }   
+                
             }
         }
 
@@ -1520,6 +1533,15 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
     }
 
     FL_UNLOCK(&_fs);
+}
+
+int fl_output_enable()
+{
+    fl_ouput = true;
+}
+int fl_output_disable()
+{
+    fl_ouput = false;
 }
 #endif
 //-----------------------------------------------------------------------------

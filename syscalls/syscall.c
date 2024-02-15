@@ -90,6 +90,16 @@ int system_call_handler_c(int syscall_number, int param1, int param2)
     else if (syscall_number == SYS_GETS)
     {
         char *buffer = kmalloc(param1);
+        char c;
+        while (c != '\n')
+        {
+            c = get_char(127);
+            if(c != '\b')
+            {
+                
+            }
+        }
+        
         // for (size_t i = 0; i < param1; i++)
         // {
         //     buffer

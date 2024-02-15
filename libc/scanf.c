@@ -12,8 +12,19 @@ int fill_buffer(char *buffer) {
     int c;
     int index = 0;
     while ((c = getchar()) != '\n' && c != EOF && index < BUFFER_SIZE - 1) {
-        printf("%c",c);
-        buffer[index++] = (char)c;
+        if(c != '\b')
+        {
+            printf("%c",c);
+            buffer[index++] = (char)c;
+        }
+        else if (c == '\b')
+        {
+            printf("\b");
+            buffer[index] = '\0';
+            index--;
+        }
+        
+        
     }
     buffer[index] = '\0'; // Null-terminate the string
     return index; // Return the number of characters read

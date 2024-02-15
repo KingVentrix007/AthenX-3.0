@@ -4,7 +4,7 @@
 #include "fat_filelib.h"
 #include "command.h"
 // #include "mem.h"
-#include "elf_exe.h"
+#include "exe.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
 // Function to parse command line arguments
@@ -130,8 +130,62 @@ int cmd(char *command)
     }
     else if (strcmp(argv[0],"exe") == 0)
     {
-         load_elf_file("/test/test.elf", argc, argv);
+        //  load_elf_file("/test/test.elf", argc, argv);
     }
+    else
+    {
+        int num_dir;
+        int num_files;
+        Entry files[MAX];
+        Entry dirs[MAX];
+        
+        // fl_output_disable();
+      
+        // fl_listdirectory("/", dirs, files, &num_dir, &num_files);
+        // // fl_output_enable();
+        char program_name[MAX];
+        memset(program_name,0,sizeof(program_name));
+        strcat(program_name,argv[0]);
+        
+        strcat(program_name,".elf");
+        char path[100] = "/bin/";
+        char tmp[100];
+        memset(tmp,0,sizeof(tmp));
+        strcat(tmp,path);
+        strcat(tmp,program_name);
+        FILE *f = fl_fopen(tmp,"r");
+        printf("tmp = %s\n",tmp);
+
+        if(f == NULL)
+        {
+            printf("Command %s not recognized\n",argv[0]);
+        }
+        else
+        {
+            fclose(f);
+            int argc = 3;
+            char **argv = {"program_name", "arg1", "arg2", NULL};
+            execute_file(tmp,argc,argv);
+            memset(tmp,0,sizeof(tmp));
+        }
+        
+        // printf("Program name: %s\n",program_name);
+        // for (size_t i = 0; i < num_files; i++)
+        // {
+        //     printf("Program file %s\n",files[i].name);
+        //     if(strcmp(files[i].name, program_name) == 0)
+        //     {
+        //         printf("Running program %s\n", program_name);
+        //          free_command(argv, argc);
+        //         break;
+        //     }
+        // }
+        // printf("Command %s not recognized\n", argv[0]);
+        return -1;
+        
+
+    }
+
     free_command(argv, argc);
 
     return 0;
