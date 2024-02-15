@@ -14,6 +14,7 @@
 #include "vmm.h"
 #include "kheap.h"
 #include "scheduler.h"
+#include "keyboard.h"
 void internal_run_exe();
 // #include "../include/sys_handler.h"
 #define PT_GNU_STACK	(PT_LOOS + 0x474e551)
@@ -506,7 +507,9 @@ int execute_file(const char *path,int argc, char **argv)
 
 void internal_run_exe()
 {
+    lock_kb_input(127);
     load_elf_file(global_file_path,global_argc,global_argv);
+    unlock_kb_input();
     TerminateProcess();
 
 }

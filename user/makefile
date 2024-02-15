@@ -1,6 +1,6 @@
 # Define the compiler and flags
 CC = i686-elf-gcc
-CFLAGS = -m32 -std=gnu99 -ffreestanding -DATHENX_LIBC -O2 -O0 -nostdlib -Ilibc/include -g
+CFLAGS = -m32 -std=gnu99 -ffreestanding -DATHENX_LIBC -O2 -O0 -nostdlib -I./../include/ -I../libc/include -Ilibc/include -g
 LDFLAGS = -T linker.ld -Ilibc/include
 LIBS = libc/libc.a
 

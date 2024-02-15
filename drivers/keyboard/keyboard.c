@@ -181,6 +181,39 @@ char* kb_getchar_w() {
     //printf("CX");
     return c;
 }
+// Define a variable to store the ID of the process that currently holds the IO lock
+int current_caller_process_id = 0;
+
+// Function to get a character from the keyboard input, respecting the lock
+char get_char(int caller_process_id)
+{
+    // Check if the caller's process ID matches the one holding the lock
+    if (caller_process_id == current_caller_process_id)
+    {
+        // If the IDs match, allow the caller to read from the keyboard
+        return kb_getchar_w();
+    }
+    else
+    {
+        // If the IDs don't match, return null character to indicate no input
+        return '\0';
+    }
+}
+
+// Function to acquire the keyboard input lock
+void lock_kb_input(int caller_process_id)
+{
+    // Set the current caller process ID to the one requesting the lock
+    current_caller_process_id = caller_process_id;
+}
+
+// Function to release the keyboard input lock
+void unlock_kb_input()
+{
+    // Reset the current caller process ID to indicate that the lock is released
+    current_caller_process_id = 0;
+}
+
 void keyboard_init() {
     printf("registering keyboard\n");
     isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler);

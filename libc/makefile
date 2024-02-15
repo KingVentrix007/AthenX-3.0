@@ -1,5 +1,5 @@
 CC = i686-elf-gcc
-CFLAGS = -m32 -nostdlib -nostartfiles -nodefaultlibs -ffreestanding -Iinclude
+CFLAGS = -m32 -nostdlib -nostartfiles -nodefaultlibs -ffreestanding -I./../include/ -I./include/ 
 
 SRC_DIR = ./
 BUILD_DIR = obj

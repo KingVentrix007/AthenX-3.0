@@ -54,11 +54,12 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 	cp AthenX.bin isodir/boot/AthenX.bin
 	cp grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o AthenX.iso isodir
+	(cd libc  && make )
+	(cd user && make)
 
 # Run the OS in QEMU
 run: AthenX.bin
-	(cd libc  && make )
-	(cd user && make)
+	
 	bash ./scripts/boot32.sh
 	qemu-system-i386 AthenX.img -m 4G -serial stdio -no-reboot -no-shutdown
 
@@ -66,6 +67,14 @@ run: AthenX.bin
 runt:
 	qemu-system-i386 AthenX.img -m 4G
 
+libc:
+	(cd libc  && make )
+
+user:
+	(cd user && make)
+
 # Clean up generated files
 clean:
 	rm -rf $(OUT_DIR)/*.bin $(OUT_DIR)/*.map $(OUT_DIR)/*.img $(OBJ_DIR)/* AthenX.iso AthenX.bin libc/libc.a
+
+.PHONY: user libc

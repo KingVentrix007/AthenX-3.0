@@ -3,7 +3,7 @@
 
 #include "types.h"
 #include "scheduler.h"
-#include "stdint.h"
+#include "stdint-gcc.h"
 typedef struct {
     int process_id;
     uint32 ds;

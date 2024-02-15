@@ -1,0 +1,25 @@
+{
+    "configurations": [
+      {
+        "name": "Config",
+        "includePath": [
+          "${workspaceFolder}/**", // Include all files in the workspace
+          "/home/king/OsDev/basekernel/cross/lib/gcc/i686-elf/8.2.0",// Add your custom path to headers here
+          "${workspaceFolder}/libc/include",
+          "${workspaceFolder}/include"
+        ],
+        "defines": [],
+        "intelliSenseMode": "gcc-x64",
+        "compilerPath": "/home/king/OsDev/basekernel/cross/bin/i686-elf-gcc",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "browse": {
+        "path": ["/home/king/OsDev/basekernel/cross/lib/gcc/i686-elf/8.2.0", "${workspaceFolder}/**","${workspaceFolder}"],
+          "limitSymbolsToIncludedHeaders": true,
+          "databaseFilename": ""
+        }
+      }
+    ],
+    "version": 4
+  }
+  

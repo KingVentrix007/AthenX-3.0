@@ -103,5 +103,40 @@ char* kb_getchar_w();
 char* kb_getchar();
 // a blocking scan code read
 char kb_get_scancode();
+/**
+ * Function Name: get_char
+ * Description: Gets a character from the keyboard input, respecting the lock.
+ *
+ * Parameters:
+ *   caller_process_id (int) - The ID of the process requesting the character.
+ *
+ * Return:
+ *   char - The character read from the keyboard input if the caller has the lock,
+ *          or '\0' if the caller does not have the lock.
+ */
+char get_char(int caller_process_id);
 
+/**
+ * Function Name: lock_kb_input
+ * Description: Acquires the keyboard input lock.
+ *
+ * Parameters:
+ *   caller_process_id (int) - The ID of the process requesting the lock.
+ *
+ * Return:
+ *   void
+ */
+void lock_kb_input(int caller_process_id);
+
+/**
+ * Function Name: unlock_kb_input
+ * Description: Releases the keyboard input lock.
+ *
+ * Parameters:
+ *   None
+ *
+ * Return:
+ *   void
+ */
+void unlock_kb_input();
 #endif

@@ -256,7 +256,7 @@ void command_line(void)
     while(1)
     {
         // printf("c");
-        char chr = (char)kb_getchar_w();
+        char chr = (char)get_char(0);
         // printf("next");
         if(chr == '\0')
         {

@@ -1,5 +1,6 @@
 #include "syscall.h"
 #include "printf.h"
+#include "keyboard.h"
 // #include "mem.h"
 #include "fat_filelib.h"
 int system_call_handler_c(int syscall_number, int param1, int param2)
@@ -43,10 +44,14 @@ int system_call_handler_c(int syscall_number, int param1, int param2)
     else if(syscall_number == SYS_OPEN)
     {
         FILE *file = fl_fopen(param1, param2);
+        return file;
     }
     else if(syscall_number == SYS_READ)
     {
-        // Handle READ syscall
+        char *buffer = kmalloc(get_file_size(param2));
+        // fl_fread(buffer,param1,param2);
+        return buffer;
+        
     }
     else if(syscall_number == SYS_SEEK)
     {
@@ -76,6 +81,11 @@ int system_call_handler_c(int syscall_number, int param1, int param2)
     else if (syscall_number == SYS_PUTS)
     {
         printf("%c",param1);
+    }
+    else if (syscall_number == SYS_GETC)
+    {
+        
+        return get_char(127);
     }
     
 }
