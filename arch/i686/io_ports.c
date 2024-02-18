@@ -1,5 +1,6 @@
 #include "io_ports.h"
 #include "string.h"
+#include "printf.h"
 #define COM1_PORT 0x3F8 // COM1 base port address
 /**
  * read a byte from given port number
@@ -53,12 +54,30 @@ void write_to_com1(uint8 data) {
 }
 void write_to_com1_string(char *s)
 {
-    write_to_com1(':');
+    // write_to_com1(':');
     for (size_t i = 0; i < strlen(s); i++)
     {
         write_to_com1(s[i]);
     }
     
+}
+void printf_com(const char* format, ...)
+{
+    // Define a buffer to hold the formatted string
+    char buffer[256]; // Adjust the buffer size as needed
+
+    // Initialize the variable argument list
+    va_list args;
+    va_start(args, format);
+
+    // Format the string using vsnprintf
+    vsnprintf(buffer, sizeof(buffer), format, args);
+
+    // Cleanup the variable argument list
+    va_end(args);
+
+    // Call write_to_com1_string to write the formatted string to COM1
+    write_to_com1_string(buffer);
 }
 void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity) {
     // Disable interrupts

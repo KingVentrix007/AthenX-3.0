@@ -1,16 +1,14 @@
 #include "stdio.h"
 
-int main(int argc, char **argv)
+int main(int argc, char argv[100][100])
 {
-    printf("HELLO FROM ELF \n");
-    int num;
-    char str[100];
-    
-    printf("Enter an integer and a string: ");
-    scanf("%d %s", &num, str);
-    
-    printf("Integer: %d\n", num);
-    printf("String: %s\n", str);
-    return 0;
+    // printf("echo\n");
+    if(argc < 2)
+    {
+        printf("Usage: echo [OPTIONS] <string>\n");
+        return -1;
+    }
+    printf(">%s\n",argv[0]);
+    return 0; 
     // printf("%s\n", argv[0]);
-}
+} 

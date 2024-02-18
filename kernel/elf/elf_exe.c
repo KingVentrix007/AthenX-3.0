@@ -15,6 +15,7 @@
 #include "kheap.h"
 #include "scheduler.h"
 #include "keyboard.h"
+#include "io_ports.h"
 void internal_run_exe();
 // #include "../include/sys_handler.h"
 #define PT_GNU_STACK	(PT_LOOS + 0x474e551)
@@ -205,105 +206,126 @@ void switch_to_user_mode(UserProcessContext *user_context, KernelContext *kernel
     );
 }
 // Function to load and execute an ELF executable
-void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
-    //printf("Loading ELF executable here\n");
-    //printf("Address of fuction == 0x%08x\n", &load_elf_executable);
-    Elf32_Ehdr* elf_header = (Elf32_Ehdr*)elf_data;
 
-    // Verify ELF magic number.
+uintptr_t va_address[100];
+uintptr_t pa_address[100];
+int va_count = 0;
+int pa_count = 0;
+/**
+ * Function Name: load_elf_executable
+ * Description: Loads an ELF executable into memory, executes it, and deallocates allocated memory.
+ *
+ * Parameters:
+ *   elf_data (uint8_t*) - Pointer to the ELF data
+ *   myArgc (int) - Number of arguments for the ELF program
+ *   myArgv (char**) - Array of argument strings for the ELF program
+ *
+ * Return:
+ *   void
+ */
+void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
+    Elf32_Ehdr* elf_header = (Elf32_Ehdr*)elf_data;
+    LOG_LOCATION;
     if (memcmp(elf_header->e_ident, ELFMAG, SELFMAG) != 0) {
-        //printf("Not an ELF file\n");
-        return;
+        return; // Not an ELF file
     }
-    //printf("Iterating over program headers %u\n",elf_header->e_phnum);
-    // Iterate through program headers and load loadable segments.
+     LOG_LOCATION;
+    printf("Num Segments: %d\n", elf_header->e_phnum);
     for (int i = 0; i < elf_header->e_phnum; i++) {
         Elf32_Phdr* program_header = (Elf32_Phdr*)(elf_data + elf_header->e_phoff + i * elf_header->e_phentsize);
-
+         LOG_LOCATION;
         if (program_header->p_type == PT_LOAD) {
-            //printf("FOUND elf header of type PT_LOAD\n");
-            uint32_t *region = kmalloc(program_header->p_filesz);
+            uint32_t *region = kmalloc(program_header->p_filesz); // Allocate memory
             if (region == NULL) {
-                //printf("Failed to allocate memory for program header of type PT_LOAD\n");
-                return;
+                return; // Failed to allocate memory
             }
-            //printf("allocation complete\n");
-            // Calculate the number of pages needed
-           
-            // if(memcmp(program_header->p_vaddr,&load_elf_executable,10)==0)
-            // {
-            //     //printf("GOT YA\n");
-            // }
-            //printf("Calculating number of pages needed\n");
-            // Copy segment data into memory, taking alignment into account
-            // //printf("Address of segment to load == 0x%08X\n",program_header->p_vaddr-page_offset);
-            
-             size_t num_pages = program_header->p_memsz / PAGE_SIZE;
+             LOG_LOCATION;
+            va_address[pa_count] = region;
+            pa_count++;
+            size_t num_pages = program_header->p_memsz / PAGE_SIZE;
             if (program_header->p_memsz % PAGE_SIZE != 0) {
-                num_pages++; // Increment if there's a partial page
+                num_pages++;
             }
-
-            // Align the page virtual address according to the alignment specified in the ELF header
+             LOG_LOCATION;
             uint32_t page_va = program_header->p_vaddr;
             uint32_t page_offset = program_header->p_vaddr & (program_header->p_align - 1);
 
-            // Map each page individually
             for (size_t i = 0; i < num_pages; i++) {
-                //printf("Mapping page %zu at virtual address 0x%08X\n", i, page_va);
-                map(page_va, region, PAGE_WRITE|PAGE_PRESENT);
+                // printf("mapping address 0x%08X\n",page_va);
 
+                map(page_va, region, PAGE_WRITE | PAGE_PRESENT); // Map memory
+                va_address[i] = page_va; 
+                va_count++;
                 page_va += PAGE_SIZE;
                 region += PAGE_SIZE;
             }
-            // //printf("Copying segment of size %u into memory at offset 0x%08X with alignment %u\n", program_header->p_filesz, program_header->p_vaddr, program_header->p_align);
+             LOG_LOCATION;
             memcpy((void *)program_header->p_vaddr, elf_data + program_header->p_offset, program_header->p_filesz);
-            // //printf("memset extra space\n");
-            // Zero-fill any remaining memory in the segment
             memset((void *)(program_header->p_vaddr) + program_header->p_filesz, 0, program_header->p_memsz - program_header->p_filesz);
+             LOG_LOCATION;
         }
+         LOG_LOCATION;
+
     }
-    //printf("Iterated over headers\n");
+     LOG_LOCATION;
+    // Prepare to run elf program
     struct elf_exe my_elf;
     my_elf.elf_start = (uint32_t*)(elf_header->e_entry);
-    //printf("Preparing to run elf program\n");
-    // run_elf(my_elf, myArgc, myArgv);
-    //printf("Running elf\n");
-    // Define a stack aligned to 16 bytes
-    uint8_t stack = process_stack;
-    //printf("Initializing Stack\n");
+
+    // Initialize Stack
+    uint8_t *stack = process_stack;
     memset(stack, 0, 8192);
-   
-    // Set up the stack pointer (ESP) to point to the top of the stack
+     LOG_LOCATION;
+    // Set up the stack pointer (ESP)
     asm volatile (
         "mov %0, %%esp" // Set the stack pointer
         :
         : "r"(&stack)
     );
-    //  //printf("Initialzed stack\n");
-    // Define the entry pointer as a function
-    //printf("Entry pointer == %p\n",elf_header->e_entry);
+     LOG_LOCATION;
     void (*elf_entry)(int, char **) = (void (*)(int, char **))(elf_header->e_entry); // Assuming ELF entry point is at offset 0
-    //printf("Calling elf_entry point\n");
+    //  LOG_LOCATION;
     // Call the ELF entry point function with the arguments
     elf_entry(myArgc, myArgv);
-    //printf("Execution completed\n");
-    int ret = 0;
-    asm volatile(
-        "movl %%eax, %0" // mov the top value from the stack and store it in ret
-        : "=r" (ret) // Output operand
-    );
-    
-    printf("\nComplete ELF execution with exit code %d\n",ret);
+
     // Restore the stack pointer (ESP)
     asm volatile (
         "mov %0, %%esp"
         :
         : "r"(&stack)
     );
-    // deallocate_untracked_memory();
+    LOG_LOCATION;
+    for (size_t i = 0; i < va_count; i++)
+    {
+        LOG_LOCATION;
+        if(va_address[i] != 0)
+        {
+             unmap(va_address[i]);
+            va_address[i] = 0;
+        }
+       
+    }
+    va_count = 0;
+    for (size_t i = 0; i < pa_count; i++)
+    {
+        LOG_LOCATION;
+        kfree(pa_address[i]);
+        pa_address[i] = 0;
+    }
+    pa_count = 0;
+     LOG_LOCATION;
+     return;
+    // Deallocate memory
+    // for (int i = 0; i < elf_header->e_phnum; i++) {
+    //     Elf32_Phdr* program_header = (Elf32_Phdr*)(elf_data + elf_header->e_phoff + i * elf_header->e_phentsize);
 
-    return 0; // This line should be removed since the return type of the function is void
+    //     if (program_header->p_type == PT_LOAD) {
+    //         // kfree((void *)(program_header->p_vaddr)); // Free allocated memory
+    //         unmap(program_header->p_vaddr); // Unmap memory region
+    //     }
+    // }
 }
+
 // void load_elf_executable(uint8_t* elf_data,int myArgc,char **myArgv) {
 //     // //printf("ARR = %s\n",myArgv[1]);
 //     // FUNC_ADDR_NAME(&load_elf_executable,1,"u");
@@ -425,12 +447,14 @@ void load_elf_file(const char* filename, int argc, char **argv) {
     ////printf("%d\n",__LINE__);
     
     load_elf_executable(elf_data,argc, argv);
+    LOG_LOCATION;
     // //printf("Exited to prime\n");
     ////printf("HERE");
     // Now, you can parse the ELF data and load it into memory as described in the previous responses.
 
     // Don't forget to kfree the allocated memory when you're done.
     kfree(elf_data);
+    LOG_LOCATION;
 }
 
 
@@ -497,21 +521,26 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 int execute_file(const char *path,int argc, char **argv)
 {
     // global_file_path = path;
+    LOG_LOCATION;
     strcpy(global_file_path,path);
     global_argc = argc;
     global_argv = argv;
-    CreateProcess(internal_run_exe);
+    internal_run_exe();
     
 
 }
 
 void internal_run_exe()
 {
+     LockAndPostpone();
+    LOG_LOCATION;
     lock_kb_input(127);
+    LOG_LOCATION;
     load_elf_file(global_file_path,global_argc,global_argv);
     unlock_kb_input();
     global_argc = 0;
-    
-    TerminateProcess();
+    LOG_LOCATION;
+    UnlockAndSchedule();
+    // TerminateProcess();
 
 }

@@ -38,4 +38,6 @@ void init_com1();
 void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity);
 void write_to_com1(uint8 data);
 void write_to_com1_string(char *s);
+void printf_com(const char* format, ...);
+#define LOG_LOCATION printf_com("%s:%d\n", __FILE__, __LINE__)
 #endif

@@ -5,6 +5,7 @@
 #include "command.h"
 // #include "mem.h"
 #include "exe.h"
+#include "io_ports.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
 // Function to parse command line arguments
@@ -163,10 +164,30 @@ int cmd(char *command)
         else
         {
             fclose(f);
-            int argc = 3;
-            char **argv = {"program_name", "arg1", "arg2", NULL};
-            execute_file(tmp,argc,argv);
+            LOG_LOCATION;
+            // int argc = arg_count+1;
+            LOG_LOCATION;
+
+            char argv_elf[100][100];
+            for (size_t i = 0; i < argc; i++)
+            {
+                strcpy(argv_elf[i], argv[i]);
+            }
+            
+            LOG_LOCATION;
+            for (size_t i = 0; i < argc; i++)
+            {
+                printf("%s\n", argv_elf[i]);
+            }
+            
+            execute_file(tmp,argc,argv_elf);
+            // printf_com(">tmp = %s\n", tmp);
+            
+            LOG_LOCATION;
+
             memset(tmp,0,sizeof(tmp));
+            LOG_LOCATION;
+            return 0;
         }
         
         // printf("Program name: %s\n",program_name);
