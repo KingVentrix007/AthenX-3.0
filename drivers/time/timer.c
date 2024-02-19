@@ -138,3 +138,10 @@ uint32 get_ticks()
 
 //     ProcessUnlockAndSchedule();
 // }
+ cmos_address = 0x70;
+cmos_data    = 0x71;
+
+unsigned char get_RTC_register(int reg) {
+    outportb(cmos_address, reg);
+    return inportb(cmos_data);
+}

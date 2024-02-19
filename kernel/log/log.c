@@ -62,12 +62,12 @@ int logging(int log_level,int line, char *function, char *path,const char* forma
 
    
   // }
-  // printf_com("Writeing to file\n"); 
-  // FILE *fp = fl_fopen("/log/log.txt","w");
-  // if(fp == NULL)
-  // {
-  //   printf_com("We have a problem writing to file\n");
-  // }
-  // fprintf(fp,"%d: %s at %s:%d -\n\t%s\n",log_level,function,path,line,buffer);
-  // fl_fclose(fp);
+  printf_com("Writeing to file\n"); 
+  FILE *fp = fl_fopen("/log/log.txt","w");
+  if(fp == NULL)
+  {
+    printf_com("We have a problem writing to file\n");
+  }
+  fprintf(fp,"%d: %s at %s:%d -\n\t%s\n",log_level,function,path,line,buffer);
+  fl_fclose(fp);
 }
