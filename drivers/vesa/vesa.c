@@ -6,6 +6,7 @@
 #include "types.h"
 #include "vmm.h"
 #include "pagepmm.h"
+#include "printf.h"
 #define PRINT_MODES 1
 // vbe information
 void test_memory_mapping(uint32_t start_address, uint32_t size);
@@ -127,7 +128,7 @@ int vesa_init(uint32 width, uint32 height, uint32 bpp) {
         // set the mode to start graphics window
         vbe_set_mode(g_selected_mode);
     #endif
-    
+    set_print_mode(1);
     return 0;
 }
 #define VESA_VIRTUAL_BASE 0xB8000000

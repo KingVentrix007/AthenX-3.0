@@ -31,12 +31,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdbool.h>
-#include <stdint.h>
+#include "stdint.h"
 #include <stddef.h>
 
 #include "printf.h"
 #include "vesa.h"
-
+#include "io_ports.h"
 // define this globally (e.g. gcc -DPRINTF_INCLUDE_CONFIG_H ...) to include the
 // printf_config.h header file
 // default: undefined
@@ -119,6 +119,7 @@
 #include <float.h>
 #endif
 
+int print_mode = 0; // default(Text mode)
 
 // output function type
 typedef void (*out_fct_type)(char character, void* buffer, size_t idx, size_t maxlen);
@@ -995,11 +996,42 @@ int fctprintf(void (*out)(char character, void* arg), void* arg, const char* for
 
 void _putchar(char chr)
 {
-  // char string[2];
-  // string[0] = chr;
-  // string[1] = '\0';
-  // // kprints(string);
-  write_to_com1(chr);
-  draw_vbe_char(chr);
+  if(print_mode == DEFAULT_PRINT_MODE)
+  {
+      char string[2];
+      string[0] = chr;
+      string[1] = '\0';
+      kprints(string);
+      write_to_com1(chr);
+  }
+  else if (print_mode == VESAVBE_PRINT_MODE)
+  {
+    draw_vbe_char(chr);
+    write_to_com1(chr);
+  }
+  else if (print_mode ==  SERIAL1_PRINT_MODE)
+  {
+     write_to_com1(chr);
+  }
+  else
+  {
+      
+     write_to_com1(chr);
+  }
+  
+ 
+  
   // putchar_vesa(chr);
+}
+
+int set_print_mode(int mode)
+{
+  if(mode > SERIAL1_PRINT_MODE)
+  {
+    printf_com("%s is not a print mode\n", mode);
+  }
+  else
+  {
+    print_mode = mode;
+  }
 }

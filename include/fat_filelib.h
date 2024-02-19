@@ -1,10 +1,10 @@
 #ifndef __FAT_FILELIB_H__
 #define __FAT_FILELIB_H__
 
-#include "../include/fat_opts.h"
-#include "../include/fat_access.h"
-#include "../include/fat_list.h"
-#include "../include/types.h"
+#include "fat_opts.h"
+#include "fat_access.h"
+#include "fat_list.h"
+#include "types.h"
 //-----------------------------------------------------------------------------
 // Defines
 //-----------------------------------------------------------------------------
@@ -100,6 +100,7 @@ int                 fl_fgetpos(void *file , uint32 * position);
 long                fl_ftell(void *f);
 int                 fl_feof(void *f);
 int                 fl_remove(const char * filename);
+int                 fprintf(void *fp,const char *format,...);
 
 // Equivelant dirent.h
 typedef struct fs_dir_list_status    FL_DIR;
@@ -121,7 +122,7 @@ int                 fl_format(uint32 volume_sectors, const char *name);
 //Custom Extensions:
 int chdir(char *path);
 char *getcwd();
-
+int fat_inited();
 // Test hooks
 #ifdef FATFS_INC_TEST_HOOKS
 struct fatfs*       fl_get_fs(void);

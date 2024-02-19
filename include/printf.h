@@ -119,6 +119,9 @@ int fctprintf(void (*out)(char character, void* arg), void* arg, const char* for
 #ifdef __cplusplus
 }
 #endif
-
+#define DEFAULT_PRINT_MODE 0
+#define VESAVBE_PRINT_MODE 1
+#define SERIAL1_PRINT_MODE 2
+int set_print_mode(int mode);
 
 #endif  // _PRINTF_H_

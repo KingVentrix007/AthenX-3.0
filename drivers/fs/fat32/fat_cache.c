@@ -29,8 +29,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-#include "../include/string.h"
-#include "../include/fat_cache.h"
+#include "string.h"
+#include "fat_cache.h"
 
 // Per file cluster chain caching used to improve performance.
 // This does not have to be enabled for architectures with low

@@ -29,14 +29,14 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-#include "../include/string.h"
-#include "../include/fat_defs.h"
-#include "../include/fat_access.h"
-#include "../include/fat_table.h"
-#include "../include/fat_write.h"
-#include "../include/fat_string.h"
-#include "../include/fat_misc.h"
-#include "../include/fat_format.h"
+#include "string.h"
+#include "fat_defs.h"
+#include "fat_access.h"
+#include "fat_table.h"
+#include "fat_write.h"
+#include "fat_string.h"
+#include "fat_misc.h"
+#include "fat_format.h"
 
 #if FATFS_INC_FORMAT_SUPPORT
 

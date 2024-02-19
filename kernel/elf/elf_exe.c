@@ -532,7 +532,8 @@ int execute_file(const char *path,int argc, char **argv)
 
 void internal_run_exe()
 {
-     LockAndPostpone();
+    //DISABLE context switching
+    LockAndPostpone();
     LOG_LOCATION;
     lock_kb_input(127);
     LOG_LOCATION;
@@ -540,6 +541,7 @@ void internal_run_exe()
     unlock_kb_input();
     global_argc = 0;
     LOG_LOCATION;
+    //ENABLE context switching
     UnlockAndSchedule();
     // TerminateProcess();
 

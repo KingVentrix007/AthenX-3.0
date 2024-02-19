@@ -2,12 +2,12 @@ image_file="AthenX.img"
 
 # Set the path to AthenX.bin
 hackos_bin="AthenX.bin"
-dd if=/dev/zero of="$image_file" bs=1M count=1024
+    dd if=/dev/zero of="$image_file" bs=1M count=1024
     echo -e "n\np\n1\n2048\n131071\nt\nc\na\n1\nw" | fdisk "$image_file"
     sudo losetup /dev/loop0 "$image_file"
     sudo losetup /dev/loop1 "$image_file" -o 1048576
     sudo mkdosfs -F32 -f 2 /dev/loop1
-    sudo mount /dev/loop1 /mnt/AthenX-3.0
+    sudo mount -o rw /dev/loop1 /mnt/AthenX-3.0
 
     # Copy your OS files and GRUB configuration
     # sudo cp -r "sysroot"/* /mnt/AthenX-3.0/

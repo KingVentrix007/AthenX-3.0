@@ -2,7 +2,7 @@
 #define __FAT_OPTS_H__
 
 #ifdef FATFS_USE_CUSTOM_OPTS_FILE
-    #include "../include/fat_custom.h"
+    #include "fat_custom.h"
 #endif
 
 //-------------------------------------------------------------

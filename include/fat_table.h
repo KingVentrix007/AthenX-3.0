@@ -1,8 +1,8 @@
 #ifndef __FAT_TABLE_H__
 #define __FAT_TABLE_H__
 
-#include "../include/fat_opts.h"
-#include "../include/fat_misc.h"
+#include "fat_opts.h"
+#include "fat_misc.h"
 
 //-----------------------------------------------------------------------------
 // Prototypes

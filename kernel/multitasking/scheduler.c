@@ -232,7 +232,7 @@ PCB_t *CreateProcess(void (*ent)())
     rv->virtAddr = GetCR3();
     rv->sleepUntil = (unsigned long)-1;
     rv->quantumLeft = 0;
-    strcpy(rv->current_path,getcwd());
+    // strcpy(rv->current_path,getcwd());
     LockAndPostpone();
     AddReady(rv);
     UnlockAndSchedule();

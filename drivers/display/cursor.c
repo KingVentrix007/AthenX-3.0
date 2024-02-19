@@ -38,7 +38,7 @@ void undraw_cursor(int sx, int sy)
 void update_cursor(void)
 {
     
-    if(cursor_visible == 1 && cursor_counter > DELAY)
+    if(cursor_visible == 1)
     {
         //
         cursor_counter = 0;
@@ -49,7 +49,7 @@ void update_cursor(void)
         int y = get_terminal_postion_y();
         draw_cursor(x,y);
     }
-    else if (cursor_visible == 0 && cursor_counter > DELAY)
+    else if (cursor_visible == 0)
     {
         cursor_counter = 0;
         cursor_visible = 1;

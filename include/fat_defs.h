@@ -1,9 +1,9 @@
 #ifndef __FAT_DEFS_H__
 #define __FAT_DEFS_H__
 
-#include "../include/fat_opts.h"
-#include "../include/fat_types.h"
-#include "../include/types.h"
+#include "fat_opts.h"
+#include "fat_types.h"
+#include "types.h"
 //-----------------------------------------------------------------------------
 //            FAT32 Offsets
 //        Name                Offset

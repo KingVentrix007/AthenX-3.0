@@ -1,8 +1,8 @@
 #ifndef __FAT_MISC_H__
 #define __FAT_MISC_H__
 
-#include "../include/fat_defs.h"
-#include "../include/fat_opts.h"
+#include "fat_defs.h"
+#include "fat_opts.h"
 
 //-----------------------------------------------------------------------------
 // Defines

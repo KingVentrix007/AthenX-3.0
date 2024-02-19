@@ -31,15 +31,15 @@
 //-----------------------------------------------------------------------------
 //#include < >
 #include <string.h>
-#include "../include/fat_defs.h"
-#include "../include/fat_access.h"
-#include "../include/fat_table.h"
-#include "../include/fat_write.h"
-#include "../include/fat_misc.h"
-#include "../include/fat_string.h"
-#include "../include/fat_filelib.h"
-#include "../include/fat_cache.h"
-#include "../include/fat_format.h"
+#include "fat_defs.h"
+#include "fat_access.h"
+#include "fat_table.h"
+#include "fat_write.h"
+#include "fat_misc.h"
+#include "fat_string.h"
+#include "fat_filelib.h"
+#include "fat_cache.h"
+#include "fat_format.h"
 #include <stddef.h>
 #include "stdint.h"
 #include "stdbool.h"
@@ -642,6 +642,7 @@ static uint32 _read_sectors(FL_FILE* file, uint32 offset, uint8 *buffer, uint32 
 //-----------------------------------------------------------------------------
 void fl_init(void)
 {
+    printf("Initialising library fat32\n");
     int i;
     memset(current_path, 0,260);
     fat_list_init(&_free_file_list);
@@ -910,7 +911,7 @@ int fl_fflush(void *f)
 
     // If first call to library, initialise
     CHECK_FL_INIT();
-
+    printf("Flushing to %s\n", file->filename);
     if (file)
     {
         FL_LOCK(&_fs);
@@ -918,6 +919,7 @@ int fl_fflush(void *f)
         // If some write data still in buffer
         if (file->file_data_dirty)
         {
+            printf("Writing current sector\n");
             // Write back current sector before loading next
             if (_write_sectors(file, file->file_data_address, file->file_data_sector, 1))
                 file->file_data_dirty = 0;
@@ -933,6 +935,7 @@ int fl_fflush(void *f)
 //-----------------------------------------------------------------------------
 void fl_fclose(void *f)
 {
+    printf("fl_fclose\n");
     FL_FILE *file = (FL_FILE *)f;
 
     // If first call to library, initialise
@@ -948,7 +951,9 @@ void fl_fclose(void *f)
         // File size changed?
         if (file->filelength_changed)
         {
+            printf_com("File size changed\n");
 #if FATFS_INC_WRITE_SUPPORT
+printf_com("File size changed inc support\n");
             // Update filesize in directory
             fatfs_update_file_length(&_fs, file->parentcluster, (char*)file->shortfilename, file->filelength);
 #endif
@@ -1035,11 +1040,19 @@ int fl_fread(void * buffer, int size, int length, void *f )
     CHECK_FL_INIT();
 
     if (buffer==NULL || file==NULL)
+    {
+        printf("Error buffer or file is null\n");
         return -1;
+    }
+        
 
     // No read permissions
     if (!(file->flags & FILE_READ))
+    {
+        printf("No read permissions\n");
         return -1;
+
+    }
 
     // Nothing to be done
     if (!count)
@@ -1047,7 +1060,11 @@ int fl_fread(void * buffer, int size, int length, void *f )
 
     // Check if read starts past end of file
     if (file->bytenum >= file->filelength)
+    {
+        printf("Read starts past EOF\n");
         return -1;
+    }
+        
 
     // Limit to file size
     if ( (file->bytenum + count) > file->filelength )
@@ -1299,6 +1316,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 
     while (bytesWritten < length)
     {
+        printf_com("In while loop\n");
         // Whole sector or more to be written?
         if ((offset == 0) && ((length - bytesWritten) >= FAT_SECTOR_SIZE))
         {
@@ -1316,6 +1334,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
             }
 
             // Write as many sectors as possible
+            printf_com("Writing to sector %d\n", sector);
             sectorsWrote = _write_sectors(file, sector, (uint8*)(buffer + bytesWritten), (length - bytesWritten) / FAT_SECTOR_SIZE);
             copyCount = FAT_SECTOR_SIZE * sectorsWrote;
 
@@ -1334,6 +1353,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
         }
         else
         {
+            printf_com("Not emidte write\n");
             // We have upto one sector to copy
             copyCount = FAT_SECTOR_SIZE - offset;
 
@@ -1344,9 +1364,16 @@ int fl_fwrite(const void * data, int size, int count, void *f )
             // Do we need to read a new sector?
             if (file->file_data_address != sector)
             {
+                printf("We need new sector\n");
                 // Flush un-written data to file
                 if (file->file_data_dirty)
+                {
+                    printf("Flush un-written data\n");
                     fl_fflush(file);
+                }
+                printf_com("force flush\n");
+                fl_fflush(file);
+                    
 
                 // If we plan to overwrite the whole sector, we don't need to read it first!
                 if (copyCount != FAT_SECTOR_SIZE)
@@ -1357,7 +1384,11 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 
                     // Get LBA of sector offset within file
                     if (!_read_sectors(file, sector, file->file_data_sector, 1))
+                    {
+                         printf("LBA memset\n");
                         memset(file->file_data_sector, 0x00, FAT_SECTOR_SIZE);
+                    }
+                   
                 }
 
                 file->file_data_address = sector;
@@ -1411,6 +1442,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 int fl_fputs(const char * str, void *f)
 {
     int len = (int)strlen(str);
+    
     int res = fl_fwrite(str, 1, len, f);
 
     if (res == len)
@@ -1798,4 +1830,8 @@ char *getcwd()
 {
     // printf("called getcwd");
     return current_path;
+}
+int fat_inited()
+{
+    return -1;
 }

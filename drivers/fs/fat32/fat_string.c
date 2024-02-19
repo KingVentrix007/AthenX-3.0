@@ -29,9 +29,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-#include "../include/string.h"
+#include "string.h"
 //#include <assert.h>
-#include "../include/fat_string.h"
+#include "fat_string.h"
 
 //-----------------------------------------------------------------------------
 // fatfs_total_path_levels: Take a filename and path and count the sub levels

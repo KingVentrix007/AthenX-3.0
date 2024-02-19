@@ -34,6 +34,6 @@ void sleep(int sec);
 
 void timer_register_function(TIMER_FUNCTION function, TIMER_FUNC_ARGS *args);
 
-
+uint32 get_ticks();
 #endif
 

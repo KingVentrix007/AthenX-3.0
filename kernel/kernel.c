@@ -1,5 +1,5 @@
 // Include necessary header files
-#include <stdint.h>
+#include "stdint.h"
 #include "vga.h"
 #include "multiboot.h"
 #include "kernel.h"
@@ -30,6 +30,7 @@
 #include "elf_exe.h"
 #include "exe.h"
 #include "cursor.h"
+#include "logging.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -52,10 +53,22 @@ void Process(void)
 void loop_timer(int input)
 {
     // 
-    
+    size_t ticks = get_ticks();
+    size_t target = 50;
+    size_t old_tick = ticks;
     while(1)
     {
-        update_cursor();
+        if(ticks > old_tick+target)
+        {   
+            update_cursor();
+            old_tick = ticks;
+
+        }
+        else
+        {
+            ticks = get_ticks();
+        }
+        
     }
 }
 KERNEL_MEMORY_MAP g_kmap;
@@ -122,13 +135,13 @@ void kmain(unsigned long magic, unsigned long addr)
     gdt_init();
     
     // Print kernel start message
-    kprints("Staring kernel\n");
+    printf("Staring kernel\n");
     
     // Initialize VESA graphics mode with resolution 1024x768 and 32-bit color depth
     int ret = vesa_init(1024, 768, 32);
     if (ret < 0)
     {
-        kprints("Error: vesa_init() failed\n");
+        printf("Error: vesa_init() failed\n");
     }
     
     // Initialize terminal with specified resolution
@@ -136,13 +149,14 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // Initialize COM1 (serial port)
     init_com1();
-    
+    char *msg = "Getting mulitboot info";
+    // logging(0,__LINE__,__func__,__FILE__,"%s",msg);
     MULTIBOOT_INFO *mboot_info;
     if (magic == MULTIBOOT_BOOTLOADER_MAGIC)
     {
         // Print message if Multiboot magic number is detected
-        kprints("MULTIBOOT_BOOTLOADER_MAGIC is TRUE\n");
-        kprints("Getting Kernel Memory Map\n");
+        printf("MULTIBOOT_BOOTLOADER_MAGIC is TRUE\n");
+        printf("Getting Kernel Memory Map\n");
         
         // Cast addr to MULTIBOOT_INFO pointer
         mboot_info = (MULTIBOOT_INFO *)addr;
@@ -178,6 +192,7 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // List root directory
     fl_listdirectory("/", dirs, files, &num_dir, &num_files);
+    // logging(0,__LINE__,__func__,__FILE__,"%s","inited fat32\n");
     
     // Create root directory
     // mkdir("/root");
@@ -227,9 +242,37 @@ void kmain(unsigned long magic, unsigned long addr)
     // printf("Random number generator output = %d\n",rand);
     // load_elf_file(file_path,argc,argv);
     timer_init();
-    
+     
     // Initialize keyboard
     keyboard_init();
+    // logging(0,__LINE__,__func__,__FILE__,"%s","inited Timer\n");
+    const char* filename = "/testd.txt";
+    FL_FILE *file_to_write = fl_fopen(filename, "w");
+    FL_FILE *file_to_write_backup = file_to_write;
+    // test = fl_fopen(filename, "w");
+    char *test_msg = "worldfart3";
+    int fl_ret_s = fl_fwrite(test_msg,1,strlen(test_msg),file_to_write);
+    printf("fl_ret_ss = %d\n", fl_ret_s);
+    // printf("test_msg = %s\n", test_msg);
+    // fl_fflush(test);
+
+    fl_fclose(file_to_write);
+    if(file_to_write == file_to_write_backup)
+    {
+        printf("Writing failed kernel check\n");
+    }
+    printf("Reading from file %s\n", filename);
+    // fl_fflush(test);
+    // fclose(test);
+    FILE *test2 = fl_fopen(filename, "r");
+    if(test2 == file_to_write_backup)
+    {
+        printf("Failed to write data\n");
+    }
+    char readdata[1000];
+    int read_ret = fl_fread(readdata,1,50,test2);
+    printf("read data = %s -> %d\n",readdata,read_ret);
+    fclose(test2);
     // update_cursor_manual();
     // Print message
     // printf("Here\n");
@@ -277,13 +320,19 @@ void command_line(void)
             // cmd(input_buffer);
 
         }
+        else if(chr == '\b')
+        {
+            input_buffer[buffer_pos] = "\0";
+            buffer_pos--;
+            printf("%c",chr);
+        }
         else if (chr == '\n')
         {
            
             cmd(input_buffer);
            memset(input_buffer, 0,1024);
            buffer_pos = 0;
-           printf("\n%s@%s>",user,getcwd());
+           printf("\n%s@%s>",user,"M");
         }
         // if(buffer_pos >= get_memory_size(input_buffer)-10)
         // {

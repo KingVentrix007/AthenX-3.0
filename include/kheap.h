@@ -10,7 +10,7 @@
 #include "stdbool.h"
 #include "mem_config.h"
 #include "mem_output.h"
-#include "stdint.h"
+#include "stdint-gcc.h"
 // Defines
 
 

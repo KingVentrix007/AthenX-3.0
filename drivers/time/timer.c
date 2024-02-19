@@ -78,7 +78,10 @@ void sleep(int sec) {
     uint32 end = g_ticks + sec * g_freq_hz;
     while (g_ticks < end);
 }
-
+uint32 get_ticks()
+{
+    return g_ticks;
+}
 // void TimerCallBack(REGISTERS *r)
 // {
 //     uint64_t now = 0;

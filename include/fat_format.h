@@ -1,9 +1,9 @@
 #ifndef __FAT_FORMAT_H__
 #define __FAT_FORMAT_H__
 
-#include "../include/fat_defs.h"
-#include "../include/fat_opts.h"
-#include "../include/fat_access.h"
+#include "fat_defs.h"
+#include "fat_opts.h"
+#include "fat_access.h"
 
 //-----------------------------------------------------------------------------
 // Prototypes

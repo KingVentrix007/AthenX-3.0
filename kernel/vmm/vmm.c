@@ -125,25 +125,25 @@ void switch_page_directory(page_directory_t* dir) {
 }
 
 void map(uint32_t va, uint32_t pa, uint32_t flags) {
-	write_to_com1_string("mapping\n");
+	// //("mapping\n");
 	uint32_t dir_entry = PGDIR_IDX_FROM_ADDR(va);
 	uint32_t page_num = PG_NUM_FROM_ADDR(va);
 
 	// find appropriate pagetable for va
 	if (current_directory->directory[dir_entry] == 0) {
-		write_to_com1_string("Here\n");
+		
 		// create pagetable holding this page
 		// update current directory
-		write_to_com1_string("update current directory\n");
+		
 		current_directory->directory[dir_entry] = pmm_alloc_page()
 				| PAGE_PRESENT | PAGE_WRITE;
 		// NEVER update kernel directory -- could screw up things
 		// init page table
-		write_to_com1_string("running memset\n");
+		
 		memset(current_directory->pages + dir_entry * 1024, 0, PAGE_SIZE);
-		write_to_com1_string("ran memset\n");
+		
 		}
-	write_to_com1_string("current_directory settting\n");
+	// //("current_directory settting\n");
 	
 	// NOTE: tables_virtual seems to be common over all page directories
 	// page table exists, now update flags and pa
@@ -155,7 +155,10 @@ void map(uint32_t va, uint32_t pa, uint32_t flags) {
 	if (KERNEL_ADDRESS_SPACE <= va
 			&& current_directory->pages[page_num]
 					!= kernel_directory.pages[page_num])
-		write_to_com1_string("WARNING: kernel outdated\n");
+					{
+						
+					}
+		//("WARNING: kernel outdated\n");
 }
 
 void unmap(uint32_t va) {

@@ -530,17 +530,32 @@ int ata_get_drive_by_model(const char *model) {
 
 int ide_write_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
+    
     if(ide_write_sectors(0,sector_count,sector,buffer) == 0)
     {
-        return 1;
+        printf_com("raw_write at %d\n",sector);
+        char *tempbuffer[512*3];
+        ide_read_sectors(0,sector_count,sector,tempbuffer);
+        if(strcmp(tempbuffer,buffer) == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            printf("error writing data\n");
+            return 1;
+        }
+        
     }
     return 0;
     
 }
 int ide_read_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
+    // printf
     if(ide_read_sectors(0,sector_count,sector,buffer) == 0)
     {
+         printf_com("raw_read at %d\n",sector);
         return 1;
     }
     return 0;
