@@ -31,18 +31,16 @@
 //-----------------------------------------------------------------------------
 //#include < >
 #include <string.h>
-#include "fat_defs.h"
-#include "fat_access.h"
-#include "fat_table.h"
-#include "fat_write.h"
-#include "fat_misc.h"
-#include "fat_string.h"
-#include "fat_filelib.h"
-#include "fat_cache.h"
-#include "fat_format.h"
-#include <stddef.h>
+#include "../include/fat_defs.h"
+#include "../include/fat_access.h"
+#include "../include/fat_table.h"
+#include "../include/fat_write.h"
+#include "../include/fat_misc.h"
+#include "../include/fat_string.h"
+#include "../include/fat_filelib.h"
+#include "../include/fat_cache.h"
+#include "../include/fat_format.h"
 #include "stdint.h"
-#include "stdbool.h"
 //-----------------------------------------------------------------------------
 // Locals
 //-----------------------------------------------------------------------------
@@ -52,7 +50,6 @@ static int                _filelib_valid = 0;
 static struct fatfs       _fs;
 static struct fat_list    _open_file_list;
 static struct fat_list    _free_file_list;
-char current_path[260] = "/"; //Current Path
 
 //-----------------------------------------------------------------------------
 // Macros
@@ -376,9 +373,11 @@ static FL_FILE* _open_file(const char *path)
 
     // Using dir cluster address search for filename
     if (fatfs_get_file_entry(&_fs, file->parentcluster, file->filename,&sfEntry))
+        printf("Using dir cluster address search for filename\n");
         // Make sure entry is file not dir!
         if (fatfs_entry_is_file(&sfEntry))
         {
+            printf("is a file\n");
             // Initialise file details
             memcpy(file->shortfilename, sfEntry.Name, FAT_SFN_SIZE_FULL);
             file->filelength = FAT_HTONL(sfEntry.FileSize);
@@ -393,9 +392,9 @@ static FL_FILE* _open_file(const char *path)
             file->last_fat_lookup.CurrentCluster = 0xFFFFFFFF;
 
             fatfs_cache_init(&_fs, file);
-
+            
             fatfs_fat_purge(&_fs);
-
+            printf("file len: %d\n",file->filelength);
             return file;
         }
 
@@ -627,7 +626,6 @@ static uint32 _read_sectors(FL_FILE* file, uint32 offset, uint8 *buffer, uint32 
     lba = fatfs_lba_of_cluster(&_fs, Cluster) + Sector;
 
     // Read sector of file
-    printf("Read lba == %d\n", lba);
     if (fatfs_sector_read(&_fs, lba, buffer, count))
         return count;
     else
@@ -643,9 +641,8 @@ static uint32 _read_sectors(FL_FILE* file, uint32 offset, uint8 *buffer, uint32 
 //-----------------------------------------------------------------------------
 void fl_init(void)
 {
-    printf("Initialising library fat32\n");
     int i;
-    memset(current_path, 0,260);
+
     fat_list_init(&_free_file_list);
     fat_list_init(&_open_file_list);
 
@@ -895,7 +892,7 @@ static uint32 _write_sectors(FL_FILE* file, uint32 offset, uint8 *buf, uint32 co
 
     // Calculate write address
     lba = fatfs_lba_of_cluster(&_fs, Cluster) + SectorNumber;
-    printf("lba == %d\n", lba);
+
     if (fatfs_sector_write(&_fs, lba, buf, count))
         return count;
     else
@@ -912,7 +909,7 @@ int fl_fflush(void *f)
 
     // If first call to library, initialise
     CHECK_FL_INIT();
-    printf("Flushing to %s\n", file->filename);
+
     if (file)
     {
         FL_LOCK(&_fs);
@@ -920,7 +917,6 @@ int fl_fflush(void *f)
         // If some write data still in buffer
         if (file->file_data_dirty)
         {
-            printf("Writing current sector %d\n",file->file_data_address);
             // Write back current sector before loading next
             if (_write_sectors(file, file->file_data_address, file->file_data_sector, 1))
                 file->file_data_dirty = 0;
@@ -936,7 +932,6 @@ int fl_fflush(void *f)
 //-----------------------------------------------------------------------------
 void fl_fclose(void *f)
 {
-    printf("fl_fclose\n");
     FL_FILE *file = (FL_FILE *)f;
 
     // If first call to library, initialise
@@ -952,12 +947,11 @@ void fl_fclose(void *f)
         // File size changed?
         if (file->filelength_changed)
         {
-            printf_com("File size changed\n");
 #if FATFS_INC_WRITE_SUPPORT
-printf_com("File size changed inc support\n");
             // Update filesize in directory
-            printf("file legnth from 959 == %d\n",file->filelength);
-            fatfs_update_file_length(&_fs, file->parentcluster, (char*)file->shortfilename, file->filelength);
+            printf("writing file of len %d\n",file->filelength);
+            int ilret = fatfs_update_file_length(&_fs, file->parentcluster, (char*)file->shortfilename, file->filelength);
+            printf("ilret = %d\n",ilret);
 #endif
             file->filelength_changed = 0;
         }
@@ -1042,19 +1036,11 @@ int fl_fread(void * buffer, int size, int length, void *f )
     CHECK_FL_INIT();
 
     if (buffer==NULL || file==NULL)
-    {
-        printf("Error buffer or file is null\n");
         return -1;
-    }
-        
 
     // No read permissions
     if (!(file->flags & FILE_READ))
-    {
-        printf("No read permissions\n");
         return -1;
-
-    }
 
     // Nothing to be done
     if (!count)
@@ -1062,11 +1048,7 @@ int fl_fread(void * buffer, int size, int length, void *f )
 
     // Check if read starts past end of file
     if (file->bytenum >= file->filelength)
-    {
-        printf("Read starts past EOF\n");
         return -1;
-    }
-        
 
     // Limit to file size
     if ( (file->bytenum + count) > file->filelength )
@@ -1112,7 +1094,6 @@ int fl_fread(void * buffer, int size, int length, void *f )
                     break;
 
                 file->file_data_address = sector;
-                printf("%d->file->file_data_address=%d\n",__LINE__,file->file_data_address);
                 file->file_data_dirty = 0;
             }
 
@@ -1308,11 +1289,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 
     // Append writes to end of file
     if (file->flags & FILE_APPEND)
-    {
-
         file->bytenum = file->filelength;
-    }
-        
     // Else write to current position
 
     // Calculate start sector
@@ -1323,7 +1300,6 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 
     while (bytesWritten < length)
     {
-        printf_com("In while loop\n");
         // Whole sector or more to be written?
         if ((offset == 0) && ((length - bytesWritten) >= FAT_SECTOR_SIZE))
         {
@@ -1341,7 +1317,6 @@ int fl_fwrite(const void * data, int size, int count, void *f )
             }
 
             // Write as many sectors as possible
-            printf_com("Writing to sector %d\n", sector);
             sectorsWrote = _write_sectors(file, sector, (uint8*)(buffer + bytesWritten), (length - bytesWritten) / FAT_SECTOR_SIZE);
             copyCount = FAT_SECTOR_SIZE * sectorsWrote;
 
@@ -1360,7 +1335,6 @@ int fl_fwrite(const void * data, int size, int count, void *f )
         }
         else
         {
-            printf_com("Not emidte write\n");
             // We have upto one sector to copy
             copyCount = FAT_SECTOR_SIZE - offset;
 
@@ -1371,16 +1345,9 @@ int fl_fwrite(const void * data, int size, int count, void *f )
             // Do we need to read a new sector?
             if (file->file_data_address != sector)
             {
-                printf("We need new sector\n");
                 // Flush un-written data to file
                 if (file->file_data_dirty)
-                {
-                    printf("Flush un-written data\n");
                     fl_fflush(file);
-                }
-                printf_com("force flush\n");
-                fl_fflush(file);
-                    
 
                 // If we plan to overwrite the whole sector, we don't need to read it first!
                 if (copyCount != FAT_SECTOR_SIZE)
@@ -1391,16 +1358,10 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 
                     // Get LBA of sector offset within file
                     if (!_read_sectors(file, sector, file->file_data_sector, 1))
-                    {
-                         printf("LBA memset\n");
                         memset(file->file_data_sector, 0x00, FAT_SECTOR_SIZE);
-                    }
-                   
                 }
 
                 file->file_data_address = sector;
-                printf("%d->file->file_data_address=%d\n",__LINE__,file->file_data_address);
-
                 file->file_data_dirty = 0;
             }
 
@@ -1427,7 +1388,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
     {
         // Increase file size to new point
         file->filelength = file->bytenum;
-        printf("file_bye_num\n");
+
         // We are changing the file length and this
         // will need to be writen back at some point
         file->filelength_changed = 1;
@@ -1436,7 +1397,6 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 #if FATFS_INC_TIME_DATE_SUPPORT
     // If time & date support is enabled, always force directory entry to be
     // written in-order to update file modify / access time & date.
-    printf("filelength_changed\n");
     file->filelength_changed = 1;
 #endif
 
@@ -1452,7 +1412,6 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 int fl_fputs(const char * str, void *f)
 {
     int len = (int)strlen(str);
-    
     int res = fl_fwrite(str, 1, len, f);
 
     if (res == len)
@@ -1518,7 +1477,6 @@ int fl_createdirectory(const char *path)
 // fl_listdirectory: List a directory based on a path
 //-----------------------------------------------------------------------------
 #if FATFS_DIR_LIST_SUPPORT
-bool fl_ouput = true;
 void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *dir_count, int *file_count)
 {
     FL_DIR dirstat;
@@ -1527,11 +1485,8 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
     CHECK_FL_INIT();
 
     FL_LOCK(&_fs);
-    if(fl_ouput == true)
-    {
-        FAT_PRINTF(("\r\nDirectory %s\r\n", path));
-    }
-    
+
+    FAT_PRINTF(("\r\nDirectory %s\r\n", path));
 
     if (fl_opendir(path, &dirstat))
     {
@@ -1549,11 +1504,7 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
                     dirs[*dir_count].name[sizeof(dirs[*dir_count].name) - 1] = '\0'; // Ensure null-terminated
                     (*dir_count)++;
                 }
-                if(fl_ouput == true)
-                {
-                    FAT_PRINTF(("-  %s <DIR>\n", dirent.filename));
-                }
-                
+                FAT_PRINTF(("-  %s <DIR>\n", dirent.filename));
             }
             else
             {
@@ -1563,11 +1514,7 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
                     files[*file_count].name[sizeof(files[*file_count].name) - 1] = '\0'; // Ensure null-terminated
                     (*file_count)++;
                 }
-                if(fl_ouput == true)
-                {
-                    FAT_PRINTF(("-  %s [%d bytes]\n", dirent.filename, dirent.size));
-                }   
-                
+                FAT_PRINTF(("-  %s [%d bytes]\n", dirent.filename, dirent.size));
             }
         }
 
@@ -1575,15 +1522,6 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
     }
 
     FL_UNLOCK(&_fs);
-}
-
-int fl_output_enable()
-{
-    fl_ouput = true;
-}
-int fl_output_disable()
-{
-    fl_ouput = false;
 }
 #endif
 //-----------------------------------------------------------------------------
@@ -1816,30 +1754,13 @@ int rename(const char* old_name, const char* new_name) {
     return 0; // Success
 }
 
-//Custom Functions:
-
-int chdir(char *path) {
-    if (strcmp(path, "..") == 0) {
-        // If the path is "..", move back one directory
-        size_t len = strlen(current_path);
-        if (len > 1) { // Ensure we're not at the root directory
-            // Find the last occurrence of '/' to remove the last directory
-            char *last_slash = strrchr(current_path, '/');
-            if (last_slash != NULL) {
-                *last_slash = '\0';
-            }
-        }
-        return 0;
-    } else {
-        // Otherwise, set the current directory to the provided path
-        strcpy(current_path, path);
-        return 0;
-    }
+int chdir(char *path)
+{
+    return -1;
 }
 char *getcwd()
 {
-    // printf("called getcwd");
-    return current_path;
+    return NULL;
 }
 int fat_inited()
 {

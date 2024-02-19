@@ -191,7 +191,7 @@ void kmain(unsigned long magic, unsigned long addr)
     Entry dirs[MAX];
     
     // List root directory
-    fl_listdirectory("/", dirs, files, &num_dir, &num_files);
+    // fl_listdirectory("/", dirs, files, &num_dir, &num_files);
     // logging(0,__LINE__,__func__,__FILE__,"%s","inited fat32\n");
     
     // Create root directory
@@ -246,20 +246,20 @@ void kmain(unsigned long magic, unsigned long addr)
     // Initialize keyboard
     keyboard_init();
     // logging(0,__LINE__,__func__,__FILE__,"%s","inited Timer\n");
-    const char* filename = "/bin/test.txt";
+    const char* filename = "/test.txt";
     FL_FILE *file_to_write = fl_fopen(filename, "w");
     FL_FILE *file_to_write_backup = file_to_write;
     // test = fl_fopen(filename, "w");
     char *test_msg = "worldfart3";
     int fl_ret_s = fl_fwrite(test_msg,1,strlen(test_msg),file_to_write);
-    printf("fl_ret_ss = %d\n", fl_ret_s);
+    // printf("fl_ret_ss = %d\n", fl_ret_s);
     // printf("test_msg = %s\n", test_msg);
     // fl_fflush(test);
-    printf("test parent = %d\n", file_to_write->parentcluster);
-    printf("test data = %d\n", file_to_write->file_data_address);
-    // file_to_write->list_node
-    printf("file byte num = %d\n", file_to_write->bytenum);
-    printf("file filelength = %d\n", file_to_write->filelength);
+    // printf("test parent = %d\n", file_to_write->parentcluster);
+    // printf("test data = %d\n", file_to_write->file_data_address);
+    // // file_to_write->list_node
+    // printf("file byte num = %d\n", file_to_write->bytenum);
+    // printf("file filelength = %d\n", file_to_write->filelength);
     fl_fclose(file_to_write);
     if(file_to_write == file_to_write_backup)
     {
@@ -274,10 +274,10 @@ void kmain(unsigned long magic, unsigned long addr)
         printf("Error cant read from file\n");
     }
     
-    printf("test2 parent = %d\n", test2->parentcluster);
-    printf("test2 data = %d\n", test2->file_data_address);
-    printf("file byte num = %d\n", test2->bytenum);
-    printf("file filelength = %d\n", test2->filelength);
+    // printf("test2 parent = %d\n", test2->parentcluster);
+    // printf("test2 data = %d\n", test2->file_data_address);
+    // printf("file byte num = %d\n", test2->bytenum);
+    // printf("file filelength = %d\n", test2->filelength);
     if(test2 == file_to_write_backup)
     {
         printf("Failed to write data\n");

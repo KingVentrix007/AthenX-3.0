@@ -29,15 +29,14 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-#include "string.h"
-#include "fat_defs.h"
-#include "fat_access.h"
-#include "fat_table.h"
-#include "fat_write.h"
-#include "fat_string.h"
-#include "fat_misc.h"
-#include "io_ports.h"
-// #include "debug.h"
+#include "../include/string.h"
+#include "../include/fat_defs.h"
+#include "../include/fat_access.h"
+#include "../include/fat_table.h"
+#include "../include/fat_write.h"
+#include "../include/fat_string.h"
+#include "../include/fat_misc.h"
+// #include "../include/debug.h"
 //-----------------------------------------------------------------------------
 // fatfs_init: Load FAT Parameters
 //-----------------------------------------------------------------------------
@@ -636,15 +635,12 @@ int fatfs_update_file_length(struct fatfs *fs, uint32 Cluster, char *shortname, 
     // Main cluster following loop
     while (1)
     {
-         
         // Read sector
         if (fatfs_sector_reader(fs, Cluster, x++, 0)) // If sector read was successfull
         {
-             
             // Analyse Sector
             for (item = 0; item < FAT_DIR_ENTRIES_PER_SECTOR; item++)
             {
-                 
                 // Create the multiplier for sector access
                 recordoffset = FAT_DIR_ENTRY_SIZE * item;
 
@@ -653,7 +649,6 @@ int fatfs_update_file_length(struct fatfs *fs, uint32 Cluster, char *shortname, 
 
 #if FATFS_INC_LFN_SUPPORT
                 // Long File Name Text Found
-                 
                 if (fatfs_entry_lfn_text(directoryEntry) )
                     ;
 
@@ -664,26 +659,33 @@ int fatfs_update_file_length(struct fatfs *fs, uint32 Cluster, char *shortname, 
                 // Normal Entry, only 8.3 Text
                 else
 #endif
+
                 if (fatfs_entry_sfn_only(directoryEntry) )
                 {
-                     
-                    if (strncmp((const char*)directoryEntry->Name, shortname, 11)==0)
+                    // printf("fatfs_entry_sfn_only (%s) || (%s)\n",directoryEntry->Name,shortname);
+                    // printf("length directoryEntry->Name == %d\n",strlen(directoryEntry->Name));
+                    // printf("length  shortname == %d\n",strlen(shortname));
+                    // printf("match == %d\n",strncmp((const char*)directoryEntry->Name,shortname,11));
+                    if (strncmp((const char*)directoryEntry->Name,shortname,11) == 0)
                     {
-                         
                         directoryEntry->FileSize = FAT_HTONL(fileLength);
+                        // printf("directoryEntry->FileSize == %d\n", directoryEntry->FileSize);
 
 #if FATFS_INC_TIME_DATE_SUPPORT
                         // Update access / modify time & date
                         fatfs_update_timestamps(directoryEntry, 0, 1, 1);
 #endif
-                         
+
                         // Update sfn entry
                         memcpy((uint8*)(fs->currentsector.sector+recordoffset), (uint8*)directoryEntry, sizeof(struct fat_dir_entry));
 
                         // Write sector back
-                        printf_com("wirteback sector %d\n",fs->currentsector.sector);
                         return fs->disk_io.write_media(fs->currentsector.address, fs->currentsector.sector, 1);
                     }
+                    // else
+                    // {
+                    //     printf("not found match\n");
+                    // }
                 }
             } // End of if
         }
