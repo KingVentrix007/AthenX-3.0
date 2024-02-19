@@ -64,7 +64,7 @@ run: AthenX.bin
 
 # Run the OS in QEMU without debugging output
 runt:
-	qemu-system-i386 AthenX.img -m 4G
+	qemu-system-i386 AthenX.img -m 4G -serial stdio
 
 libc:
 	(cd libc  && make )

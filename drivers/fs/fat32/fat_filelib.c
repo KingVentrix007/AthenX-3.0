@@ -627,6 +627,7 @@ static uint32 _read_sectors(FL_FILE* file, uint32 offset, uint8 *buffer, uint32 
     lba = fatfs_lba_of_cluster(&_fs, Cluster) + Sector;
 
     // Read sector of file
+    printf("Read lba == %d\n", lba);
     if (fatfs_sector_read(&_fs, lba, buffer, count))
         return count;
     else
@@ -894,7 +895,7 @@ static uint32 _write_sectors(FL_FILE* file, uint32 offset, uint8 *buf, uint32 co
 
     // Calculate write address
     lba = fatfs_lba_of_cluster(&_fs, Cluster) + SectorNumber;
-
+    printf("lba == %d\n", lba);
     if (fatfs_sector_write(&_fs, lba, buf, count))
         return count;
     else
@@ -919,7 +920,7 @@ int fl_fflush(void *f)
         // If some write data still in buffer
         if (file->file_data_dirty)
         {
-            printf("Writing current sector\n");
+            printf("Writing current sector %d\n",file->file_data_address);
             // Write back current sector before loading next
             if (_write_sectors(file, file->file_data_address, file->file_data_sector, 1))
                 file->file_data_dirty = 0;
@@ -955,6 +956,7 @@ void fl_fclose(void *f)
 #if FATFS_INC_WRITE_SUPPORT
 printf_com("File size changed inc support\n");
             // Update filesize in directory
+            printf("file legnth from 959 == %d\n",file->filelength);
             fatfs_update_file_length(&_fs, file->parentcluster, (char*)file->shortfilename, file->filelength);
 #endif
             file->filelength_changed = 0;
@@ -1110,6 +1112,7 @@ int fl_fread(void * buffer, int size, int length, void *f )
                     break;
 
                 file->file_data_address = sector;
+                printf("%d->file->file_data_address=%d\n",__LINE__,file->file_data_address);
                 file->file_data_dirty = 0;
             }
 
@@ -1305,7 +1308,11 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 
     // Append writes to end of file
     if (file->flags & FILE_APPEND)
+    {
+
         file->bytenum = file->filelength;
+    }
+        
     // Else write to current position
 
     // Calculate start sector
@@ -1392,6 +1399,8 @@ int fl_fwrite(const void * data, int size, int count, void *f )
                 }
 
                 file->file_data_address = sector;
+                printf("%d->file->file_data_address=%d\n",__LINE__,file->file_data_address);
+
                 file->file_data_dirty = 0;
             }
 
@@ -1418,7 +1427,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
     {
         // Increase file size to new point
         file->filelength = file->bytenum;
-
+        printf("file_bye_num\n");
         // We are changing the file length and this
         // will need to be writen back at some point
         file->filelength_changed = 1;
@@ -1427,6 +1436,7 @@ int fl_fwrite(const void * data, int size, int count, void *f )
 #if FATFS_INC_TIME_DATE_SUPPORT
     // If time & date support is enabled, always force directory entry to be
     // written in-order to update file modify / access time & date.
+    printf("filelength_changed\n");
     file->filelength_changed = 1;
 #endif
 

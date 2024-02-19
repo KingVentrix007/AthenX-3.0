@@ -36,6 +36,7 @@
 #include "fat_write.h"
 #include "fat_string.h"
 #include "fat_misc.h"
+#include "io_ports.h"
 // #include "debug.h"
 //-----------------------------------------------------------------------------
 // fatfs_init: Load FAT Parameters
@@ -635,12 +636,15 @@ int fatfs_update_file_length(struct fatfs *fs, uint32 Cluster, char *shortname, 
     // Main cluster following loop
     while (1)
     {
+         
         // Read sector
         if (fatfs_sector_reader(fs, Cluster, x++, 0)) // If sector read was successfull
         {
+             
             // Analyse Sector
             for (item = 0; item < FAT_DIR_ENTRIES_PER_SECTOR; item++)
             {
+                 
                 // Create the multiplier for sector access
                 recordoffset = FAT_DIR_ENTRY_SIZE * item;
 
@@ -649,6 +653,7 @@ int fatfs_update_file_length(struct fatfs *fs, uint32 Cluster, char *shortname, 
 
 #if FATFS_INC_LFN_SUPPORT
                 // Long File Name Text Found
+                 
                 if (fatfs_entry_lfn_text(directoryEntry) )
                     ;
 
@@ -661,19 +666,22 @@ int fatfs_update_file_length(struct fatfs *fs, uint32 Cluster, char *shortname, 
 #endif
                 if (fatfs_entry_sfn_only(directoryEntry) )
                 {
+                     
                     if (strncmp((const char*)directoryEntry->Name, shortname, 11)==0)
                     {
+                         
                         directoryEntry->FileSize = FAT_HTONL(fileLength);
 
 #if FATFS_INC_TIME_DATE_SUPPORT
                         // Update access / modify time & date
                         fatfs_update_timestamps(directoryEntry, 0, 1, 1);
 #endif
-
+                         
                         // Update sfn entry
                         memcpy((uint8*)(fs->currentsector.sector+recordoffset), (uint8*)directoryEntry, sizeof(struct fat_dir_entry));
 
                         // Write sector back
+                        printf_com("wirteback sector %d\n",fs->currentsector.sector);
                         return fs->disk_io.write_media(fs->currentsector.address, fs->currentsector.sector, 1);
                     }
                 }
