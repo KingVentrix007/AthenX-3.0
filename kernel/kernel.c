@@ -31,6 +31,7 @@
 #include "exe.h"
 #include "cursor.h"
 #include "logging.h"
+#include "ant.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -70,6 +71,21 @@ void loop_timer(int input)
         }
         
     }
+}
+int ant_prog() {
+    // Initialize Ant data structure
+    // struct ant ant = ANT_INITIALIZER;
+
+    // // Define the Ant program as a string
+    // const char *ant_program = "a = 11\nb = 20\nc = a + b\n";
+
+    // // Compile and run the Ant program
+    // antval_t result = ant_eval(&ant, ant_program);
+
+    // // Output the result
+    // printf("Result: %ld\n", result);
+
+    return 0;
 }
 KERNEL_MEMORY_MAP g_kmap;
 int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
@@ -230,7 +246,7 @@ void kmain(unsigned long magic, unsigned long addr)
     {
         printf("Overlap detected\n");
     }
-
+    ant_prog();
     // char *string = kmalloc(1024);
     // strcpy(string, "hello world");
     // printf("%s\n",string);

@@ -346,3 +346,52 @@ void* memmove(void* dest, const void* src, size_t n) {
 
     return dest;
 }
+int isspace(char ch) {
+    // Check if the character is a space, tab, carriage return, newline, vertical tab, or form feed
+    return (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n' || ch == '\v' || ch == '\f');
+}
+
+unsigned long strtoul(const char* str, char** endptr, int base) {
+    unsigned long result = 0;
+    int sign = 1;
+    const char* p = str;
+
+    // Skip leading white-space characters
+    while (isspace(*p))
+        p++;
+
+    // Handle optional sign
+    if (*p == '+' || *p == '-') {
+        sign = (*p == '-') ? -1 : 1;
+        p++;
+    }
+
+    // Handle base prefix (0x or 0X for hexadecimal, 0 for octal)
+    if (base == 0) {
+        if (*p == '0') {
+            base = 8;
+            p++;
+            if (*p == 'x' || *p == 'X') {
+                base = 16;
+                p++;
+            }
+        } else {
+            base = 10;
+        }
+    }
+
+    // Convert the string to an unsigned long integer
+    while (isdigit(*p)) {
+        int digit = *p - '0';
+        if (digit >= base) break; // Invalid digit for the specified base
+        result = result * base + digit;
+        p++;
+    }
+
+    if (endptr != NULL) *endptr = (char*)p;
+    return sign > 0 ? result : -result;
+}
+int isdigit(char ch) {
+    // Check if the character is between '0' and '9'
+    return (ch >= '0' && ch <= '9');
+}

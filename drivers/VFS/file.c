@@ -44,7 +44,26 @@ int chdir(const char *path)
         strcpy(tmp,_fixed_cwd);
         strcat(tmp,"/");
         strcat(tmp,path);
+        if(fl_is_dir(tmp) == 0 && strlen(tmp) < FATFS_MAX_LONG_FILENAME)
+        {
+            strcpy(_fixed_cwd,tmp);
+            memset(tmp,0,FATFS_MAX_LONG_FILENAME);
+            return 0;
+
+        }
+        return -1;
         
     }
 
+}
+char *getcwd()
+{
+    if(use_cwd == true)
+    {
+        return _cwd;
+    }
+    else
+    {
+        return _fixed_cwd;
+    }
 }

@@ -15,5 +15,6 @@ typedef struct drive_info
 
 };
 
-
+char *getcwd();
+int chdir(const char *path);
 #endif

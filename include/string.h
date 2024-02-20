@@ -20,4 +20,7 @@ void* memset(void* ptr, int value, size_t n);
 void* memcpy(void* dest, const void* src, size_t n);
 int memcmp(const void* ptr1, const void* ptr2, size_t n);
 void* memmove(void* dest, const void* src, size_t n);
+int isspace(char ch);
+unsigned long strtoul(const char* str, char** endptr, int base) ;
+int isdigit(char ch);
 #endif /* ATHENX_STRING_H */
