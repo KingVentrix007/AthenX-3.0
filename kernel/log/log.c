@@ -63,7 +63,7 @@ int logging(int log_level,int line, char *function, char *path,const char* forma
    
   // }
   printf_com("Writeing to file\n"); 
-  FILE *fp = fl_fopen("/log/log.txt","w");
+  FL_FILE *fp = fl_fopen("/log/log.txt","w");
   if(fp == NULL)
   {
     printf_com("We have a problem writing to file\n");

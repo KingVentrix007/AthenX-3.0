@@ -73,6 +73,14 @@ typedef struct sFL_FILE
 typedef struct {
     char name[256]; // Adjust the size as needed
 } Entry;
+typedef struct stat
+{
+    __kernel_dev_t     st_dev;          /* ID of device containing file */
+    __kernel_off_t     st_size;         /* total size, in bytes */
+    __kernel_time_t    st_atime;        /* time of last access */
+    __kernel_time_t    st_mtime;        /* time of last modification */
+    __kernel_time_t    st_ctime;        /* time of last status change */
+};
 
 //-----------------------------------------------------------------------------
 // Prototypes
@@ -120,9 +128,7 @@ int                 fl_is_dir(const char *path);
 int                 fl_format(uint32 volume_sectors, const char *name);
 
 //Custom Extensions:
-int chdir(char *path);
-char *getcwd();
-int fat_inited();
+
 // Test hooks
 #ifdef FATFS_INC_TEST_HOOKS
 struct fatfs*       fl_get_fs(void);
@@ -131,7 +137,7 @@ struct fatfs*       fl_get_fs(void);
 //-----------------------------------------------------------------------------
 // Stdio file I/O names
 //-----------------------------------------------------------------------------
-#define USE_FILELIB_STDIO_COMPAT_NAMES
+// #define USE_FILELIB_STDIO_COMPAT_NAMES
 
 #ifdef USE_FILELIB_STDIO_COMPAT_NAMES
 
@@ -153,9 +159,9 @@ struct fatfs*       fl_get_fs(void);
 #define mkdir(a)        fl_createdirectory(a)
 #define rmdir(a)        0
 #endif
-int ferror(FILE *stream);
-int ungetc(int character, FILE *stream);
-long get_file_size(FILE *file);
+int ferror(FL_FILE *stream);
+int ungetc(int character, FL_FILE *stream);
+long get_file_size(FL_FILE *file);
 int is_file(const char *path);
 int rename(const char* old_name, const char* new_name);
 #endif

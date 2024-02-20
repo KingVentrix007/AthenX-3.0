@@ -36,6 +36,7 @@
 #include "../include/fat_write.h"
 #include "../include/fat_string.h"
 #include "../include/fat_misc.h"
+#include "clock.h"
 // #include "../include/debug.h"
 //-----------------------------------------------------------------------------
 // fatfs_init: Load FAT Parameters

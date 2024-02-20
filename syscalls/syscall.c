@@ -43,7 +43,7 @@ int system_call_handler_c(int syscall_number, int param1, int param2)
     }
     else if(syscall_number == SYS_OPEN)
     {
-        FILE *file = fl_fopen(param1, param2);
+        FL_FILE *file = fl_fopen(param1, param2);
         return file;
     }
     else if(syscall_number == SYS_READ)

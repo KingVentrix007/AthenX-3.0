@@ -17,22 +17,22 @@ int work()
 
 }
 int is_elf(const char *filename) {
-    FILE *file = fopen(filename, "r");
+    FL_FILE *file = fl_fopen(filename, "r");
     if (file == NULL) {
         printf("Error opening file %s\n", filename);
         return 0;
     }
 
     Elf32_Ehdr elf_header;  // For 32-bit ELF files, change to Elf64_Ehdr for 64-bit files
-    fread(&elf_header, 1, sizeof(elf_header), file);
+    fl_fread(&elf_header, 1, sizeof(elf_header), file);
 
     // Check if the file starts with the ELF magic number
     if (memcmp(elf_header.e_ident, ELFMAG, SELFMAG) == 0) {
-        fclose(file);
+        fl_fclose(file);
         return 1;  // It's a valid ELF file
     }
 
-    fclose(file);
+    fl_fclose(file);
     return 0;  // It's not an ELF file
 }
 
@@ -176,26 +176,26 @@ void run_exe(struct exe_file exe) {
 
 void load_exe_file(const char* filename, uint8_t* stack) {
     // Open the EXE file
-    FILE* file = fopen(filename, "rb");
+    FL_FILE* file = fl_fopen(filename, "rb");
     if (file == NULL) {
         printf("Error: Failed to open the EXE file.\n");
         return;
     }
 
     // Read the EXE file into memory
-    fseek(file, 0, SEEK_END);
-    long file_size = ftell(file);
-    fseek(file, 0, SEEK_SET);
+    fl_fseek(file, 0, SEEK_END);
+    long file_size = fl_ftell(file);
+    fl_fseek(file, 0, SEEK_SET);
 
     uint8_t* exe_data = (uint8_t*)kmalloc(file_size);
     if (exe_data == NULL) {
         printf("Error: Memory allocation failed.\n");
-        fclose(file);
+        fl_fclose(file);
         return;
     }
 
-    fread(exe_data, sizeof(uint8_t), file_size, file);
-    fclose(file);
+    fl_fread(exe_data, sizeof(uint8_t), file_size, file);
+    fl_fclose(file);
 
     // Check if the stack is 16-byte aligned
     if ((uintptr_t)stack % 16 != 0) {

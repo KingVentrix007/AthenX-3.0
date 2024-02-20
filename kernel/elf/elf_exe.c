@@ -423,7 +423,7 @@ void exit_elf(KernelContext* location)
 }
 void load_elf_file(const char* filename, int argc, char **argv) {
     // //printf("AR = %s\n",argv[1]);
-    FILE* file = fopen(filename, "rb");
+    FL_FILE* file = fl_fopen(filename, "rb");
     if (file == NULL) {
         //printf("Failed to open file %s\n",filename);
         // Handle file opening error.
@@ -431,19 +431,19 @@ void load_elf_file(const char* filename, int argc, char **argv) {
     }
 
     fl_fseek(file, 0, SEEK_END);
-    long file_size = ftell(file);
-    fseek(file, 0, SEEK_SET);
+    long file_size = fl_ftell(file);
+    fl_fseek(file, 0, SEEK_SET);
     //printf("Allocating memory for elf file of size %lu bytes\n", file_size);
     uint8_t* elf_data = (uint8_t*)kmalloc(file_size);
     if (elf_data == NULL) {
         //printf("Malloc error in elf\n");
         // Handle memory allocation error.
-        fclose(file);
+        fl_fclose(file);
         return;
     }
     ////printf("%d\n",__LINE__);
-    fread(elf_data, sizeof(uint8_t), file_size, file);
-    fclose(file);
+    fl_fread(elf_data, sizeof(uint8_t), file_size, file);
+    fl_fclose(file);
     ////printf("%d\n",__LINE__);
     
     load_elf_executable(elf_data,argc, argv);
@@ -472,7 +472,7 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 // // Function to load and execute an ELF program
 // void load_elf_file(const char* elf_file) {
 //     // Open and read the ELF file
-//     FILE* file = fopen(elf_file, "rb");
+//     FL_FILE* file = fl_fopen(elf_file, "rb");
 //     if (!file) {
 //         perror("Failed to open file");
 //         return 1;
@@ -480,16 +480,16 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 
 //     // Read and verify the ELF header
 //     Elf32_Ehdr elf_header;
-//     if (fread(&elf_header, sizeof(Elf32_Ehdr), 1, file) != 1) {
+//     if (fl_fread(&elf_header, sizeof(Elf32_Ehdr), 1, file) != 1) {
 //         perror("Failed to read ELF header");
-//         fclose(file);
+//         fl_fclose(file);
 //         return 1;
 //     }
 
 //     // Check if it's an ELF file (verify the magic number)
 //     if (memcmp(elf_header.e_ident, ELFMAG, SELFMAG) != 0) {
 //         //printf("Not an ELF file\n");
-//         fclose(file);
+//         fl_fclose(file);
 //         return 1;
 //     }
 
@@ -500,7 +500,7 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 //     void* stack = kmalloc(STACK_SIZE);
 //     if (!stack) {
 //         perror("Failed to allocate stack memory");
-//         fclose(file);
+//         fl_fclose(file);
 //         return 1;
 //     }
 
@@ -508,7 +508,7 @@ void load_elf_file(const char* filename, int argc, char **argv) {
 //     setup_stack(stack + STACK_SIZE, entry_point);
 
 //     // Close the ELF file
-//     fclose(file);
+//     fl_fclose(file);
 
 //     // Execute the ELF program (load it and start execution)
 

@@ -8,7 +8,7 @@
 
 IDE_CHANNELS g_ide_channels[MAXIMUM_CHANNELS];
 IDE_DEVICE g_ide_devices[MAXIMUM_IDE_DEVICES];
-
+int _drive_num = 0;
 static volatile unsigned char g_ide_irq_invoked = 0;
 
 static uint8 ide_read_register(uint8 channel, uint8 reg);
@@ -531,7 +531,7 @@ int ata_get_drive_by_model(const char *model) {
 int ide_write_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
     
-    if(ide_write_sectors(0,sector_count,sector,buffer) == 0)
+    if(ide_write_sectors(_drive_num,sector_count,sector,buffer) == 0)
     {
         printf_com("raw_write at %d\n",sector);
         char *tempbuffer[512*3];
@@ -553,7 +553,7 @@ int ide_write_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 int ide_read_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
     // printf
-    if(ide_read_sectors(0,sector_count,sector,buffer) == 0)
+    if(ide_read_sectors(_drive_num,sector_count,sector,buffer) == 0)
     {
          printf_com("raw_read at %d\n",sector);
         return 1;
@@ -563,4 +563,8 @@ int ide_read_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 uint64 get_sectors(int driver)
 {
     return 0;
+}
+int set_drive_num(int drive)
+{
+    _drive_num = drive;
 }

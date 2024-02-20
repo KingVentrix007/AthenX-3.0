@@ -154,7 +154,7 @@ int cmd(char *command)
         memset(tmp,0,sizeof(tmp));
         strcat(tmp,path);
         strcat(tmp,program_name);
-        FILE *f = fl_fopen(tmp,"r");
+        FL_FILE *f = fl_fopen(tmp,"r");
         printf("tmp = %s\n",tmp);
 
         if(f == NULL)
@@ -163,7 +163,7 @@ int cmd(char *command)
         }
         else
         {
-            fclose(f);
+            fl_fclose(f);
             LOG_LOCATION;
             // int argc = arg_count+1;
             LOG_LOCATION;

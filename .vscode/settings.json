@@ -80,6 +80,8 @@
         "elf_exe.h": "c",
         "stdint-gcc.h": "c",
         "logging.h": "c",
-        "fat_opts.h": "c"
+        "fat_opts.h": "c",
+        "clock.h": "c",
+        "file.h": "c"
     }
 }

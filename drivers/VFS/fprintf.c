@@ -16,10 +16,10 @@ int fprintf(void *fp,const char *format,...)
     }
     const int ret = vsnprintf_(buffer, 1024*3, format, va);
     va_end(va);
-    printf("buffer = %s\nlen = %d\n", buffer,strlen(buffer));
+    // printf("buffer = %s\nlen = %d\n", buffer,strlen(buffer));
 
     int write_ret = fl_fwrite(buffer,sizeof(char),strlen(buffer),fp);
-    printf("write_ret = %d\n",write_ret);
+    // printf("write_ret = %d\n",write_ret);
     memset(buffer,0,1024*3);
     // kfree(buffer);
 }

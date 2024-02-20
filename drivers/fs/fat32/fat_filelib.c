@@ -51,6 +51,7 @@ static struct fatfs       _fs;
 static struct fat_list    _open_file_list;
 static struct fat_list    _free_file_list;
 
+
 //-----------------------------------------------------------------------------
 // Macros
 //-----------------------------------------------------------------------------
@@ -696,7 +697,7 @@ void fl_shutdown(void)
     FL_UNLOCK(&_fs);
 }
 //-----------------------------------------------------------------------------
-// fopen: Open or Create a file for reading or writing
+// fl_fopen: Open or Create a file for reading or writing
 //-----------------------------------------------------------------------------
 void* fl_fopen(const char *path, const char *mode)
 {
@@ -727,7 +728,7 @@ void* fl_fopen(const char *path, const char *mode)
     //        If a file with the same name already exists its content is erased and the file is treated as a new empty file.
     // "a+" Open a file for reading and appending.
     //        All writing operations are performed at the end of the file, protecting the previous content to be overwritten.
-    //        You can reposition (fseek, rewind) the internal pointer to anywhere in the file for reading, but writing operations
+    //        You can reposition (fl_fseek, rewind) the internal pointer to anywhere in the file for reading, but writing operations
     //        will move it back to the end of file.
     //        The file is created if it does not exist.
 
@@ -949,9 +950,9 @@ void fl_fclose(void *f)
         {
 #if FATFS_INC_WRITE_SUPPORT
             // Update filesize in directory
-            printf("writing file of len %d\n",file->filelength);
+            // printf("writing file of len %d\n",file->filelength);
             int ilret = fatfs_update_file_length(&_fs, file->parentcluster, (char*)file->shortfilename, file->filelength);
-            printf("ilret = %d\n",ilret);
+            // printf("ilret = %d\n",ilret);
 #endif
             file->filelength_changed = 0;
         }
@@ -1498,6 +1499,7 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
             // Increment counts and append to the respective buffer
             if (dirent.is_dir)
             {
+                
                 if (*dir_count < MAX)
                 {
                     strncpy(dirs[*dir_count].name, dirent.filename, sizeof(dirs[*dir_count].name) - 1);
@@ -1505,6 +1507,7 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
                     (*dir_count)++;
                 }
                 FAT_PRINTF(("-  %s <DIR>\n", dirent.filename));
+                
             }
             else
             {
@@ -1622,7 +1625,7 @@ struct fatfs* fl_get_fs(void)
     return &_fs;
 }
 #endif
-int ungetc(int character, FILE *stream) {
+int ungetc(int character, FL_FILE *stream) {
     // This is a dummy implementation of ungetc.
     // It doesn't actually push the character back into the stream,
     // but it satisfies the function prototype.
@@ -1630,7 +1633,7 @@ int ungetc(int character, FILE *stream) {
     // Always return EOF to indicate an error.
     return EOF;
 }
-int ferror(FILE *stream) {
+int ferror(FL_FILE *stream) {
     // This is a dummy implementation of ferror.
     // It always returns 0 (no error) to indicate that no error occurred.
     
@@ -1683,32 +1686,32 @@ int fatfs_add_special_entries(struct fatfs *fs, uint32 dirCluster, uint32 parent
 
 
 
-long get_file_size(FILE *file) {
-    // FILE* file = fopen(file_name, "rb");
+long get_file_size(FL_FILE *file) {
+    // FILE* file = fl_fopen(file_name, "rb");
     if (file == NULL) {
         // Error opening the file
         return -1;
     }
 
     // Seek to the end of the file
-    if (fseek(file, 0, SEEK_END) != 0) {
+    if (fl_fseek(file, 0, SEEK_END) != 0) {
         // Error seeking to the end
-        fclose(file);
+        fl_fclose(file);
         return -1;
     }
 
     // Get the current file position, which is the file size
-    long size = ftell(file);
+    long size = fl_ftell(file);
     
     // Close the file
-    // fclose(file);
+    // fl_fclose(file);
 
     return size;
 }
 
 int is_file(const char *path)
 {
-    FILE *fp = fopen(path,"r");
+    FL_FILE *fp = fl_fopen(path,"r");
     if(fp == NULL)
     {
         return -1;
@@ -1716,37 +1719,37 @@ int is_file(const char *path)
     else{
         return 0;
     }
-    fclose(fp);
+    fl_fclose(fp);
 }
 
 int rename(const char* old_name, const char* new_name) {
     // Open the file with the current name for reading.
-    FILE* old_file = fopen(old_name, "rb");
+    FL_FILE* old_file = fl_fopen(old_name, "rb");
     if (old_file == NULL) {
         // perror("Error opening the file for reading");
         return -1;
     }
 
     // Open a new file with the desired name for writing.
-    FILE* new_file = fopen(new_name, "wb");
+    FL_FILE* new_file = fl_fopen(new_name, "wb");
     if (new_file == NULL) {
         // perror("Error opening the file for writing");
-        fclose(old_file);
+        fl_fclose(old_file);
         return -1;
     }
 
     // Read and write the file content.
     int c;
-    while ((c = fgetc(old_file)) != EOF) {
-        fputc(c, new_file);
+    while ((c = fl_fgetc(old_file)) != EOF) {
+        fl_fputc(c, new_file);
     }
 
     // Close the files.
-    fclose(old_file);
-    fclose(new_file);
+    fl_fclose(old_file);
+    fl_fclose(new_file);
 
     // Remove the old file.
-    if (remove(old_name) != 0) {
+    if (fl_remove(old_name) != 0) {
         // perror("Error deleting the old file");
         return -1;
     }
@@ -1754,14 +1757,7 @@ int rename(const char* old_name, const char* new_name) {
     return 0; // Success
 }
 
-int chdir(char *path)
-{
-    return -1;
-}
-char *getcwd()
-{
-    return NULL;
-}
+
 int fat_inited()
 {
     return -1;

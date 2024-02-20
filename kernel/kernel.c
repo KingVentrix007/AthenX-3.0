@@ -267,8 +267,8 @@ void kmain(unsigned long magic, unsigned long addr)
     // }
     // printf("Reading from file %s\n", filename);
     // // fl_fflush(test);
-    // // fclose(test);
-    // FILE *test2 = fl_fopen(filename, "r");
+    // // fl_fclose(test);
+    // FL_FILE *test2 = fl_fopen(filename, "r");
     // if(test2 == NULL)
     // {
     //     printf("Error cant read from file\n");
@@ -285,7 +285,7 @@ void kmain(unsigned long magic, unsigned long addr)
     // char readdata[1000];
     // int read_ret = fl_fread(readdata,1,50,test2);
     // printf("read data = %s -> %d\n",readdata,read_ret);
-    // fclose(test2);
+    // fl_fclose(test2);
     // update_cursor_manual();
     // Print message
     // printf("Here\n");
