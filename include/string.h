@@ -23,4 +23,10 @@ void* memmove(void* dest, const void* src, size_t n);
 int isspace(char ch);
 unsigned long strtoul(const char* str, char** endptr, int base) ;
 int isdigit(char ch);
+long strtol(const char *str, char **endptr, int base);
+int tolower(int c);
+int toupper(int c);
+int islower(int c);
+int isupper(char ch);
+void *realloc(void *ptr, size_t size);
 #endif /* ATHENX_STRING_H */

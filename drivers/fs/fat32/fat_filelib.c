@@ -41,6 +41,7 @@
 #include "../include/fat_cache.h"
 #include "../include/fat_format.h"
 #include "stdint.h"
+#include "keyboard.h"
 //-----------------------------------------------------------------------------
 // Locals
 //-----------------------------------------------------------------------------
@@ -50,8 +51,9 @@ static int                _filelib_valid = 0;
 static struct fatfs       _fs;
 static struct fat_list    _open_file_list;
 static struct fat_list    _free_file_list;
-
-
+int stdout = 1;
+int stderr = 2;
+int stdin = 3;
 //-----------------------------------------------------------------------------
 // Macros
 //-----------------------------------------------------------------------------
@@ -977,6 +979,10 @@ void fl_fclose(void *f)
 //-----------------------------------------------------------------------------
 int fl_fgetc(void *f)
 {
+    if((int)f == stdin)
+    {
+        return get_char(0);
+    }
     int res;
     uint8 data = 0;
 
@@ -1265,6 +1271,15 @@ int fl_fputc(int c, void *f)
 #if FATFS_INC_WRITE_SUPPORT
 int fl_fwrite(const void * data, int size, int count, void *f )
 {
+    const char *char_data = (const char *)data;  // Cast the void pointer to char pointer
+
+    if ((int)f == 1 || (int)f == 2 || (int)f == 3) {
+        for (size_t i = 0; i < count; i++) {
+            printf("%c", char_data[i]);  // Access data as characters
+        }
+        return count;
+    }
+    
     FL_FILE *file = (FL_FILE *)f;
     uint32 sector;
     uint32 offset;

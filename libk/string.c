@@ -1,5 +1,7 @@
 #include <stddef.h>
 #include "string.h"
+#include "errno.h"
+#include "limits.h"
 /**
  * Copies the string pointed to by src, including the null terminator, 
  * to the buffer pointed to by dest.
@@ -394,4 +396,120 @@ unsigned long strtoul(const char* str, char** endptr, int base) {
 int isdigit(char ch) {
     // Check if the character is between '0' and '9'
     return (ch >= '0' && ch <= '9');
+}
+long strtol(const char *str, char **endptr, int base) {
+    // Skip leading white space
+    while (*str == ' ' || (*str >= '\t' && *str <= '\r')) {
+        str++;
+    }
+    
+    // Handle optional '+' or '-' sign
+    int sign = 1;
+    if (*str == '-') {
+        sign = -1;
+        str++;
+    } else if (*str == '+') {
+        str++;
+    }
+    
+    // Determine the base if not provided
+    if (base == 0) {
+        if (*str == '0') {
+            if (*(str + 1) == 'x' || *(str + 1) == 'X') {
+                base = 16;
+                str += 2;
+            } else {
+                base = 8;
+                str++;
+            }
+        } else {
+            base = 10;
+        }
+    } else if (base == 16 && *str == '0' && (*(str + 1) == 'x' || *(str + 1) == 'X')) {
+        str += 2;
+    }
+    
+    // Convert the string to a long integer
+    long result = 0;
+    while (*str != '\0') {
+        int digit;
+        if (*str >= '0' && *str <= '9') {
+            digit = *str - '0';
+        } else if (*str >= 'a' && *str <= 'z') {
+            digit = *str - 'a' + 10;
+        } else if (*str >= 'A' && *str <= 'Z') {
+            digit = *str - 'A' + 10;
+        } else {
+            break; // Invalid character
+        }
+        
+        if (digit >= base) {
+            break; // Invalid digit for base
+        }
+        
+        // Check for overflow
+        if (result > (LONG_MAX - digit) / base) {
+            errno = ERANGE;
+            result = sign == 1 ? LONG_MAX : LONG_MIN;
+            break;
+        }
+        
+        result = result * base + digit;
+        str++;
+    }
+    
+    // Set endptr to the next character after the last character used in the conversion
+    if (endptr != NULL) {
+        *endptr = (char *)str;
+    }
+    
+    return result * sign;
+}
+int tolower(int c) {
+    if (c >= 'A' && c <= 'Z') {
+        return c + ('a' - 'A');
+    }
+    return c;
+}
+int toupper(int c) {
+    if (islower(c)) {
+        // If the character is a lowercase letter, convert it to uppercase
+        return c - ('a' - 'A');
+    } else {
+        // If the character is not a lowercase letter, return it unchanged
+        return c;
+    }
+}
+int islower(int c) {
+    return (c >= 'a' && c <= 'z');
+}
+int isupper(char ch) {
+    return (ch >= 'A' && ch <= 'Z');
+}
+
+int exit(int v )
+{
+    errno = v;
+}
+void *realloc(void *ptr, size_t size) {
+    if (!ptr) {
+        // If ptr is NULL, behave like kmalloc
+        return kmalloc(size);
+    } else if (size == 0) {
+        // If size is 0, behave like kfree
+        kfree(ptr);
+        return NULL;
+    } else {
+        // Allocate new memory block
+        void *new_ptr = kmalloc(size);
+        if (!new_ptr) {
+            // Allocation failed
+            return NULL;
+        }
+        // Copy contents of old block to new block
+        memcpy(new_ptr, ptr, size);
+        // Deallocate old block
+        kfree(ptr);
+        return new_ptr;
+    }
 }

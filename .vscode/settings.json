@@ -83,6 +83,18 @@
         "fat_opts.h": "c",
         "clock.h": "c",
         "file.h": "c",
-        "ant.h": "c"
+        "ant.h": "c",
+        "argparse.h": "c",
+        "pocketlang.h": "c",
+        "utils.h": "c",
+        "core.h": "c",
+        "value.h": "c",
+        "vm.h": "c",
+        "errno.h": "c",
+        "buffers.h": "c",
+        "debug.h": "c",
+        "cwalk.h": "c",
+        "limits.h": "c",
+        "dirent.h": "c"
     }
 }
