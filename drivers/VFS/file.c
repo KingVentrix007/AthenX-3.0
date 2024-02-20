@@ -23,7 +23,9 @@ int chdir(const char *path)
 {
     if(use_cwd == true)
     {
-        char *tmp = kmalloc(_cwd_len);
+        char *tmp = kmalloc(_cwd_len+strlen(path)+3);
+        // strcat(tmp,"");
+        strcpy(tmp,_cwd);
         strcat(tmp,"/");
         strcat(tmp,path);
         if(fl_is_dir(tmp) == 0)
@@ -35,6 +37,14 @@ int chdir(const char *path)
         }
         kfree(tmp);
         return -1;
+    }
+    else
+    {
+        char tmp[FATFS_MAX_LONG_FILENAME];
+        strcpy(tmp,_fixed_cwd);
+        strcat(tmp,"/");
+        strcat(tmp,path);
+        
     }
 
 }
