@@ -138,7 +138,7 @@ struct fatfs*       fl_get_fs(void);
 // Stdio file I/O names
 //-----------------------------------------------------------------------------
 // #define USE_FILELIB_STDIO_COMPAT_NAMES
-
+#define USE_FILELIB_STDIO_COMPAT_NAMES
 #ifdef USE_FILELIB_STDIO_COMPAT_NAMES
 
 #define FILE            FL_FILE
@@ -158,6 +158,9 @@ struct fatfs*       fl_get_fs(void);
 #define remove(a)       fl_remove(a)
 #define mkdir(a)        fl_createdirectory(a)
 #define rmdir(a)        0
+extern int stderr;
+extern int stdout;
+extern int stdin;
 #endif
 int ferror(FL_FILE *stream);
 int ungetc(int character, FL_FILE *stream);
