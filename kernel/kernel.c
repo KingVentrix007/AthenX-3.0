@@ -1,9 +1,9 @@
 // Include necessary header files
-#include "stdint.h"
+#include "stdint-gcc.h"
 #include "vga.h"
 #include "multiboot.h"
 #include "kernel.h"
-
+#include "scanf.h"
 #include "idt.h"
 #include "gdt.h"
 #include "printf.h"
@@ -31,6 +31,7 @@
 #include "exe.h"
 #include "cursor.h"
 #include "logging.h"
+#include "stdio.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -71,6 +72,7 @@ void loop_timer(int input)
         
     }
 }
+
 KERNEL_MEMORY_MAP g_kmap;
 int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
     uint32 i;
@@ -245,6 +247,7 @@ void kmain(unsigned long magic, unsigned long addr)
      
     // Initialize keyboard
     keyboard_init();
+    
     // logging(0,__LINE__,__func__,__FILE__,"%s","inited Timer\n");
     // const char* filename = "/test.txt";
     // FL_FILE *file_to_write = fl_fopen(filename, "w");
@@ -293,7 +296,10 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // Enable interrupts
     STI();
-    
+    // char sbuffer[1024];
+    // printf(">>>");
+    // scanf_("%s", sbuffer);
+    // printf("\n%s", sbuffer);
     // Create command line process
     CreateProcess(command_line);
     // CreateProcess(update_cursor);
@@ -318,35 +324,39 @@ void command_line(void)
     printf("\n>");
     while(1)
     {
-        // printf("c");
-        char chr = (char)get_char(0);
-        // printf("next");
-        if(chr == '\0')
-        {
-            continue;
-        }
-        if(chr != '\n')
-        {
-            input_buffer[buffer_pos] = chr;
-            buffer_pos++;
-            printf("%c",chr);
-            // cmd(input_buffer);
+        fgets(input_buffer,1024,stdin);
+        cmd(input_buffer);
+        memset(input_buffer, 0,1024);
+        printf(">");
 
-        }
-        else if(chr == '\b')
-        {
-            input_buffer[buffer_pos] = "\0";
-            buffer_pos--;
-            printf("%c",chr);
-        }
-        else if (chr == '\n')
-        {
+        // char chr = (char)getchar();
+        // // printf("next");
+        // if(chr == '\0' || chr <= 0)
+        // {
+        //     continue;
+        // }
+        // if(chr != '\n')
+        // {
+        //     input_buffer[buffer_pos] = chr;
+        //     buffer_pos++;
+        //     printf("%c",chr);
+        //     // cmd(input_buffer);
+
+        // }
+        // else if(chr == '\b')
+        // {
+        //     input_buffer[buffer_pos] = "\0";
+        //     buffer_pos--;
+        //     printf("%c",chr);
+        // }
+        // else if (chr == '\n')
+        // {
            
-            cmd(input_buffer);
-           memset(input_buffer, 0,1024);
-           buffer_pos = 0;
-           printf("\n%s@%s>",user,"M");
-        }
+        //     cmd(input_buffer);
+        //    memset(input_buffer, 0,1024);
+        //    buffer_pos = 0;
+        //    printf("\n%s@%s>",user,"M");
+        // }
         // if(buffer_pos >= get_memory_size(input_buffer)-10)
         // {
         //     printf("Resizing input buffer\n");

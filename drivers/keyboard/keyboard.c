@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "stdbool.h"
 #include "isr.h"
+#include "stream.h"
 static bool g_caps_lock = false;
 static bool g_shift_pressed = false;
 char *g_ch = 0, g_scan_code = 0;
@@ -155,6 +156,12 @@ void keyboard_handler(REGISTERS *r) {
                 }
                 break;
         }
+
+    }
+    if(g_ch > 0)
+    {
+        push_io(g_ch);
+
     }
     // kb_buffer.buffer_pos++; 
     // kb_buffer.buffer[kb_buffer.buffer_pos] = (int)g_ch;
@@ -215,6 +222,7 @@ void unlock_kb_input()
 }
 
 void keyboard_init() {
+    init_io_system();
     printf("registering keyboard\n");
     isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler);
 }

@@ -108,7 +108,7 @@ int                 fl_fgetpos(void *file , uint32 * position);
 long                fl_ftell(void *f);
 int                 fl_feof(void *f);
 int                 fl_remove(const char * filename);
-int                 fprintf(void *fp,const char *format,...);
+
 
 // Equivelant dirent.h
 typedef struct fs_dir_list_status    FL_DIR;
@@ -160,7 +160,7 @@ struct fatfs*       fl_get_fs(void);
 #define rmdir(a)        0
 #endif
 int ferror(FL_FILE *stream);
-int ungetc(int character, FL_FILE *stream);
+// int ungetc(int character, FL_FILE *stream);
 long get_file_size(FL_FILE *file);
 int is_file(const char *path);
 int rename(const char* old_name, const char* new_name);

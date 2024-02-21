@@ -1625,14 +1625,7 @@ struct fatfs* fl_get_fs(void)
     return &_fs;
 }
 #endif
-int ungetc(int character, FL_FILE *stream) {
-    // This is a dummy implementation of ungetc.
-    // It doesn't actually push the character back into the stream,
-    // but it satisfies the function prototype.
-    
-    // Always return EOF to indicate an error.
-    return EOF;
-}
+
 int ferror(FL_FILE *stream) {
     // This is a dummy implementation of ferror.
     // It always returns 0 (no error) to indicate that no error occurred.
