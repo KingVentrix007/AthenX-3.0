@@ -5,7 +5,6 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/home/king/OsDev/basekernel/cross/lib/gcc/i686-elf/8.2.0",
-                "${workspaceFolder}/libc/include",
                 "${workspaceFolder}/include",
                 "/usr/include"
             ],

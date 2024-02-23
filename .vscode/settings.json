@@ -85,6 +85,11 @@
         "file.h": "c",
         "stream.h": "c",
         "ext4_config.h": "c",
-        "ext4_blockdev.h": "c"
+        "ext4_blockdev.h": "c",
+        "ext4_crc32.h": "c",
+        "ext4_fs.h": "c",
+        "stdlib.h": "c",
+        "errno.h": "c",
+        "pci_dev.h": "c"
     }
 }
