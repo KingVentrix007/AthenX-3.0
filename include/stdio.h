@@ -4,6 +4,7 @@
 #include <stdarg.h>
 //Defines
 #define EOF (-1)
+#define FILE (void *)
 //Typedefs for stdio
 typedef long fpos_t;
 
@@ -27,6 +28,7 @@ int rmdir(const char *path);
 int fprintf(void *fp,const char *format,...);
 int getchar(void);
 int ungetc(int c, void *stream);
+
 //Streams
 extern int stdin;
 extern int stdout;

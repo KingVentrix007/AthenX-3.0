@@ -2141,6 +2141,22 @@ int getch_(void)
     }
     if(ch != '\n')
     {
+        // if(ch == '\b')
+        // {
+        //     long pos = get_io_pos();
+        //     if(pos >= 1)
+        //     {
+        //         printf("%c", ch);
+        //     }
+        //     printf_com(">%d", pos);
+             
+        // }
+        // else
+        // {
+        //    
+        // }
+        
+        printf_com("%c", "c");
         printf("%c", ch);
     }
     return ch;

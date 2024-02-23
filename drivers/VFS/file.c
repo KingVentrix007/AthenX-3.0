@@ -12,6 +12,7 @@ bool use_cwd = true;
 int stdin = STDIN_VALUE;
 int stdout = STDOUT_VALUE;
 int stderr = STDERR_VALUE;
+drive_info drives[24];
 int init_fs()
 {
     _cwd = kmalloc(FATFS_MAX_LONG_FILENAME);
@@ -273,6 +274,27 @@ int fclose(void *stream) {
  *         On failure, returns non-zero value.
  */
 int fseek(void *stream, long offset, int whence) {
+    if((int)stream == stdin)
+    {
+        long new_position;
+        switch(whence) {
+        case SEEK_SET:
+            new_position = offset;
+            break;
+        case SEEK_CUR:
+            new_position = offset + ftell(stream); // Assuming ftell() gives the current position
+            break;
+        case SEEK_END:
+            logging(3,__LINE__,__func__,__FILE__,"ATTEMPT TO READ OUT OF BUFFER");
+            return -1;
+            // new_position = buffer_size + offset;
+            // break;
+        default:
+            return -1; // Invalid origin
+        
+        set_io_pos(new_position);
+    }
+    }
     return fl_fseek(stream,offset,whence);
     // return -1;
 }
@@ -307,6 +329,10 @@ int fgetpos(void *stream, fpos_t *pos) {
  *          On failure, returns -1L.
  */
 long ftell(void *stream) {
+    if((int)stream == stdin)
+    {
+        return get_io_pos();
+    }
     return fl_ftell(stream);
     // Empty implementation
     // return -1L;
@@ -461,3 +487,7 @@ int ungetc(int c,void *stream)
     }
 }
 
+int fflush(int stream)
+{
+    return 0;
+}

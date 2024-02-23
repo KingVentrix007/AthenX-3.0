@@ -328,68 +328,7 @@ void command_line(void)
         cmd(input_buffer);
         memset(input_buffer, 0,1024);
         printf(">");
-
-        // char chr = (char)getchar();
-        // // printf("next");
-        // if(chr == '\0' || chr <= 0)
-        // {
-        //     continue;
-        // }
-        // if(chr != '\n')
-        // {
-        //     input_buffer[buffer_pos] = chr;
-        //     buffer_pos++;
-        //     printf("%c",chr);
-        //     // cmd(input_buffer);
-
-        // }
-        // else if(chr == '\b')
-        // {
-        //     input_buffer[buffer_pos] = "\0";
-        //     buffer_pos--;
-        //     printf("%c",chr);
-        // }
-        // else if (chr == '\n')
-        // {
-           
-        //     cmd(input_buffer);
-        //    memset(input_buffer, 0,1024);
-        //    buffer_pos = 0;
-        //    printf("\n%s@%s>",user,"M");
-        // }
-        // if(buffer_pos >= get_memory_size(input_buffer)-10)
-        // {
-        //     printf("Resizing input buffer\n");
-        //     input_buffer = sys_reallocate_memory(input_buffer, get_memory_size(input_buffer),get_memory_size(input_buffer)+KB);
-        // }
-        // else
-        // {
-        //     pr
-        // }
         
     }
     // TerminateProcess();
-}
-
-void loop(void)
-{
-    // while(1)
-    // {
-    //     printf("l\n");
-    // }
-    TerminateProcess();
-}
-static int generate_random_number_asm() {
-    int result;
-    // Execute RDRAND instruction
-    asm volatile("rdrand %0" : "=r" (result));
-    return result;
-}
-
-int generate_random_number() {
-    int random_number;
-    do {
-        random_number = generate_random_number_asm();
-    } while (random_number == 0); // Retry if RDRAND returns 0 (failure)
-    return random_number;
 }

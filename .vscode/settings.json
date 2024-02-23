@@ -83,6 +83,8 @@
         "fat_opts.h": "c",
         "clock.h": "c",
         "file.h": "c",
-        "stream.h": "c"
+        "stream.h": "c",
+        "ext4_config.h": "c",
+        "ext4_blockdev.h": "c"
     }
 }
