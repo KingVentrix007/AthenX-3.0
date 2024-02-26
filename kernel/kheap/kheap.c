@@ -613,7 +613,8 @@ void *find_free_zone(Node *current_node, size_t size,int num_blocks_needed)
                 current_node = start_node;
                 for (int i = 0; i < num_blocks_needed; ++i)
                 {
-                    current_node->allocated = true;
+                    
+                    current_node->allocated = true; 
                     current_node->first_block = (i == 0);
                     current_node->num_block_used = num_blocks_needed;
                     current_node = current_node->next;

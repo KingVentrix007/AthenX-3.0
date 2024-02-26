@@ -232,7 +232,8 @@ void kmain(unsigned long magic, unsigned long addr)
     {
         printf("Overlap detected\n");
     }
-
+    pci_scan();
+    // ahci_main();
     // char *string = kmalloc(1024);
     // strcpy(string, "hello world");
     // printf("%s\n",string);

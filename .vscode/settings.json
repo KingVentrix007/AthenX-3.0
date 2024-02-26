@@ -90,6 +90,10 @@
         "ext4_fs.h": "c",
         "stdlib.h": "c",
         "errno.h": "c",
-        "pci_dev.h": "c"
+        "pci_dev.h": "c",
+        "pci_io.h": "c",
+        "fis.h": "c",
+        "ahci.h": "c",
+        "read.h": "c"
     }
 }
