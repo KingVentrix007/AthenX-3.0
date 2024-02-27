@@ -32,6 +32,7 @@
 #include "cursor.h"
 #include "logging.h"
 #include "stdio.h"
+#include "stdlib.h"
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -216,7 +217,7 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // Enable Physical Memory Manager
     printf("Enabling PMM\n");
-    init_pmm_page(pmm_start);
+    init_pmm_page(pmm_start,g_kmap.available.size);
     printf("PMM enabled\n");
     
     // Initialize Virtual Memory Manager
@@ -227,7 +228,7 @@ void kmain(unsigned long magic, unsigned long addr)
     
     // Map VESA memory
     map_vesa();
-    init_kheap(pmm_start);
+    init_kheap(g_kmap.available.size);
     if(KHEAP_START < __kernel_section_end)
     {
         printf("Overlap detected\n");
@@ -248,7 +249,18 @@ void kmain(unsigned long magic, unsigned long addr)
      
     // Initialize keyboard
     keyboard_init();
-    
+    char *test_malloc = malloc(1024*1024*1024);
+    if(test_malloc == NULL)
+    {
+        printf("Couldn't allocate memory of size 1GB\n");
+    }
+    else
+    {
+        printf("Got memory of size 1GB\n");
+    }
+    char *test_b = "THis allocated memory";
+    strcpy(test_malloc, test_b);
+    printf("%s", test_malloc);
     // logging(0,__LINE__,__func__,__FILE__,"%s","inited Timer\n");
     // const char* filename = "/test.txt";
     // FL_FILE *file_to_write = fl_fopen(filename, "w");

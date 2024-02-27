@@ -19,26 +19,19 @@ void* calloc(size_t num_elements, size_t element_size) {
 
 void *malloc(size_t size) {
     // Calculate the number of pages needed
-    size_t num_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
+    // size_t num_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
 
     // Allocate memory for the pages
-    void *ptr = kmalloc(num_pages * PAGE_SIZE);
-
+    void *ptr = kmalloc(size);
+    
     // Map each page
-    for (size_t i = 0; i < num_pages; ++i) {
-        // Calculate the virtual address for this page
-        void *va = (char *)ptr + (i * PAGE_SIZE);
-
-        // Map the page
-        map(va, ptr, PAGE_WRITE | PAGE_PRESENT);
-    }
-
+  
     return ptr;
 }
 void free(void *ptr)
 {
      kfree(ptr);
-     unmap(ptr);
+    
 }
 void* realloc(void* ptr, size_t new_size) {
     // If ptr is NULL, equivalent to malloc(new_size)

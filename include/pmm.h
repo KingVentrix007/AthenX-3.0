@@ -4,7 +4,7 @@
 #include "stdint.h"
 #include "stddef.h"
 
-void init_pmm_page(uint32_t pmm_start);
+void init_pmm_page(uint32_t pmm_start,size_t size);
 uint32_t pmm_alloc_page();
 uint32_t pmm_alloc_pages(uint32_t num_pages);
 #endif

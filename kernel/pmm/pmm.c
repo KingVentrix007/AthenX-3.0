@@ -10,18 +10,21 @@ uint8_t pmm_paging_active = 0;
 static uint32_t pmm_stack_loc = PMM_STACK_START;
 static uint32_t pmm_stack_max = PMM_STACK_START;
 static uint32_t pmm_location = 0;
-
+static uint32_t pmm_stack_end = PMM_STACK_END;
 // NOTE: if you ever wanted to fuck up something here...
 // pmm_location if physical but identity mapped
-void init_pmm_page(uint32_t pmm_start) {
+void init_pmm_page(uint32_t pmm_start,size_t size) {
 	// Ensure the initial page allocation location is page-aligned.
+	printf("Initializing pageing with %u pages\n",size/PAGE_SIZE);
 	pmm_location = (pmm_start + PAGE_SIZE) & PAGE_ADDR_MASK;
+	// pmm_stack_end = pmm_location + size;
 }
 
 uint32_t pmm_alloc_page() {
 	// sanity check
 	if (!pmm_paging_active) {
-		// printf("pmm_location alloc: 0x%.8x\n", pmm_location);
+		printf_com("pmm_location alloc: 0x%.8x\n", pmm_location);
+
 		uint32_t addr = pmm_location;
 		pmm_location += PAGE_SIZE;
 		return addr;
@@ -47,7 +50,7 @@ void pmm_free_page(uint32_t p) {
 	// If we've run out of space on the stack...
 	if (pmm_stack_max <= pmm_stack_loc) {
 		// sanity check
-		if (PMM_STACK_END <= pmm_stack_max)
+		if (pmm_stack_end <= pmm_stack_max)
 			printf("PMM Stack: out of mem for free pages.");
 			// for(;;);
 		// Map the page we're currently freeing at the top of the free page stack.
@@ -98,28 +101,16 @@ void pmm_collect_pages(MULTIBOOT_INFO* mboot_ptr) {
  */
 uint32_t pmm_alloc_pages(uint32_t num_pages) {
     // Sanity check
-    if (!pmm_paging_active) {
-        uint32_t addr = pmm_location;
-        pmm_location += (num_pages * PAGE_SIZE);
-        return addr;
-    }
-    
-    // Sanity check
-    if (PMM_STACK_START >= pmm_stack_loc)
-        write_to_com1_string("PMM Stack: no free pages.");
-    
-    // Allocate consecutive pages
-    uint32_t addr = pmm_location;
-    for (uint32_t i = 0; i < num_pages; ++i) {
-        uint32_t* stack = (uint32_t*)pmm_stack_loc;
-        if (pmm_stack_loc >= PMM_STACK_END) {
-            write_to_com1_string("PMM Stack: out of mem for free pages.");
-            return 0; // Return null pointer if out of memory
-        }
-        *stack = addr;
-        pmm_stack_loc += sizeof(uint32_t);
-        addr += PAGE_SIZE;
-    }
-    pmm_location += (num_pages * PAGE_SIZE);
-    return addr - (num_pages * PAGE_SIZE); // Return the start address of the allocated memory block
+    uint32_t start = pmm_alloc_page();
+	uint32_t va_start = start;
+	map(va_start,start,PAGE_PRESENT | PAGE_WRITE);
+	uint32_t va_adder = va_start;
+	for (size_t i = 0; i < num_pages-PAGE_SIZE; i++)
+	{
+		uint32_t adder = pmm_alloc_page();
+		va_adder += PAGE_SIZE;
+		map(va_adder,adder,PAGE_PRESENT | PAGE_WRITE);
+	}
+	return va_start;
+	
 }

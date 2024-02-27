@@ -31,14 +31,15 @@ FreeZone free_zones[MAX_CACHED_ALLOCATIONS] = {};
  */
 int free_zone_count = 0;
 
-void init_kheap(uint32_t grub_free_area_start)
+void init_kheap(uint32_t size)
 {
-	void *zone = pmm_alloc_pages(100);
-	init_memory_allocation(zone,100*PAGE_SIZE);
-	if(zone < grub_free_area_start)
-	{
-		printf("Warning: zone %p is at a lower address than the free area %p",zone,grub_free_area_start);
-	}
+    int64_t num_total_pages = size / PAGE_SIZE; // Total number of pages in the memory region
+    uint64_t num_pages_40_percent = (num_total_pages * 0.4); // 40% of the total pages
+    printf("Using %d pages for kheap\n", num_pages_40_percent);
+	void *zone = pmm_alloc_pages(num_pages_40_percent);
+    printf("Initializing memory region 0x%08X\n",zone);
+	init_memory_allocation(zone,num_pages_40_percent*PAGE_SIZE);
+	
 }
 
 /**
@@ -73,7 +74,7 @@ void print_node_info(const Node *node)
  */
 void init_memory_allocation(void *start_addr, size_t size)
 {
-    // printf("size = %d\n", size);
+    printf("Setting up region of size %u\n", size);
     init_memory_region(start_addr, size);
     // memory_allocations = (MemoryAllocationInfo *)sys_allocate_memory(sizeof(MemoryAllocationInfo) * 10);
     // Now nodes are initialized, and the available memory is divided accordingly
