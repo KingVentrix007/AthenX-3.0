@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include "string.h"
+#include "io_ports.h"
 /**
  * Copies the string pointed to by src, including the null terminator, 
  * to the buffer pointed to by dest.
@@ -86,12 +87,19 @@ char* strncat(char* dest, const char* src, size_t n) {
  *   (int) - Negative value if str1 < str2, 0 if str1 == str2, positive value if str1 > str2.
  */
 int strcmp(const char* str1, const char* str2) {
+    // LOG_LOCATION;
     while (*str1 != '\0' && *str2 != '\0' && *str1 == *str2) {
+        LOG_LOCATION;
+        
         str1++;
+
         str2++;
+        LOG_LOCATION;
     }
-    return (*str1 - *str2);
+    LOG_LOCATION;
+    return (*str1 == '\0' && *str2 == '\0') ? 0 : (*str1 - *str2);
 }
+
 
 /**
  * Compares up to n characters of two strings.

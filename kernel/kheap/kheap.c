@@ -1,6 +1,7 @@
 #include <kheap.h>
 #include <pmm.h>
 #include <vmm.h>
+#include "io_ports.h"
 /**
  * @brief Pointer to the start of the memory region.
  */
@@ -98,7 +99,7 @@ void *sys_allocate_memory(int size)
         MEM_ALLOC_LOG(0, "Size is too large");
         return NULL;
     }
-    int num_blocks_needed = (size + 1023) / BLOCK_SIZE; // Round up to the nearest whole block
+    int num_blocks_needed = (size + (BLOCK_SIZE-1)) / BLOCK_SIZE; // Round up to the nearest whole block
 
     MEM_ALLOC_LOG(2, "Allocating %d blocks of memory\n", num_blocks_needed);
 
@@ -159,6 +160,9 @@ void *sys_free_memory(const void *addr)
         // Mark the nodes as free
         for (int i = 0; i < num_blocks_to_free; ++i)
         {
+            void *tmp_adder = current_node->addr;
+            unmap(current_node->addr);
+            current_node->addr = tmp_adder;
             current_node->allocated = false;
             current_node->first_block = false;
             current_node->num_block_used = 0;
@@ -612,8 +616,14 @@ void *find_free_zone(Node *current_node, size_t size,int num_blocks_needed)
             {
                 // Mark the nodes as allocated
                 current_node = start_node;
+                printf_com("Called %d times",num_blocks_needed);
                 for (int i = 0; i < num_blocks_needed; ++i)
                 {
+                    void *tmp_adder = current_node->addr;
+	// LOG_LOCATION;
+                    
+                    map(current_node->addr,tmp_adder,PAGE_PRESENT|PAGE_WRITE);
+	// LOG_LOCATION;
                     
                     current_node->allocated = true; 
                     current_node->first_block = (i == 0);

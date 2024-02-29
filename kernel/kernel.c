@@ -261,6 +261,7 @@ void kmain(unsigned long magic, unsigned long addr)
     char *test_b = "THis allocated memory";
     strcpy(test_malloc, test_b);
     printf("%s", test_malloc);
+    free(test_b);
     // logging(0,__LINE__,__func__,__FILE__,"%s","inited Timer\n");
     // const char* filename = "/test.txt";
     // FL_FILE *file_to_write = fl_fopen(filename, "w");
@@ -329,15 +330,19 @@ void command_line(void)
 {
     // STI();
     // printf("Commnd command\n================================\n");
-    char *input_buffer = (char *)kmalloc(1024);
+    LOG_LOCATION;
+    sleep(3);
+    char *input_buffer = (char *)malloc(1025);
     // printf("HERE\n");
     int buffer_pos = 0;
     char user[] = "Dev";
-    memset(input_buffer,0,1024);
+    memset(input_buffer,1,1024);
+    // free(input_buffer);
     printf("\n>");
     while(1)
     {
         fgets(input_buffer,1024,stdin);
+        printf("\n%s",input_buffer);
         cmd(input_buffer);
         memset(input_buffer, 0,1024);
         printf(">");

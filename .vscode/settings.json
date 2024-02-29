@@ -94,6 +94,13 @@
         "pci_io.h": "c",
         "fis.h": "c",
         "ahci.h": "c",
-        "read.h": "c"
+        "read.h": "c",
+        "*.def": "c",
+        "cmath": "c",
+        "unordered_map": "c",
+        "limits": "c",
+        "numeric": "c",
+        "ostream": "c",
+        "streambuf": "c"
     }
 }

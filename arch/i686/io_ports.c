@@ -77,6 +77,8 @@ void printf_com(const char* format, ...)
     va_end(args);
 
     // Call write_to_com1_string to write the formatted string to COM1
+    char *msg = "Debug output: ";
+    write_to_com1_string(msg);
     write_to_com1_string(buffer);
 }
 void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity) {

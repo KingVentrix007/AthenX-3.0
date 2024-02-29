@@ -162,7 +162,7 @@ void map(uint32_t va, uint32_t pa, uint32_t flags) {
 }
 
 void unmap(uint32_t va) {
-	printf("unmap address: 0x%08X\n", va);
+	// printf("unmap address: 0x%08X\n", va);
 	uint32_t page_num = PG_NUM_FROM_ADDR(va);
 	// update current directory
 	current_directory->pages[page_num] = 0;

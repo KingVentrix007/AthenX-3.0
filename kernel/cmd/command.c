@@ -6,12 +6,15 @@
 // #include "mem.h"
 #include "exe.h"
 #include "io_ports.h"
+#include "stdlib.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
 // Function to parse command line arguments
 char** parse_command(char* cmd_line, int* argc) {
     // Allocate memory for the arguments array
-    char** argv = (char**)kmalloc(sizeof(char*) * 64);
+    LOG_LOCATION;
+    char** argv = (char**)malloc(sizeof(char*) * 64);
+    LOG_LOCATION;
     if(argv == NULL)
     {
         printf("allocation error\n");
@@ -71,9 +74,10 @@ char** parse_command(char* cmd_line, int* argc) {
 // Function to free memory allocated by the command parser
 void free_command(char** argv, int argc) {
     for (int i = 0; i < argc; i++) {
-        kfree(argv[i]);
+        LOG_LOCATION;
+        free(argv[i]);
     }
-    kfree(argv);
+    free(argv);
 }
 
 void set_cwd(char *path) {
@@ -106,39 +110,58 @@ char *get_cwd() {
 }
 void ls()
 {
+    printf("Listing files\n");
+
     int num_dir;
     int num_files;
     Entry files[MAX];
     Entry dirs[MAX];
-    fl_listdirectory(getcwd(),dirs,files,&num_dir,&num_files);
+    printf_com("Calling fl_listdir()\n");
+    fl_listdirectory("/",dirs,files,&num_dir,&num_files);
 }
 int cmd(char *command)
 {
     int argc;
+        LOG_LOCATION;
+
     char** argv = parse_command(command, &argc);
+        LOG_LOCATION;
+
     if (argv == NULL) {
         printf("Error: Memory allocation failed.\n");
+        LOG_LOCATION;
+
         return 1;
     }
+    LOG_LOCATION;
 
-    if(strcmp(argv[0],"cd") ==0)
-    {
-        set_cwd(argv[1]);
-    }
-    else if (strcmp(argv[0],"ls") ==0)
+    // if(strcmp(argv[0],"cd") ==0)
+    // {
+    //     set_cwd(argv[1]);
+    //     LOG_LOCATION;
+
+    // }
+    LOG_LOCATION;
+     if (strcmp(argv[0],"ls") ==0)
     {
         ls();
+        LOG_LOCATION;
+        
     }
     else if (strcmp(argv[0],"exe") == 0)
     {
+        LOG_LOCATION;
+
         //  load_elf_file("/test/test.elf", argc, argv);
     }
     else
     {
-        int num_dir;
-        int num_files;
-        Entry files[MAX];
-        Entry dirs[MAX];
+        LOG_LOCATION;
+
+        // int num_dir;
+        // int num_files;
+        // Entry files[MAX];
+        // Entry dirs[MAX];
         
         // fl_output_disable();
       
@@ -152,10 +175,13 @@ int cmd(char *command)
         char path[100] = "/bin/";
         char tmp[100];
         memset(tmp,0,sizeof(tmp));
+        LOG_LOCATION;
+
         strcat(tmp,path);
         strcat(tmp,program_name);
         FL_FILE *f = fl_fopen(tmp,"r");
-        printf("tmp = %s\n",tmp);
+        // printf("tmp = %s\n",tmp);
+        LOG_LOCATION;
 
         if(f == NULL)
         {
@@ -187,7 +213,7 @@ int cmd(char *command)
 
             memset(tmp,0,sizeof(tmp));
             LOG_LOCATION;
-            return 0;
+            // return 0;
         }
         
         // printf("Program name: %s\n",program_name);
@@ -202,16 +228,16 @@ int cmd(char *command)
         //     }
         // }
         // printf("Command %s not recognized\n", argv[0]);
-        return -1;
+        // return -1;
         
 
     }
-
+    printf_com("freeing memory\n");
     free_command(argv, argc);
-
+    printf_com("made it here\n");
     return 0;
-    
 }
+    
 
 void loop_test()
 {

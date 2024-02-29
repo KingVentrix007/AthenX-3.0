@@ -30,6 +30,7 @@ void *malloc(size_t size) {
 }
 void free(void *ptr)
 {
+    // __sync_lock_release();
      kfree(ptr);
     
 }
