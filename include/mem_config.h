@@ -9,7 +9,7 @@
 /**
  * @brief Block size for memory management.
  */
-#define BLOCK_SIZE 0x1000
+#define BLOCK_SIZE 1024
 
 /**
  * @brief Maximum number of cached allocations.

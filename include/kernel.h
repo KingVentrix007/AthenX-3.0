@@ -47,5 +47,5 @@ typedef struct {
 } KERNEL_MEMORY_MAP;
 
 extern KERNEL_MEMORY_MAP g_kmap;
-
+void init(unsigned long magic, unsigned long addr);
 #endif

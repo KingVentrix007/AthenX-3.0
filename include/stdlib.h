@@ -3,15 +3,19 @@
 
 #include <stddef.h> // for size_t
 
-// Declaration for my_calloc function
+// Declaration for calloc function
 void* calloc(size_t num_elements, size_t element_size);
 
-// Declaration for my_malloc function
+// Declaration for malloc function
 void* malloc(size_t size);
 
-// Declaration for my_free function
+// Declaration for free function
 void free(void* ptr);
 
-// Declaration for my_realloc function
+// Declaration for realloc function
 void* realloc(void* ptr, size_t new_size);
+
+long strtol(const char *nptr, int base);
+
+double ldexp(double x, int exp);
 #endif

@@ -32,6 +32,9 @@ OBJ_FILES_C := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES_C))
 OBJ_FILES_S := $(patsubst %.s, $(OBJ_DIR)/%.o, $(SRC_FILES_S))
 OBJ_FILES_ASM := $(patsubst %.asm, $(OBJ_DIR)/%.o, $(SRC_FILES_ASM))
 
+all:
+	python update_version.py
+	make AthenX.bin
 # Compile C files
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
@@ -49,6 +52,7 @@ $(OBJ_DIR)/%.o: %.asm
 
 # Link object files into binary
 AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
+
 	ld $(LDPARAMS) -o $@ $^
 	mkdir -p isodir/boot/grub
 	cp AthenX.bin isodir/boot/AthenX.bin

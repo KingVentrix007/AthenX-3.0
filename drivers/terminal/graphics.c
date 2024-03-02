@@ -13,10 +13,11 @@
  *   color (int) - The color of the loading bar.
  *   distance_between_bars (int) - The distance between each loading bar.
  */
-void draw_loading_bar(int current_value, int total_value, int x, int y, int color, int distance_between_bars) {
+void draw_loading_bar(int current_value, int total_value, int x, int y, uint32_t color, int distance_between_bars) {
     // Calculate the width of each segment of the loading bar
-    int segment_width = 5;
-    int segment_height = 10;
+    // printf("Drawoing bar\n");
+    int segment_width = 10;
+    int segment_height = 15;
 
     // Calculate the total width of the loading bar
     int total_width = total_value * (segment_width + distance_between_bars);

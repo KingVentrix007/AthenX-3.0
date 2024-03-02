@@ -120,6 +120,8 @@ int                 fl_closedir(FL_DIR* dir);
 
 // Extensions
 void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *dir_count, int *file_count);
+void fl_count_files(const char *path, int *dir_count, int *file_count);
+void fl_populate_file_list(const char *path, Entry *files, int *file_count);
 int fl_output_disable();
 int fl_output_enable();
 int                 fl_createdirectory(const char *path);

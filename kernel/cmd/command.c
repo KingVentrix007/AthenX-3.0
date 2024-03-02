@@ -9,6 +9,7 @@
 #include "stdlib.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
+char **executables_path;
 // Function to parse command line arguments
 char** parse_command(char* cmd_line, int* argc) {
     // Allocate memory for the arguments array
@@ -135,14 +136,13 @@ int cmd(char *command)
     }
     LOG_LOCATION;
 
-    // if(strcmp(argv[0],"cd") ==0)
-    // {
-    //     set_cwd(argv[1]);
-    //     LOG_LOCATION;
+    if(strcmp(argv[0],"cd") ==0)
+    {
+        set_cwd(argv[1]);
+        LOG_LOCATION;
 
-    // }
-    LOG_LOCATION;
-     if (strcmp(argv[0],"ls") ==0)
+    }
+    else if (strcmp(argv[0],"ls") ==0)
     {
         ls();
         LOG_LOCATION;

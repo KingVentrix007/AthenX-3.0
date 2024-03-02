@@ -72,4 +72,5 @@ void vbe_putpixel(int x, int y, int color);
 int map_vesa();
 void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines);
 int vesa_scroll(int lines);
+void draw_loading_bar(int current_value, int total_value, int x, int y, uint32_t color, int distance_between_bars);
 #endif

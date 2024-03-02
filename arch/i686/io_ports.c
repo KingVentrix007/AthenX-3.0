@@ -61,6 +61,46 @@ void write_to_com1_string(char *s)
     }
     
 }
+void printf_error(const char *format, ...)
+{
+    // Define a buffer to hold the formatted string
+    char buffer[256]; // Adjust the buffer size as needed
+
+    // Initialize the variable argument list
+    va_list args;
+    va_start(args, format);
+
+    // Format the string using vsnprintf
+    vsnprintf(buffer, sizeof(buffer), format, args);
+
+    // Cleanup the variable argument list
+    va_end(args);
+
+    // Call write_to_com1_string to write the formatted string to COM1
+    char *msg = "ERROR: ";
+    write_to_com1_string(msg);
+    write_to_com1_string(buffer);
+}
+void printf_debug(const char *format, ...)
+{
+     // Define a buffer to hold the formatted string
+    char buffer[256]; // Adjust the buffer size as needed
+
+    // Initialize the variable argument list
+    va_list args;
+    va_start(args, format);
+
+    // Format the string using vsnprintf
+    vsnprintf(buffer, sizeof(buffer), format, args);
+
+    // Cleanup the variable argument list
+    va_end(args);
+
+    // Call write_to_com1_string to write the formatted string to COM1
+    char *msg = "DEBUG: ";
+    write_to_com1_string(msg);
+    write_to_com1_string(buffer);
+}
 void printf_com(const char* format, ...)
 {
     // Define a buffer to hold the formatted string

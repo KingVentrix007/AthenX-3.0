@@ -39,74 +39,74 @@ int create_device(pci_config_register *config)
     pci_device *device;
     switch (config->class_code) {
         case PCI_CLASS_UNCLASSIFIED:
-            printf("Unclassified Device\n");
+            printf_com("Unclassified Device\n");
             break;
         case PCI_CLASS_MASS_STORAGE:
-            printf("Mass Storage Controller\n");
+            printf_com("Mass Storage Controller\n");
             if(is_ahci(config) == 1)
             {
-                printf("AHCI Controller found\n");
+                printf_com("AHCI Controller found\n");
             }
             break;
         case PCI_CLASS_NETWORK:
-            printf("Network Controller\n");
+            printf_com("Network Controller\n");
             break;
         case PCI_CLASS_DISPLAY:
-            printf("Display Controller\n");
+            printf_com("Display Controller\n");
             break;
         case PCI_CLASS_MULTIMEDIA:
-            printf("Multimedia Controller\n");
+            printf_com("Multimedia Controller\n");
             break;
         case PCI_CLASS_MEMORY:
-            printf("Memory Controller\n");
+            printf_com("Memory Controller\n");
             break;
         case PCI_CLASS_BRIDGE:
-            printf("Bridge Device\n");
+            printf_com("Bridge Device\n");
             break;
         case PCI_CLASS_SIMPLE_COMM:
-            printf("Simple Communications Controller\n");
+            printf_com("Simple Communications Controller\n");
             break;
         case PCI_CLASS_BASE_SYSTEM_PERIPH:
-            printf("Base System Peripheral\n");
+            printf_com("Base System Peripheral\n");
             break;
         case PCI_CLASS_INPUT:
-            printf("Input Device Controller\n");
+            printf_com("Input Device Controller\n");
             break;
         case PCI_CLASS_DOCKING:
-            printf("Docking Station\n");
+            printf_com("Docking Station\n");
             break;
         case PCI_CLASS_PROCESSOR:
-            printf("Processor\n");
+            printf_com("Processor\n");
             break;
         case PCI_CLASS_SERIAL_BUS:
-            printf("Serial Bus Controller\n");
+            printf_com("Serial Bus Controller\n");
             break;
         case PCI_CLASS_WIRELESS:
-            printf("Wireless Controller\n");
+            printf_com("Wireless Controller\n");
             break;
         case PCI_CLASS_INTELLIGENT_IO:
-            printf("Intelligent IO Controller\n");
+            printf_com("Intelligent IO Controller\n");
             break;
         case PCI_CLASS_SATELLITE:
-            printf("Satellite Communication Controller\n");
+            printf_com("Satellite Communication Controller\n");
             break;
         case PCI_CLASS_ENCRYPTION:
-            printf("Encryption Controller\n");
+            printf_com("Encryption Controller\n");
             break;
         case PCI_CLASS_SIGNAL_PROCESSING:
-            printf("Signal Processing Controller\n");
+            printf_com("Signal Processing Controller\n");
             break;
         case PCI_CLASS_PROCESSING_ACCEL:
-            printf("Processing Accelerator\n");
+            printf_com("Processing Accelerator\n");
             break;
         case PCI_CLASS_NON_ESSENTIAL:
-            printf("Non-Essential Instrumentation\n");
+            printf_com("Non-Essential Instrumentation\n");
             break;
         case PCI_CLASS_COPROCESSOR:
-            printf("Coprocessor\n");
+            printf_com("Coprocessor\n");
             break;
         default:
-            // printf("Unknown or Unassigned Class Code\n");
+            // printf_com("Unknown or Unassigned Class Code\n");
             break;
     }
 }
@@ -122,7 +122,7 @@ uint32_t get_ahci_abar()
 {
     for (size_t i = 0; i < dev_count; i++)
     {
-            // printf("PCI read %d -> ven = 0x%X || dev = 0x%X\n ",i,devs[i].vendor_id,devs[i].device_id);
+            // printf_com("PCI read %d -> ven = 0x%X || dev = 0x%X\n ",i,devs[i].vendor_id,devs[i].device_id);
 
         
         if(devs[i].class_code == PCI_CLASS_MASS_STORAGE)
@@ -132,13 +132,13 @@ uint32_t get_ahci_abar()
                 
                 
 
-                printf("Memory Address: 0x%08X\n", devs[i].base_address_5);
+                printf_com("Memory Address: 0x%08X\n", devs[i].base_address_5);
 
-                 printf("0x%08X\n", devs[i].base_address_4);
-                //  printf("0x%08X\n", devs[i].base_address_3);
-                //  printf("0x%08X\n", devs[i].base_address_2);
-                //  printf("0x%08X\n", devs[i].base_address_1);
-                //  printf("0x%08X\n", devs[i].base_address_0);
+                 printf_com("0x%08X\n", devs[i].base_address_4);
+                //  printf_com("0x%08X\n", devs[i].base_address_3);
+                //  printf_com("0x%08X\n", devs[i].base_address_2);
+                //  printf_com("0x%08X\n", devs[i].base_address_1);
+                //  printf_com("0x%08X\n", devs[i].base_address_0);
 
 
                 
@@ -148,7 +148,7 @@ uint32_t get_ahci_abar()
         }
 
     }
-    printf("loop done\n");
+    printf_com("loop done\n");
     return -1;
 }
 

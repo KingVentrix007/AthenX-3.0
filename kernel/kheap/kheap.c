@@ -36,9 +36,9 @@ void init_kheap(uint32_t size)
 {
     int64_t num_total_pages = size / PAGE_SIZE; // Total number of pages in the memory region
     uint64_t num_pages_40_percent = (num_total_pages * 0.4); // 40% of the total pages
-    printf("Using %d pages for kheap\n", num_pages_40_percent);
+    printf_com("Using %d pages for kheap\n", num_pages_40_percent);
 	void *zone = pmm_alloc_pages(num_pages_40_percent);
-    printf("Initializing memory region 0x%08X\n",zone);
+    printf_com("Initializing memory region 0x%08X\n",zone);
 	init_memory_allocation(zone,num_pages_40_percent*PAGE_SIZE);
 	
 }
@@ -75,7 +75,7 @@ void print_node_info(const Node *node)
  */
 void init_memory_allocation(void *start_addr, size_t size)
 {
-    printf("Setting up region of size %u\n", size);
+    printf_com("Setting up region of size %u\n", size);
     init_memory_region(start_addr, size);
     // memory_allocations = (MemoryAllocationInfo *)sys_allocate_memory(sizeof(MemoryAllocationInfo) * 10);
     // Now nodes are initialized, and the available memory is divided accordingly
@@ -161,7 +161,7 @@ void *sys_free_memory(const void *addr)
         for (int i = 0; i < num_blocks_to_free; ++i)
         {
             void *tmp_adder = current_node->addr;
-            unmap(current_node->addr);
+            // unmap(current_node->addr);
             current_node->addr = tmp_adder;
             current_node->allocated = false;
             current_node->first_block = false;
@@ -622,7 +622,7 @@ void *find_free_zone(Node *current_node, size_t size,int num_blocks_needed)
                     void *tmp_adder = current_node->addr;
 	// LOG_LOCATION;
                     
-                    map(current_node->addr,tmp_adder,PAGE_PRESENT|PAGE_WRITE);
+                    // map(tmp_adder,current_node->addr,PAGE_PRESENT|PAGE_WRITE);
 	// LOG_LOCATION;
                     
                     current_node->allocated = true; 

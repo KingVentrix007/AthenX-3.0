@@ -4,7 +4,7 @@
 #include <stdarg.h>
 //Defines
 #define EOF (-1)
-#define FILE (void *)
+#define FILE void *
 //Typedefs for stdio
 typedef long fpos_t;
 

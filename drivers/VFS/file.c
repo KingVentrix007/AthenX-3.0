@@ -75,7 +75,7 @@ char *getcwd()
 
 void *fopen(const char *path,const char *modifiers)
 {
-    if(1 == 0)//If fat32 or ext#, ATM only fat works
+    if(0 == 0)//If fat32 or ext#, ATM only fat works
     {
         return fl_fopen(path,modifiers);
     }
@@ -115,7 +115,7 @@ size_t fread(void *ptr, size_t size, size_t nmemb, void *stream) {
         ptr = buf;
         
     }
-    else if(1 == 0)
+    else if(0 == 0)
     {
         return fl_fread(ptr,size,nmemb,stream);
     }
@@ -167,7 +167,7 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, void *stream) {
     }
     else
     {
-        if(1 == 0)
+        if(0 == 0)
         {
             return fl_fwrite(ptr,size,nmemb,stream);
         }

@@ -1502,6 +1502,7 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
                 
                 if (*dir_count < MAX)
                 {
+
                     strncpy(dirs[*dir_count].name, dirent.filename, sizeof(dirs[*dir_count].name) - 1);
                     dirs[*dir_count].name[sizeof(dirs[*dir_count].name) - 1] = '\0'; // Ensure null-terminated
                     (*dir_count)++;
@@ -1526,6 +1527,71 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
 
     FL_UNLOCK(&_fs);
 }
+void fl_count_files(const char *path, int *dir_count, int *file_count) {
+    FL_DIR dirstat;
+
+    // If first call to library, initialize
+    CHECK_FL_INIT();
+
+    FL_LOCK(&_fs);
+
+    if (fl_opendir(path, &dirstat)) {
+        struct fs_dir_ent dirent;
+
+        while (fl_readdir(&dirstat, &dirent) == 0) {
+            // Increment counts based on the type of entry
+            if (dirent.is_dir) {
+                (*dir_count)++;
+            } else {
+                (*file_count)++;
+            }
+        }
+
+        fl_closedir(&dirstat);
+    }
+
+    FL_UNLOCK(&_fs);
+}
+/**
+ * Function Name: fl_populate_file_list
+ * Description: Populates a list of all files found in the specified directory.
+ *
+ * Parameters:
+ *   path (const char*) - The path of the directory to list files from.
+ *   files (Entry*) - Pointer to the dynamically allocated array to store the list of files found.
+ *   file_count (int*) - Pointer to store the count of files found.
+ *
+ * Return:
+ *   None
+ */
+
+void fl_populate_file_list(const char *path, Entry *files, int *file_count) {
+    FL_DIR dirstat;
+
+    // If first call to library, initialize
+    CHECK_FL_INIT();
+
+    FL_LOCK(&_fs);
+
+    if (fl_opendir(path, &dirstat)) {
+        struct fs_dir_ent dirent;
+
+        while (fl_readdir(&dirstat, &dirent) == 0) {
+            // Only add files to the list
+            if (!dirent.is_dir) {
+                // Copy file name into the list
+                strncpy(files[*file_count].name, dirent.filename, sizeof(files[*file_count].name) - 1);
+                files[*file_count].name[sizeof(files[*file_count].name) - 1] = '\0'; // Ensure null-terminated
+                (*file_count)++;
+            }
+        }
+
+        fl_closedir(&dirstat);
+    }
+
+    FL_UNLOCK(&_fs);
+}
+
 #endif
 //-----------------------------------------------------------------------------
 // fl_opendir: Opens a directory for listing

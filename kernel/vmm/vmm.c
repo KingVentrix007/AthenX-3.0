@@ -19,7 +19,7 @@ void page_fault(REGISTERS *regs);
 
 void init_vmm() {
 	// page faults
-	isr_register_interrupt_handler(14, page_fault);
+	// isr_register_interrupt_handler(14, page_fault);
 
 	// NOTE: remember that every entry in directory and tables have flags,
 	// to obtain addresses must be and'ed with PAGE_ADDR_MASK

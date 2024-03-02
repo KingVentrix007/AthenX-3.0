@@ -101,6 +101,13 @@
         "limits": "c",
         "numeric": "c",
         "ostream": "c",
-        "streambuf": "c"
+        "streambuf": "c",
+        "ide.h": "c",
+        "stb_images.h": "c",
+        "images.h": "c",
+        "owl_logo.h": "c",
+        "img.h": "c",
+        "cstdlib": "c",
+        "info.h": "c"
     }
 }
