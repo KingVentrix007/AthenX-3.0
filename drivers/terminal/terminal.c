@@ -122,10 +122,5 @@ void draw_char_8x16(int x, int y, char character) {
             }
         }
     }
-    if(multi_buffers_enabled == 1)
-    {
-        // update_pixel_display();
-
-    }
 
 }

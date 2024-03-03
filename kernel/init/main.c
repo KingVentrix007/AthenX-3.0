@@ -57,6 +57,7 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize terminal with specified resolution
     init_com1();
     init_terminal(1024, 768);
+    init_debug_terminal(1024,768);
     //   printf("================================================================");
     TIME current_time = get_time();
     int acpi = acpiEnable();

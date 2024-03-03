@@ -70,13 +70,7 @@ void loop_timer(int input)
         {
             ticks = get_ticks();
         }
-        if(multi_buffers_enabled == 1)
-        {
-            // update_pixel_display();
 
-        }
-
-        
     }
 }
 

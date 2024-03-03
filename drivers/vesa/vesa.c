@@ -184,7 +184,13 @@ int leave_vesa_mode() {
 
 int vesa_scroll(int lines)
 {
-    scroll_screen(g_vbe_buffer,g_width,g_height,lines);
+    scroll_screen(display_buffer_1,g_width,g_height,lines);
+    update_pixel_display();
+}
+int debug_scroll(int lines)
+{
+    scroll_screen(display_buffer_2,g_width,g_height,lines);
+    update_pixel_display();
 }
 void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines) {
     // Calculate the number of pixels to shift up
@@ -225,14 +231,13 @@ void draw_pixel_buffer_1(int x, int y, int color) {
     uint32 i = y * g_width + x;
     *(display_buffer_1 + i) = color;
     update_pixel(x,y);
-    // printf_com("Updated\n");
-    // update_pixel_display();
+
 }
 void draw_pixel_buffer_2(int x, int y, int color) {
     uint32 i = y * g_width + x;
     *(display_buffer_2 + i) = color;
     update_pixel(x,y);
-    // update_pixel_display();
+    
 }
 int cycle_buffers_vbe()
 {
@@ -256,14 +261,8 @@ int cycle_buffers_vbe()
 int update_pixel_display()
 {
     // printf_com("Curent buffer == %d\n", curent_buffer);
-    if(curent_buffer == 1)
-    {
-        memmove(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
-    }
-    if(curent_buffer == 2)
-    {
-        memmove(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
-    }
+     memmove(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
+     memmove(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
 }
 int update_pixel(int x, int y)
 {

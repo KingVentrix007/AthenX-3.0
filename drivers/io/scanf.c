@@ -2156,7 +2156,7 @@ int getch_(void)
         //    
         // }
         
-        printf_com("%c", "c");
+        printf_debug("%c", ch);
         printf("%c", ch);
     }
     return ch;

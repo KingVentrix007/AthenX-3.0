@@ -50,11 +50,6 @@ void undraw_cursor(int sx, int sy)
         }
         
     }
-    if(multi_buffers_enabled == 1)
-    {
-    // update_pixel_display();
-
-    }
 }
 
 void update_cursor(void)

@@ -98,10 +98,12 @@ void keyboard_handler(REGISTERS *r) {
                 g_ch = SCAN_CODE_KEY_LEFT;
                 break;
             case 0x3B: // F1
+                handle_F1_press(0x3B);
                 g_ch = "\u23A7";
                 break;
             case 0x3C: // F2
-                g_ch = "\u23A8";
+                handle_F2_press(0x3C);
+                g_ch = -1;
                 break;
             case 0x3D: // F3
                 g_ch = "\u23A9";
@@ -225,4 +227,173 @@ void keyboard_init() {
     init_io_system();
     printf_com("registering keyboard\n");
     isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler);
+}
+
+/**
+ * Function Name: handle_F1_press
+ * Description: Handles the press of the F1 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F1_press(int scancode) {
+    printf("F1 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F2_press
+ * Description: Handles the press of the F2 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F2_press(int scancode) {
+    cycle_buffers_vbe();
+    // printf("F2 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F3_press
+ * Description: Handles the press of the F3 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F3_press(int scancode) {
+    printf("F3 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F4_press
+ * Description: Handles the press of the F4 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F4_press(int scancode) {
+    printf("F4 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F5_press
+ * Description: Handles the press of the F5 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F5_press(int scancode) {
+    printf("F5 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F6_press
+ * Description: Handles the press of the F6 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F6_press(int scancode) {
+    printf("F6 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F7_press
+ * Description: Handles the press of the F7 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F7_press(int scancode) {
+    printf("F7 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F8_press
+ * Description: Handles the press of the F8 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F8_press(int scancode) {
+    printf("F8 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F9_press
+ * Description: Handles the press of the F9 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F9_press(int scancode) {
+    printf("F9 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F10_press
+ * Description: Handles the press of the F10 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F10_press(int scancode) {
+    printf("F10 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F11_press
+ * Description: Handles the press of the F11 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F11_press(int scancode) {
+    printf("F11 key pressed. Scancode: %d\n", scancode);
+}
+
+/**
+ * Function Name: handle_F12_press
+ * Description: Handles the press of the F12 key.
+ *
+ * Parameters:
+ *   scancode (int) - The scancode of the pressed key.
+ *
+ * Return:
+ *   None
+ */
+void handle_F12_press(int scancode) {
+    printf("F12 key pressed. Scancode: %d\n", scancode);
 }
