@@ -24,9 +24,17 @@ int get_terminal_postion_y(void)
 {
     return terminal_postion_y;
 }
+int set_terminal_postion_x(int x)
+{
+    terminal_postion_x = x;
+}
+int set_terminal_postion_y(int y)
+{
+    terminal_postion_y = y;
+}
 int draw_vbe_char(char c)
 {
-    if(c != '\n' && c != '\b')
+    if(c != '\n' && c != '\b' && c != '\t')
     {
         if(terminal_postion_x > 1024-terminal_font_width)
         {
@@ -67,6 +75,16 @@ int draw_vbe_char(char c)
         draw_char_8x16(terminal_postion_x, terminal_postion_y, ' ');
         terminal_postion_x-=terminal_font_width;
     }
+    else if (c == '\t')
+    {
+        terminal_postion_x = terminal_postion_x+(terminal_font_width*4);
+    }
+    if(multi_buffers_enabled == 1)
+    {
+        
+
+    }
+    
     
     
     
@@ -90,9 +108,24 @@ void draw_char_8x16(int x, int y, char character) {
         for (int col = 0; col < charWidth; col++) {
             // Check if the current pixel is set in the font byte
             if ((fontByte >> (7 - col)) & 1) {
+                if(multi_buffers_enabled == 0)
+                {
+                    vbe_putpixel(x + col, y + row, vbe_rgb(255, 255, 255)); // Assuming white color for the character
+
+                }
+                else
+                {
+                    // printf_com("%c",character);
+                    draw_pixel_buffer_1(x + col, y + row, vbe_rgb(255, 255, 255));
+                }
                 // Set the pixel at the corresponding position
-                vbe_putpixel(x + col, y + row, vbe_rgb(255, 255, 255)); // Assuming white color for the character
             }
         }
     }
+    if(multi_buffers_enabled == 1)
+    {
+        // update_pixel_display();
+
+    }
+
 }

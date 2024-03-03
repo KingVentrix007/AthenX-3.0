@@ -14,6 +14,10 @@
 #include "command.h"
 #include "errno.h"
 #include "../info.c"
+#include "termianl.h"
+#include "clock.h"
+#include "printf.h"
+#include "rsdp.h"
 int fill_program_list(int num_programs,Entry *entries);
 /**
  * Function Name: init
@@ -36,7 +40,7 @@ void init(unsigned long magic, unsigned long addr) {
     gdt_init();
 
     int total_steps = 10; // Total number of steps for the loading bar
-    int current_step = 0; // Current step of the loading process
+    int current_step = 1; // Current step of the loading process
 
     // Print kernel start message
     kprints("Staring kernel\n");
@@ -48,21 +52,52 @@ void init(unsigned long magic, unsigned long addr) {
     }
   
     LOG_LOCATION;
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    // draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize terminal with specified resolution
+    init_com1();
     init_terminal(1024, 768);
     //   printf("================================================================");
+    TIME current_time = get_time();
+    int acpi = acpiEnable();
+    int rsdp_found = -1;
+    RSDP_t *rsdp = find_rsdp();
+
+    //  RSDP_t *rsdp = find_rsdp();
+        if (rsdp != NULL) {
+            // Access the RSDT using the RsdtAddress from the RSDP
+            struct RSDT *rsdt = (struct RSDT *)(uintptr_t)rsdp->rsdt_address;
+            rsdp_found = 0;
+            // printf("FOUND RSDP\n");
+            // Find the MADT within the RSDT
+            // MADT *madt = (MADT *)findMADT(rsdt);
+            // if (madt) {
+            //     // MADT found, perform further actions...
+            // } else {
+            //     // MADT not found
+            // }
+        } else {
+            printf("RSDP not found\n");
+        }
+    // Print the current time
+    printf("Current time: %02d:%02d:%02d\n", current_time.h, current_time.m, current_time.s);
+
     printf("Booting AthenX-3.0\n");
     printf("Verion: %s - %d.%d.%d\n",VERSION_STRING,VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
     printf("Compile version %d\n",VERSION_COMPILE);
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    printf("Please stand by\n");
+    printf("Booting: ");
+    int draw_x = get_terminal_postion_x() ;//get_terminal_postion_x();
+    int draw_y = get_terminal_postion_y();
+    // set_terminal_postion_y(draw_y+16);
+    set_terminal_postion_x(draw_x+(total_steps)*12);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
 
     // Initialize COM1 (serial port)
-    init_com1();
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    // init_com1();
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
 
@@ -88,13 +123,13 @@ void init(unsigned long magic, unsigned long addr) {
 
     // Initialize ATA drivers
     ata_init();
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
 
     // Initialize FAT file system
     fl_init();
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK) {
         printf("ERROR: Failed to init file system\n");
@@ -103,7 +138,7 @@ void init(unsigned long magic, unsigned long addr) {
 
     // Initialize Scheduler
     InitScheduler();
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     
     LOG_LOCATION;
 
@@ -117,9 +152,10 @@ void init(unsigned long magic, unsigned long addr) {
 
     // Enable Physical Memory Manager
     init_pmm_page(pmm_start, g_kmap.available.size);
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize Virtual Memory Manager
+    //From this point on, initializing hardware is a pain in the rear.
     init_vmm();
     LOG_LOCATION;
 
@@ -132,7 +168,7 @@ void init(unsigned long magic, unsigned long addr) {
 
     // Initialize kernel heap
     init_kheap(g_kmap.available.size);
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     if (KHEAP_START < __kernel_section_end) {
         //printf("Overlap detected\n");
@@ -146,19 +182,19 @@ void init(unsigned long magic, unsigned long addr) {
 
     // Scan PCI devices
     pci_scan();
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
 
     // Initialize timer
     timer_init();
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
 
     // Initialize keyboard
     keyboard_init();
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
 
@@ -179,7 +215,7 @@ void init(unsigned long magic, unsigned long addr) {
     }
     //printf("%s", test_malloc);
     free(test_malloc);
-    draw_loading_bar(++current_step, total_steps, 509, 100, VBE_RGB(255, 0, 0), 2);
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
     int num_programs;
@@ -198,6 +234,47 @@ void init(unsigned long magic, unsigned long addr) {
 
     }
     printf("System Initialization Complete\n");
+    printf("System Info:\n");
+    
+    uint64_t ram_size = mboot_info->mem_low+mboot_info->mem_high;
+    printf("-\tRAM size: %u Kilobytes\n",ram_size);
+    printf("-\tAllocation heap size: %u Kilobytes\n",g_kmap.available.size/1024);
+    // char cpu_name[49];
+    // get_cpu_name(cpu_name);
+    // char *cpu_type = "N/A";
+    // char *cpu_arch = "x86_64";
+   char cpu_name[49]; // 48 bytes for the CPU name, plus one for null terminator
+    char architecture[5]; // Assuming "x86" or "ARM" architecture
+    unsigned int family, model, stepping;
+    
+    // Get CPU info
+    get_cpu_info(cpu_name, architecture, &family, &model, &stepping);
+    
+    // Print CPU info
+    printf("-\tCPU Name: %s\n", cpu_name);
+    printf("-\tArchitecture: %s\n", architecture);
+    printf("-\tFamily: %d, Model: %d, Stepping: %d\n", family, model, stepping);
+     const char* acpi_status = (acpi == 0) ? "true" : "false";
+     const char* rsdp_status = (rsdp_found == 0) ? "true" : "false";
+    // Print ACPI status
+    printf("-\tACPI enabled: %s\n", acpi_status);
+    printf("-\tRSDP found: %s\n", rsdp_status);
+    unsigned int eax, edx;
+    
+    // Execute CPUID instruction with function code 0 (basic information)
+    // cpuid(0, &eax, &edx);
+    
+    // Print CPUID information
+    // printf("CPUID returned: EAX=%08X, EDX=%08X\n", eax, edx);
+    // printf("-\tACPI enabled: %s\n",acpi);
+    // int num_ata_drives = get_ata_drive_num();
+    printf("Device Info:\n");
+    // printf("-\tNumber of ATA drives: %d\n",num_ata_drives);
+    print_pci_devices();
+    int ret_buf = vesa_init_buffers();
+    printf_com("%d\n",ret_buf);
+
+
 }
 
 int fill_program_list(int num_programs,Entry *entries)
@@ -211,11 +288,79 @@ int fill_program_list(int num_programs,Entry *entries)
     {
         executables_path[i] = (char*)malloc(strlen(entries[i].name));
         strcpy(executables_path[i],entries[i].name);
-        printf("Executable %s found\n",executables_path[i]);
+        // printf("Executable %s found\n",executables_path[i]);
         if (executables_path[i] == NULL) {
             perror("Memory allocation failed");
             return -1;
         }
     }
     
+}
+
+int print_pci_devices()
+{
+    // Print the number of devices for each device type if there are more than 0 devices
+    if (get_num_unclassified_devices() > 0) {
+        printf("-\tNumber of Unclassified Devices: %d\n", get_num_unclassified_devices());
+    }
+    if (get_num_mass_storage_devices() > 0) {
+        printf("-\tNumber of Mass Storage Devices: %d\n", get_num_mass_storage_devices());
+    }
+    if (get_num_network_devices() > 0) {
+        printf("-\tNumber of Network Devices: %d\n", get_num_network_devices());
+    }
+    if (get_num_display_devices() > 0) {
+        printf("-\tNumber of Display Devices: %d\n", get_num_display_devices());
+    }
+    if (get_num_multimedia_devices() > 0) {
+        printf("-\tNumber of Multimedia Devices: %d\n", get_num_multimedia_devices());
+    }
+    if (get_num_memory_devices() > 0) {
+        printf("-\tNumber of Memory Devices: %d\n", get_num_memory_devices());
+    }
+    if (get_num_bridge_devices() > 0) {
+        printf("-\tNumber of Bridge Devices: %d\n", get_num_bridge_devices());
+    }
+    if (get_num_simple_comm_devices() > 0) {
+        printf("-\tNumber of Simple Communications Devices: %d\n", get_num_simple_comm_devices());
+    }
+    if (get_num_base_system_periph_devices() > 0) {
+        printf("-\tNumber of Base System Peripheral Devices: %d\n", get_num_base_system_periph_devices());
+    }
+    if (get_num_input_devices() > 0) {
+        printf("-\tNumber of Input Devices: %d\n", get_num_input_devices());
+    }
+    if (get_num_docking_devices() > 0) {
+        printf("-\tNumber of Docking Devices: %d\n", get_num_docking_devices());
+    }
+    if (get_num_processor_devices() > 0) {
+        printf("-\tNumber of Processor Devices: %d\n", get_num_processor_devices());
+    }
+    if (get_num_serial_bus_devices() > 0) {
+        printf("-\tNumber of Serial Bus Devices: %d\n", get_num_serial_bus_devices());
+    }
+    if (get_num_wireless_devices() > 0) {
+        printf("-\tNumber of Wireless Devices: %d\n", get_num_wireless_devices());
+    }
+    if (get_num_intelligent_io_devices() > 0) {
+        printf("-\tNumber of Intelligent IO Devices: %d\n", get_num_intelligent_io_devices());
+    }
+    if (get_num_satellite_devices() > 0) {
+        printf("-\tNumber of Satellite Communication Devices: %d\n", get_num_satellite_devices());
+    }
+    if (get_num_encryption_devices() > 0) {
+        printf("-\tNumber of Encryption Devices: %d\n", get_num_encryption_devices());
+    }
+    if (get_num_signal_processing_devices() > 0) {
+        printf("-\tNumber of Signal Processing Devices: %d\n", get_num_signal_processing_devices());
+    }
+    if (get_num_processing_accel_devices() > 0) {
+        printf("-\tNumber of Processing Accelerator Devices: %d\n", get_num_processing_accel_devices());
+    }
+    if (get_num_non_essential_devices() > 0) {
+        printf("-\tNumber of Non-Essential Instrumentation Devices: %d\n", get_num_non_essential_devices());
+    }
+    if (get_num_coprocessor_devices() > 0) {
+        printf("-\tNumber of Coprocessor Devices: %d\n", get_num_coprocessor_devices());
+    }
 }

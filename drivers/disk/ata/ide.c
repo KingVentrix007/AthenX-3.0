@@ -9,6 +9,7 @@
 IDE_CHANNELS g_ide_channels[MAXIMUM_CHANNELS];
 IDE_DEVICE g_ide_devices[MAXIMUM_IDE_DEVICES];
 int _drive_num = 0;
+int global_drive_count = 0;
 static volatile unsigned char g_ide_irq_invoked = 0;
 
 static uint8 ide_read_register(uint8 channel, uint8 reg);
@@ -333,6 +334,7 @@ void ide_init(uint32 prim_channel_base_addr, uint32 prim_channel_control_base_ad
             printf_com("  base: 0x%x, control: 0x%x\n", g_ide_channels[i].base, g_ide_channels[i].control);
             printf_com("  size: %u sectors, %u bytes\n", g_ide_devices[i].size, g_ide_devices[i].size * ATA_SECTOR_SIZE);
             printf_com("  signature: 0x%x, features: %d\n", g_ide_devices[i].signature, g_ide_devices[i].features);
+            global_drive_count++;
         }
 }
 
@@ -567,4 +569,9 @@ uint64 get_sectors(int driver)
 int set_drive_num(int drive)
 {
     _drive_num = drive;
+}
+
+int get_ata_drive_num()
+{
+    return global_drive_count;
 }

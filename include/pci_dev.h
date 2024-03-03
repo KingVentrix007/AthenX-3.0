@@ -87,4 +87,27 @@ typedef struct _ide_deriver
 }ide_deriver;
 
 uint32_t pci_config_read_dword(uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset);
+
+int get_num_unclassified_devices();
+int get_num_mass_storage_devices();
+int get_num_network_devices();
+int get_num_display_devices();
+int get_num_multimedia_devices();
+int get_num_memory_devices();
+int get_num_bridge_devices();
+int get_num_simple_comm_devices();
+int get_num_base_system_periph_devices();
+int get_num_input_devices();
+int get_num_docking_devices();
+int get_num_processor_devices();
+int get_num_serial_bus_devices();
+int get_num_wireless_devices();
+int get_num_intelligent_io_devices();
+int get_num_satellite_devices();
+int get_num_encryption_devices();
+int get_num_signal_processing_devices();
+int get_num_processing_accel_devices();
+int get_num_non_essential_devices();
+int get_num_coprocessor_devices();
+
 #endif // PCI_STRUCT_H

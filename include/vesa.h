@@ -73,4 +73,10 @@ int map_vesa();
 void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines);
 int vesa_scroll(int lines);
 void draw_loading_bar(int current_value, int total_value, int x, int y, uint32_t color, int distance_between_bars);
+int update_pixel_display();
+int cycle_buffers_vbe();
+void draw_pixel_buffer_2(int x, int y, int color);
+void draw_pixel_buffer_1(int x, int y, int color);
+int vesa_init_buffers();
+extern int multi_buffers_enabled;
 #endif

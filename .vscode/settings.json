@@ -108,6 +108,7 @@
         "owl_logo.h": "c",
         "img.h": "c",
         "cstdlib": "c",
-        "info.h": "c"
+        "info.h": "c",
+        "rsdp.h": "c"
     }
 }

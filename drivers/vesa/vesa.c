@@ -9,6 +9,7 @@
 #include "printf.h"
 #define PRINT_MODES 1
 // vbe information
+int update_pixel(int x, int y);
 void test_memory_mapping(uint32_t start_address, uint32_t size);
 VBE20_INFOBLOCK g_vbe_infoblock;
 VBE20_MODEINFOBLOCK g_vbe_modeinfoblock;
@@ -16,9 +17,13 @@ VBE20_MODEINFOBLOCK g_vbe_modeinfoblock;
 int g_selected_mode = -1;
 // selected mode width & height
 uint32 g_width = 0, g_height = 0;
+uint32 gbpp = 0;
+int curent_buffer = 1; //1-display_buffer_1 || 2 display_buffer_2
+int multi_buffers_enabled = 0; // 0 false || 1 true
 // buffer pointer pointing to video memory
 uint32 *g_vbe_buffer = NULL;
-
+uint32 *display_buffer_1 = NULL;
+uint32 *display_buffer_2 = NULL;
 // get vbe info
 int get_vbe_info() {
     REGISTERS16 in = {0}, out = {0};
@@ -123,6 +128,7 @@ int vesa_init(uint32 width, uint32 height, uint32 bpp) {
         // set selection resolution to width & height
         g_width = g_vbe_modeinfoblock.XResolution;
         g_height = g_vbe_modeinfoblock.YResolution;
+        gbpp = g_vbe_modeinfoblock.BitsPerPixel;
         // set selected mode video physical address point to buffer for pixel plotting
         g_vbe_buffer = (uint32 *)g_vbe_modeinfoblock.PhysBasePtr;
         // set the mode to start graphics window
@@ -192,4 +198,84 @@ void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines) 
 
     // Clear the bottom lines
     memset(framebuffer + pixels_to_copy, 0, pixels_to_shift * sizeof(uint32_t));
+}
+
+int vesa_init_buffers()
+{
+  display_buffer_1 = (uint32 *)malloc(g_width*g_height*gbpp);
+  if(display_buffer_1 == NULL)
+  {
+    perror("Failed to initialize display buffer 1\n");
+    return -1;
+  }
+  display_buffer_2 = (uint32 *)malloc(g_height*g_width*gbpp);
+  if(display_buffer_2 == NULL)
+  {
+    perror("Failed to initialize display buffer 2\n");
+    return -1;
+
+  }
+  multi_buffers_enabled = 1;
+  memcpy(display_buffer_1,g_vbe_buffer,g_width*g_height*gbpp);
+  return 0;
+}
+
+
+void draw_pixel_buffer_1(int x, int y, int color) {
+    uint32 i = y * g_width + x;
+    *(display_buffer_1 + i) = color;
+    update_pixel(x,y);
+    // printf_com("Updated\n");
+    // update_pixel_display();
+}
+void draw_pixel_buffer_2(int x, int y, int color) {
+    uint32 i = y * g_width + x;
+    *(display_buffer_2 + i) = color;
+    update_pixel(x,y);
+    // update_pixel_display();
+}
+int cycle_buffers_vbe()
+{
+    if(curent_buffer == 1)
+    {
+        curent_buffer = 2;
+               memmove(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
+
+        return curent_buffer;
+        // memcpy()
+    }
+    else if (curent_buffer == 2)
+    {
+        curent_buffer = 1;
+        memmove(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
+
+        return curent_buffer;
+    }
+    
+}
+int update_pixel_display()
+{
+    // printf_com("Curent buffer == %d\n", curent_buffer);
+    if(curent_buffer == 1)
+    {
+        memmove(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
+    }
+    if(curent_buffer == 2)
+    {
+        memmove(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
+    }
+}
+int update_pixel(int x, int y)
+{
+    // printf_com("Curent buffer == %d\n", curent_buffer);
+    if(curent_buffer == 1)
+    {
+         uint32 i = y * g_width + x;
+        *(g_vbe_buffer + i) =  *(display_buffer_1 + i);
+    }
+    if(curent_buffer == 2)
+    {
+        uint32 i = y * g_width + x;
+        *(g_vbe_buffer + i) =  *(display_buffer_2 + i);
+    }
 }

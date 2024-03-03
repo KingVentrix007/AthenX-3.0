@@ -16,10 +16,19 @@ void draw_cursor(int sx, int sy)
     {
         for (size_t y = 0; y < 16; y++)
         {
+            if(multi_buffers_enabled == 0)
+            {
             vbe_putpixel(sx+x,sy+y,VBE_RGB(32,194,14));
+
+            }
+            else
+            {
+                draw_pixel_buffer_1(sx+x,sy+y,VBE_RGB(32,194,14));
+            }
         }
         
     }
+   
     
 }
 void undraw_cursor(int sx, int sy)
@@ -29,9 +38,22 @@ void undraw_cursor(int sx, int sy)
     {
         for (size_t y = 0; y < 16; y++)
         {
+            if(multi_buffers_enabled == 0)
+            {
              vbe_putpixel(sx+x,sy+y,VBE_RGB(0,0,0));
+
+            }
+            else
+            {
+                draw_pixel_buffer_1(sx+x,sy+y,VBE_RGB(0,0,0));
+            }
         }
         
+    }
+    if(multi_buffers_enabled == 1)
+    {
+    // update_pixel_display();
+
     }
 }
 

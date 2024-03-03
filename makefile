@@ -66,8 +66,6 @@ run: AthenX.bin
 	qemu-system-i386 -drive file=AthenX.img,format=raw \
 	-drive id=disk,file=ahci.img,if=none -device ahci,id=ahci -device ide-hd,drive=disk,bus=ahci.0 \
   -m 4G -no-reboot -no-shutdown -serial stdio
-
-
 	
 
 	bash ./scripts/athenxHost.sh

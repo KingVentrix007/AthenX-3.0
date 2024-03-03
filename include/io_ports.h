@@ -39,5 +39,10 @@ void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 pa
 void write_to_com1(uint8 data);
 void write_to_com1_string(char *s);
 void printf_com(const char* format, ...);
+void cpuid(unsigned int code, unsigned int *a, unsigned int *b,
+                         unsigned int *c, unsigned int *d);
+void get_cpu_name(char *cpu_name);
+void get_cpu_info(char *cpu_name, char *architecture, unsigned int *family,
+                  unsigned int *model, unsigned int *stepping);
 #define LOG_LOCATION printf_com("%s:%d -->%s\n", __FILE__, __LINE__,__func__)
 #endif

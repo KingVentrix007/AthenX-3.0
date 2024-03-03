@@ -1254,7 +1254,7 @@ Linker script and memory map
                 0x0000000000945064                Encryption_Decryption_Controller
                 0x0000000000945068                Data_Acquisition_and_Signal_Processing_Controller
                 0x000000000094506c                Processing_Accelerator
- .bss           0x0000000000945090       0x14 obj/pmm.o
+ .bss           0x000000000094draw_x0       0x14 obj/pmm.o
  .bss           0x00000000009450a4        0x4 obj/printf.o
  .bss           0x00000000009450a8        0x0 obj/read.o
  .bss           0x00000000009450a8        0x0 obj/rle.o
