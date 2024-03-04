@@ -3,6 +3,7 @@
 #include <string.h>
 #include <io_ports.h>
 #include "types.h"
+#include "stdint.h"
 dword *SMI_CMD;
 byte ACPI_ENABLE;
 byte ACPI_DISABLE;
@@ -45,7 +46,14 @@ struct FACP
 };
 
 
-
+struct GenericAddressStructure
+{
+  uint8_t AddressSpace;
+  uint8_t BitWidth;
+  uint8_t BitOffset;
+  uint8_t AccessSize;
+  uint64_t Address;
+};
 // check if the given address has a valid header
 unsigned int *acpiCheckRSDPtr(unsigned int *ptr)
 {

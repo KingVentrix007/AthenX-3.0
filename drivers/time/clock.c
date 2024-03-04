@@ -1,4 +1,37 @@
 #include "clock.h"
+const char *months[] = {"January", "February", "March", "April", "May", "June", "July",
+                        "August", "September", "October", "November", "December"};
+
+const char *days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+/**
+ * Function Name: print_date
+ * Description: Prints the date with month and day represented as strings.
+ *
+ * Parameters:
+ *   date (struct tm) - The date to be printed.
+ *
+ * Return:
+ *   None
+ */
+void print_date() {
+    TIME time = get_time();
+    int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int total_days = 0;
+
+    const char *months[] = {"January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"};
+    const char *days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+    // Calculate the total number of days elapsed since the start of the year
+    for (int i = 0; i < time.mo - 1; i++) {
+        total_days += days_in_month[i];
+    }
+    total_days += time.d;
+
+    printf("%s %s %d %d:%d:%d %d\n", days[total_days % 7], months[time.mo - 1], time.d,
+           time.h, time.m, time.s, 2000 + time.y); // Assuming RTC returns year from 2000
+}
 TIME get_time()
 {
     int second;

@@ -7,6 +7,7 @@
 #include "exe.h"
 #include "io_ports.h"
 #include "stdlib.h"
+#include "termianl.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
 char **executables_path;
@@ -72,6 +73,12 @@ char** parse_command(char* cmd_line, int* argc) {
     return argv;
 }
 
+int cls()
+{
+    clear_screen();
+    set_terminal_postion_x(0);
+    set_terminal_postion_y(0);
+}
 // Function to free memory allocated by the command parser
 void free_command(char** argv, int argc) {
     for (int i = 0; i < argc; i++) {
@@ -120,6 +127,14 @@ void ls()
     printf_com("Calling fl_listdir()\n");
     fl_listdirectory("/",dirs,files,&num_dir,&num_files);
 }
+void date()
+{
+    
+}
+void shutdown()
+{
+    acpiPowerOff();
+}
 int cmd(char *command)
 {
 
@@ -142,7 +157,7 @@ int cmd(char *command)
     
     LOG_LOCATION;
 
-    if(strcmp(argv[0],"cd") ==0)
+    if(strcmp(argv[0],"cd") ==0 )
     {
         set_cwd(argv[1]);
         LOG_LOCATION;
@@ -160,6 +175,15 @@ int cmd(char *command)
 
         //  load_elf_file("/test/test.elf", argc, argv);
     }
+    else if(strcmp(argv[0],"shutdown") == 0)
+    {
+        shutdown();
+    }
+    else if(strcmp(argv[0],"cls") == 0)
+    {
+        cls();
+    }
+
     else
     {
         LOG_LOCATION;

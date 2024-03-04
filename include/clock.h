@@ -30,4 +30,5 @@ struct tm {
 time_t time(time_t *t);
 struct tm *localtime(const time_t *timer);
 TIME get_time();
+void print_date();
 #endif

@@ -59,29 +59,19 @@ void init(unsigned long magic, unsigned long addr) {
     init_terminal(1024, 768);
     init_debug_terminal(1024,768);
     //   printf("================================================================");
-    TIME current_time = get_time();
+    // TIME current_time = get_time();
+    initAcpi();
     int acpi = acpiEnable();
-    int rsdp_found = -1;
-    RSDP_t *rsdp = find_rsdp();
-
-    //  RSDP_t *rsdp = find_rsdp();
-        if (rsdp != NULL) {
-            // Access the RSDT using the RsdtAddress from the RSDP
-            struct RSDT *rsdt = (struct RSDT *)(uintptr_t)rsdp->rsdt_address;
-            rsdp_found = 0;
-            // printf("FOUND RSDP\n");
-            // Find the MADT within the RSDT
-            // MADT *madt = (MADT *)findMADT(rsdt);
-            // if (madt) {
-            //     // MADT found, perform further actions...
-            // } else {
-            //     // MADT not found
-            // }
-        } else {
-            printf("RSDP not found\n");
-        }
+    
     // Print the current time
-    printf("Current time: %02d:%02d:%02d\n", current_time.h, current_time.m, current_time.s);
+    time_t current_time;
+    struct tm *time_info;
+    time(&current_time);
+    time_info = localtime(&current_time);
+
+    // Print the date
+    printf("Current Date and Time:\n");
+    print_date();
 
     printf("Booting AthenX-3.0\n");
     printf("Verion: %s - %d.%d.%d\n",VERSION_STRING,VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
@@ -256,10 +246,10 @@ void init(unsigned long magic, unsigned long addr) {
     printf("-\tArchitecture: %s\n", architecture);
     printf("-\tFamily: %d, Model: %d, Stepping: %d\n", family, model, stepping);
      const char* acpi_status = (acpi == 0) ? "true" : "false";
-     const char* rsdp_status = (rsdp_found == 0) ? "true" : "false";
+
     // Print ACPI status
     printf("-\tACPI enabled: %s\n", acpi_status);
-    printf("-\tRSDP found: %s\n", rsdp_status);
+    // printf("-\tRSDP found: %s\n", rsdp_status);
     unsigned int eax, edx;
     
     // Execute CPUID instruction with function code 0 (basic information)
@@ -274,6 +264,12 @@ void init(unsigned long magic, unsigned long addr) {
     print_pci_devices();
     int ret_buf = vesa_init_buffers();
     printf_com("%d\n",ret_buf);
+    printf("Starting shell\n");
+    CreateProcess(command_line);
+    CreateProcess(loop_timer);
+    
+    // Perform Butler routine
+    PerformButler();
 
 
 }

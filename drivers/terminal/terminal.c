@@ -6,6 +6,7 @@ size_t terminal_postion_x;
 size_t terminal_postion_y;
 size_t terminal_font_width;
 size_t terminal_font_height;
+size_t scroll_count = 0;
 extern unsigned char arr_8x16_font[];
 
 
@@ -121,6 +122,29 @@ void draw_char_8x16(int x, int y, char character) {
                 // Set the pixel at the corresponding position
             }
         }
+    }
+
+}
+
+int scroll_up()
+{
+    vesa_scroll((terminal_font_height*2)*-1);
+    scroll_count++;
+    // terminal_postion_x = 0;
+    //  terminal_postion_y=terminal_postion_y+(terminal_font_height);
+}
+int scroll_down()
+{
+    vesa_scroll((terminal_font_height*2));
+    // terminal_postion_x = 0;
+}
+int reset_poss_from_scroll()
+{
+    if(scroll_count > 0)
+    {   
+     vesa_scroll((terminal_font_height*2)*scroll_count);
+    scroll_count = 0;
+
     }
 
 }

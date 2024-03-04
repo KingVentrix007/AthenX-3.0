@@ -27,6 +27,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <limits.h>
 #include <stddef.h>
 #include "stdio.h"
+#include "keyboard.h"
 /* =============================== *
  *        defines &  checks        *
  * =============================== */

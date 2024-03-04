@@ -87,16 +87,18 @@ void keyboard_handler(REGISTERS *r) {
                 g_shift_pressed = true;
                 break;
             case 0x48: // Up Arrow
-                g_ch = SCAN_CODE_KEY_UP;
+                scroll_up();
+                g_ch = -1;
                 break;
             case 0x50: // Down Arrow
-                g_ch = SCAN_CODE_KEY_DOWN;
+                scroll_down();
+                g_ch = -1;
                 break;
             case 0x4D: // Right Arrow
-                g_ch =  SCAN_CODE_KEY_RIGHT;
+                g_ch =  -1;
                 break;
             case 0x4B: // Left Arrow
-                g_ch = SCAN_CODE_KEY_LEFT;
+                g_ch = -1;
                 break;
             case 0x3B: // F1
                 handle_F1_press(scancode);
@@ -174,7 +176,7 @@ void keyboard_handler(REGISTERS *r) {
     if(g_ch > 0)
     {
         push_io(g_ch);
-
+        // reset_poss_from_scroll();
     }
     // kb_buffer.buffer_pos++; 
     // kb_buffer.buffer[kb_buffer.buffer_pos] = (int)g_ch;
@@ -426,4 +428,9 @@ void handle_F11_press(int scancode) {
  */
 void handle_F12_press(int scancode) {
     printf("F12 key pressed. Scancode: %d\n", scancode);
+}
+
+int arrow_press(int scancode)
+{
+
 }

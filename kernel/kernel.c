@@ -69,9 +69,14 @@ void loop_timer(int input)
         else
         {
             ticks = get_ticks();
-        }
 
+      
+
+        }
+        
     }
+    
+    
 }
 
 KERNEL_MEMORY_MAP g_kmap;
@@ -133,40 +138,60 @@ void kmain(unsigned long magic, unsigned long addr)
 {
     init(magic,addr);
     STI();
-    CreateProcess(command_line);
-    CreateProcess(loop_timer);
-    
-    // Perform Butler routine
-    PerformButler();
+   
 }
 
 void command_line(void)
 {
     // STI();
     // printf("Commnd command\n================================\n");
+    printf("Welcome to Iris! A simple bash like shell\n");
+    printf("Type help or iris for more information\n");
+
     LOG_LOCATION;
-    sleep(3);
-    char *input_buffer = (char *)malloc(1025);
+    // sleep(3);
+    size_t command_buffer_size = 1024;
+    char **history = (char**)malloc(1024);
+    if(history == NULL)
+    {
+        perror("Failed to allocate for history buffer");
+
+    }
+    size_t cmd_count = 0;
+    char *input_buffer = (char *)malloc(command_buffer_size+1);
     // printf("HERE\n");
     int buffer_pos = 0;
     char user[] = "Dev";
-    memset(input_buffer,1,1024);
+    memset(input_buffer,1,command_buffer_size);
     // free(input_buffer);
     printf("\n>");
     while(1)
     {
-        fgets(input_buffer,1024,stdin);
+        fgets(input_buffer,command_buffer_size,stdin);
         if(input_buffer == NULL || input_buffer[0] == '\0')
         {
-             memset(input_buffer, 0,1024);
+             memset(input_buffer, 0,command_buffer_size);
              printf("\n>");
+    
+
         }
         else
         {   
-            printf("\n%s",input_buffer);
+            // printf("\n%s",input_buffer);
             cmd(input_buffer);
-            memset(input_buffer, 0,1024);
-            printf("%s>",input_buffer);
+            history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
+            if(history[cmd_count] == NULL)
+            {
+                perror("Failed to allocate memory for command history\n");
+            }
+            else
+            {
+            strcpy(history[cmd_count],input_buffer);
+
+            }
+            cmd_count++;
+            memset(input_buffer, 0,command_buffer_size);
+            printf(">");
 
 
         }   

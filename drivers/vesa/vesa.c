@@ -23,6 +23,8 @@ int multi_buffers_enabled = 0; // 0 false || 1 true
 // buffer pointer pointing to video memory
 uint32 *g_vbe_buffer = NULL;
 uint32 *display_buffer_1 = NULL;
+uint32 *history_buffer_1 = NULL;
+size_t history_buffer_index = 0;
 uint32 *display_buffer_2 = NULL;
 // get vbe info
 int get_vbe_info() {
@@ -187,7 +189,7 @@ int vesa_scroll(int lines)
     if(curent_buffer == 1)
     {
         // scroll_screen(lines);
-        scroll_screen(g_vbe_buffer,g_width,g_height,lines);
+        scroll_screen_history(g_vbe_buffer,g_width,g_height,lines);
     }
     else
     {
@@ -223,7 +225,45 @@ void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines) 
     // Clear the bottom lines
     memset(framebuffer + pixels_to_copy, 0, pixels_to_shift * sizeof(uint32_t));
 }
+void scroll_screen_history(uint32_t* framebuffer, int width, int height, int num_lines) {
+    // Calculate the number of pixels to shift up
+    int pixels_to_shift = num_lines * width;
 
+    // Calculate the number of pixels to copy
+    int pixels_to_copy = width * (height - num_lines);
+
+    if (num_lines > 0) {
+        // Copy pixels upwards from framebuffer to history buffer
+        memmove(history_buffer_1 + history_buffer_index, framebuffer, pixels_to_shift * sizeof(uint32_t));
+        // Update history buffer index
+        history_buffer_index += pixels_to_shift;
+        // Shift remaining pixels up in framebuffer
+        memmove(framebuffer, framebuffer + pixels_to_shift, pixels_to_copy * sizeof(uint32_t));
+        // Clear the bottom lines in framebuffer
+        memset(framebuffer + pixels_to_copy, 0, pixels_to_shift * sizeof(uint32_t));
+    } else if (num_lines < 0 && -num_lines * width <= history_buffer_index) {
+        // Shift content in framebuffer downwards to make space
+        memmove(framebuffer - num_lines * width, framebuffer, pixels_to_copy * sizeof(uint32_t));
+        // Copy pixels downwards from history buffer to top of framebuffer
+        memmove(framebuffer, history_buffer_1 + history_buffer_index + num_lines * width, (-num_lines * width) * sizeof(uint32_t));
+        // Clear the lines in history buffer that were copied to framebuffer
+        memset(history_buffer_1 + history_buffer_index + num_lines * width, 0, (-num_lines * width) * sizeof(uint32_t));
+        // Shift remaining content in history buffer up
+        memmove(history_buffer_1 + history_buffer_index + num_lines * width, history_buffer_1 + history_buffer_index, ((g_height *g_width*gbpp) - (history_buffer_index + num_lines * width)) * sizeof(uint32_t));
+        // Update history buffer index
+        history_buffer_index += num_lines * width;
+        //  memset(framebuffer + (height - (num_lines*-1)) * width, 0, pixels_to_shift * sizeof(uint32_t));
+
+    }
+
+    // Clear the bottom lines of the framebuffer
+    // memset(framebuffer + (height - num_lines) * width, 0, pixels_to_shift * sizeof(uint32_t));
+
+    // Ensure history buffer doesn't scroll when empty
+    if (history_buffer_index < 0) {
+        history_buffer_index = 0;
+    }
+}
 int vesa_init_buffers()
 {
   display_buffer_1 = (uint32 *)malloc(g_width*g_height*gbpp);
@@ -238,6 +278,12 @@ int vesa_init_buffers()
     perror("Failed to initialize display buffer 2\n");
     return -1;
 
+  }
+  history_buffer_1 = (uint32 *)malloc(g_height *g_width*gbpp);
+  if(history_buffer_1 == NULL)
+  {
+     perror("Failed to initialize history buffer 1\n");
+    return -1;
   }
   multi_buffers_enabled = 1;
   memcpy(display_buffer_1,g_vbe_buffer,g_width*g_height*gbpp);
@@ -307,5 +353,20 @@ int update_pixel(int x, int y)
     {
         uint32 i = y * g_width + x;
         *(g_vbe_buffer + i) =  *(display_buffer_2 + i);
+    }
+}
+void clear_screen()
+{
+    if(curent_buffer == 1)
+    {
+        for (size_t y = 0; y < g_height; y++)
+        {
+            for (size_t x = 0; x < g_width; x++)
+            {
+                draw_pixel_buffer_1(x,y,VBE_RGB(0,0,0));
+            }
+            
+        }
+        
     }
 }

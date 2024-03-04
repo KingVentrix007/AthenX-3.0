@@ -48,4 +48,6 @@ typedef struct {
 
 extern KERNEL_MEMORY_MAP g_kmap;
 void init(unsigned long magic, unsigned long addr);
+void command_line(void);
+void loop_timer(int input);
 #endif
