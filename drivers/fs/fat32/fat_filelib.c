@@ -374,11 +374,11 @@ static FL_FILE* _open_file(const char *path)
 
     // Using dir cluster address search for filename
     if (fatfs_get_file_entry(&_fs, file->parentcluster, file->filename,&sfEntry))
-        printf("Using dir cluster address search for filename\n");
+        // printf("Using dir cluster address search for filename\n");
         // Make sure entry is file not dir!
         if (fatfs_entry_is_file(&sfEntry))
         {
-            printf("is a file\n");
+            // printf("is a file\n");
             // Initialise file details
             memcpy(file->shortfilename, sfEntry.Name, FAT_SFN_SIZE_FULL);
             file->filelength = FAT_HTONL(sfEntry.FileSize);
@@ -395,7 +395,7 @@ static FL_FILE* _open_file(const char *path)
             fatfs_cache_init(&_fs, file);
             
             fatfs_fat_purge(&_fs);
-            printf("file len: %d\n",file->filelength);
+            // printf("file len: %d\n",file->filelength);
             return file;
         }
 

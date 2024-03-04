@@ -232,11 +232,16 @@ int fputs(const char *str, void *stream) {
     else if ((int)stream == stderr)
     {
         printf_com("%s", str);
+        printf_debug("%s", str);
         return 1;
     }
     else if ((int)stream != stdin)
     {
         return fl_fputs(str,stream);
+    }
+    else
+    {
+        return NULL;
     }
     
     

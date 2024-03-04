@@ -122,18 +122,24 @@ void ls()
 }
 int cmd(char *command)
 {
+
     int argc;
         LOG_LOCATION;
 
     char** argv = parse_command(command, &argc);
         LOG_LOCATION;
-
+    
     if (argv == NULL) {
         printf("Error: Memory allocation failed.\n");
         LOG_LOCATION;
 
         return 1;
     }
+    for (size_t i = 0; i < argc; i++)
+    {
+        printf_debug("\n%s: ", argv[i]);
+    }
+    
     LOG_LOCATION;
 
     if(strcmp(argv[0],"cd") ==0)
@@ -203,7 +209,7 @@ int cmd(char *command)
             LOG_LOCATION;
             for (size_t i = 0; i < argc; i++)
             {
-                printf("%s\n", argv_elf[i]);
+                // printf("%s\n", argv_elf[i]);
             }
             
             execute_file(tmp,argc,argv_elf);

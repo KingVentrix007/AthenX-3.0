@@ -1,7 +1,9 @@
 #include "io_ports.h"
 #include "string.h"
 #include "printf.h"
+#include "debug_term.h"
 #define COM1_PORT 0x3F8 // COM1 base port address
+int com_enabled = 0; // 0 = false, 1 = true
 /**
  * read a byte from given port number
  */
@@ -50,15 +52,20 @@ void outportl(uint16 port, uint32 data) {
     asm volatile ("outl %%eax, %%dx" : : "dN" (port), "a" (data));
 }
 void write_to_com1(uint8 data) {
+    
     outportb(COM1_PORT, data);
 }
 void write_to_com1_string(char *s)
 {
     // write_to_com1(':');
-    for (size_t i = 0; i < strlen(s); i++)
+    if(com_enabled == 1)
     {
-        write_to_com1(s[i]);
-    }
+         for (size_t i = 0; i < strlen(s); i++)
+        {
+            write_to_com1(s[i]);
+        }
+    } 
+   
     
 }
 void printf_error(const char *format, ...)
@@ -117,7 +124,10 @@ void printf_com(const char* format, ...)
     va_end(args);
 
     // Call write_to_com1_string to write the formatted string to COM1
-    printf_debug("%s", buffer);
+    // printf_debug("%s", buffer);
+    char *msg = "DEBUG: ";
+        write_to_com1_string(msg);
+        write_to_com1_string(buffer);
 }
 void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity) {
     // Disable interrupts
@@ -138,6 +148,7 @@ void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 pa
  */
 void init_com1() {
     configure_com1(9600, 8, 1, 0); // Default settings: 9600 baud, 8 data bits, 1 stop bit, no parity
+    com_enabled = 1;
 }
 
 void cpuid(unsigned int code, unsigned int *a, unsigned int *b,

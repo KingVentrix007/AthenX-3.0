@@ -6,6 +6,7 @@
 char *io_stream;
 int io_stream_pos = 0;
 long io_stream_size = 0;
+bool disabled_io_stream = false; // true if debug screen is active;
 int init_io_system()
 {
     io_stream = kmalloc(IO_STREAM_SIZE);
@@ -20,6 +21,10 @@ int init_io_system()
 
 int getchar(void)
 {
+    while(disabled_io_stream == true)
+    {
+
+    }
     if(io_stream_pos <= 0)
     {
         return EOF;
@@ -36,10 +41,18 @@ int getchar(void)
 }
 long get_io_pos()
 {
+    while(disabled_io_stream == true)
+    {
+
+    }
     return io_stream_pos;
 }
 int set_io_pos(int pos)
 {
+    while(disabled_io_stream == true)
+    {
+
+    }
     if(pos <= io_stream_size && pos >= 0)
     {
         io_stream_pos = pos;
@@ -53,6 +66,11 @@ int set_io_pos(int pos)
 }
 int push_io(int c)
 {
+    // while (disabled_io_stream == true)
+    // {
+    //     /* code */
+    // }
+    
     if(io_stream != NULL || io_stream_pos >= IO_STREAM_SIZE)
     {
         io_stream[io_stream_pos++] = c;
@@ -63,4 +81,14 @@ int push_io(int c)
         return EOF;
     }
     
+}
+
+void disable_io_stream()
+{
+    disabled_io_stream = true;
+}
+
+void enable_io_stream()
+{
+    disabled_io_stream = false;
 }

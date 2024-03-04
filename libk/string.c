@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include "string.h"
 #include "io_ports.h"
+#include "stdint.h"
 /**
  * Copies the string pointed to by src, including the null terminator, 
  * to the buffer pointed to by dest.
@@ -299,12 +300,25 @@ void* memset(void* ptr, int value, size_t n) {
  *   (void*) - Pointer to the destination memory area (same as dest).
  */
 void* memcpy(void* dest, const void* src, size_t n) {
-    char* d = (char*)dest;
-    const char* s = (const char*)src;
-    while (n-- > 0) *d++ = *s++;
+    uint32_t* d = (uint32_t*)dest;
+    const uint32_t* s = (const uint32_t*)src;
+
+    // Check if both source and destination addresses are 4-byte aligned
+    if ((((uintptr_t)d & 0x3) == 0) && (((uintptr_t)s & 0x3) == 0)) {
+        // Use 32-bit memory accesses
+        while (n >= sizeof(uint32_t)) {
+            *d++ = *s++;
+            n -= sizeof(uint32_t);
+        }
+    }
+
+    // Copy remaining bytes with byte-by-byte copying
+    char* d_char = (char*)d;
+    const char* s_char = (const char*)s;
+    while (n-- > 0) *d_char++ = *s_char++;
+
     return dest;
 }
-
 /**
  * Compares the first n bytes of the memory areas pointed by ptr1 and ptr2.
  *

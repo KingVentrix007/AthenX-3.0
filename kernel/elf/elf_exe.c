@@ -230,7 +230,7 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
         return; // Not an ELF file
     }
      LOG_LOCATION;
-    printf("Num Segments: %d\n", elf_header->e_phnum);
+    // printf("Num Segments: %d\n", elf_header->e_phnum);
     for (int i = 0; i < elf_header->e_phnum; i++) {
         Elf32_Phdr* program_header = (Elf32_Phdr*)(elf_data + elf_header->e_phoff + i * elf_header->e_phentsize);
          LOG_LOCATION;

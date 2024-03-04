@@ -49,6 +49,7 @@ int logging(int log_level,int line, char *function, char *path,const char* forma
     //OTHER
     printf_com("%d: %s at %s:%d -\n\t%s\n",log_level,function,path,line,buffer);
   }
+  printf_debug("%d: %s at %s:%d -\n\t%s\n",log_level,function,path,line,buffer);
   // if(can_write_to_log_file == false) 
   // {
   //   if(fat_inited() == true)

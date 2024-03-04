@@ -57,6 +57,7 @@ char alternate_chars(char ch) {
 }
 
 void keyboard_handler(REGISTERS *r) {
+    printf_com("Handler got keyboard called\n");
     int scancode;
     // printf("called keyboard handler\n");
     g_ch = 0;
@@ -98,42 +99,52 @@ void keyboard_handler(REGISTERS *r) {
                 g_ch = SCAN_CODE_KEY_LEFT;
                 break;
             case 0x3B: // F1
-                handle_F1_press(0x3B);
-                g_ch = "\u23A7";
+                handle_F1_press(scancode);
+                g_ch = -1;
                 break;
             case 0x3C: // F2
-                handle_F2_press(0x3C);
+                handle_F2_press(scancode);
                 g_ch = -1;
                 break;
             case 0x3D: // F3
-                g_ch = "\u23A9";
+                handle_F3_press(scancode);
+                g_ch = -1;
                 break;
             case 0x3E: // F4
-                g_ch = "\u23AA";
+                handle_F4_press(scancode);
+                g_ch = -1;
                 break;
             case 0x3F: // F5
-                g_ch = "\u23AB";
+                handle_F5_press(scancode);
+                g_ch = -1;
                 break;
             case 0x40: // F6
-                g_ch = "\u23AC";
+                handle_F6_press(scancode);
+                g_ch = -1;
                 break;
             case 0x41: // F7
-                g_ch = "\u23AD";
+                handle_F7_press(scancode);
+                g_ch = -1;
                 break;
             case 0x42: // F8
-                g_ch = "\u23AE";
+                handle_F8_press(scancode);
+                g_ch = -1;
                 break;
             case 0x43: // F9
-                g_ch = "\u23AF";
+                handle_F9_press(scancode);
+                g_ch = -1;
                 break;
             case 0x44: // F10
-                g_ch = "\u23B0";
+                handle_F10_press(scancode);
+                g_ch = -1;
                 break;
             case 0x57: // F11
-                g_ch = "\u23B1";
+                handle_F11_press(scancode);
+                g_ch = -1;
                 break;
             case 0x58: // F12
-                g_ch = "\u23B2";
+                handle_F12_press(scancode);
+                g_ch = -1;
                 break;
             default:
                 g_ch = g_scan_code_chars[scancode];
@@ -192,10 +203,15 @@ char* kb_getchar_w() {
 }
 // Define a variable to store the ID of the process that currently holds the IO lock
 int current_caller_process_id = 0;
-
+int disable_io = 0; //0 = false || 1 = true
 // Function to get a character from the keyboard input, respecting the lock
 char get_char(int caller_process_id)
 {
+    while (disable_io == 1)
+    {
+        /* code */
+    }
+    
     // Check if the caller's process ID matches the one holding the lock
     if (caller_process_id == current_caller_process_id)
     {
@@ -254,7 +270,21 @@ void handle_F1_press(int scancode) {
  *   None
  */
 void handle_F2_press(int scancode) {
-    cycle_buffers_vbe();
+    
+
+    int buffer = cycle_buffers_vbe();
+    printf_com("Pressed F2, buffer: %d\n", buffer);
+    if(buffer == 1)
+    {
+        disable_io = false;
+        enable_io_stream();
+    }
+    else if (buffer == 2)
+    {
+        disable_io = true;
+        disable_io_stream();
+    }
+    
     // printf("F2 key pressed. Scancode: %d\n", scancode);
 }
 

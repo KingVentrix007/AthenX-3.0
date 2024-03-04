@@ -4,6 +4,7 @@
 #include "stdint.h"
 #include "stddef.h"
 #include "debug_term.h"
+#include "io_ports.h"
 size_t debug_terminal_postion_x;
 size_t debug_terminal_postion_y;
 size_t debug_terminal_font_width;
@@ -28,12 +29,9 @@ int printf_debug(const char *fmt, ...)
             draw__debug_vbe_char(buffer[i]);
         }
     }
-    else
-    {
-        char *msg = "DEBUG: ";
+    char *msg = "DEBUG: ";
     write_to_com1_string(msg);
     write_to_com1_string(buffer);
-    }
     
     
     // Cleanup the va

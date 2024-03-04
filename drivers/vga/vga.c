@@ -41,7 +41,7 @@ void kprints(char *string)
         }
         else
         {
-            print_char_at(string[i],0x0F,vga_pos_x,vga_pos_y);
+            // print_char_at(string[i],0x0F,vga_pos_x,vga_pos_y);
             vga_pos_x++;
         }
         

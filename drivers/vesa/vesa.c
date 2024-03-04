@@ -184,13 +184,31 @@ int leave_vesa_mode() {
 
 int vesa_scroll(int lines)
 {
-    scroll_screen(display_buffer_1,g_width,g_height,lines);
-    update_pixel_display();
+    if(curent_buffer == 1)
+    {
+        // scroll_screen(lines);
+        scroll_screen(g_vbe_buffer,g_width,g_height,lines);
+    }
+    else
+    {
+        scroll_screen(display_buffer_1,g_width,g_height,lines);
+        
+    }
+    // update_pixel_display();
 }
 int debug_scroll(int lines)
 {
-    scroll_screen(display_buffer_2,g_width,g_height,lines);
-    update_pixel_display();
+    if(curent_buffer == 2)
+    {
+        scroll_screen(g_vbe_buffer,g_width,g_height,lines);
+
+    }
+    else
+    {
+        scroll_screen(display_buffer_2,g_width,g_height,lines);
+
+    }
+    // update_pixel_display();
 }
 void scroll_screen(uint32_t* framebuffer, int width, int height, int num_lines) {
     // Calculate the number of pixels to shift up
@@ -244,7 +262,8 @@ int cycle_buffers_vbe()
     if(curent_buffer == 1)
     {
         curent_buffer = 2;
-               memmove(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
+        memcpy(display_buffer_1,g_vbe_buffer,g_width*g_height*gbpp);
+        memmove(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
 
         return curent_buffer;
         // memcpy()
@@ -252,6 +271,8 @@ int cycle_buffers_vbe()
     else if (curent_buffer == 2)
     {
         curent_buffer = 1;
+        memcpy(display_buffer_2,g_vbe_buffer,g_width*g_height*gbpp);
+
         memmove(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
 
         return curent_buffer;
@@ -261,8 +282,18 @@ int cycle_buffers_vbe()
 int update_pixel_display()
 {
     // printf_com("Curent buffer == %d\n", curent_buffer);
-     memmove(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
-     memmove(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
+    if(curent_buffer == 1)
+    {
+        memcpy(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
+
+    }
+    else if (curent_buffer == 2)
+    {
+        /* code */
+     memcpy(g_vbe_buffer,display_buffer_2,g_width*g_height*gbpp);
+
+    }
+    
 }
 int update_pixel(int x, int y)
 {

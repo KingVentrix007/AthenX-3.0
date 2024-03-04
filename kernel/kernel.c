@@ -156,10 +156,21 @@ void command_line(void)
     while(1)
     {
         fgets(input_buffer,1024,stdin);
-        printf("\n%s",input_buffer);
-        cmd(input_buffer);
-        memset(input_buffer, 0,1024);
-        printf(">");
+        if(input_buffer == NULL || input_buffer[0] == '\0')
+        {
+             memset(input_buffer, 0,1024);
+             printf("\n>");
+        }
+        else
+        {   
+            printf("\n%s",input_buffer);
+            cmd(input_buffer);
+            memset(input_buffer, 0,1024);
+            printf("%s>",input_buffer);
+
+
+        }   
+       
         
     }
     // TerminateProcess();
