@@ -7,6 +7,7 @@
 #include "isr.h"
 #include "vmm.h"
 #include "stdlib.h"
+#include "printf.h"
 uint32_t HBA_MEM_BASE_ADDRESS;
 #define	AHCI_BASE	0x400000	// 4M
 // Define DWORD as an unsigned 32-bit integer

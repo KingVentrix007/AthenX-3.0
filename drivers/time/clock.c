@@ -21,7 +21,7 @@ void print_date() {
 
     const char *months[] = {"January", "February", "March", "April", "May", "June",
                             "July", "August", "September", "October", "November", "December"};
-    const char *days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    const char *days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"};
 
     // Calculate the total number of days elapsed since the start of the year
     for (int i = 0; i < time.mo - 1; i++) {
@@ -30,6 +30,24 @@ void print_date() {
     total_days += time.d;
 
     printf("%s %s %d %d:%d:%d %d\n", days[total_days % 7], months[time.mo - 1], time.d,
+           time.h, time.m, time.s, 2000 + time.y); // Assuming RTC returns year from 2000
+}
+void print_date_com() {
+    TIME time = get_time();
+    int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int total_days = 0;
+
+    const char *months[] = {"January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"};
+    const char *days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"};
+
+    // Calculate the total number of days elapsed since the start of the year
+    for (int i = 0; i < time.mo - 1; i++) {
+        total_days += days_in_month[i];
+    }
+    total_days += time.d;
+
+    printf_com("%s %s %d %d:%d:%d %d\n", days[total_days % 7], months[time.mo - 1], time.d,
            time.h, time.m, time.s, 2000 + time.y); // Assuming RTC returns year from 2000
 }
 TIME get_time()

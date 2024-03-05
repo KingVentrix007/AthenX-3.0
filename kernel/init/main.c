@@ -52,7 +52,7 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize Global Descriptor Table
     gdt_init();
     init_com1();
-    
+     timer_init();
     int total_steps = 10; // Total number of steps for the loading bar
     int current_step = 1; // Current step of the loading process
 
@@ -62,7 +62,7 @@ void init(unsigned long magic, unsigned long addr) {
     
     // Initialize VESA graphics mode
     int width, hight;
-    width = 10243;
+    width = 1024;
     hight = 768;
     int ret = vesa_init(width, hight, 32);
     printf_com("Ret = %d\n", ret);
@@ -70,6 +70,20 @@ void init(unsigned long magic, unsigned long addr) {
         width = 800;
         hight = 600;
         ret =  vesa_init( width,hight,32);
+        printf_com("-\tScreen resolution: %dx%d\n",width,hight);
+        if(ret < 0)
+        {
+             width = 720;
+            hight = 480;
+            ret =  vesa_init( width,hight,32);
+            if(-1 < 0)
+            {
+                printf_com("\n\n123Printing all modes:\n\n");
+                vbe_print_available_modes();
+            }
+        }
+        
+
         //printf("Error: vesa_init() failed\n");
     }
     else
@@ -91,11 +105,6 @@ void init(unsigned long magic, unsigned long addr) {
     int acpi = acpiEnable();
     
     // Print the current time
-    time_t current_time;
-    struct tm *time_info;
-    time(&current_time);
-    time_info = localtime(&current_time);
-
     // Print the date
     printf("Current Date and Time:\n");
     print_date();
@@ -132,7 +141,7 @@ void init(unsigned long magic, unsigned long addr) {
         // Get kernel memory map
         if (get_kernel_memory_map(&g_kmap, mboot_info) < 0) {
             kprints("error: failed to get kernel memory map\n");
-            return;
+            return -1;
         }
         // Calculate allocation size for memory
     }
@@ -205,19 +214,19 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
 
     // Initialize keyboard
-    keyboard_init();
-    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+   
 
     LOG_LOCATION;
-
+     int ret_buf = vesa_init_buffers();
+    printf_com("%d\n",ret_buf);
     char *test_malloc = malloc(1024 * 1024 * 1024);
     if (test_malloc == NULL) {
         printf("Couldn't allocate test memory\n");
     } else {
-        //printf("Got memory of size 1GB\n");
+        printf_debug("Successfully allocated memory of 1GB\n");
     }
     LOG_LOCATION;
-
+   
     // Free allocated memory
     const char *test_b = "This allocated memory";
     strcpy(test_malloc, test_b);
@@ -245,6 +254,8 @@ void init(unsigned long magic, unsigned long addr) {
         fill_program_list(num_programs,programs);
 
     }
+     keyboard_init();
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     printf("System Initialization Complete\n");
     printf("System Info:\n");
     
@@ -283,10 +294,10 @@ void init(unsigned long magic, unsigned long addr) {
     // printf("-\tACPI enabled: %s\n",acpi);
     // int num_ata_drives = get_ata_drive_num();
     printf("Device Info:\n");
+     print_pci_devices();
+    
     // printf("-\tNumber of ATA drives: %d\n",num_ata_drives);
-    print_pci_devices();
-    int ret_buf = vesa_init_buffers();
-    printf_com("%d\n",ret_buf);
+   
     printf("Starting shell\n");
     CreateProcess(command_line);
     CreateProcess(loop_timer);

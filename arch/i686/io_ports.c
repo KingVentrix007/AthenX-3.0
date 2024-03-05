@@ -85,8 +85,8 @@ void printf_error(const char *format, ...)
 
     // Call write_to_com1_string to write the formatted string to COM1
     char *msg = "ERROR: ";
-    write_to_com1_string(msg);
-    write_to_com1_string(buffer);
+    // write_to_com1_string(msg);
+    // write_to_com1_string(buffer);
 }
 // void printf_debug(const char *format, ...)
 // {

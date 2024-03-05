@@ -109,6 +109,7 @@
         "img.h": "c",
         "cstdlib": "c",
         "info.h": "c",
-        "rsdp.h": "c"
+        "rsdp.h": "c",
+        "limits.h": "c"
     }
 }

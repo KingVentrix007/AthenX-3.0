@@ -85,7 +85,7 @@ int system_call_handler_c(int syscall_number, int param1, int param2)
     else if (syscall_number == SYS_GETC)
     {
         
-        return get_char(127);
+        return getch_();
     }
     else if (syscall_number == SYS_GETS)
     {

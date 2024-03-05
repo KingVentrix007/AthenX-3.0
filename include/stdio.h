@@ -28,7 +28,9 @@ int rmdir(const char *path);
 int fprintf(void *fp,const char *format,...);
 int getchar(void);
 int ungetc(int c, void *stream);
-
+int disable_echo();
+int enable_echo();
+int printf(const char* format, ...);
 //Streams
 extern int stdin;
 extern int stdout;

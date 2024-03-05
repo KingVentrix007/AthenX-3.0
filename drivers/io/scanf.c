@@ -2131,7 +2131,10 @@ int fctscanf_(int (*getch)(void *data), void (*ungetch)(int c, void *data),
 #define SCANF_REPEAT
 #include "scanf.c"
 #endif
+#include "stdbool.h"
 int lock_id = 0;
+bool echo = true;
+char no_echo_char = '\0';
 int getch_(void)
 {
 
@@ -2156,9 +2159,24 @@ int getch_(void)
         // {
         //    
         // }
+        if(echo = true)
+        {
+            printf_debug("%c", ch);
+            printf("%c", ch);   
+        }
+        else
+        {
+            if(no_echo_char = '\0')
+            {
+
+            }
+            else
+            {
+                printf_debug("%c", no_echo_char);
+                printf("%c", no_echo_char);   
+            }
+        }
         
-        printf_debug("%c", ch);
-        printf("%c", ch);
     }
     return ch;
 }
@@ -2174,4 +2192,13 @@ int release_stdin_lock(int id)
 void ungetch_(int ch)
 {
     ungetc(ch,stdin);
+}
+
+int enable_echo()
+{
+    echo = true;
+}
+int disable_echo()
+{
+ echo = false;
 }

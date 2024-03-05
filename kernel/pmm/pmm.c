@@ -11,7 +11,7 @@ static uint32_t pmm_stack_loc = PMM_STACK_START;
 static uint32_t pmm_stack_max = PMM_STACK_START;
 static uint32_t pmm_location = 0;
 static uint32_t pmm_stack_end = PMM_STACK_END;
-// NOTE: if you ever wanted to fuck up something here...
+// NOTE: if you ever wanted to **** up something here...
 // pmm_location if physical but identity mapped
 void init_pmm_page(uint32_t pmm_start,size_t size) {
 	// Ensure the initial page allocation location is page-aligned.

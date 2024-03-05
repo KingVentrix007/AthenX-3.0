@@ -35,11 +35,15 @@ int get_vbe_info() {
     // set address pointer to BIOS_CONVENTIONAL_MEMORY where vbe info struct will be stored
     in.di = BIOS_CONVENTIONAL_MEMORY;
     printf_com("Calling BIOS interrupt\n");
+    print_date_com();
     int86(0x10, &in, &out);  // call video interrupt 0x10
+    print_date_com();
     printf_com("called video interrupt\n");
     // copy vbe info data to our global variable g_vbe_infoblock
     memcpy(&g_vbe_infoblock, (void *)BIOS_CONVENTIONAL_MEMORY, sizeof(VBE20_INFOBLOCK));
-    return (out.ax == 0x4F);
+    printf_com("Address 0x%X\n",g_vbe_infoblock.VideoModePtr);
+    printf_com("ax = 0x%X\n\n",out.ax);
+    return (out.ax == 0x004F);
 }
 
 void get_vbe_mode_info(uint16 mode, VBE20_MODEINFOBLOCK *mode_info) {
@@ -63,10 +67,12 @@ void vbe_set_mode(uint32 mode) {
 
 // find the vbe mode by width & height & bits per pixel
 uint32 vbe_find_mode(uint32 width, uint32 height, uint32 bpp) {
+    printf_com("Find modes for vbe\n");
     // iterate through video modes list
     uint16 *mode_list = (uint16 *)g_vbe_infoblock.VideoModePtr;
     uint16 mode = *mode_list++;
     while (mode != 0xffff) {
+        printf_com("Checking modes\n");
         // get each mode info
         get_vbe_mode_info(mode, &g_vbe_modeinfoblock);
         if (g_vbe_modeinfoblock.XResolution == width && g_vbe_modeinfoblock.YResolution == height && g_vbe_modeinfoblock.BitsPerPixel == bpp) {
@@ -80,7 +86,7 @@ uint32 vbe_find_mode(uint32 width, uint32 height, uint32 bpp) {
 // print availabel modes to console
 void vbe_print_available_modes() {
     VBE20_MODEINFOBLOCK modeinfoblock;
-
+    printf_com("Modes:\n");
     // iterate through video modes list
     uint16 *mode_list = (uint16 *)g_vbe_infoblock.VideoModePtr;
     uint16 mode = *mode_list++;
