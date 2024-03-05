@@ -18,6 +18,20 @@
 #include "clock.h"
 #include "printf.h"
 #include "rsdp.h"
+#include "acpi.h"
+#include "vga.h"
+#include "idt.h"
+#include "gdt.h"
+#include "debug_term.h"
+#include "string.h"
+#include "pmm.h"
+#include "vmm.h"
+#include "pci_dev.h"
+#include "timer.h"
+#include "keyboard.h"
+#include "stdlib.h"
+#include "kheap.h"
+#include "scheduler.h"
 int fill_program_list(int num_programs,Entry *entries);
 /**
  * Function Name: init
@@ -31,36 +45,49 @@ int fill_program_list(int num_programs,Entry *entries);
  *   void
  */
 void init(unsigned long magic, unsigned long addr) {
-    kprints("");
-
+   
     // Initialize Interrupt Descriptor Table
     idt_init();
 
     // Initialize Global Descriptor Table
     gdt_init();
-
+    init_com1();
+    
     int total_steps = 10; // Total number of steps for the loading bar
     int current_step = 1; // Current step of the loading process
 
     // Print kernel start message
     kprints("Staring kernel\n");
-
+     kprints("Hello World!");
+    
     // Initialize VESA graphics mode
-    int ret = vesa_init(1024, 768, 32);
+    int width, hight;
+    width = 10243;
+    hight = 768;
+    int ret = vesa_init(width, hight, 32);
+    printf_com("Ret = %d\n", ret);
     if (ret < 0) {
+        width = 800;
+        hight = 600;
+        ret =  vesa_init( width,hight,32);
         //printf("Error: vesa_init() failed\n");
     }
-  
+    else
+    {
+       
+    }
+
+    // for(;;);
     LOG_LOCATION;
     // draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize terminal with specified resolution
-    init_com1();
-    init_terminal(1024, 768);
-    init_debug_terminal(1024,768);
+    init_terminal(width, hight);
+    init_debug_terminal(width,hight);
     //   printf("================================================================");
     // TIME current_time = get_time();
     initAcpi();
+    printf_com("Made it here\n");
     int acpi = acpiEnable();
     
     // Print the current time
@@ -108,7 +135,6 @@ void init(unsigned long magic, unsigned long addr) {
             return;
         }
         // Calculate allocation size for memory
-        size_t alloc_size = (g_kmap.available.size / 2);
     }
     LOG_LOCATION;
 
@@ -160,13 +186,8 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize kernel heap
     init_kheap(g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
-    if (KHEAP_START < __kernel_section_end) {
-        //printf("Overlap detected\n");
-    }
     LOG_LOCATION;
     
-    char *path = "/img/FlyingOwl.png";
     // int reti = draw_img(path,10,10);
     // printf("ret = %d\n",reti);
     LOG_LOCATION;
@@ -198,7 +219,7 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
 
     // Free allocated memory
-    char *test_b = "This allocated memory";
+    const char *test_b = "This allocated memory";
     strcpy(test_malloc, test_b);
     if(strcmp(test_b,test_malloc)!= 0)
     {
@@ -249,6 +270,8 @@ void init(unsigned long magic, unsigned long addr) {
 
     // Print ACPI status
     printf("-\tACPI enabled: %s\n", acpi_status);
+    printf("-\tScreen resolution: %dx%d\n",width,hight);
+    
     // printf("-\tRSDP found: %s\n", rsdp_status);
     unsigned int eax, edx;
     
@@ -360,4 +383,5 @@ int print_pci_devices()
     if (get_num_coprocessor_devices() > 0) {
         printf("-\tNumber of Coprocessor Devices: %d\n", get_num_coprocessor_devices());
     }
+    return 0;
 }

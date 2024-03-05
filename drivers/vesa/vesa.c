@@ -7,6 +7,7 @@
 #include "vmm.h"
 #include "pagepmm.h"
 #include "printf.h"
+#include "vga.h"
 #define PRINT_MODES 1
 // vbe information
 int update_pixel(int x, int y);
@@ -33,9 +34,9 @@ int get_vbe_info() {
     in.ax = 0x4F00;
     // set address pointer to BIOS_CONVENTIONAL_MEMORY where vbe info struct will be stored
     in.di = BIOS_CONVENTIONAL_MEMORY;
-    kprints("Calling BIOS interrupt\n");
+    printf_com("Calling BIOS interrupt\n");
     int86(0x10, &in, &out);  // call video interrupt 0x10
-    kprints("called video interrupt\n");
+    printf_com("called video interrupt\n");
     // copy vbe info data to our global variable g_vbe_infoblock
     memcpy(&g_vbe_infoblock, (void *)BIOS_CONVENTIONAL_MEMORY, sizeof(VBE20_INFOBLOCK));
     return (out.ax == 0x4F);
@@ -85,7 +86,7 @@ void vbe_print_available_modes() {
     uint16 mode = *mode_list++;
     while (mode != 0xffff) {
         get_vbe_mode_info(mode, &modeinfoblock);
-        kprints("Mode: %d, X: %d, Y: %d\n", mode, modeinfoblock.XResolution, modeinfoblock.YResolution);
+        printf_com("Mode: %d, X: %d, Y: %d\n", mode, modeinfoblock.XResolution, modeinfoblock.YResolution);
         mode = *mode_list++;
     }
 }
@@ -107,26 +108,26 @@ void vbe_putpixel(int x, int y, int color) {
 
 int vesa_init(uint32 width, uint32 height, uint32 bpp) {
     bios32_init();
-    kprints("initializing vesa vbe 2.0\n");
+    printf_com("initializing vesa vbe 2.0\n");
     if (!get_vbe_info()) {
-        kprints("No VESA VBE 2.0 detected\n");
+        printf_com("No VESA VBE 2.0 detected\n");
         return -1;
     }
-    kprints("Checked All modes");
+    printf_com("Checked All modes");
     // set this to 1 to print all available modes to console
     #define PRINT_MODES 0
     #if PRINT_MODES
-        kprints("Press UP and DOWN arrow keys to scroll\n");
-        kprints("Modes:\n");
+        printf_com("Press UP and DOWN arrow keys to scroll\n");
+        printf_com("Modes:\n");
         vbe_print_available_modes();
         return 1;
     #else
         g_selected_mode = vbe_find_mode(width, height, bpp);
         if (g_selected_mode == -1) {
-            kprints("failed to find mode for %d-%d\n", width, height);
+            printf_com("failed to find mode for %d-%d\n", width, height);
             return -1;
         }
-        kprints("\nselected mode: %d \n", g_selected_mode);
+        printf_com("\nselected mode: %d \n", g_selected_mode);
         // set selection resolution to width & height
         g_width = g_vbe_modeinfoblock.XResolution;
         g_height = g_vbe_modeinfoblock.YResolution;

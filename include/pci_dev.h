@@ -109,5 +109,5 @@ int get_num_signal_processing_devices();
 int get_num_processing_accel_devices();
 int get_num_non_essential_devices();
 int get_num_coprocessor_devices();
-
+void pci_scan();
 #endif // PCI_STRUCT_H

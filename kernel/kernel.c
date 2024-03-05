@@ -52,7 +52,7 @@ void Process(void)
         }
     }
 }
-void loop_timer(int input)
+void loop_timer()
 {
     // 
     size_t ticks = get_ticks();
@@ -179,17 +179,17 @@ void command_line(void)
         {   
             // printf("\n%s",input_buffer);
             cmd(input_buffer);
-            history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
-            if(history[cmd_count] == NULL)
-            {
-                perror("Failed to allocate memory for command history\n");
-            }
-            else
-            {
-            strcpy(history[cmd_count],input_buffer);
+            // history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
+            // if(history[cmd_count] == NULL)
+            // {
+            //     perror("Failed to allocate memory for command history\n");
+            // }
+            // else
+            // {
+            // strcpy(history[cmd_count],input_buffer);
 
-            }
-            cmd_count++;
+            // }
+            // cmd_count++;
             memset(input_buffer, 0,command_buffer_size);
             printf(">");
 

@@ -2,7 +2,7 @@
 #define KERNEL_H
 
 #include "types.h"
-
+#include "multiboot.h"
 // symbols from linker.ld for section addresses
 extern uint8 __kernel_section_start;
 extern uint8 __kernel_section_end;
@@ -49,5 +49,6 @@ typedef struct {
 extern KERNEL_MEMORY_MAP g_kmap;
 void init(unsigned long magic, unsigned long addr);
 void command_line(void);
-void loop_timer(int input);
+void loop_timer();
+int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info);
 #endif

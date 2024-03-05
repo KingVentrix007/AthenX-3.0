@@ -29,7 +29,7 @@ void print_char(char character, uint8_t color)
     // Write to the screen
     *video_memory = entry;
 }
-void kprints(char *string)
+void kprints(const char *string)
 {
     int len = strlen(string);
     for (size_t i = 0; i < len; i++)
@@ -41,7 +41,7 @@ void kprints(char *string)
         }
         else
         {
-            // print_char_at(string[i],0x0F,vga_pos_x,vga_pos_y);
+            print_char_at(string[i],0x0F,vga_pos_x,vga_pos_y);
             vga_pos_x++;
         }
         

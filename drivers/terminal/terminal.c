@@ -6,6 +6,8 @@ size_t terminal_postion_x;
 size_t terminal_postion_y;
 size_t terminal_font_width;
 size_t terminal_font_height;
+size_t terminal_width;
+size_t terminal_height;
 size_t scroll_count = 0;
 extern unsigned char arr_8x16_font[];
 
@@ -16,6 +18,8 @@ int init_terminal(int x, int y)
     terminal_postion_y = 0;
     terminal_font_width = 8;
     terminal_font_height = 16;
+    terminal_width = x;
+    terminal_height = y;
 }
 int get_terminal_postion_x(void)
 {
@@ -37,7 +41,7 @@ int draw_vbe_char(char c)
 {
     if(c != '\n' && c != '\b' && c != '\t')
     {
-        if(terminal_postion_x > 1024-terminal_font_width)
+        if(terminal_postion_x > terminal_width-terminal_font_width)
         {
             terminal_postion_x=0;
             terminal_postion_y = terminal_postion_y + terminal_font_height;
@@ -49,7 +53,7 @@ int draw_vbe_char(char c)
     else if(c == '\n')
     {
         update_cursor_manual();
-        if(terminal_postion_y >= 768-(terminal_font_height*2))
+        if(terminal_postion_y >= terminal_height-(terminal_font_height*2))
         {
             vesa_scroll(terminal_font_height*2);
             terminal_postion_x = 0;
@@ -67,7 +71,7 @@ int draw_vbe_char(char c)
     }
     else if (c == '\b')
     {
-        if(terminal_postion_x > 1024-terminal_font_width)
+        if(terminal_postion_x > terminal_width-terminal_font_width)
         {
             terminal_postion_x=0;
             terminal_postion_y = terminal_postion_y + terminal_font_height;
