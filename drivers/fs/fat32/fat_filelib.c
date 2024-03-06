@@ -1037,7 +1037,7 @@ int fl_fread(void * buffer, int size, int length, void *f )
     CHECK_FL_INIT();
 
     if (buffer==NULL || file==NULL)
-        return -1;
+        return -2;
 
     // No read permissions
     if (!(file->flags & FILE_READ))
@@ -1049,7 +1049,7 @@ int fl_fread(void * buffer, int size, int length, void *f )
 
     // Check if read starts past end of file
     if (file->bytenum >= file->filelength)
-        return -1;
+        return -5;
 
     // Limit to file size
     if ( (file->bytenum + count) > file->filelength )
@@ -1746,9 +1746,16 @@ int fatfs_add_special_entries(struct fatfs *fs, uint32 dirCluster, uint32 parent
 
 
 long get_file_size(FL_FILE *file) {
-    // FILE* file = fl_fopen(file_name, "rb");
     if (file == NULL) {
         // Error opening the file
+        return -1;
+    }
+
+    // Get the current position in the file
+    long current_pos = fl_ftell(file);
+    if (current_pos == -1) {
+        // Error getting current position
+        fl_fclose(file);
         return -1;
     }
 
@@ -1759,11 +1766,21 @@ long get_file_size(FL_FILE *file) {
         return -1;
     }
 
-    // Get the current file position, which is the file size
+    // Get the size of the file
     long size = fl_ftell(file);
-    
-    // Close the file
-    // fl_fclose(file);
+    if (size == -1) {
+        // Error getting file size
+        fl_fseek(file, current_pos, SEEK_SET); // Restore original position
+        fl_fclose(file);
+        return -1;
+    }
+
+    // Restore original position
+    if (fl_fseek(file, current_pos, SEEK_SET) != 0) {
+        // Error restoring original position
+        fl_fclose(file);
+        return -1;
+    }
 
     return size;
 }

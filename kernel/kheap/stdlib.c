@@ -102,53 +102,71 @@ void* realloc(void* ptr, size_t new_size) {
  * Return:
  *   long - The converted long integer value.
  */
-long strtol(const char *nptr, int base) {
+long strtol(const char* str, char** endptr, int base) {
+    // Initialize variables to hold the result and sign
     long result = 0;
-    int sign = 1;
-    const char *ptr = nptr;
+    bool negative = false;
 
-    // Handle optional sign
-    if (*ptr == '-') {
-        sign = -1;
-        ptr++;
-    } else if (*ptr == '+') {
-        ptr++;
+    // Skip leading white spaces
+    while (isspace(*str)) {
+        str++;
     }
 
-    // Handle base prefix
-    if (base == 0 || base == 16) {
-        if (*ptr == '0' && (*(ptr + 1) == 'x' || *(ptr + 1) == 'X')) {
-            base = 16;
-            ptr += 2;
+    // Check for a sign (+ or -)
+    if (*str == '-') {
+        negative = true;
+        str++;
+    } else if (*str == '+') {
+        str++;
+    }
+
+    // Check for the base prefix (0x for hexadecimal)
+    if (base == 0) {
+        if (*str == '0') {
+            str++;
+            if (*str == 'x' || *str == 'X') {
+                base = 16;
+                str++;
+            } else {
+                base = 8;
+            }
+        } else {
+            base = 10;
         }
     }
 
-    // Convert string to long integer
-    if (base == 0) {
-        base = (*ptr == '0' ? 8 : 10); // octal if starts with 0, decimal otherwise
-    }
-
-    while (*ptr != '\0') {
+    // Convert the string to a long integer
+    while (isalnum(*str)) {
+        char c = *str;
         int digit;
-        if (*ptr >= '0' && *ptr <= '9') {
-            digit = *ptr - '0';
-        } else if (*ptr >= 'a' && *ptr <= 'z') {
-            digit = *ptr - 'a' + 10;
-        } else if (*ptr >= 'A' && *ptr <= 'Z') {
-            digit = *ptr - 'A' + 10;
+
+        if (isdigit(c)) {
+            digit = c - '0';
+        } else if (isalpha(c)) {
+            digit = tolower(c) - 'a' + 10;
         } else {
-            break; // Invalid character
+            break;  // Invalid character, stop parsing
         }
 
         if (digit >= base) {
-            break; // Invalid digit for the base
+            break;  // Invalid digit for the current base
         }
 
         result = result * base + digit;
-        ptr++;
+        str++;
     }
 
-    return result * sign;
+    // Set endptr to the first character after the parsed number
+    if (endptr != NULL) {
+        *endptr = (char*)str;
+    }
+
+    // Apply the sign
+    if (negative) {
+        result = -result;
+    }
+
+    return result;
 }
 /**
  * Function Name: ldexp

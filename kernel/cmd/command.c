@@ -163,6 +163,10 @@ int cmd(char *command)
         LOG_LOCATION;
 
     }
+    else if(strcmp(argv[0],"reboot") ==0 )
+    {
+        reboot();
+    }
     else if (strcmp(argv[0],"ls") ==0)
     {
         ls();

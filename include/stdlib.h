@@ -15,7 +15,7 @@ void free(void* ptr);
 // Declaration for realloc function
 void* realloc(void* ptr, size_t new_size);
 
-long strtol(const char *nptr, int base);
+long strtol(const char* str, char** endptr, int base);
 
 double ldexp(double x, int exp);
 #endif

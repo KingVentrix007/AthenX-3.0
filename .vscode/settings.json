@@ -110,6 +110,8 @@
         "cstdlib": "c",
         "info.h": "c",
         "rsdp.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "climits": "c",
+        "ctypes.h": "c"
     }
 }

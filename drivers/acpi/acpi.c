@@ -54,6 +54,86 @@ struct GenericAddressStructure
   uint8_t AccessSize;
   uint64_t Address;
 };
+struct ACPISDTHeader {
+  char Signature[4];
+  uint32_t Length;
+  uint8_t Revision;
+  uint8_t Checksum;
+  char OEMID[6];
+  char OEMTableID[8];
+  uint32_t OEMRevision;
+  uint32_t CreatorID;
+  uint32_t CreatorRevision;
+};
+struct FADT
+{
+    struct   ACPISDTHeader h;
+    uint32_t FirmwareCtrl;
+    uint32_t Dsdt;
+ 
+    // field used in ACPI 1.0; no longer in use, for compatibility only
+    uint8_t  Reserved;
+ 
+    uint8_t  PreferredPowerManagementProfile;
+    uint16_t SCI_Interrupt;
+    uint32_t SMI_CommandPort;
+    uint8_t  AcpiEnable;
+    uint8_t  AcpiDisable;
+    uint8_t  S4BIOS_REQ;
+    uint8_t  PSTATE_Control;
+    uint32_t PM1aEventBlock;
+    uint32_t PM1bEventBlock;
+    uint32_t PM1aControlBlock;
+    uint32_t PM1bControlBlock;
+    uint32_t PM2ControlBlock;
+    uint32_t PMTimerBlock;
+    uint32_t GPE0Block;
+    uint32_t GPE1Block;
+    uint8_t  PM1EventLength;
+    uint8_t  PM1ControlLength;
+    uint8_t  PM2ControlLength;
+    uint8_t  PMTimerLength;
+    uint8_t  GPE0Length;
+    uint8_t  GPE1Length;
+    uint8_t  GPE1Base;
+    uint8_t  CStateControl;
+    uint16_t WorstC2Latency;
+    uint16_t WorstC3Latency;
+    uint16_t FlushSize;
+    uint16_t FlushStride;
+    uint8_t  DutyOffset;
+    uint8_t  DutyWidth;
+    uint8_t  DayAlarm;
+    uint8_t  MonthAlarm;
+    uint8_t  Century;
+ 
+    // reserved in ACPI 1.0; used since ACPI 2.0+
+    uint16_t BootArchitectureFlags;
+ 
+    uint8_t  Reserved2;
+    uint32_t Flags;
+ 
+    // 12 byte structure; see below for details
+    struct GenericAddressStructure ResetReg;
+ 
+    uint8_t  ResetValue;
+    uint8_t  Reserved3[3];
+ 
+    // 64bit pointers - Available on ACPI 2.0+
+    uint64_t                X_FirmwareControl;
+    uint64_t                X_Dsdt;
+ 
+    struct GenericAddressStructure X_PM1aEventBlock;
+    struct GenericAddressStructure X_PM1bEventBlock;
+    struct GenericAddressStructure X_PM1aControlBlock;
+    struct GenericAddressStructure X_PM1bControlBlock;
+    struct GenericAddressStructure X_PM2ControlBlock;
+    struct GenericAddressStructure X_PMTimerBlock;
+    struct GenericAddressStructure X_GPE0Block;
+    struct GenericAddressStructure X_GPE1Block;
+};
+
+struct FADT *global_facp;
 // check if the given address has a valid header
 unsigned int *acpiCheckRSDPtr(unsigned int *ptr)
 {
@@ -141,8 +221,11 @@ int acpiCheckHeader(unsigned int *ptr, char *sig)
    return -1;
 }
 
-
-
+struct RSDT {
+  struct ACPISDTHeader h;
+  uint32_t PointerToOtherSDT[]; // Flexible array member, size is determined at runtime
+};
+struct RSDT *globale_rsdt;
 int acpiEnable(void)
 {
    // check if acpi is enabled
@@ -206,12 +289,16 @@ int acpiEnable(void)
 //
 int initAcpi(void)
 {
+    int s = sizeof(struct FADT);
+   int size = sizeof(struct FACP);
+   printf_com("s = %d, size = %d\n", s, size);
    unsigned int *ptr = acpiGetRSDPtr();
 
    // check if address is correct  ( if acpi is available on this pc )
    if (ptr != NULL && acpiCheckHeader(ptr, "RSDT") == 0)
    {
       // the RSDT contains an unknown number of pointers to acpi tables
+      globale_rsdt = (struct RSDT *)*ptr;
       int entrys = *(ptr + 1);
       entrys = (entrys-36) /4;
       ptr += 36/4;   // skip header information
@@ -223,6 +310,7 @@ int initAcpi(void)
          {
             entrys = -2;
             struct FACP *facp = (struct FACP *) *ptr;
+            global_facp = (struct FADT *)ptr;
             if (acpiCheckHeader((unsigned int *) facp->DSDT, "DSDT") == 0)
             {
                // search the \_S5 package in the DSDT
@@ -264,7 +352,7 @@ int initAcpi(void)
 
                      SLP_EN = 1<<13;
                      SCI_EN = 1;
-
+                    
                      return 0;
                   } else {
                      printf_com("\\_S5 parse error.\n");
@@ -303,3 +391,41 @@ void acpiPowerOff(void)
 
    printf_com("acpi poweroff failed.\n");
 }
+void *findFACP();
+void reboot(void)
+{
+   
+   // struct FADT *facp = (struct FADT*) findFACP();
+   // if(facp == NULL)
+   // {
+   //    printf("Failed to find FACP\n");
+   // }
+   // // struct FACP *FADT;
+   // else if(strncmp(facp->h.Signature,"FACP",4) == 0)
+   // {
+   //    printf_com("global_facp->ResetReg.Address -> 0x%X\n", facp->ResetReg.Address);
+   //    printf_com("global_facp->ResetValue -> 0x%X\n", facp->ResetValue);
+   //    // outportb(facp->ResetReg.Address, facp->ResetValue);
+   // }
+   // else
+   // {
+   //    printf("\n->%s\n",facp->h.Signature);
+   //    printf("Invalid ACPISDTHeader header\n");
+   // }
+  
+}
+// void *findFACP()
+// {
+//    //  RSDT *rsdt = (RSDT *) RootSDT;
+//     int entries = (globale_rsdt->h.Length - sizeof(globale_rsdt->h)) / 4;
+//     printf("entries = %d\n", entries);
+//     for (int i = 0; i < entries; i++)
+//     {
+//         struct ACPISDTHeader *h = (struct ACPISDTHeader *) globale_rsdt->PointerToOtherSDT[i];
+//         if (!strncmp(h->Signature, "FACP", 4))
+//             return (void *) h;
+//     }
+ 
+//     // No FACP found
+//     return NULL;
+// }

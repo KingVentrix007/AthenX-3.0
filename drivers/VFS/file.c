@@ -231,6 +231,7 @@ int fputs(const char *str, void *stream) {
     }
     else if ((int)stream == stderr)
     {
+        printf("%s", str);
         printf_com("%s", str);
         printf_debug("%s", str);
         return 1;
@@ -467,6 +468,7 @@ int fprintf(void *fp,const char *format,...)
     }
     else if ((int)fp == stderr)
     {
+        printf_debug("%s",buffer);
         printf_com("%s",buffer);
     }
     else

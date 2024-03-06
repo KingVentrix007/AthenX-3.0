@@ -32,6 +32,7 @@
 #include "stdlib.h"
 #include "kheap.h"
 #include "scheduler.h"
+#include "dwarf.h"
 int fill_program_list(int num_programs,Entry *entries);
 /**
  * Function Name: init
@@ -73,7 +74,7 @@ void init(unsigned long magic, unsigned long addr) {
         printf_com("-\tScreen resolution: %dx%d\n",width,hight);
         if(ret < 0)
         {
-             width = 720;
+            width = 720;
             hight = 480;
             ret =  vesa_init( width,hight,32);
             if(-1 < 0)
@@ -282,7 +283,9 @@ void init(unsigned long magic, unsigned long addr) {
     // Print ACPI status
     printf("-\tACPI enabled: %s\n", acpi_status);
     printf("-\tScreen resolution: %dx%d\n",width,hight);
-    
+    // printf("-\tAddress = 0x%X\n",&init);
+    // char *bin_path = "/boot/AthenX.bin";
+    // dwarf_function(&init,bin_path);
     // printf("-\tRSDP found: %s\n", rsdp_status);
     unsigned int eax, edx;
     
@@ -294,7 +297,7 @@ void init(unsigned long magic, unsigned long addr) {
     // printf("-\tACPI enabled: %s\n",acpi);
     // int num_ata_drives = get_ata_drive_num();
     printf("Device Info:\n");
-     print_pci_devices();
+    print_pci_devices();
     
     // printf("-\tNumber of ATA drives: %d\n",num_ata_drives);
    
