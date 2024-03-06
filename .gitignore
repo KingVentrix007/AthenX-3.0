@@ -22,3 +22,5 @@ AthenX.iso
 AthenX.*
 testD
 ahci.img
+.vscode/settings.json
+*.json
