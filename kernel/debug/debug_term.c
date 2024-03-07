@@ -153,3 +153,11 @@ void draw__debug_char_8x16(int x, int y, char character) {
         }
     }
 }
+
+int kernel_panic(char *caller, char *reason)
+{
+    cls();
+    printf("Kernel panicked, There is nothing you can do\n");
+    printf("%s -> %s\n", caller, reason);
+    for(;;);
+}

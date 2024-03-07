@@ -4,7 +4,7 @@ ASM = nasm
 CONFIG = ./config
 GCCPARAMS =  -O0 -I./include -fno-omit-frame-pointer -nostdlib -fno-pic -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations \
-            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g
+            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g -DNO_COM1
 
 ASPARAMS = --32
 LDPARAMS = -m elf_i386 -T linker.ld -nostdlib 
@@ -58,6 +58,7 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 	cp AthenX.bin isodir/boot/AthenX.bin
 	cp grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o AthenX.iso isodir
+
 
 # Run the OS in QEMU
 run: AthenX.bin

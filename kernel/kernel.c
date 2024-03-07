@@ -145,6 +145,8 @@ void command_line(void)
 {
     // STI();
     // printf("Commnd command\n================================\n");
+    // init_security();
+    // login();
     printf("Welcome to Iris! A simple bash like shell\n");
     printf("Type help or iris for more information\n");
 

@@ -2133,11 +2133,12 @@ int fctscanf_(int (*getch)(void *data), void (*ungetch)(int c, void *data),
 #endif
 #include "stdbool.h"
 int lock_id = 0;
-bool echo = true;
+int echo = 10;
 char no_echo_char = '\0';
 int getch_(void)
 {
 
+    
     int ch;
     while((ch = getchar()) <= 0)
     {
@@ -2159,22 +2160,15 @@ int getch_(void)
         // {
         //    
         // }
-        if(echo = true)
+        if(echo == 10)
         {
-            printf_debug("%c", ch);
+            printf_debug("%d", echo);
             printf("%c", ch);   
         }
         else
         {
-            if(no_echo_char = '\0')
-            {
-
-            }
-            else
-            {
-                printf_debug("%c", no_echo_char);
-                printf("%c", no_echo_char);   
-            }
+            printf("C");
+            printf_debug("\n\nECHO ->%d\n\n", echo);
         }
         
     }
@@ -2196,9 +2190,13 @@ void ungetch_(int ch)
 
 int enable_echo()
 {
-    echo = true;
+    echo = 10;
 }
 int disable_echo()
 {
- echo = false;
+   echo = -1;
+}
+int set_echo_char(char ch)
+{
+    no_echo_char = ch;
 }

@@ -75,7 +75,11 @@ char *getcwd()
 
 void *fopen(const char *path,const char *modifiers)
 {
-    if(0 == 0)//If fat32 or ext#, ATM only fat works
+    if(strncmp(path,"/dev/",5) == 0)
+    {
+
+    }
+    else if(0 == 0)//If fat32 or ext#, ATM only fat works
     {
         return fl_fopen(path,modifiers);
     }

@@ -996,6 +996,7 @@ int fctprintf(void (*out)(char character, void* arg), void* arg, const char* for
 
 void _putchar(char chr)
 {
+  
   if(print_mode == DEFAULT_PRINT_MODE)
   {
       char string[2];

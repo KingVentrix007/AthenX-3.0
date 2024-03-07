@@ -274,6 +274,7 @@ void scroll_screen_history(uint32_t* framebuffer, int width, int height, int num
 int vesa_init_buffers()
 {
   display_buffer_1 = (uint32 *)malloc(g_width*g_height*gbpp);
+  memset(display_buffer_1, 0, g_width*g_height*gbpp);
   if(display_buffer_1 == NULL)
   {
     perror("Failed to initialize display buffer 1\n");
@@ -286,6 +287,7 @@ int vesa_init_buffers()
     return -1;
 
   }
+  memset(display_buffer_2, 0, g_width*g_height*gbpp);
   history_buffer_1 = (uint32 *)malloc(g_height *g_width*gbpp);
   if(history_buffer_1 == NULL)
   {
@@ -303,6 +305,15 @@ void draw_pixel_buffer_1(int x, int y, int color) {
     *(display_buffer_1 + i) = color;
     update_pixel(x,y);
 
+}
+int draw_pixel_buffer_1_tty(uint32_t pos,int count,uint32_t *buffer)
+{
+
+    for (size_t i = 0; i < count; i++)
+    {
+        *(display_buffer_1 +pos+ i) = buffer[i];
+    }
+    
 }
 void draw_pixel_buffer_2(int x, int y, int color) {
     uint32 i = y * g_width + x;

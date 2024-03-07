@@ -78,5 +78,6 @@ int cycle_buffers_vbe();
 void draw_pixel_buffer_2(int x, int y, int color);
 void draw_pixel_buffer_1(int x, int y, int color);
 int vesa_init_buffers();
+int draw_pixel_buffer_1_tty(uint32_t pos,int count,uint32_t *buffer);
 extern int multi_buffers_enabled;
 #endif

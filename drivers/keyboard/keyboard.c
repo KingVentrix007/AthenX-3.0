@@ -148,6 +148,10 @@ void keyboard_handler(REGISTERS *r) {
                 handle_F12_press(scancode);
                 g_ch = -1;
                 break;
+            case 0x37:
+                printf("Print screen\n");
+                g_ch = -1;
+                break;
             default:
                 g_ch = g_scan_code_chars[scancode];
                 // if caps in on, covert to upper

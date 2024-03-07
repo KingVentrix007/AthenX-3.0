@@ -257,6 +257,7 @@ void init(unsigned long magic, unsigned long addr) {
     }
      keyboard_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    // 
     printf("System Initialization Complete\n");
     printf("System Info:\n");
     
@@ -283,6 +284,7 @@ void init(unsigned long magic, unsigned long addr) {
     // Print ACPI status
     printf("-\tACPI enabled: %s\n", acpi_status);
     printf("-\tScreen resolution: %dx%d\n",width,hight);
+    
     // printf("-\tAddress = 0x%X\n",&init);
     // char *bin_path = "/boot/AthenX.bin";
     // dwarf_function(&init,bin_path);
@@ -300,7 +302,9 @@ void init(unsigned long magic, unsigned long addr) {
     print_pci_devices();
     
     // printf("-\tNumber of ATA drives: %d\n",num_ata_drives);
-   
+    STI();
+//    init_security();
+    // login();
     printf("Starting shell\n");
     CreateProcess(command_line);
     CreateProcess(loop_timer);

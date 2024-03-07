@@ -88,5 +88,5 @@ int set_debug_terminal_postion_y(int y);
  *   void
  */
 int draw__debug_vbe_char(char c);
-
+int kernel_panic(char *caller, char *reason);
 #endif /* DEBUG_FUNCTIONS_H */
