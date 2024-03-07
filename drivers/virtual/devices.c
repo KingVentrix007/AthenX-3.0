@@ -53,6 +53,11 @@ int is_virtual_device_path(char *path)
     }
 }
 
+int is_virtual_device(void *device)
+{
+     VirtualDevice *dev = (VirtualDevice *)device;
+     return dev->valid == VALID_VIRTUAL_DEVICE;
+}
 
 VirtualDevice *decode_device(char *path)
 {
@@ -61,7 +66,7 @@ VirtualDevice *decode_device(char *path)
         // Handle memory allocation failure
         return NULL;
     }
-
+    dev->valid = VALID_VIRTUAL_DEVICE;
     if (strcmp(path, "/dev/tty") == 0)
     {
         // Handle virtual terminal device (/dev/tty)
@@ -155,7 +160,7 @@ int device_write(const void *ptr, size_t size, size_t nmemb, void *stream)
         }
         else
         {
-            return dev->write(ptr,0,nmemb);
+            return dev->write(ptr,size,nmemb);
         }
     }
 }

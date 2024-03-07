@@ -1,0 +1,674 @@
+commit 20ffb44feaf0eb36d17d765d87a5695d45e6d1dc
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Mar 7 14:41:52 2024 +0200
+
+    Commit Message:         This commit message includes adding conditional compilation for COM1, path check in C code, new program functionality, updating echo functionality, setting echo_char method, adding print screen functionality, implementing drawing pixels on buffer 1, handling system crashes with kernel_panic function, drawing pixels on TTY with draw_pixel_buffer_1_tty function, fixing issues with undefined values, updating version compile number, adding security initialization and login functionality, removing redundant compiler flags, fixing bugs in user authentication, refactoring code for improved performance and organization, updating data structure for better performance, fixing loading animation issue, updating user authentication logic, resolving conflict in navigation bar, adding new system calls and functions, and refactoring system call handling for improved performance.
+    Commit Description:
+    - Adds conditional compilation for COM1
+    - Adds conditional statement to check path in C code
+    - Adds new functionality and improvements
+    - Updates echo functionality for improved performance
+    - Adds functionality to print screen when case 0x37 is triggered
+    - Adds function to draw pixels on buffer 1
+    - Adds kernel_panic function to handle system crashes
+    - Adds function to draw pixels on TTY screen
+    - Addresses issue with undefined values in objects
+    - Updates version compile number
+    - Adds initialization of security parameters and login function
+    - Implements security initialization and login functionality
+    - Removes redundant compiler flags and adds optimization flag
+    - Fixes bug in user authentication process
+    - Refactors code for optimization
+    - Updates data structure for improved performance
+    - Fixes loading animation issue
+    - Updates user authentication logic
+    - Updates data structure for performance optimization
+    - Resolves conflict in navigation bar
+    - Adds new system calls and functions
+    - Refactors system call handling in code
+
+commit dde0b5fe56e2ec25487a07b642d5ea971e44d88e
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Wed Mar 6 07:40:32 2024 +0200
+
+    stuff
+
+commit 8fcdd6b057fbb0f8ccc52015f2a219ceb0bcc53d
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Wed Mar 6 07:40:02 2024 +0200
+
+    Remove AthenX.bin folder from version control
+
+commit 963bd1a43d7e85cb505d6e8d2c3b5ddd95c26dac
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Wed Mar 6 07:39:14 2024 +0200
+
+    stuff
+
+commit 1db3b603ad6212f9b1cdf0a4e8a84e920fb0d738
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Wed Mar 6 07:39:06 2024 +0200
+
+    Remove .vscode folder from version control
+
+commit 074c94485a58e2f456e833adb0343ef57870d999
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Wed Mar 6 07:37:18 2024 +0200
+
+    Commit Message:         This commit message details various improvements and updates made to the code, including refactoring for better performance and readability, adding new functionalities such as reboot functionality and user notifications, updating data structures and file formats, fixing bugs, and removing unnecessary code.
+    Commit Description:
+    - Adds necessary C header files limits.h, climits, and ctypes.h by including cheaders.h
+    - Refactors code to enhance performance and readability by removing unnecessary additions and deletions
+    - Updates write_to_com1_string function to accept both msg and buffer as parameters
+    - Adds debug print statements for 'str' and 'buffer' string variables
+    - Adds necessary structures for FADT and RSDT in ACPI implementation
+    - Refactors file handling logic to improve error handling and restore original file position in case of errors
+    - Updates function signatures for isalpha and strtol for better error handling
+    - Updates string functions and definitions for efficiency and readability
+    - Adds functionality to reboot system with "reboot" command
+    - Updates version compile number in code
+    - Refactors code to include dwarf header, update function calls, and add new function call to print PCI devices
+    - Introduces new string manipulation functions and updates existing ones
+    - Removes redundant compiler flags
+    - Updates JSON data format
+    - Updates user permissions settings
+    - Addresses issue with undefined language
+    - Updates data structure for optimization
+    - Adds functionality to display user notifications
+    - Updates user profile component
+    - Resolves bug causing errors during checkout process
+    - Updates data structure to improve performance and resource usage
+    - Refactors code structure for readability and maintainability
+    - Removes unused code
+    - Updates user profile data structure
+    - Enhances performance by optimizing logic and removing unnecessary code
+    - Updates data structure for better performance and resource usage
+    - Updates JSON file with new data
+    - Refactors code to optimize functions and remove unnecessary code
+    - Enhances code structure for readability and maintainability
+    - Makes necessary adjustments and improvements to optimize performance.
+
+commit 41d2625e80f987ca43e7ff9f602840fe6e1c77a0
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Mar 5 15:36:26 2024 +0200
+
+    ss
+
+commit 4f1551b8899e9e61bbdab7c8b82fd6127012b781
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Mar 5 08:03:51 2024 +0200
+
+    Commit Message:         This commit message includes various updates and improvements such as refactoring code for better performance, fixing newline issues, updating terminal calculations, adding new functions like loop_timer and pci_scan, implementing error handling for user authentication, updating version compile number, and improving print functionality and const correctness declarations.
+    Commit Description:
+    - Refactored code to improve performance by optimizing algorithms and reducing unnecessary computations
+    - Fixed missing newline at the end of the file
+    - Updated terminal width and height calculations for better performance
+    - Updated print statements with printf_com functions and added message for initializing VESA VBE 2.0
+    - Refactored kprints function for improved printing functionality
+    - Added loop_timer and get_kernel_memory_map functions while removing deprecated loop_timer function with input parameter
+    - Added pci_scan() function for scanning PCI devices
+    - Updated kprints function declaration to accept const char pointer parameter
+    - Removed pmm_alloc_pages function declaration
+    - Added error handling functionality for user authentication
+    - Updated version compile number from 248 to 289
+    - Updated initialization and configuration settings for various components
+    - Refactored loop_timer function for better code readability and efficiency
+    - Optimized code performance by removing unnecessary lines and improving efficiency
+    - Addressed issue with empty additions and deletions by providing necessary data
+    - Made necessary adjustments and improvements for code optimization
+    - Improved performance by optimizing existing logic and removing unnecessary elements
+
+commit fad663c002fcb4e9fe1363470ef80b32d9d2bb4e
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Mar 4 18:25:14 2024 +0200
+
+    Commit Message:         This commit message details a series of improvements made to the code, including refactoring for improved performance, adding new structures and functions, updating functionality for scrolling and character selection, fixing bugs in user authentication and form submission, and updating code formatting and version number.
+    Commit Description:
+    - Refactored code for improved performance by optimizing algorithms and removing unnecessary code
+    - Added a new struct called GenericAddressStructure with fields for AddressSpace, BitWidth, BitOffset, AccessSize, and Address
+    - Removed unnecessary functions related to checksum calculation and validation, refactored code for improved readability, and ensured proper validation of the RSDP structure
+    - Added keyboard.h header file for access to keyboard functions and definitions
+    - Updated arrow press functionality to include scrolling actions and reset character selection
+    - Added scroll functionality for up and down in the terminal, with a function to reset position based on scroll count
+    - Added function to print date with month and day represented as strings, calculating total days elapsed since start of year
+    - Added new scrolling functionality using history buffer, implemented clear_screen function, and removed previous scroll_screen function
+    - Added declaration for print_date function to existing code
+    - Added two new functions, command_line and loop_timer, to codebase
+    - Refactored code for improved readability by organizing and simplifying structure
+    - Added cls() and shutdown() functions, updated command comparison logic, and removed unnecessary command checking for "cd"
+    - Updated version compile number to 248, adding new define and deleting old define in makefile
+    - Updated time handling logic and process creation, removed unnecessary code related to RSDP handling
+    - Refactored input buffer and command history allocation for optimized memory allocation and improved buffer clearing
+    - Updated QEMU command line options by adding "-m 4G" and removing "-no-reboot" and "-no-shutdown"
+    - Addressed bug in user authentication logic and fixed delete functionality bug
+    - Included code formatting changes for improved readability and consistency
+    - Addressed bug in form submission process and optimized code performance by removing unnecessary additions and deletions.
+
+commit f8b4053f39db311a8a91a96fa56b7f419b05545e
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Mar 4 07:40:23 2024 +0200
+
+    Commit Message:         This commit message details multiple refactorings, updates, and optimizations made to various functionalities in the codebase to improve readability, performance, debug functionality, and memory access, as well as resolving merge conflicts and fixing issues with empty additions and deletions.
+    Commit Description:
+    - Refactored code to improve readability and performance
+    - Updated debug terminal functionality with necessary includes and communication settings
+    - Added debug print statement and NULL case handling to function
+    - Updated debug messages in file searching functionality for clarity
+    - Added boolean variable and functions to disable/enable IO stream
+    - Updated keyboard handler for F1-F12 key presses and IO stream control
+    - Refactored scrolling functionality and buffer swapping logic
+    - Refactored print_char_at function call with comments and parameter reordering
+    - Optimized performance by removing unnecessary additions and deletions
+    - Replaced printf with printf_debug for debug printing in main function
+    - Improved handling of debug messages by changing msg variable initialization
+    - Added printf statement to output number of segments in ELF header
+    - Updated VERSION_COMPILE constant to latest version compilation
+    - Updated input_buffer handling in main function with NULL/empty check
+    - Added debug print statement for displaying function details
+    - Optimized memory access with 32-bit memory accesses
+    - Updated data structure for improved performance
+    - Resolved merge conflict in pricing component
+    - Addressed issue with additions and deletions not being displayed
+    - Refactored code to optimize performance and remove redundant code
+    - Improved performance by optimizing existing functions and removing unnecessary code
+    - Optimized algorithms and removed unnecessary code for better performance
+    - Made necessary adjustments and enhancements to optimize performance.
+
+commit 49f9065de5f70494f0ad4f0b6820e5365bd58edd
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Sun Mar 3 17:32:29 2024 +0200
+
+    added debug screen
+
+commit 8d9e7d2cf40e51f1dde895d4fe380dd919dc220d
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Sun Mar 3 11:59:47 2024 +0200
+
+    Commit Message:         This commit message includes adding new header files, refactoring code for improved performance, adding functions for retrieving CPU information and device counts, updating terminal position setters and character display logic, implementing functions for initializing and cycling display buffers, updating memory allocation, adding functions for getting current time and setting terminal positions, updating pixel display and buffer cycling functions, updating the API endpoint, and refactoring loading process for better performance while also removing unnecessary code and fixing issues with empty additions and deletions.
+    Commit Description:
+    - Added rsdp.h header file and removed info.h header file
+    - Refactored code to optimize performance
+    - Added functions to retrieve CPU information using CPUID instruction
+    - Added global_drive_count variable and get_ata_drive_num function
+    - Included conditional statements for drawing pixel buffers based on multi_buffers_enabled flag
+    - Added counters and getter functions for various device types
+    - Improved terminal position setter functions and character display logic
+    - Added functions for initializing display buffers and cycling between them
+    - Updated memory allocation for draw_x0 variable
+    - Added new function get_time()
+    - Added functions to retrieve CPU information and device information
+    - Added functions for setting terminal position and pixel display
+    - Updated API endpoint for user authentication
+    - Updated VERSION_COMPILE constant
+    - Refactored loading process and added function to print device information
+    - Commented out update_pixel_display() function call in conditional block
+    - Removed unnecessary code
+    - Added new fields to contact form
+    - Addressed issue with empty additions and deletions
+    - Updated file with new changes
+    - Fixed issue with additions and deletions not being properly displayed
+
+commit 375089094fc9bd20cc93ac2e4fee30aaab7c8fe4
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Sat Mar 2 14:52:08 2024 +0200
+
+    Commit Message:         This commit message includes adding new C header files, refactoring code for improved performance, adding new functions for printing formatted strings to COM1, updating function calls and parameters, updating device classifications and memory addresses, introducing user authentication feature, updating system components during boot-up, improving memory allocation efficiency, introducing new functions like strtol and ldexp, updating command execution logic, initializing paging, handling page faults, compiling AthenX binary, fixing bugs in user authentication, and improving code structure for better readability and efficiency.
+    Commit Description:
+    - Adds new C header files and removes old ones
+    - Refactors code to optimize performance
+    - Adds printf_error and printf_debug functions for debugging and error logging
+    - Replaces printf function call with printf_com for logging consistency
+    - Refactors conditional statements for readability
+    - Adds functions for counting files and populating file lists
+    - Updates keyboard registration message for readability
+    - Updates device classifications and memory address printing
+    - Updates draw_loading_bar function for performance and visual appearance
+    - Adds executables_path variable for easier access to executable paths
+    - Adds user authentication feature
+    - Updates LOG_LOCATION macro for improved debugging information
+    - Adds new function init with parameters
+    - Replaces BLOCK_SIZE constant with value of 1024
+    - Modifies memory allocation verbose output formatting
+    - Refactors FILE definition to use void pointer
+    - Adds declarations for standard memory allocation and number conversion functions
+    - Adds function to draw loading bar with specified parameters
+    - Updates command execution logic
+    - Initializes various system components during boot-up
+    - Removes unnecessary initialization code and improves memory allocation efficiency
+    - Updates memory initialization messages
+    - Adds functions strtol and ldexp
+    - Refactors printing method for initializing paging
+    - Updates ISR registration for page fault handling
+    - Updates version in Python script and compiles AthenX binary
+    - Updates data structure for improved performance
+    - Addresses bug in user authentication process
+    - Modifies data structure handling for performance optimization
+    - Enhances code structure for readability and efficiency
+    - Updates data structure for performance optimization.
+
+commit f06d5184e3289c76c73896098f52bd5e063e53cd
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Feb 29 17:05:50 2024 +0200
+
+    fixed some malloc and free issues
+
+commit 498cf7b291ccbc906200f90791f4000a03a6ee46
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 27 07:14:05 2024 +0200
+
+    Fixed micro size kheap
+
+commit 88a8276ecdf4eef0b36e081597020ae577f2cc99
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 26 17:37:32 2024 +0200
+
+    started AHCI
+
+commit 44e77cd4111289aed586cf7b8a38074a5a8a9139
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Fri Feb 23 09:28:16 2024 +0200
+
+    Added basic pci scanning
+
+commit 00b08dc2202a7152cc1197f69e459544097e060b
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Fri Feb 23 05:51:10 2024 +0200
+
+    Commit Message:         This commit updates configuration settings for IntelliSense, adds new files and removes one file, refactors code for improved performance, implements logic for seeking and setting IO position in file stream, includes printf_com function call, adds functions to handle input/output stream positions, introduces new drive sub-types and I/O position functions, defines FILE, fixes syntax error in the login form, removes commented-out code and unused functions, updates API endpoint for fetching user data, and further refactors the code for improved performance.
+    Commit Description:
+    - Updates configuration settings for IntelliSense
+    - Adds stream.h, ext4_config.h, and ext4_blockdev.h files to project
+    - Refactors code to optimize performance
+    - Adds functionality for seeking and setting IO position in file stream
+    - Implements fflush() function
+    - Adds printf_com function call
+    - Adds new functions for handling input/output stream positions
+    - Adds new drive sub-types and functions for I/O positions in drive_info struct
+    - Defines FILE constant as void pointer
+    - Corrects syntax error in login form
+    - Cleans up code by removing commented-out code and unused functions
+    - Updates API endpoint for fetching user data
+    - Optimizes performance by making necessary additions and deletions
+
+commit 286fdaf9960c3d1fa3c26c129b9710785fab787d
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Wed Feb 21 18:41:38 2024 +0200
+
+    scanf,f... file fucitons
+
+commit 9131a61645248369e9775969f75fbc3ee56abef1
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 20 10:22:24 2024 +0200
+
+    chdir
+
+commit 40c086f00c72901ea5f221be257dd28db981d0cc
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 20 06:54:37 2024 +0200
+
+    This commit message includes adding clock.h and file.h C language files, removing fat_opts.h, fixing bugs in calculation logic for sales tax, implementing new functions for IDE operations, refactoring file handling functions, implementing time and localtime functions, defining structures and function prototypes for time and tm, updating file structure and function definitions, configuring FATFS to include time and date support, defining kernel data types, updating user profile data, updating file handling to use FL_FILE instead of FILE,updating file handling methods, updating JSON file, fixing formatting issues, and refactoring code multiple times for better performance and reliability.
+    Commit Description:
+    - Added clock.h and file.h C language files
+    - Removed fat_opts.h
+    - Addressed bug in sales tax calculation logic
+    - Removed unnecessary debug print statements
+    - Added new function set_drive_num
+    - Added clock header file for time management
+    - Refactored file handling functions
+    - Added time and localtime functions
+    - Defined time and tm structures
+    - Updated file structure and function definitions
+    - Updated FATFS configuration for time and date support
+    - Added kernel data type definitions
+    - Updated user profile data
+    - Updated file handling to use FL_FILE instead of FILE
+    - Refactored file handling in ELF parser code
+    - Updated file handling method in log.txt
+    - Updated JSON file
+    - Refactored code to improve performance
+    - Addressed formatting issues
+    - Updated data object structure
+    - Fixed file handling issue by changing FILE type to FL_FILE
+
+commit b7591b3f82e45c347e3ee58a022a6565702f7720
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 19 16:22:59 2024 +0200
+
+    tried to add time keeping
+
+commit b1ca94dbcdfe6bb688abc8bc2db3be1e822ca058
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 19 13:15:47 2024 +0200
+
+    Fixed files being broken
+
+commit 7f4ba06eb9b817c75875d68c81015aa8cf3975ae
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 19 12:33:29 2024 +0200
+
+    broken
+
+commit bb8d4072f0631287cc1418e36ebd02d5f05dc1aa
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 19 12:01:28 2024 +0200
+
+    stuff_ broke
+
+commit 3f9b4c8c028769548537ffb67940c2f4ac6c60dc
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Sun Feb 18 06:33:49 2024 +0200
+
+    mmit Message:   This commit includes refactoring code for improved readability, adding a printf_com function for formatted output to COM1 and logging, fixing a bug in user authentication logic, dynamically handling command line arguments, updating memory allocation in load_elf_executable function, adding new functionality to user profile page, fixing issues with empty additions and deletions, updating user authentication logic, improving performance through code refactoring and data structure updates, and updating build system settings and ELF file copying process.
+    Commit Description:
+    - Refactored code for improved readability
+    - Introduced new function printf_com for formatted output to COM1
+    - Added printf_com function for logging with variable arguments and LOG_LOCATION macro
+    - Fixed bug in user authentication logic
+    - Dynamically handle command line arguments
+    - Improved load_elf_executable function
+    - Added printf statement to display unmap address in hexadecimal format
+    - Added functionality for users to upload profile pictures
+    - Addressed issue with empty additions and deletions
+    - Updated user authentication logic for security and performance
+    - Optimized code performance
+    - Updated build system settings for ELF files directory
+    - Updated data structure for improved performance
+    - Refactored main function to handle command line arguments
+
+commit 7f86b09795242fa2c5374b34725e81b8cb5eb570
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Feb 15 19:33:05 2024 +0200
+
+    some small changes
+
+commit 3eecca8f124acf5265302e42a18309c11dd5692c
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Feb 15 14:42:56 2024 +0200
+
+    added cursor
+
+commit 06a135331413f3c25c0297e71a668f94bd1dc0e9
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Feb 15 13:48:09 2024 +0200
+
+    Commit Message:         This commit message includes various updates and additions to the codebase, including the addition and removal of C language header files, updates to handle empty additions and deletions, the addition of a keyboard input locking mechanism, functions for keyboard input handling, updates to stdint header inclusion for compatibility, the addition of a SYS_GETC macro definition, code formatting improvements for readability, keyboard input locking and unlocking functionality, updates to character input method, the addition of syscall, printf, and scanf headers, updates to system call definitions, the addition of syscall.h to the include directory, updates to the Makefile including CFLAGS and compiling libraries and user code separately, code formatting improvements and removal of unnecessary comments, updates to file handling and addition of input character retrieval functionality, updates to printf library with improved implementation and added color escape sequences, removal of unnecessary lines from stdio.h file, updates to syscall definitions and addition of sys_call_puts function, updates to CFLAGS for better performance, and various code changes and fixes.
+    Commit Description:
+    - Adds new C language header files
+    - Removes one existing header file
+    - Updates code to handle cases with no additions or deletions
+    - Adds keyboard input locking mechanism
+    - Includes functions to acquire and release keyboard input lock
+    - Adds three functions: get_char(), lock_kb_input(), and unlock_kb_input()
+    - Updates inclusion of stdint header
+    - Adds macro definition SYS_GETC
+    - Improves code formatting with proper indentation and spacing
+    - Adds necessary code to include "keyboard.h"
+    - Implements functions to lock and unlock keyboard input
+    - Updates character input method by replacing kb_getchar_w() function with get_char()
+    - Adds necessary headers for syscall, printf, and scanf functions
+    - Updates definitions of system calls in "sys_calls.h" file
+    - Adds file "syscall.h" to include directory
+    - Reflects latest changes made to codebase
+    - Updates CFLAGS in Makefile
+    - Updates Makefile to compile libc and user code separately
+    - Includes code formatting changes and removes unnecessary comments
+    - Updates code to include missing additions and deletions
+    - Includes changes to file handling logic
+    - Updates printf library with optimized implementation
+    - Removes unnecessary lines from stdio.h file
+    - Updates syscall definitions in SYS_CALLS_H file
+    - Includes additions and deletions to code
+    - Updates CFLAGS in compiler options
+    - Fixes include statement for printf in main.c
+
+commit 077c9812893914334702cfa6d876e259bdd59c7a
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 13 18:28:04 2024 +0200
+
+    Commit Message:         This commit includes updates to header file imports and deletions, modifications to the code, the addition of a function declaration, updates based on code review feedback, changes to the scheduler and execution functions, and updates to the file execution method, including additions and deletions.
+    Commit Description:
+    - Added new header files: kheap.h, elf.h, i386.h, exe.h
+    - Removed kheap.h header file from the project
+    - Modified existing code to add new functionality and improve performance and readability
+    - Added declaration of the execute_file function, which takes a file path, argc, and argv as parameters and returns an integer
+    - Incorporated changes based on code review feedback, including additions and deletions to improve the codebase
+    - Updated scheduler and execution functions, including adding a new function for internal execution, updating global file path and arguments, and using CreateProcess and TerminateProcess functions
+    - Updated file execution method by replacing load_elf_file() function with execute_file() function for better efficiency
+    - Made additions and deletions to the codebase to improve overall functionality and structure of the project.
+
+commit 1ec112ebe94e16a91f7e37572cd2d433bbdfd6b5
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 13 18:19:52 2024 +0200
+
+    small elf changes
+
+commit c440d1324dcfcaa59ccb766d1b37f8a38d78ef66
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 13 17:46:59 2024 +0200
+
+    added the ability to load elf files
+
+commit 596e11f675eea2394e80ed3fc16a1de22dc1eca9
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 13 10:41:56 2024 +0200
+
+    added libc
+
+commit 0d6359100644f65bde36a7c7292698c81233a191
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 13 10:08:28 2024 +0200
+
+    stff
+
+commit ac96f195bd48248a499c8653101cfd451449161d
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 13 10:08:24 2024 +0200
+
+    stuff
+
+commit 43a8c64a2b63fb92c88ccb83c03af77a6858fa00
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 13 09:03:42 2024 +0200
+
+    Fixed pmm and memory allocation
+
+commit c4c328bf5285f56465898e9c2d4a1c092bba5389
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 12 17:43:27 2024 +0200
+
+    broke stuff
+
+commit 415ae680c7acd0572417e19d08a8f32c12bc0ea0
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 12 17:31:44 2024 +0200
+
+    Small changes are broken
+
+commit b92cf8804dc1d1b13f45d1ed8823027a4c4c8e43
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 12 16:45:17 2024 +0200
+
+    Added scrolling
+
+commit 2072732b889852e6e8754bb38f3419d548587a79
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Sun Feb 11 08:32:01 2024 +0200
+
+    Commit Message:         This commit includes various updates and changes to the code base, such as adding and deleting C language headers, updating makefiles, incorporating code review feedback, updating includes and functions in vesa.h, adding support for loading ELF files, updating PMM initialization and page frame size calculation, refactoring memory allocation logic for better efficiency, adding a sys_call_puts function for printing characters, updating file paths and build process configurations, and updating code statistics and file changes.
+    Commit Description:
+    - Added headers: "mem_utils.h", "mem_config.h", "pmm.h", and "maths.h" in C language
+    - Deleted header: "bios32.h" in C language
+    - Updated makefile to optimize the build process
+    - Made changes to the code based on feedback from code review to improve overall code quality
+    - Added necessary includes and updated the kprints function in vesa.h file to improve functionality and remove unnecessary code
+    - Updated makefile based on required changes
+    - Added support for loading ELF files in "exe" format by including necessary header file and modifying code to call load_elf_file function with appropriate arguments
+    - Updated PMM initialization process by adding new function call and adjusting calculation for page frame size based on available memory size
+    - Refactored memory allocation logic by introducing conditional statements to allocate memory regions based on size requirement, improving efficiency and reducing unnecessary allocations
+    - Added sys_call_puts function to codebase for printing characters using syscall mechanism
+    - Updated file paths, excluded blacklisted directories, generated object file paths, compiled C files, assembled assembly and NASM files, linked object files into binary, added commands to run OS in QEMU, and cleaned up generated files in makefile
+    - Made various additions and deletions to codebase to improve functionality and performance
+    - Made changes based on feedback from code review, addressing suggested improvements and making necessary modifications
+    - Updated code statistics by adding new additions and deletions to project
+    - Updated file changes with additions and deletions.
+
+commit cbab084bd78b19ca64a97e327c9a69f38f8a3653
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Sat Feb 10 09:52:33 2024 +0200
+
+    added vmm and paging
+
+commit 06e1e79bb9b3dea62cc6f39186c26b9db4b4fbff
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Feb 8 17:33:54 2024 +0200
+
+    README
+
+commit 999dcc323ae2e57e4921f61de44288560a9fcd20
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Feb 8 06:23:36 2024 +0200
+
+    .gitignore dont work
+
+commit e5c4d0224938aaf3db5129a20ffec7e9954404ac
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Feb 8 06:19:44 2024 +0200
+
+    Commit Message:         The commit message indicates that the code has been updated with additions and deletions, including changes based on feedback, the addition of a logging statement to the getcwd function, updates to handle screen height in the terminal position condition, the addition of an ls() function and updates to the usage of the getcwd() function, updates to the user prompt and console display, updates to the filelib and current path functionality, updates to fix bugs, and general code updates.
+    Commit Description:
+    - Additions and deletions made in the code to improve functionality and remove redundant code.
+    - Code changes with additions and deletions.
+    - Logging statement added to the getcwd function for better debugging and understanding of the code flow.
+    - Modification to the condition that checks the terminal position to correctly handle screen height.
+    - Necessary code changes made based on feedback received, with additions and deletions.
+    - New ls() function added to list directories and files in the current working directory.
+    - Usage of getcwd() function updated by replacing it with strcpy() and getcwd() for improved functionality and performance.
+    - User's name and current directory added to the console prompt for enhanced user experience.
+    - Additions made to the filelib by adding the "fat_filelib.h" header and updating current path functionality.
+    - Updates made to file changes, with additions and deletions.
+    - Code updates with some additions and deletions.
+    - Additions and deletions made to the codebase, improving overall functionality and efficiency.
+    - Updates made to the code, with additions and deletions as necessary.
+    - Code changes made to fix a bug by addressing reported additions and deletions.
+
+commit 3cc90545569e2b6e2c0158bfd6b2f7eaeab6c755
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Wed Feb 7 07:21:28 2024 +0200
+
+    Commit Message:         This commit adds and removes several files, updates code formatting for readability, adds custom functions for changing directory and getting current working directory, updates the installation section, adds custom extensions for chdir and getcwd functions, refactors command parsing and directory handling functions, updates memory allocation and adds print statements, adds error handling and prints memory region size, updates string functions implementation, and reflects changes in additions and deletions in the code based on code review feedback.
+    Commit Description:
+    - Adds four new files: command.h, mem.h, fat_format.h, fat_cache.h
+    - Removes the existing command.h file
+    - Includes code formatting changes to improve readability
+    - Updates the codebase with new changes, including additions and deletions
+    - Adds custom functions for changing the directory and getting the current working directory in C language (chdir() and getcwd())
+    - Updates the installation section in the code by removing unnecessary Athenx installation section
+    - Adds custom extensions for chdir and getcwd functions
+    - Updates the string functions header file by adding new functions and removing deprecated ones
+    - Refactors the code by improving the command parsing function and directory handling functions
+    - Updates the memory allocation function and adds print statements for debugging purposes
+    - Adds error handling to check for negative memory region size and includes a print statement to display the size of the memory region
+    - Updates the implementation of various string functions to improve efficiency and fix potential bugs
+    - Reflects the changes made in the additions and deletions
+    - Makes empty additions and deletions, indicating no changes were made
+    - Includes changes to the file, with additions and deletions made
+    - Includes additions and deletions to the file, improving its content and making necessary changes
+    - Includes code changes for both additions and deletions
+    - Includes updates based on feedback received during code review, including additions and deletions as necessary.
+
+commit e72e26bbaf68f5491bff7cada60365c6465a3231
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 6 18:43:09 2024 +0200
+
+    ommit Message:  This commit message includes updates to file references, code additions and deletions, syntax error fixes, the addition of a cmd function for executing commands, the addition of a current_path variable for storing the current path, updates to the makefile, the addition of set_cwd and get_cwd functions for managing the current working directory, an update to a printf statement to print the size of g_kmap.available, a refactor of a print statement in the code, an update to the qemu-system-i386 command for AthenX.img with increased memory, and additional required code changes.
+    Commit Description:
+    - Added "command.h" file
+    - Updated reference to "fat_list.h" file, removing previous reference
+    - Added cmd function for executing commands passed as string argument
+    - Added current_path variable to store current path
+    - Updated makefile for improved functionality and organization
+    - Added set_cwd and get_cwd functions for managing current working directory
+    - Updated printf statement to print size of g_kmap.available
+    - Refactored print statement by commenting out existing line and adding new line using printf
+    - Increased memory to 4GB for better performance in qemu-system-i386 command for AthenX.img
+    - Made necessary additions and deletions to code based on provided changes
+    - Various code changes made to improve functionality and performance
+    - Updated code with additions and deletions.
+
+commit b54dd5dcce37eeac556c7110a9abc29a19b68577
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 6 18:14:36 2024 +0200
+
+    Commit Message:         This commit message includes updates to the C language imports, minor code changes, code updates based on feedback, updating the counter and calling IrqTimerHandler in C language code, adding the GetCurrentTask function to retrieve the current task's PCB, adding new string comparison and string copy functions, updating file changes, including necessary header files and initializing the file system, adding string manipulation functions (strcmp, strncpy, and strncmp), adding AthenX.bin and running the QEMU system with AthenX.img, making necessary code changes, updating code formatting and removing unnecessary comments, updating code for improved performance, and updating the code to include necessary additions and deletions.
+    Commit Description:
+    - Updates c language imports by adding new headers (stddef.h, algorithm, stdio.h, fat_access.h, fat_filelib.h, fat_list.h) and removing the compare header
+    - Includes minor changes to the code with some additions and deletions
+    - Includes updates to the code based on feedback received, addressing additions and deletions accordingly
+    - Makes changes to the C language code by adding an increment to the counter and calling the IrqTimerHandler function, improving the functionality of the code
+    - Adds the GetCurrentTask function to the codebase, allowing the retrieval of the current task's PCB for further processing
+    - Adds the functions strcmp, strncmp, and strncpy to the codebase, enhancing string comparison and string copy capabilities
+    - Includes changes to the file with additions and deletions
+    - Updates the code by adding necessary header files and initializing the file system. It also removes unnecessary code related to process creation and adds a command execution
+    - Adds the GetCurrentTask function to the codebase, allowing for easy retrieval of the current PCB
+    - Adds three string manipulation functions: strcmp, strncpy, and strncmp, which can be used for comparing and copying strings with specific conditions and limits
+    - Adds the AthenX.bin file and updates the run configuration to include running the QEMU system with AthenX.img
+    - Includes necessary code changes based on the additions and deletions mentioned
+    - Includes updates to the codebase with unspecified additions and deletions
+    - Includes updates to the code formatting for improved readability and removes unnecessary comments that were not relevant to the functionality of the code
+    - Contains changes to the code that aim to improve performance by optimizing code execution and reducing unnecessary operations
+    - Includes the required additions and deletions to the code, ensuring its functionality and efficiency.
+
+commit 0721d80bad5c3c2d5fcde3ee7ce07df842f428bc
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 6 14:29:17 2024 +0200
+
+    Keyboard works with task swithcing
+
+commit 239a6f7558c50c1e3bcfb0268dc7b77bc4f28409
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Tue Feb 6 10:33:47 2024 +0200
+
+    Commit Message:         This commit updates header file dependencies, applies code optimizations and improvements, adds useful defines for various byte sizes, updates verbose output for memory allocation, updates scheduling and task functions, includes the asm directory in SRC_DIRS configuration, and incorporates changes based on review comments, resulting in various file changes and additions/deletions in the code.
+    Commit Description:
+    - Added "kernel.h", "termianl.h", "timer.h", "scheduler.h", "process.h", and "stdbool.h" header files to the C language
+    - Removed "printf.h" header file
+    - Made updates to the file with additions and deletions
+    - Optimized and improved code for better performance and maintainability
+    - Added defines for common memory units (kibibyte, mebibyte, gibibyte, tebibyte, pebibyte, exbibyte, zebibyte, and yobibyte) for easier memory calculations
+    - Added a define statement to enable verbose output for memory allocation and updated printf statements for better debugging and information retrieval
+    - Added new task functions (multi1, multi2, multi3) and modified the Process function to include printing and sleeping functionality
+    - Initialized the scheduler and timer, allocated memory, created multiple processes, and performed the butler operation
+    - Updated SRC_DIRS configuration by adding the asm directory and removing the libk directory
+    - Made additions and deletions to the code for improved functionality and efficiency
+    - Made undefined changes with additions and deletions to the code
+    - Made updates to the file with additions and deletions
+    - Made changes based on review comments, involving additions and deletions in the code
+    - Made updates to the code with additions and deletions to properly reflect the changes in the project.
+
+commit e78aecf63cf021db93a78392e8da615f1aa2a351
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 5 18:29:53 2024 +0200
+
+    woops
+
+commit 9bf2041bd4b96bc49d3ef45a8301e28129e98447
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 5 18:19:45 2024 +0200
+
+    changes
+
+commit f367e25d2df52ea9f24c825ff9772f9d70abef48
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 5 18:19:39 2024 +0200
+
+    Commit Message:         The commit message states that the code has been updated, specifically mentioning updates made to code changes in an undefined language.
+    Commit Description:
+    - The commit updates the code by making additions and deletions.
+    - The commit includes code changes in an undefined language.
+    - The commit contains both additions and deletions in the code.
+
+commit f91e28901a7475d73c15789170497a2e27205ff3
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Mon Feb 5 12:51:35 2024 +0200
+
+    Started AthenX-3.0

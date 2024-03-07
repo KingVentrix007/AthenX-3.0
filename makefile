@@ -4,7 +4,7 @@ ASM = nasm
 CONFIG = ./config
 GCCPARAMS =  -O0 -I./include -fno-omit-frame-pointer -nostdlib -fno-pic -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations \
-            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g -DNO_COM1
+            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g 
 
 ASPARAMS = --32
 LDPARAMS = -m elf_i386 -T linker.ld -nostdlib 

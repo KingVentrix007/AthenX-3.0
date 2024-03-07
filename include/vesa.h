@@ -66,6 +66,8 @@ typedef struct {
 
 int vesa_init(uint32 width, uint32 height, uint32 bpp);
 uint32 vbe_rgb(uint8 red, uint8 green, uint8 blue);
+
+uint32_t get_vbe_loaction(int x, int y);
 void vbe_putpixel(int x, int y, int color);
 
 #define VBE_RGB(r, g, b) vbe_rgb(r, g, b)

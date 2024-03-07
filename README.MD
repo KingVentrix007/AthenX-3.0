@@ -97,16 +97,37 @@ make run
   - [ ] NVME driver
 - [ ] File system support
   - [X] FAT12/16/32
+    - [X] Read/Write/Format
   - [ ] ext2/3/4
   - [ ] NTFS
   - [ ] ISO 9660
-
+- [ ] Memory support
+  - [X] Physical memory manager
+  - [X] Virtual memory manager
+  - [X] Pageing and mapping support
+  - [ ] Page swap with Disk
+  - [ ] Variable page size support (Current is 4096)
+- [ ] Multiprocessing / Threading support
+  - [X] Context switching
+  - [ ] Scheduling support
+    - [X] Round-robin
+    - [ ] Priority or unfair (I can't decide if it is really necessary)
+- [ ] Program loading
+  - [X] Load elf file (Incredibly limited, requires Scheduler to be disabled)
+  - [ ] Load mulitple files at once
+- [ ] Debugging system
+  - [X] Second screen with some debug information(Press F2, not much there)
+  - [X] com1 port, location logging
+  - [ ] Dwarf support and fully featured debug terminal
 - [ ] ACPI support
-  - [ ] Power on/off
+  - [X] Power on/off (limited)
   - [ ] Reboot
   - [ ] Power button support
-
-- [ ] PCI support
+- [ ] UI
+  - [X] Basic shell (Virtually no commands)
+  - [X] Screen scrolling (limited to the size of the screen)
+  - [ ] Unlimited scroll back
+- [X] PCI support (Basic bus scan)
 - [ ] PCI Express support
 - [ ] Network drivers
   - [ ] Ethernet cards
@@ -117,3 +138,7 @@ make run
   - [ ] Wireless Network driver
 
 - [ ] libc
+- [ ] Other
+  - [X] stdin/stdout/stderr
+  - [ ] Special files (/dev/tty, /dev/fmb)
+

@@ -5,6 +5,7 @@
 #include "file.h"
 #include "stdio.h"
 #include "io_ports.h"
+#include "virtual/devices.h"
 char *_cwd;
 size_t _cwd_len;
 char _fixed_cwd[FATFS_MAX_LONG_FILENAME];
@@ -75,9 +76,9 @@ char *getcwd()
 
 void *fopen(const char *path,const char *modifiers)
 {
-    if(strncmp(path,"/dev/",5) == 0)
+    if(is_virtual_device_path(path) == 1)
     {
-
+        return handle_virtual_device_fopen(path,modifiers);
     }
     else if(0 == 0)//If fat32 or ext#, ATM only fat works
     {
@@ -104,6 +105,10 @@ void *fopen(const char *path,const char *modifiers)
  */
 size_t fread(void *ptr, size_t size, size_t nmemb, void *stream) {
 
+    if(is_virtual_device(stream) == 1)
+    {
+        return device_read(ptr, size, nmemb, stream);
+    }
     if((int)stream == stdin)
     {   
         char *buf = (char *)ptr;
@@ -145,6 +150,11 @@ size_t fread(void *ptr, size_t size, size_t nmemb, void *stream) {
  *   size_t - Number of elements successfully written.
  */
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, void *stream) {
+    if(is_virtual_device(stream))
+    {
+        printf("is virtual device\n");
+        return device_write(ptr, size, nmemb, stream);
+    }
     if((int)stream == stdout)
     {
         char *buf = (char *)ptr;

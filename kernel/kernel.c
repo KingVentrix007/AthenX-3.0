@@ -33,6 +33,7 @@
 #include "logging.h"
 #include "stdio.h"
 #include "stdlib.h"
+
 void command_line(void);
 void loop(void);
 char pch = 'A';
@@ -143,6 +144,18 @@ void kmain(unsigned long magic, unsigned long addr)
 
 void command_line(void)
 {
+    FILE *fp = fopen("/data.txt", "w");
+    if(fp == NULL)
+    {
+        printf("Failed to open /dev/fmb\n");
+    }
+    else
+    {
+        char *da = "hello world!";
+        fprintf(fp,"%s",da);
+        // uint32_t *data = VBE_RGB(255,0,0);
+        // fwrite(data,get_vbe_loaction(1000,50),100,fp);
+    }
     // STI();
     // printf("Commnd command\n================================\n");
     // init_security();

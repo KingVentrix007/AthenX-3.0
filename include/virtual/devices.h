@@ -2,7 +2,9 @@
 #define __VIRTUAL_DEVICES__H
 #include "stddef.h"
 #include "stdbool.h"
+#define VALID_VIRTUAL_DEVICE 0x45334
 typedef struct {
+    int valid;
     int device_code;
     // Read / write flags
     bool read_flag;
@@ -127,5 +129,8 @@ int read_mem(char *buf, int pos, size_t count);
  */
 int write_NULL(char *buf, int pos, size_t count);
 
-
+int is_virtual_device_path(char *path);
+int is_virtual_device(void *device);
+int device_read(void *ptr, size_t size, size_t nmemb, void *stream);
+int device_write(const void *ptr, size_t size, size_t nmemb, void *stream);
 #endif

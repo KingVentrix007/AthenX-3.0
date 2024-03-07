@@ -106,6 +106,10 @@ uint32 vbe_rgb(uint8 red, uint8 green, uint8 blue) {
     return color;
 }
 
+uint32_t get_vbe_loaction(int x, int y)
+{
+    return y*g_width+x;
+}
 // put the pixel on the given x,y point
 void vbe_putpixel(int x, int y, int color) {
     uint32 i = y * g_width + x;
@@ -309,10 +313,13 @@ void draw_pixel_buffer_1(int x, int y, int color) {
 int draw_pixel_buffer_1_tty(uint32_t pos,int count,uint32_t *buffer)
 {
 
+    printf_com("draw\n");
     for (size_t i = 0; i < count; i++)
     {
-        *(display_buffer_1 +pos+ i) = buffer[i];
+        *(display_buffer_1 +pos+ i) = buffer;
+        
     }
+    update_pixel_display();
     
 }
 void draw_pixel_buffer_2(int x, int y, int color) {
