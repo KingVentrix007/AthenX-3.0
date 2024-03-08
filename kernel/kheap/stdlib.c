@@ -4,6 +4,16 @@
 #include "stdlib.h"
 #include "vmm.h"
 #include "io_ports.h"
+uint32_t *allocation_ptrs;
+uint32_t allocation_ptrs_count;
+int init_allocation_system()
+{
+    allocation_ptrs = malloc(1024*2);
+    memset(allocation_ptrs, 0, 1024*2);
+    allocation_ptrs_count = 0;
+    
+
+}
 void* calloc(size_t num_elements, size_t element_size) {
     size_t total_size = num_elements * element_size;
     void* ptr = malloc(total_size); // Allocate memory using malloc
@@ -29,12 +39,26 @@ void *malloc(size_t size) {
         return NULL;
     }
     // Map each page
-  
+    allocation_ptrs[allocation_ptrs_count] = ptr;
+    allocation_ptrs_count++;
     return ptr;
 }
 void free(void *ptr)
 {
     // __sync_lock_release();
+    for (size_t i = 0; i < allocation_ptrs_count; i++)
+    {
+        if(ptr == allocation_ptrs[i])
+        {
+            allocation_ptrs[i] = NULL;
+
+            for (size_t j = i; j < allocation_ptrs_count - 1; j++) {
+                allocation_ptrs[j] = allocation_ptrs[j + 1];
+            }
+            allocation_ptrs[allocation_ptrs_count - 1] = NULL; // Set the last element to NULL
+        }   allocation_ptrs_count--;
+    }
+    
      kfree(ptr);
     
 }
@@ -90,6 +114,15 @@ void* realloc(void* ptr, size_t new_size) {
     return new_ptr;
 }
 
+int kheap_shutdown()
+{
+    for (size_t i = 0; i < allocation_ptrs_count; i++)
+    {
+        kfree(allocation_ptrs[i]);
+    }
+    
+    
+}
 
 /**
  * Function Name: strtol

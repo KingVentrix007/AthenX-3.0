@@ -5,7 +5,7 @@
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 1
 #define VERSION_PATCH 1
-#define VERSION_COMPILE 473
+#define VERSION_COMPILE 523
 
 
 

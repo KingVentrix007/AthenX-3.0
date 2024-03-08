@@ -8,6 +8,7 @@
 #include "io_ports.h"
 #include "stdlib.h"
 #include "termianl.h"
+#include "stdio.h"
 void loop_test();
 char current_path[FATFS_MAX_LONG_FILENAME];
 char **executables_path;
@@ -93,10 +94,11 @@ void set_cwd(char *path) {
         // If path is NULL, return without changing the current directory
         return;
     }
-    
+    printf("Setting %s\n", path);
     char current_path[FATFS_MAX_LONG_FILENAME];
     
     if (path[0] == '/') {
+        printf("First\n");
         // If the path starts with '/', it's an absolute path
         chdir(path);
     } else if (strcmp(path, "..") == 0) {
@@ -105,27 +107,32 @@ void set_cwd(char *path) {
     } else {
         // Otherwise, it's a relative path
         strcpy(current_path,getcwd()); // Get the current working directory
-        strcat(current_path, "/"); // Append "/" to the current path
+        if(path[strlen(path)] != '/')
+        {
+            strcat(current_path, "/"); // Append "/" to the current path
+        }
+        
         strcat(current_path, path); // Append the provided path
         chdir(current_path);
     }
 }
 
 char *get_cwd() {
-    static char current_path[FATFS_MAX_LONG_FILENAME];
-    getcwd(current_path, FATFS_MAX_LONG_FILENAME);
+    char *current_path;
+    current_path = getcwd();
+    // getcwd(current_path, FATFS_MAX_LONG_FILENAME);
     return current_path;
 }
 void ls()
 {
-    printf("Listing files\n");
+    printf("Listing files -?(%s)\n",get_cwd());
 
     int num_dir;
     int num_files;
     Entry files[MAX];
     Entry dirs[MAX];
     printf_com("Calling fl_listdir()\n");
-    fl_listdirectory("/",dirs,files,&num_dir,&num_files);
+    fl_listdirectory(get_cwd(),dirs,files,&num_dir,&num_files);
 }
 void date()
 {
@@ -133,6 +140,8 @@ void date()
 }
 void shutdown()
 {
+    fs_shutdown();
+    kheap_shutdown();
     acpiPowerOff();
 }
 int cmd(char *command)

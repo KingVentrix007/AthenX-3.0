@@ -145,14 +145,18 @@ void kmain(unsigned long magic, unsigned long addr)
 void command_line(void)
 {
     FILE *fp = fopen("/data.txt", "w");
+    fclose(fp);
+    FILE *f = fopen("/data.txt", "w");
     if(fp == NULL)
     {
         printf("Failed to open /dev/fmb\n");
     }
     else
     {
-        char *da = "hello world!";
-        fprintf(fp,"%s",da);
+        printf("Writing to file \n\n");
+        char *da = "hello world! you guys";
+        fprintf(f,"%s",da);
+        // fclose(f);
         // uint32_t *data = VBE_RGB(255,0,0);
         // fwrite(data,get_vbe_loaction(1000,50),100,fp);
     }

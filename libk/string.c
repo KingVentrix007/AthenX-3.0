@@ -113,14 +113,17 @@ char* strtok_r(char* str, const char* delim, char** saveptr) {
 
     return str;
 }
-int memcmp(uint8 *s1, uint8 *s2, uint32 n) {
-    while (n--) {
-        if (*s1 != *s2)
-            return 0;
-        s1++;
-        s2++;
+int memcmp (const void *str1, const void *str2, size_t count)
+{
+  register const unsigned char *s1 = (const unsigned char*)str1;
+  register const unsigned char *s2 = (const unsigned char*)str2;
+
+  while (count-- > 0)
+    {
+      if (*s1++ != *s2++)
+	  return s1[-1] < s2[-1] ? -1 : 1;
     }
-    return 1;
+  return 0;
 }
 int memcmp_string(const void *aptr, const void *bptr, size_t size)
 {
@@ -282,12 +285,21 @@ char *strncpy(char *dst, const char *src, size_t n)
 }
 
 
-int strncmp(const char *s1, const char *s2, size_t n)
+int
+strncmp(const char *s1, const char *s2, register size_t n)
 {
-    while (n--)
-        if (*s1++ != *s2++)
-            return *(unsigned char *)(s1 - 1) - *(unsigned char *)(s2 - 1);
-    return 0;
+  register unsigned char u1, u2;
+
+  while (n-- > 0)
+    {
+      u1 = (unsigned char) *s1++;
+      u2 = (unsigned char) *s2++;
+      if (u1 != u2)
+	return u1 - u2;
+      if (u1 == '\0')
+	return 0;
+    }
+  return 0;
 }
 void itoa(char *buf, int base, int d) {
     char *p = buf;

@@ -10,7 +10,7 @@ char *strstr(char *s1, const char *s2);
 void *memcpy(void *dst, const void *src, uint32 n);
 void* memmove(void* dest, const void* src, size_t size);
 void parse_string(char *parser, char *string, char c);
-int memcmp(uint8 *s1, uint8 *s2, uint32 n);
+int memcmp(const void *str1, const void *str2, size_t count);
 uint32_t atoi(const char *str);
 int strlen(const char *s);
 int strncmp(const char *s1, const char *s2, size_t n);

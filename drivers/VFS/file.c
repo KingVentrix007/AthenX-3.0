@@ -6,6 +6,7 @@
 #include "stdio.h"
 #include "io_ports.h"
 #include "virtual/devices.h"
+#include "string.h"
 char *_cwd;
 size_t _cwd_len;
 char _fixed_cwd[FATFS_MAX_LONG_FILENAME];
@@ -14,18 +15,22 @@ int stdin = STDIN_VALUE;
 int stdout = STDOUT_VALUE;
 int stderr = STDERR_VALUE;
 drive_info drives[24];
+uint32_t open_files[FATFS_MAX_OPEN_FILES];
+uint32_t open_files_count = 0;
 int init_fs()
 {
     _cwd = kmalloc(FATFS_MAX_LONG_FILENAME);
     if(_cwd == NULL)
     {
-        logging(3,__LINE__,__func__,__FILE__,"FS: Failed to allocate memory for _cwd. Defaulting to fixed size buffer\nUsing fixed size buffer");
+        printf(3,__LINE__,__func__,__FILE__,"FS: Failed to allocate memory for _cwd. Defaulting to fixed size buffer\nUsing fixed size buffer");
         use_cwd = false;
         return -1;
     }
     else
     {
+        _cwd[0] = '/';
         _cwd_len = 0;
+        use_cwd = true;
         return 1;
     }
     
@@ -34,16 +39,26 @@ int init_fs()
 
 int chdir(const char *path)
 {
+    printf("Path to chdir: %s\n", path);
     if(use_cwd == true)
     {
         char *tmp = kmalloc(_cwd_len+strlen(path)+3);
         // strcat(tmp,"");
+        printf("cwd %s | tmp %s\n",_cwd,tmp);
         strcpy(tmp,_cwd);
-        strcat(tmp,"/");
+        if(tmp[_cwd_len] != '/')
+        {
+            printf_com("error\n");
+            strcat(tmp,"/");
+        }
+         printf("cwd %s | tmp %s\n",_cwd,tmp);
         strcat(tmp,path);
+         printf("cwd %s | tmp %s\n",_cwd,tmp);
         if(fl_is_dir(tmp) == 0)
         {
+            printf("cwd [%s] tmp [%s]\n",_cwd,tmp);
             strcpy(_cwd,tmp);
+            printf("cwd: [%s]\n",_cwd);
             _cwd_len = _cwd_len+1+strlen(path)+2;
             kfree(tmp);
             return 0;
@@ -53,6 +68,7 @@ int chdir(const char *path)
     }
     else
     {
+        printf_com("Fixed path\n");
         char tmp[FATFS_MAX_LONG_FILENAME];
         strcpy(tmp,_fixed_cwd);
         strcat(tmp,"/");
@@ -82,7 +98,13 @@ void *fopen(const char *path,const char *modifiers)
     }
     else if(0 == 0)//If fat32 or ext#, ATM only fat works
     {
-        return fl_fopen(path,modifiers);
+        void * ret = fl_fopen(path,modifiers);
+        if(ret != NULL)
+        {
+            open_files[open_files_count] = ret;
+            open_files_count++;
+        }
+        return ret;
     }
     else if (2 == 1)
     {
@@ -276,6 +298,21 @@ int fputs(const char *str, void *stream) {
  *         On failure, returns EOF.
  */
 int fclose(void *stream) {
+    for (size_t i = 0; i < open_files_count; i++)
+    {
+        FL_FILE *f = (FL_FILE *)stream;
+        FL_FILE *tmp = (FL_FILE *)open_files[i];
+        if(strcmp(f->path,tmp->path) == 0 && strcmp(tmp->filename,f->filename) == 0)
+        {
+            open_files[i] = NULL;
+            for (size_t j = i; j < open_files_count - 1; j++) {
+                open_files[j] = open_files[j + 1];
+            }
+            open_files[open_files_count - 1] = NULL; // Set the last element to NULL
+            open_files_count--;
+        }
+    }
+    
      fl_fclose(stream);
      return 1;
 }
@@ -508,7 +545,20 @@ int ungetc(int c,void *stream)
     }
 }
 
-int fflush(int stream)
+int fflush(void *stream)
 {
-    return 0;
+    return fl_fflush(stream);
+}
+
+
+int fs_shutdown()
+{
+    for (size_t i = 0; i < open_files_count; i++)
+    {
+        if(open_files[i] != NULL)
+        {
+            fclose(open_files[i]);
+        }
+    }
+    
 }

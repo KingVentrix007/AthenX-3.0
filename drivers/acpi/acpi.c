@@ -145,6 +145,7 @@ unsigned int *acpiCheckRSDPtr(unsigned int *ptr)
 
    if (memcmp(sig, rsdp, 8) == 0)
    {
+      
       // check checksum rsdpd
       bptr = (byte *) ptr;
       for (i=0; i<sizeof(struct RSDPtr); i++)
@@ -207,6 +208,7 @@ int acpiCheckHeader(unsigned int *ptr, char *sig)
 {
    if (memcmp(ptr, sig, 4) == 0)
    {
+
       char *checkPtr = (char *) ptr;
       int len = *(ptr + 1);
       char check = 0;

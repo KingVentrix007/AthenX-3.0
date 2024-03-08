@@ -455,10 +455,11 @@ uint32 fatfs_get_file_entry(struct fatfs *fs, uint32 Cluster, char *name_to_find
                 else if (fatfs_entry_lfn_exists(&lfn, directoryEntry) )
                 {
                     long_filename = fatfs_lfn_cache_get(&lfn);
-
+                    printf_com("Name to find: %s | %s\n", name_to_find,long_filename);
                     // Compare names to see if they match
                     if (fatfs_compare_names(long_filename, name_to_find))
                     {
+                        // printf("True\n");
                         memcpy(sfEntry,directoryEntry,sizeof(struct fat_dir_entry));
                         return 1;
                     }

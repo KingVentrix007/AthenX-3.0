@@ -907,7 +907,7 @@ int fl_fflush(void *f)
 {
 #if FATFS_INC_WRITE_SUPPORT
     FL_FILE *file = (FL_FILE *)f;
-
+    // printf("Flushing to file %s\n",file->filename);
     // If first call to library, initialise
     CHECK_FL_INIT();
 

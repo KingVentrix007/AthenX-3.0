@@ -282,7 +282,7 @@ void init(unsigned long magic, unsigned long addr) {
      const char* acpi_status = (acpi == 0) ? "true" : "false";
 
     // Print ACPI status
-    printf("-\tACPI enabled: %s\n", acpi_status);
+    printf("-\tACPI enabled: %s(%d)\n", acpi_status,acpi);
     printf("-\tScreen resolution: %dx%d\n",width,hight);
     
     // printf("-\tAddress = 0x%X\n",&init);
@@ -300,7 +300,7 @@ void init(unsigned long magic, unsigned long addr) {
     // int num_ata_drives = get_ata_drive_num();
     printf("Device Info:\n");
     print_pci_devices();
-    
+    init_fs();
     // printf("-\tNumber of ATA drives: %d\n",num_ata_drives);
     STI();
 //    init_security();
