@@ -1,5 +1,5 @@
 <p align="center">
-  <b><font size="6">AthenX-3.0</font></b>
+  <b><font size="20">AthenX-3.0</font></b>
 </p>
 
 A new and improved version of AthenX-2.0. With realistic goals,better code,and more features.
