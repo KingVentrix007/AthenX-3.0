@@ -1,0 +1,1 @@
+"Grub 2.06-2ubuntu7.2 is used to generate and boot my operating system's ISO file. It is licensed under the GNU General Public License version 3 as of 13/02/2024 06:33 (GMT+2)."
