@@ -229,7 +229,7 @@ void init(unsigned long magic, unsigned long addr) {
    
 
     LOG_LOCATION;
-     int ret_buf = vesa_init_buffers();
+    int ret_buf = vesa_init_buffers();
     printf_com("%d\n",ret_buf);
     char *test_malloc = malloc(1024 * 1024 * 1024);
     // printf("test_malloc = %p\n",test_malloc);

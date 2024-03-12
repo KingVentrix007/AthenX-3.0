@@ -145,7 +145,7 @@ void kmain(unsigned long magic, unsigned long addr)
 
 void command_line(void)
 {
-    print_allocated();
+    // print_allocated();
     // printf("Random number generator output %u\n",get_random_number());
     // draw_kmap();
     // void *fake  = malloc(1024*1024*100);

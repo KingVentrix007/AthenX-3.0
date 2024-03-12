@@ -20,12 +20,5 @@
 #define SYS_PUTS 17
 #define SYS_GETC 18
 #define SYS_GETS 19
-typedef struct syscall_t
-{
-    
-}syscall_struct;
-
-int system_call_handler_c(int syscall_number, int param1,int param2);
-extern void system_call_handler();
 int syscall(int syscall_number, int param1, int param2);
 #endif

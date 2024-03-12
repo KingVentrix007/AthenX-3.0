@@ -30,7 +30,7 @@
 #include <ext4_config.h>
 #include <ext4_blockdev.h>
 #include <ext4_errno.h>
-
+#include "ide.h"
 
 /**********************BLOCKDEV INTERFACE**************************************/
 static int blockdev_open(struct ext4_blockdev *bdev);
@@ -60,6 +60,7 @@ static int blockdev_bread(struct ext4_blockdev *bdev, void *buf, uint64_t blk_id
 			 uint32_t blk_cnt)
 {
 	/*blockdev_bread: skeleton*/
+	return ide_read_sectors;
 	return EIO;
 }
 
@@ -67,7 +68,7 @@ static int blockdev_bread(struct ext4_blockdev *bdev, void *buf, uint64_t blk_id
 /******************************************************************************/
 static int blockdev_bwrite(struct ext4_blockdev *bdev, const void *buf,
 			  uint64_t blk_id, uint32_t blk_cnt)
-{
+{	
 	/*blockdev_bwrite: skeleton*/
 	return EIO;
 }

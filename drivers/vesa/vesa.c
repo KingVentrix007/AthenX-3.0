@@ -320,7 +320,7 @@ int draw_pixel_buffer_1_tty(uint32_t pos,int count,uint32_t *buffer)
     printf_com("draw\n");
     for (size_t i = 0; i < count; i++)
     {
-        *(display_buffer_1 +pos+ i) = buffer;
+        *(display_buffer_1 +pos+ i) = buffer[i];
         
     }
     update_pixel_display();
