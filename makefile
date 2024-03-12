@@ -4,8 +4,8 @@ ASM = nasm
 CONFIG = ./config
 GCCPARAMS =  -O0 -I./include -fno-omit-frame-pointer -nostdlib -fno-pic -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations \
-            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g 
-
+            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g -DINI_USE_STACK=0
+	
 ASPARAMS = --32
 LDPARAMS = -m elf_i386 -T linker.ld -nostdlib 
 
@@ -66,8 +66,7 @@ run: AthenX.bin
 	bash ./scripts/boot32.sh
 	qemu-system-i386 -drive file=AthenX.img,format=raw \
 	-drive id=disk,file=ahci.img,if=none -device ahci,id=ahci -device ide-hd,drive=disk,bus=ahci.0 \
-  -m 4G -serial stdio
-	
+  -m 4G -serial file:out.log -serial stdio 
 
 	bash ./scripts/athenxHost.sh
 

@@ -10,7 +10,7 @@ void* calloc(size_t num_elements, size_t element_size);
 void* malloc(size_t size);
 
 // Declaration for free function
-void free(void* ptr);
+void *free(void *ptr);
 
 // Declaration for realloc function
 void* realloc(void* ptr, size_t new_size);

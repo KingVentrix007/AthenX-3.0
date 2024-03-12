@@ -1,3 +1,35 @@
+commit 45d176af3db65fdc179d91894ed19b21c9e026a7
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Fri Mar 8 06:23:16 2024 +0200
+
+    Commit Message:         This commit message includes updates and additions to file handling functions, memory allocation, Fibonacci sequence calculation, printf statements, file flushing, file system maximum open files, memcmp function signature, error handling for file upload, file path handling, file listing, version number, ACPI status output, file system initialization, file writing, memory allocation system, shutdown functionality, memcmp and strncmp function updates, data structure updates for organization and performance, code refactoring, fixing issues with undefined values, empty additions and deletions, and user authentication logic bugs.
+    Commit Description:
+    - Changes made to file handling functions and memory allocation in file system module
+    - Added new function in C language to calculate Fibonacci sequence
+    - Updated printf statement to include variables for better debugging
+    - Added debug message using printf() for file flushing
+    - Increased maximum number of open files in FATFS from 2 to 50
+    - Updated memcmp function signature for better type safety
+    - Added error handling to file upload feature
+    - Updated file path handling and listing of files in current directory
+    - Modified version compile number for compatibility
+    - Modified ACPI status output message and added file system initialization call
+    - Changes made to file writing functionality and added new content
+    - Added memory allocation system with initialization and shutdown functions
+    - Updated memcmp and strncmp functions for improved performance
+    - Updated data structure for organization and efficiency
+    - Refactored code to improve performance and resource usage
+    - Addressed issue with undefined values
+    - Updated data structure for improved performance
+    - Updated data structure for optimized additions and deletions
+    - Ensured proper tracking and display of changes
+
+commit d7d4cf3ff49e71ce18d71210c4b30489240b6171
+Author: KingVentrix007 <tristanjkuhn007@gmail.com>
+Date:   Thu Mar 7 16:20:28 2024 +0200
+
+    ddd
+
 commit 20ffb44feaf0eb36d17d765d87a5695d45e6d1dc
 Author: KingVentrix007 <tristanjkuhn007@gmail.com>
 Date:   Thu Mar 7 14:41:52 2024 +0200

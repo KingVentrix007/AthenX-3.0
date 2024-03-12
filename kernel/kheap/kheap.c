@@ -2,6 +2,7 @@
 #include <pmm.h>
 #include <vmm.h>
 #include "io_ports.h"
+#include "vesa.h"
 /**
  * @brief Pointer to the start of the memory region.
  */
@@ -167,6 +168,7 @@ void *sys_free_memory(const void *addr)
             current_node->first_block = false;
             current_node->num_block_used = 0;
             current_node->total_requested_memory = 0;
+            // memset(current_node->addr,0,BLOCK_SIZE);
             current_node = current_node->next;
         }
 
@@ -649,4 +651,63 @@ void *find_free_zone(Node *current_node, size_t size,int num_blocks_needed)
     }
 
     return NULL;
+}
+
+/**
+ * Function Name: create_map
+ * Description: Prints memory regions with their start and end addresses and allocation status.
+ *
+ * Parameters: None
+ *
+ * Return: None
+ */
+void create_map()
+{
+    // return;
+    Node *current_node = (Node *)memory_region; // Starting node of the linked list
+    void *start_address = NULL;
+    void *end_address = NULL;
+    bool allocated_status;
+    bool changed_status;
+    allocated_status = current_node->allocated;
+    changed_status = current_node->allocated;
+    start_address = current_node->addr;
+    while (current_node)
+    {
+        printf_com("Block 0x%X is %s\n",current_node->addr,(current_node->allocated == true) ? "Allocated" : "Unallocated");
+        if(allocated_status != changed_status)
+        {
+            printf("Alloacted %d | changed = %d\n",allocated_status,changed_status);
+            changed_status = current_node->allocated;
+            allocated_status = current_node->allocated;
+            // current_node = current_node->next;
+            end_address = current_node->addr;
+            printf("Region of size %u: 0x%X to 0x%X is %s\n",end_address-start_address,start_address,end_address,(allocated_status == true) ? "Allocated" : "Unallocated");
+            start_address = end_address;
+            end_address = NULL;
+            printf_com("\n--------------------------------\n");
+
+        }
+        else
+        {
+            allocated_status = current_node->allocated;
+            current_node = current_node->next;
+        }
+        
+    }
+    
+}
+
+int print_allocated()
+{
+    Node* current_node = (Node*)memory_region;
+    while (current_node != NULL)
+    {
+        if(current_node->allocated == true)
+        {
+            printf_com("Node at 0x%X allocated\n", current_node->addr);
+        }
+        current_node = current_node->next;
+    }
+    
 }

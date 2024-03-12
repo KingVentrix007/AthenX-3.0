@@ -8,7 +8,7 @@ uint32_t *allocation_ptrs;
 uint32_t allocation_ptrs_count;
 int init_allocation_system()
 {
-    allocation_ptrs = malloc(1024*2);
+    allocation_ptrs = malloc(1024*10);
     memset(allocation_ptrs, 0, 1024*2);
     allocation_ptrs_count = 0;
     
@@ -43,7 +43,7 @@ void *malloc(size_t size) {
     allocation_ptrs_count++;
     return ptr;
 }
-void free(void *ptr)
+void *free(void *ptr)
 {
     // __sync_lock_release();
     for (size_t i = 0; i < allocation_ptrs_count; i++)
@@ -59,7 +59,9 @@ void free(void *ptr)
         }   allocation_ptrs_count--;
     }
     
+    
      kfree(ptr);
+     return NULL;
     
 }
 void* realloc(void* ptr, size_t new_size) {

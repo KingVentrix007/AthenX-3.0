@@ -33,6 +33,16 @@
 #include "kheap.h"
 #include "scheduler.h"
 #include "dwarf.h"
+#include <stdio.h>
+#include "ini/ini.h"
+struct BootConfig {
+    char version_number[20];
+    char program_path[256];
+    char bin_path[256];
+    char error_log[256];
+};
+
+
 int fill_program_list(int num_programs,Entry *entries);
 /**
  * Function Name: init
@@ -59,7 +69,7 @@ void init(unsigned long magic, unsigned long addr) {
 
     // Print kernel start message
     kprints("Staring kernel\n");
-     kprints("Hello World!");
+    kprints("Hello World!");
     
     // Initialize VESA graphics mode
     int width, hight;
@@ -122,7 +132,7 @@ void init(unsigned long magic, unsigned long addr) {
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
-
+    
     // Initialize COM1 (serial port)
     // init_com1();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
@@ -197,6 +207,7 @@ void init(unsigned long magic, unsigned long addr) {
     init_kheap(g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     LOG_LOCATION;
+    init_fs();
     
     // int reti = draw_img(path,10,10);
     // printf("ret = %d\n",reti);
@@ -221,6 +232,7 @@ void init(unsigned long magic, unsigned long addr) {
      int ret_buf = vesa_init_buffers();
     printf_com("%d\n",ret_buf);
     char *test_malloc = malloc(1024 * 1024 * 1024);
+    // printf("test_malloc = %p\n",test_malloc);
     if (test_malloc == NULL) {
         printf("Couldn't allocate test memory\n");
     } else {
@@ -240,12 +252,16 @@ void init(unsigned long magic, unsigned long addr) {
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
+    struct BootConfig config;
+    load_boot_config("./init/ini.ini",&config);
+
     int num_programs;
     int num_program_dirs;
-    fl_count_files("/bin/",&num_program_dirs,&num_programs);
+    // printf(">>%s",config.program_path);
+    fl_count_files(config.program_path,&num_program_dirs,&num_programs);
     Entry *programs = malloc(sizeof(Entry)*num_programs);
     int num_programs_check;
-    fl_populate_file_list("/bin/",programs,&num_programs_check);
+    fl_populate_file_list(config.program_path,programs,&num_programs_check);
     if(num_programs_check != num_programs)
     {
         printf("Error getting list of programs\n");
@@ -282,13 +298,14 @@ void init(unsigned long magic, unsigned long addr) {
      const char* acpi_status = (acpi == 0) ? "true" : "false";
 
     // Print ACPI status
-    printf("-\tACPI enabled: %s(%d)\n", acpi_status,acpi);
+    printf("-\tACPI enabled: %s\n", acpi_status);
     printf("-\tScreen resolution: %dx%d\n",width,hight);
     
     // printf("-\tAddress = 0x%X\n",&init);
     // char *bin_path = "/boot/AthenX.bin";
     // dwarf_function(&init,bin_path);
     // printf("-\tRSDP found: %s\n", rsdp_status);
+    printf("ANSI TIME: \033[0m\033[0m\033[0m\n");
     unsigned int eax, edx;
     
     // Execute CPUID instruction with function code 0 (basic information)
@@ -300,8 +317,13 @@ void init(unsigned long magic, unsigned long addr) {
     // int num_ata_drives = get_ata_drive_num();
     printf("Device Info:\n");
     print_pci_devices();
-    init_fs();
-    // printf("-\tNumber of ATA drives: %d\n",num_ata_drives);
+    // FILE *file = fopen("/init/ini.txt","r");
+    // if(file == NULL)
+    // {
+    //     printf("Error with file open\n");
+    // }
+    // fclose(file);
+    // print`("-\tNumber of ATA drives: %d\n",num_ata_drives);
     STI();
 //    init_security();
     // login();
@@ -324,9 +346,10 @@ int fill_program_list(int num_programs,Entry *entries)
     }
     for (size_t i = 0; i < num_programs; i++)
     {
+        printf("\n\n");
         executables_path[i] = (char*)malloc(strlen(entries[i].name));
         strcpy(executables_path[i],entries[i].name);
-        // printf("Executable %s found\n",executables_path[i]);
+        printf("Executable %s found\n",executables_path[i]);
         if (executables_path[i] == NULL) {
             perror("Memory allocation failed");
             return -1;
@@ -401,5 +424,55 @@ int print_pci_devices()
     if (get_num_coprocessor_devices() > 0) {
         printf("-\tNumber of Coprocessor Devices: %d\n", get_num_coprocessor_devices());
     }
+    return 0;
+}
+// boot_config.c
+
+// Structure to hold boot configuration data
+
+// Callback function to handle parsed INI file data
+static int config_handler(void *user, const char *section, const char *name,
+                          const char *value) {
+    struct BootConfig *config = (struct BootConfig *)user;
+
+    if (strcmp(section, "version") == 0) {
+        if (strcmp(name, "version_number") == 0) {
+            strncpy(config->version_number, value, sizeof(config->version_number));
+        }
+    } else if (strcmp(section, "paths") == 0) {
+        if (strcmp(name, "program_path") == 0) {
+            strncpy(config->program_path, value, sizeof(config->program_path));
+        } else if (strcmp(name, "bin_path") == 0) {
+            strncpy(config->bin_path, value, sizeof(config->bin_path));
+        }
+    } else if (strcmp(section, "logs") == 0) {
+        if (strcmp(name, "error_log") == 0) {
+            strncpy(config->error_log, value, sizeof(config->error_log));
+        }
+    }
+
+    return 1; // Continue parsing
+}
+
+int load_boot_config(const char *config_file,struct BootConfig *boot_config) {
+    struct BootConfig config;
+
+    // Initialize config with default values
+    memset(boot_config, 0, sizeof(struct BootConfig));
+
+    // Parse the INI file
+    if (ini_parse(config_file, config_handler, boot_config) < 0) {
+        fprintf(stderr, "Error: Can't load '%s'\n", config_file);
+        return -1;
+    }
+
+    // Now, 'config' contains the parsed boot configuration data
+    // printf("AthenX Version: %s\n", boot_config->version_number);
+    // printf("Program Path: %s\n", boot_config->program_path);
+    // printf("Bin Path: %s\n", boot_config->bin_path);
+    // printf("Error Log: %s\n",boot_config->error_log);
+    // // boot_config = &config;
+    // You can use the parsed data as needed for booting AthenX
+
     return 0;
 }

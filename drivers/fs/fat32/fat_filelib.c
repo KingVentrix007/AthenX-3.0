@@ -701,6 +701,17 @@ void fl_shutdown(void)
 //-----------------------------------------------------------------------------
 void* fl_fopen(const char *path, const char *mode)
 {
+    // printf("opening %s\n",path);
+    char *path_to_use = malloc(strlen(path) + 2);
+    if(path[0] != '/')
+    {
+        strcat(path_to_use,"/");
+        strcat(path_to_use,path);
+    }
+    else
+    {
+        path_to_use = path;
+    }
     int i;
     FL_FILE* file;
     uint8 flags = 0;
@@ -711,7 +722,7 @@ void* fl_fopen(const char *path, const char *mode)
     if (!_filelib_valid)
         return NULL;
 
-    if (!path || !mode)
+    if (!path_to_use || !mode)
         return NULL;
 
     // Supported Modes:
@@ -791,24 +802,25 @@ void* fl_fopen(const char *path, const char *mode)
 
     // Read
     if (flags & FILE_READ)
-        file = _open_file(path);
+        file = _open_file(path_to_use);
 
     // Create New
 #if FATFS_INC_WRITE_SUPPORT
     if (!file && (flags & FILE_CREATE))
-        file = _create_file(path);
+        file = _create_file(path_to_use);
 #endif
 
     // Write Existing (and not open due to read or create)
     if (!(flags & FILE_READ))
         if ((flags & FILE_CREATE) && !file)
             if (flags & (FILE_WRITE | FILE_APPEND))
-                file = _open_file(path);
+                file = _open_file(path_to_use);
 
     if (file)
         file->flags = flags;
 
     FL_UNLOCK(&_fs);
+    free(path_to_use);
     return file;
 }
 //-----------------------------------------------------------------------------
@@ -1663,7 +1675,7 @@ int fl_is_dir(const char *path)
 {
     int res = 0;
     FL_DIR dir;
-
+    printf("Checking for a directory %s\n", path);
     if (fl_opendir(path, &dir))
     {
         res = 1;

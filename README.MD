@@ -141,4 +141,3 @@ make run
 - [ ] Other
   - [X] stdin/stdout/stderr
   - [ ] Special files (/dev/tty, /dev/fmb)
-

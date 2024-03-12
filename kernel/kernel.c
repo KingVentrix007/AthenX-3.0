@@ -33,8 +33,9 @@
 #include "logging.h"
 #include "stdio.h"
 #include "stdlib.h"
-
+#include "immintrin.h"
 void command_line(void);
+unsigned int get_random_number();
 void loop(void);
 char pch = 'A';
 int generate_random_number();
@@ -144,22 +145,41 @@ void kmain(unsigned long magic, unsigned long addr)
 
 void command_line(void)
 {
-    FILE *fp = fopen("/data.txt", "w");
-    fclose(fp);
-    FILE *f = fopen("/data.txt", "w");
-    if(fp == NULL)
-    {
-        printf("Failed to open /dev/fmb\n");
-    }
-    else
-    {
-        printf("Writing to file \n\n");
-        char *da = "hello world! you guys";
-        fprintf(f,"%s",da);
-        // fclose(f);
-        // uint32_t *data = VBE_RGB(255,0,0);
-        // fwrite(data,get_vbe_loaction(1000,50),100,fp);
-    }
+    print_allocated();
+    // printf("Random number generator output %u\n",get_random_number());
+    // draw_kmap();
+    // void *fake  = malloc(1024*1024*100);
+    // uint32_t size = 1024*1024*100;
+    // printf("Allocating region of size %u\n",1024*1024*100);
+    // printf("Region of should be 0x%X to 0x%X\n",fake,(fake+size));
+    // if(fake == NULL)
+    // {
+    //     printf("Error: malloc\n");
+    // }
+    // void *v2 = malloc(1024*1024*100);
+    // if(v2 == fake)
+    // {
+    //     printf("Error: malloc is equal\n");
+    // }
+    // create_map();
+    // for(;;);
+    // printf("\033[0m");
+    // FILE *fp = fopen("/data.txt", "w");
+    // fclose(fp);
+    // FILE *f = fopen("/data.txt", "w");
+    // if(fp == NULL)
+    // {
+    //     printf("Failed to open /dev/fmb\n");
+    // }
+    // else
+    // {
+    //     printf("Writing to file \n\n");
+    //     char *da = "hello world! you guys";
+    //     fprintf(f,"%s",da);
+    //     // fclose(f);
+    //     // uint32_t *data = VBE_RGB(255,0,0);
+    //     // fwrite(data,get_vbe_loaction(1000,50),100,fp);
+    // }
     // STI();
     // printf("Commnd command\n================================\n");
     // init_security();
@@ -180,17 +200,23 @@ void command_line(void)
     char *input_buffer = (char *)malloc(command_buffer_size+1);
     // printf("HERE\n");
     int buffer_pos = 0;
-    char user[] = "Dev";
+    char *user = malloc(1024);
+    if(user == NULL)
+    {
+        perror("Failed to allocate memory for user buffer");
+    }
+    strcpy(user,"Dev");
     memset(input_buffer,1,command_buffer_size);
     // free(input_buffer);
-    printf("\n>");
+    printf("\n%s@%s>",user,getcwd());
     while(1)
     {
         fgets(input_buffer,command_buffer_size,stdin);
         if(input_buffer == NULL || input_buffer[0] == '\0')
         {
-             memset(input_buffer, 0,command_buffer_size);
-             printf("\n>");
+            memset(input_buffer, 0,command_buffer_size);
+            printf("\n%s@%s>",user,getcwd());
+
     
 
         }
@@ -210,7 +236,8 @@ void command_line(void)
             // }
             // cmd_count++;
             memset(input_buffer, 0,command_buffer_size);
-            printf(">");
+            printf("\n%s@%s>",user,getcwd());
+            
 
 
         }   

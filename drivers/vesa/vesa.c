@@ -284,6 +284,7 @@ int vesa_init_buffers()
     perror("Failed to initialize display buffer 1\n");
     return -1;
   }
+  memset(display_buffer_1, 0, g_width*g_height*gbpp);
   display_buffer_2 = (uint32 *)malloc(g_height*g_width*gbpp);
   if(display_buffer_2 == NULL)
   {
@@ -291,6 +292,7 @@ int vesa_init_buffers()
     return -1;
 
   }
+  
   memset(display_buffer_2, 0, g_width*g_height*gbpp);
   history_buffer_1 = (uint32 *)malloc(g_height *g_width*gbpp);
   if(history_buffer_1 == NULL)
@@ -298,6 +300,8 @@ int vesa_init_buffers()
      perror("Failed to initialize history buffer 1\n");
     return -1;
   }
+  memset(history_buffer_1, 0, g_width*g_height*gbpp);
+
   multi_buffers_enabled = 1;
   memcpy(display_buffer_1,g_vbe_buffer,g_width*g_height*gbpp);
   return 0;

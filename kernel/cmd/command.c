@@ -3,15 +3,32 @@
 #include "printf.h"
 #include "fat_filelib.h"
 #include "command.h"
-// #include "mem.h"
 #include "exe.h"
 #include "io_ports.h"
 #include "stdlib.h"
 #include "termianl.h"
 #include "stdio.h"
-void loop_test();
+#include "debug.h"
+#include "kernel.h"
+
 char current_path[FATFS_MAX_LONG_FILENAME];
+
+// Function prototypes
+void loop_test();
+char** parse_command(char* cmd_line, int* argc);
+void free_command(char** argv, int argc);
+void set_cwd(char *path);
+char *get_cwd();
+void ls();
+void date();
+void draw_kmap();
+void shutdown();
+void key_map();
+int cmd(char *command);
+void help();
+
 char **executables_path;
+
 // Function to parse command line arguments
 char** parse_command(char* cmd_line, int* argc) {
     // Allocate memory for the arguments array
@@ -41,7 +58,7 @@ char** parse_command(char* cmd_line, int* argc) {
                 arg_count++;
             } else {
                 // Allocate memory for the argument
-                argv[arg_count] = (char*)kmalloc(sizeof(char) * (closing_quote - token + 1));
+                argv[arg_count] = (char*)malloc(sizeof(char) * (closing_quote - token + 1));
                 if (!argv[arg_count]) {
                     // Memory allocation failed
                     *argc = -1;
@@ -80,6 +97,36 @@ int cls()
     set_terminal_postion_x(0);
     set_terminal_postion_y(0);
 }
+char* move_back_one_folder(char* path) {
+    // Check if the path is empty or null
+    if (path == NULL || strlen(path) == 0) {
+        return path;
+    }
+
+    int len = strlen(path);
+    char* result = (char*)malloc((len + 1) * sizeof(char)); // Allocate memory for the result string
+    if (result == NULL) {
+        return NULL; // Memory allocation failed
+    }
+
+    // Find the last occurrence of path separator
+    char* last_separator = strrchr(path, '/');
+    if (last_separator == NULL) {
+        last_separator = strrchr(path, '\\');
+    }
+
+    // If no separator found, return the original path
+    if (last_separator == NULL) {
+        strcpy(result, path);
+        return result;
+    }
+
+    // Copy characters before the last separator to the result string
+    strncpy(result, path, last_separator - path);
+    result[last_separator - path] = '\0'; // Add null terminator
+
+    return result;
+}
 // Function to free memory allocated by the command parser
 void free_command(char** argv, int argc) {
     for (int i = 0; i < argc; i++) {
@@ -94,29 +141,46 @@ void set_cwd(char *path) {
         // If path is NULL, return without changing the current directory
         return;
     }
-    printf("Setting %s\n", path);
+    // printf("Setting %s\n", path);
     char current_path[FATFS_MAX_LONG_FILENAME];
-    
+    memset(current_path, 0, sizeof(current_path));
+    // printf("Current path = [%s]\n", current_path);
     if (path[0] == '/') {
-        printf("First\n");
+        // printf("First\n");
         // If the path starts with '/', it's an absolute path
         chdir(path);
     } else if (strcmp(path, "..") == 0) {
         // If the path is "..", move back one directory
-        chdir("..");
+        // char *new_path = move_back_one_folder(getcwd());
+        // printf("new_path == %s\n", new_path);
+        chdir(path);
+
     } else {
         // Otherwise, it's a relative path
         strcpy(current_path,getcwd()); // Get the current working directory
-        if(path[strlen(path)] != '/')
+        // printf("current_path[strlen(current_path)-1] == %s || %d",current_path[strlen(current_path)-1],strlen(current_path)-1);
+        if(path[0] != '/' && current_path[strlen(current_path)-1] != '/')
         {
             strcat(current_path, "/"); // Append "/" to the current path
         }
-        
+        // printf("getcwd() returning %s\n", getcwd());
+        // printf("current_path = %s\n", current_path);
         strcat(current_path, path); // Append the provided path
         chdir(current_path);
     }
 }
-
+void help() {
+    printf("Available commands:\n");
+    printf("cd <directory>       Change current directory\n");
+    printf("ls <paramater>       List files in the current directory\n");
+    printf("date                 Display current date\n");
+    printf("mmap                 Display kernel memory map\n");
+    printf("shutdown             Shutdown the system\n");
+    printf("cls                  Clear the screen\n");
+    printf("key                  Display key mapping\n");
+    printf("help                 Display this help message\n");
+    printf("<program_name>       Execute program\n");
+}
 char *get_cwd() {
     char *current_path;
     current_path = getcwd();
@@ -125,7 +189,7 @@ char *get_cwd() {
 }
 void ls()
 {
-    printf("Listing files -?(%s)\n",get_cwd());
+    // printf("Listing files -?(%s)\n",get_cwd());
 
     int num_dir;
     int num_files;
@@ -138,11 +202,29 @@ void date()
 {
     
 }
+void draw_kmap()
+{
+    print_kernel_memory_map(&g_kmap);
+}
 void shutdown()
 {
     fs_shutdown();
     kheap_shutdown();
     acpiPowerOff();
+}
+void key_map()
+{
+    printf("Key map\n");
+    printf("-\ta-z-A-Z-1-0: Standard\n");
+    printf("-\tf2: Open error screen\n");
+    printf("-\tf1,f3-f12: Not implemented\n");
+    printf("-\tPS-PB: Not implemented\n");
+    printf("-\tUp Down: Scroll up down\n");
+    printf("-\tLeft Right: Not implemented\n");
+
+
+
+
 }
 int cmd(char *command)
 {
@@ -168,9 +250,35 @@ int cmd(char *command)
 
     if(strcmp(argv[0],"cd") ==0 )
     {
+        // printf()
+        if(argc >= 2)
+        {
         set_cwd(argv[1]);
+
+        }
+        else
+        {
+            printf("%s\n",getcwd());
+        }
         LOG_LOCATION;
 
+    }
+    else if(strcmp(argv[0], "help") == 0)
+    {
+        if(argc < 2)
+        {
+            help();
+
+        }
+        else
+        {
+            printf("Current version doesn't support specific help commands\n");
+        }
+    }
+    else if(strcmp(argv[0], "mmap") == 0)
+    {
+        printf("\n");
+        draw_kmap();
     }
     else if(strcmp(argv[0],"reboot") ==0 )
     {
@@ -178,8 +286,21 @@ int cmd(char *command)
     }
     else if (strcmp(argv[0],"ls") ==0)
     {
-        ls();
-        LOG_LOCATION;
+        if(argc < 2)
+        {
+            ls();
+            LOG_LOCATION;
+        }
+        else if(strcmp(argv[1],"-p") == 0)
+        {
+            int count = 0;
+            while(executables_path[count] != NULL)
+            {
+                printf("Exec %s\n",executables_path[count]);
+                count++;
+            }
+        }
+        
         
     }
     else if (strcmp(argv[0],"exe") == 0)
@@ -196,7 +317,10 @@ int cmd(char *command)
     {
         cls();
     }
-
+    else if(strcmp(argv[0],"key") == 0)
+    {
+        key_map();
+    }
     else
     {
         LOG_LOCATION;
@@ -228,7 +352,7 @@ int cmd(char *command)
 
         if(f == NULL)
         {
-            printf("Command %s not recognized\n",argv[0]);
+            printf("\nCommand %s not recognized\n",argv[0]);
         }
         else
         {
