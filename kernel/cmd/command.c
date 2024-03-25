@@ -352,7 +352,7 @@ int cmd(char *command)
 
         if(f == NULL)
         {
-            printf("\nCommand %s not recognized\n",argv[0]);
+            printf("\nCommand '\033[31m%s\033[0m' not recognized\n",argv[0]);
         }
         else
         {

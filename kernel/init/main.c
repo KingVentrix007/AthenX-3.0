@@ -46,100 +46,93 @@ struct BootConfig {
 int fill_program_list(int num_programs,Entry *entries);
 /**
  * Function Name: init
- * Description: Initializes various system components during boot-up.
+ * Description: Initializes the kernel and system components.
  *
  * Parameters:
- *   magic (unsigned long) - Multiboot magic number
- *   addr (unsigned long) - Address of Multiboot information
+ *   magic (unsigned long) - Magic number passed by bootloader.
+ *   addr (unsigned long) - Address of multiboot information structure.
  *
  * Return:
  *   void
  */
 void init(unsigned long magic, unsigned long addr) {
-   
     // Initialize Interrupt Descriptor Table
     idt_init();
 
     // Initialize Global Descriptor Table
     gdt_init();
     init_com1();
-     timer_init();
-    int total_steps = 10; // Total number of steps for the loading bar
-    int current_step = 1; // Current step of the loading process
-
-    // Print kernel start message
-    kprints("Staring kernel\n");
-    kprints("Hello World!");
+    timer_init();
     
+    // Print kernel start message
+    printf("\033[1;34mStarting kernel\n"); // Set text color to blue
+    printf("Hello World!\033[0m\n"); // Reset text color to default
+
     // Initialize VESA graphics mode
-    int width, hight;
-    width = 1024;
-    hight = 768;
-    int ret = vesa_init(width, hight, 32);
+    int width = 1024;
+    int height = 768;
+    int ret = vesa_init(width, height, 32);
     printf_com("Ret = %d\n", ret);
     if (ret < 0) {
+        // Try different resolutions if initialization fails
         width = 800;
-        hight = 600;
-        ret =  vesa_init( width,hight,32);
-        printf_com("-\tScreen resolution: %dx%d\n",width,hight);
-        if(ret < 0)
-        {
+        height = 600;
+        ret = vesa_init(width, height, 32);
+        printf_com("-\tScreen resolution: %dx%d\n", width, height);
+        if (ret < 0) {
             width = 720;
-            hight = 480;
-            ret =  vesa_init( width,hight,32);
-            if(-1 < 0)
-            {
-                printf_com("\n\n123Printing all modes:\n\n");
+            height = 480;
+            ret = vesa_init(width, height, 32);
+            if (ret < 0) {
+                printf_com("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
                 vbe_print_available_modes();
             }
         }
-        
-
-        //printf("Error: vesa_init() failed\n");
     }
-    else
-    {
-       
-    }
-
-    // for(;;);
-    LOG_LOCATION;
-    // draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize terminal with specified resolution
-    init_terminal(width, hight);
-    init_debug_terminal(width,hight);
-    //   printf("================================================================");
-    // TIME current_time = get_time();
-    initAcpi();
-    printf_com("Made it here\n");
-    int acpi = acpiEnable();
-    
-    // Print the current time
-    // Print the date
-    printf("Current Date and Time:\n");
-    print_date();
+    init_terminal(width, height);
+    init_debug_terminal(width, height);
 
-    printf("Booting AthenX-3.0\n");
-    printf("Verion: %s - %d.%d.%d\n",VERSION_STRING,VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH);
-    printf("Compile version %d\n",VERSION_COMPILE);
+    
+    printf_com("Made it here\n");
+    int acpi = initAcpi();
+    int acpi2 = acpiEnable();
+    if(acpi2 != acpi)
+    {
+        if(acpi2 < acpi)
+        {
+            acpi = acpi2;
+        }
+        else if (acpi < acpi2)
+        {
+            acpi = acpi;
+        }
+        {
+            /* code */
+        }
+        
+    }
+
+    // Print system information
+    printf("\033[33mCurrent Date and Time:\n"); // Set text color to yellow
+    print_date();
+    printf("\033[0m");
+    printf("   ");
+    printf("\033[32mBooting AthenX-3.0\n"); // Set text color to green
+    printf("\033[0m");
+    printf("Version: %s - %d.%d.%d\n", VERSION_STRING, VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+    printf("Compile version %d\n", VERSION_COMPILE);
     printf("Please stand by\n");
     printf("Booting: ");
-    int draw_x = get_terminal_postion_x() ;//get_terminal_postion_x();
+    int draw_x = get_terminal_postion_x();
     int draw_y = get_terminal_postion_y();
-    // set_terminal_postion_y(draw_y+16);
-    set_terminal_postion_x(draw_x+(total_steps)*12);
+    set_terminal_postion_x(draw_x + 120); // Adjust position for loading bar
+
+    // Display loading bar
+    int total_steps = 10;
+    int current_step = 1;
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
-    LOG_LOCATION;
-    
-    // Initialize COM1 (serial port)
-    // init_com1();
-    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
-    LOG_LOCATION;
-
-    // Other initialization code...
 
     MULTIBOOT_INFO *mboot_info;
     if (magic == MULTIBOOT_BOOTLOADER_MAGIC) {
@@ -151,48 +144,37 @@ void init(unsigned long magic, unsigned long addr) {
 
         // Get kernel memory map
         if (get_kernel_memory_map(&g_kmap, mboot_info) < 0) {
-            kprints("error: failed to get kernel memory map\n");
+            printf("\033[1;31merror: failed to get kernel memory map\n"); // Set text color to red
             return -1;
         }
         // Calculate allocation size for memory
     }
-    LOG_LOCATION;
 
     // Initialize ATA drivers
     ata_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
-    LOG_LOCATION;
-
     // Initialize FAT file system
     fl_init();
-    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
-    if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK) {
-        printf("ERROR: Failed to init file system\n");
+    if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK)
+    {
+        printf("\033[1;31mERROR: Failed to init file system\n"); // Set text color to red
+        return -1;
     }
-    LOG_LOCATION;
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize Scheduler
     InitScheduler();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    
-    LOG_LOCATION;
 
-    // Calculate size of page frame area
+    // Initialize Physical Memory Manager
     size_t size = (g_kmap.available.size / 2) + 10;
-
-    // Calculate start address of physical memory manager
     uint32_t pmm_start = (uint32_t)g_kmap.available.start_addr;
-    // Disable interrupts
     asm("cli");
-
-    // Enable Physical Memory Manager
     init_pmm_page(pmm_start, g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize Virtual Memory Manager
-    //From this point on, initializing hardware is a pain in the rear.
     init_vmm();
     LOG_LOCATION;
 
@@ -208,16 +190,11 @@ void init(unsigned long magic, unsigned long addr) {
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     LOG_LOCATION;
     init_fs();
-    
-    // int reti = draw_img(path,10,10);
-    // printf("ret = %d\n",reti);
     LOG_LOCATION;
 
     // Scan PCI devices
     pci_scan();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
-    LOG_LOCATION;
 
     // Initialize timer
     timer_init();
@@ -225,116 +202,80 @@ void init(unsigned long magic, unsigned long addr) {
 
     LOG_LOCATION;
 
-    // Initialize keyboard
-   
-
-    LOG_LOCATION;
     int ret_buf = vesa_init_buffers();
-    printf_com("%d\n",ret_buf);
+    printf_com("%d\n", ret_buf);
     char *test_malloc = malloc(1024 * 1024 * 1024);
-    // printf("test_malloc = %p\n",test_malloc);
     if (test_malloc == NULL) {
-        printf("Couldn't allocate test memory\n");
+        printf("\033[1;31mCouldn't allocate test memory\n"); // Set text color to red
     } else {
-        printf_debug("Successfully allocated memory of 1GB\n");
+        printf_debug("\033[1;32mSuccessfully allocated memory of 1GB\n"); // Set text color to green
     }
     LOG_LOCATION;
-   
+
     // Free allocated memory
     const char *test_b = "This allocated memory";
     strcpy(test_malloc, test_b);
-    if(strcmp(test_b,test_malloc)!= 0)
-    {
-        printf("Mapping of test allocation may have failed\n");
+    if (strcmp(test_b, test_malloc) != 0) {
+        printf("\033[1;31mMapping of test allocation may have failed\n"); // Set text color to red
     }
-    //printf("%s", test_malloc);
     free(test_malloc);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
+
     struct BootConfig config;
-    load_boot_config("./init/ini.ini",&config);
+    load_boot_config("./init/ini.ini", &config);
 
     int num_programs;
     int num_program_dirs;
-    // printf(">>%s",config.program_path);
-    fl_count_files(config.program_path,&num_program_dirs,&num_programs);
-    Entry *programs = malloc(sizeof(Entry)*num_programs);
+    fl_count_files(config.program_path, &num_program_dirs, &num_programs);
+    Entry *programs = malloc(sizeof(Entry) * num_programs);
     int num_programs_check;
-    fl_populate_file_list(config.program_path,programs,&num_programs_check);
-    if(num_programs_check != num_programs)
-    {
-        printf("Error getting list of programs\n");
+    fl_populate_file_list(config.program_path, programs, &num_programs_check);
+    if (num_programs_check != num_programs) {
+        printf("\033[1;31mError getting list of programs\n"); // Set text color to red
+    } else {
+        fill_program_list(num_programs, programs);
     }
-    else
-    {
-        fill_program_list(num_programs,programs);
-
-    }
-     keyboard_init();
+    keyboard_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    // 
-    printf("System Initialization Complete\n");
+
+    printf("\033[1;32mSystem Initialization Complete\n"); // Set text color to green
     printf("System Info:\n");
-    
-    uint64_t ram_size = mboot_info->mem_low+mboot_info->mem_high;
-    printf("-\tRAM size: %u Kilobytes\n",ram_size);
-    printf("-\tAllocation heap size: %u Kilobytes\n",g_kmap.available.size/1024);
-    // char cpu_name[49];
-    // get_cpu_name(cpu_name);
-    // char *cpu_type = "N/A";
-    // char *cpu_arch = "x86_64";
-   char cpu_name[49]; // 48 bytes for the CPU name, plus one for null terminator
-    char architecture[5]; // Assuming "x86" or "ARM" architecture
+
+    uint64_t ram_size = mboot_info->mem_low + mboot_info->mem_high;
+    printf("-\tRAM size: %u Kilobytes\n", ram_size);
+    printf("-\tAllocation heap size: %u Kilobytes\n", g_kmap.available.size / 1024);
+
+    char cpu_name[49];
+    char architecture[5];
     unsigned int family, model, stepping;
-    
-    // Get CPU info
     get_cpu_info(cpu_name, architecture, &family, &model, &stepping);
-    
-    // Print CPU info
     printf("-\tCPU Name: %s\n", cpu_name);
     printf("-\tArchitecture: %s\n", architecture);
     printf("-\tFamily: %d, Model: %d, Stepping: %d\n", family, model, stepping);
-     const char* acpi_status = (acpi == 0) ? "true" : "false";
+    printf("-\tScreen resolution: %dx%d\n", width, height);
 
-    // Print ACPI status
+    // const char *acpi_status = (acpi == 0) ? "true" : "false";
+    if(acpi != 0)
+    {
+        
+    }
+    const char *acpi_status = (acpi == 0) ? "\x1b[32mtrue\x1b[0m":"\x1b[31mFALSE\x1b[0m";
     printf("-\tACPI enabled: %s\n", acpi_status);
-    printf("-\tScreen resolution: %dx%d\n",width,hight);
-    
-    // printf("-\tAddress = 0x%X\n",&init);
-    // char *bin_path = "/boot/AthenX.bin";
-    // dwarf_function(&init,bin_path);
-    // printf("-\tRSDP found: %s\n", rsdp_status);
-    printf("ANSI TIME: \033[0m\033[0m\033[0m\n");
-    unsigned int eax, edx;
-    
-    // Execute CPUID instruction with function code 0 (basic information)
-    // cpuid(0, &eax, &edx);
-    
-    // Print CPUID information
-    // printf("CPUID returned: EAX=%08X, EDX=%08X\n", eax, edx);
-    // printf("-\tACPI enabled: %s\n",acpi);
-    // int num_ata_drives = get_ata_drive_num();
+
+    printf("\033[0m"); // Reset text formatting and colors
+
     printf("Device Info:\n");
     print_pci_devices();
-    // FILE *file = fopen("/init/ini.txt","r");
-    // if(file == NULL)
-    // {
-    //     printf("Error with file open\n");
-    // }
-    // fclose(file);
-    // print`("-\tNumber of ATA drives: %d\n",num_ata_drives);
+
     STI();
-//    init_security();
-    // login();
+
     printf("Starting shell\n");
     CreateProcess(command_line);
     CreateProcess(loop_timer);
-    
-    // Perform Butler routine
     PerformButler();
-
-
+    STI();
 }
 
 int fill_program_list(int num_programs,Entry *entries)

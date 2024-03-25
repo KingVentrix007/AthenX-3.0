@@ -37,6 +37,7 @@
 #include "printf.h"
 #include "vesa.h"
 #include "io_ports.h"
+#include "termianl.h"
 // define this globally (e.g. gcc -DPRINTF_INCLUDE_CONFIG_H ...) to include the
 // printf_config.h header file
 // default: undefined
@@ -590,12 +591,6 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
 
   while (*format)
   {
-    //  if (*format == '\033') {
-    //        int plus = parse_ansi(format);
-    //        for (size_t i = 0; i < plus+1; i++)
-    //        {
-    //          format++;
-    //        }
            
           
     //     } else
@@ -939,7 +934,7 @@ static void apply_ansi_escape(out_fct_type out, char* buffer, size_t* idx, size_
 
 
 
-int printf(const char* format, ...)
+int printf__(const char* format, ...)
 {
   va_list va;
   va_start(va, format);
@@ -948,7 +943,228 @@ int printf(const char* format, ...)
   va_end(va);
   return ret;
 }
+int printf(const char *format, ...) {
+    va_list args; // Variable argument list
+    va_start(args, format); // Initialize the variable argument list
+    int len = 0;
+    char *buffer = malloc(strlen(format)*100); // Buffer to hold the formatted string
+    if(buffer == NULL)
+    {
+      char buf[1024];
+      len = vsnprintf_(buf,strlen(format)*100, format, args);
+      len = parse_ansi(buf);
 
+    }
+    else
+    {
+      len = vsnprintf_(buffer,strlen(format)*100, format, args);
+      len = parse_ansi(buffer);
+
+    }
+     // Format the string using vsprintf
+
+    // Output each character from the buffer using putchar
+    
+    
+    va_end(args); // Clean up the variable argument list
+    if(buffer != NULL)
+    {
+    free(buffer); // Free the buffer
+
+    }
+    return len; // Return the number of characters written
+}
+void set_color(int color_code) {
+    // Add your logic to set text color based on the code
+    // For demonstration, let's just print the color code
+    set_font_fg_color(color_code);
+}
+// Function to handle ANSI escape sequences
+void handle_ansi(const char *fmt) {
+    // Ensure fmt is not NULL
+    if (fmt == NULL) {
+        return;
+    }
+
+    int foreground_color = -1; // Initialize foreground color to an invalid value
+    int background_color = -1; // Initialize background color to an invalid value
+
+    // Iterate through the escape sequence until the terminator 'm' is found
+    while (*fmt != 'm' && *fmt != '\0') {
+        // Check for color setting escape sequences
+        if (*fmt == '3') {
+            // Move past the '3'
+            fmt++;
+
+            // Parse foreground color code
+            int fg_color_code = 0;
+            while (*fmt >= '0' && *fmt <= '7') {
+                fg_color_code = fg_color_code * 10 + (*fmt - '0');
+                fmt++;
+            }
+
+            // Set text color based on the code
+            foreground_color = fg_color_code;
+        }
+
+        // Check for background color setting escape sequences
+        if (*fmt == '4') {
+            // Move past the '4'
+            fmt++;
+
+            // Parse background color code
+            int bg_color_code = 0;
+            while (*fmt >= '0' && *fmt <= '7') {
+                bg_color_code = bg_color_code * 10 + (*fmt - '0');
+                fmt++;
+            }
+
+            // Set background color based on the code
+            background_color = bg_color_code;
+        }
+
+        // Check for reset escape sequence
+        if (*fmt == '0' && *(fmt + 1) == 'm') {
+            // Reset terminal settings
+            reset_terminal_settings();
+        }
+
+        // Check for cursor movement escape sequences
+        if (*fmt == 'A') {
+            // Cursor up
+            size_t y = get_terminal_postion_y();
+            int multi = (*--fmt);
+             if(multi >= '0' && multi <= '9')
+             {
+                multi =multi -'0';
+             }
+             else
+             {
+              multi = 1;
+             }
+            y = y-16*multi;
+            printf_com("Multi A == %d\n", multi);
+            set_terminal_postion_y(y);
+            fmt++;
+        } else if (*fmt == 'B') {
+            // Cursor down
+             size_t y = get_terminal_postion_y();
+              int multi = (*--fmt);
+              if(multi >= '0' && multi <= '9')
+              {
+                multi = multi - '0';
+              }
+              else
+              {
+                multi = 1;
+              }
+            y = y+16*multi;
+            printf_com("Multi B == %d\n", multi);
+
+            set_terminal_postion_y(y);
+            fmt++;
+        } else if (*fmt == 'C') {
+            // Cursor forward (right)
+            size_t x = get_terminal_postion_x();
+             int multi = (*--fmt);
+             if(multi >= '0' && multi <= '9')
+             {
+                multi =multi -'0';
+             }
+             else
+             {
+              multi = 1;
+             }
+            printf_com("Multi C == %d\n", multi);
+
+            x = x+8*multi;
+            set_terminal_postion_x(x);
+            fmt++;
+        } else if (*fmt == 'D') {
+            // Cursor back (left)
+            size_t x = get_terminal_postion_x();
+            
+             int multi = (*--fmt);
+             if(multi >= '0' && multi <= '9')
+             {
+                multi =multi -'0';
+             }
+             else
+             {
+              multi = 1;
+             }
+            printf_com("Multi D == %d\n", multi);
+
+            x = x-8*multi;
+            set_terminal_postion_x(x);
+            fmt++;
+        }
+
+        // Move to the next character in the escape sequence
+        fmt++;
+
+        // If the current character is a semicolon, treat it as the end of the current component
+        // and start processing the next component as if it's the start of a new escape sequence
+        if (*fmt == ';') {
+            // Move to the next character after the semicolon
+            fmt++;
+
+            // Reset foreground and background color values for the next component
+            foreground_color = -1;
+            background_color = -1;
+        }
+    }
+
+    // If foreground or background color values are valid, set the colors
+    if (foreground_color != -1) {
+        set_color(foreground_color);
+    }
+    if (background_color != -1) {
+        set_font_bg_color(background_color);
+    }
+}
+
+
+int parse_ansi(const char *fmt) {
+    int chars_processed = 0;
+    
+    while (*fmt != '\0') {
+        if (*fmt == '\033') {
+            // Handle ANSI escape sequence
+            fmt++;
+            chars_processed++;
+            
+            // Check if it's the start of a valid escape sequence
+            if (*fmt == '[' || *fmt == '(') {
+                // Move to the next character
+                fmt++;
+                chars_processed++;
+
+                // Handle the entire escape sequence
+                handle_ansi(fmt);
+                
+                // Count the characters processed until the end of the escape sequence
+                while (*fmt != 'm' && *fmt != '\0') {
+                    fmt++;
+                    chars_processed++;
+                }
+
+                // If the escape sequence is not terminated, continue processing
+                if (*fmt != '\0') {
+                    fmt++;
+                    chars_processed++;
+                }
+            }
+        } else {
+            // Output non-escape sequence characters using _putchar
+            _putchar(*fmt);
+            fmt++;
+            chars_processed++;
+        }
+    }
+    
+    return chars_processed;
+}
 
 int sprintf_(char* buffer, const char* format, ...)
 {

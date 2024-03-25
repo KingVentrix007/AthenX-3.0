@@ -9,11 +9,87 @@ size_t terminal_font_height;
 size_t terminal_width;
 size_t terminal_height;
 size_t scroll_count = 0;
+uint32_t font_fg_color;
+uint32_t font_bg_color;
 extern unsigned char arr_8x16_font[];
+uint32_t get_font_fg()
+{
+    return font_fg_color;
+}
+uint32_t get_font_bg()
+{
+    return font_bg_color;
+}
+void set_font_fg_color(int color_index) {
+    switch (color_index) {
+        case 0: // Black
+            font_fg_color = vbe_rgb(0, 0, 0);
+            break;
+        case 1: // Red
+            font_fg_color = vbe_rgb(255, 0, 0);
+            break;
+        case 2: // Green
+            font_fg_color = vbe_rgb(0, 255, 0);
+            break;
+        case 3: // Yellow
+            font_fg_color = vbe_rgb(255, 255, 0);
+            break;
+        case 4: // Blue
+            font_fg_color = vbe_rgb(0, 0, 255);
+            break;
+        case 5: // Magenta
+            font_fg_color = vbe_rgb(255, 0, 255);
+            break;
+        case 6: // Cyan
+            font_fg_color = vbe_rgb(0, 255, 255);
+            break;
+        case 7: // White
+            font_fg_color = vbe_rgb(255, 255, 255);
+            break;
+        default:
+            // Invalid color index
+            printf("Invalid color index.\n");
+            break;
+    }
+}
 
-
+// Function to set font background color based on index
+void set_font_bg_color(int color_index) {
+    switch (color_index) {
+        case 0: // Black
+            font_bg_color = vbe_rgb(0, 0, 0);
+            break;
+        case 1: // Red
+            font_bg_color = vbe_rgb(255, 0, 0);
+            break;
+        case 2: // Green
+            font_bg_color = vbe_rgb(0, 255, 0);
+            break;
+        case 3: // Yellow
+            font_bg_color = vbe_rgb(255, 255, 0);
+            break;
+        case 4: // Blue
+            font_bg_color = vbe_rgb(0, 0, 255);
+            break;
+        case 5: // Magenta
+            font_bg_color = vbe_rgb(255, 0, 255);
+            break;
+        case 6: // Cyan
+            font_bg_color = vbe_rgb(0, 255, 255);
+            break;
+        case 7: // White
+            font_bg_color = vbe_rgb(255, 255, 255);
+            break;
+        default:
+            // Invalid color index
+            printf("Invalid color index.\n");
+            break;
+    }
+}
 int init_terminal(int x, int y)
 {
+    font_fg_color = vbe_rgb(255, 255, 255);
+    font_bg_color = vbe_rgb(0, 0, 0);
     terminal_postion_x = 0;
     terminal_postion_y = 0;
     terminal_font_width = 8;
@@ -113,23 +189,27 @@ void draw_char_8x16(int x, int y, char character) {
         for (int col = 0; col < charWidth; col++) {
             // Check if the current pixel is set in the font byte
             if ((fontByte >> (7 - col)) & 1) {
-                if(multi_buffers_enabled == 0)
-                {
-                    vbe_putpixel(x + col, y + row, vbe_rgb(255, 255, 255)); // Assuming white color for the character
-
+                // Check if multi-buffering is enabled
+                if (multi_buffers_enabled == 0) {
+                    // Single buffer mode
+                    vbe_putpixel(x + col, y + row, font_fg_color);
+                } else {
+                    // Multi-buffer mode
+                    draw_pixel_buffer_1(x + col, y + row, font_fg_color);
                 }
-                else
-                {
-                    // printf_com("%c",character);
-                    draw_pixel_buffer_1(x + col, y + row, vbe_rgb(255, 255, 255));
+            } else {
+                // Draw the background color if the pixel is not set
+                if (multi_buffers_enabled == 0) {
+                    // Single buffer mode
+                    vbe_putpixel(x + col, y + row, font_bg_color);
+                } else {
+                    // Multi-buffer mode
+                    draw_pixel_buffer_1(x + col, y + row, font_bg_color);
                 }
-                // Set the pixel at the corresponding position
             }
         }
     }
-
 }
-
 int scroll_up()
 {
     vesa_scroll((terminal_font_height*2)*-1);
@@ -151,4 +231,9 @@ int reset_poss_from_scroll()
 
     }
 
+}
+void reset_terminal_settings()
+{
+    font_bg_color = vbe_rgb(0,0,0);
+    font_fg_color = vbe_rgb(255,255,255);
 }

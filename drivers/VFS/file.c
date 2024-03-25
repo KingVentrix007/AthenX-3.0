@@ -162,7 +162,7 @@ void *fopen(const char *path,const char *modifiers)
             }
             else
             {
-                printf("[%c]\n",cwd[0]);
+                // printf("C[%c]\n",cwd[0]);
                 strcpy(path_to_open,'/');
             }
             strcpy(path_to_open,cwd);
@@ -170,6 +170,18 @@ void *fopen(const char *path,const char *modifiers)
             path++;
             strcpy(path_to_open,"/");
             strcpy(path_to_open,path);
+            if(path_to_open[0] != '/')
+            {
+                char *path_tmp = malloc(strlen(path_to_open)+2);
+                memset(path_tmp, 0, strlen(path_to_open)+2);
+                strcat(path_tmp,"/");
+                strcat(path_tmp,path_to_open);
+                free(path_to_open);
+                // printf("Hello, world! %s | %s\n",path_tmp,path_to_open);
+                
+                path_to_open = path_tmp;
+                
+            }
             // printf("path = %s\n",path_to_open);
             // path--;
             // path--;
@@ -186,6 +198,8 @@ void *fopen(const char *path,const char *modifiers)
             open_files_count++;
         }
         free(path_to_open);
+        // free(path_tmp);makemake
+        free(path_fake);
         return ret;
     }
     else if (2 == 1)

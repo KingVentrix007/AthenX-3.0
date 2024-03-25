@@ -139,63 +139,41 @@ int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info) {
 void kmain(unsigned long magic, unsigned long addr)
 {
     init(magic,addr);
-    STI();
+    
    
 }
 
 void command_line(void)
 {
-    // print_allocated();
-    // printf("Random number generator output %u\n",get_random_number());
-    // draw_kmap();
-    // void *fake  = malloc(1024*1024*100);
-    // uint32_t size = 1024*1024*100;
-    // printf("Allocating region of size %u\n",1024*1024*100);
-    // printf("Region of should be 0x%X to 0x%X\n",fake,(fake+size));
-    // if(fake == NULL)
-    // {
-    //     printf("Error: malloc\n");
-    // }
-    // void *v2 = malloc(1024*1024*100);
-    // if(v2 == fake)
-    // {
-    //     printf("Error: malloc is equal\n");
-    // }
-    // create_map();
-    // for(;;);
-    // printf("\033[0m");
-    // FILE *fp = fopen("/data.txt", "w");
-    // fclose(fp);
-    // FILE *f = fopen("/data.txt", "w");
-    // if(fp == NULL)
-    // {
-    //     printf("Failed to open /dev/fmb\n");
-    // }
-    // else
-    // {
-    //     printf("Writing to file \n\n");
-    //     char *da = "hello world! you guys";
-    //     fprintf(f,"%s",da);
-    //     // fclose(f);
-    //     // uint32_t *data = VBE_RGB(255,0,0);
-    //     // fwrite(data,get_vbe_loaction(1000,50),100,fp);
-    // }
-    // STI();
-    // printf("Commnd command\n================================\n");
-    // init_security();
-    // login();
-    printf("Welcome to Iris! A simple bash like shell\n");
-    printf("Type help or iris for more information\n");
+    printf("Welcome to ");
+    printf("\033[0;31m"); // Set color to red
+    printf("I");
+    
+    // Print "r" in green
+    printf("\033[0;32m"); // Set color to green
+    printf("r");
+
+    // Print "i" in yellow
+    printf("\033[0;33m"); // Set color to yellow
+    printf("i");
+
+    // Print "s" in blue
+    printf("\033[0;34m"); // Set color to blue
+    printf("s");
+
+    // Reset color
+    printf("\033[0m");
+    printf("! A simple bash like shell\nType help or iris for more information\n");
 
     LOG_LOCATION;
     // sleep(3);
     size_t command_buffer_size = 1024;
-    char **history = (char**)malloc(1024);
-    if(history == NULL)
-    {
-        perror("Failed to allocate for history buffer");
+    // char **history = (char**)malloc(1024);
+    // if(history == NULL)
+    // {
+    //     perror("Failed to allocate for history buffer");
 
-    }
+    // }
     size_t cmd_count = 0;
     char *input_buffer = (char *)malloc(command_buffer_size+1);
     // printf("HERE\n");
@@ -245,4 +223,15 @@ void command_line(void)
         
     }
     // TerminateProcess();
+}
+
+int check_buffer(char *string)
+{
+    if(strcmp(string, "ls") == 0)
+    {
+        printf("\b\b");
+         printf("\033[0;32m"); // Set color to green
+         printf("ls");
+        printf("\033[0m");
+    }
 }
