@@ -35,6 +35,7 @@ OBJ_FILES_ASM := $(patsubst %.asm, $(OBJ_DIR)/%.o, $(SRC_FILES_ASM))
 all:
 	# python update_version.py
 	make AthenX.bin
+	(cd userspace && make)
 # Compile C files
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)

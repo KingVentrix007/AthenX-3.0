@@ -8,6 +8,8 @@
 #include "virtual/devices.h"
 #include "string.h"
 #include "stdlib.h"
+#include "printf.h"
+
 char *_cwd;
 size_t _cwd_len;
 char _fixed_cwd[FATFS_MAX_LONG_FILENAME];
@@ -132,15 +134,88 @@ char *getcwd()
         return _fixed_cwd;
     }
 }
+int is_valid_char(char c) {
+    return isalnum(c) || c == '_' || c == '-';
+}
+// Function to filter the current working directory
+void filter_cwd(char* cwd) {
+    char filtered_cwd[FATFS_MAX_LONG_FILENAME];
+    int j = 0;
+
+    for (int i = 0; cwd[i] != '\0'; i++) {
+        if (is_valid_char(cwd[i])) {
+            filtered_cwd[j++] = cwd[i];
+        }
+    }
+
+    filtered_cwd[j] = '\0';
+    printf("len(filtered_cwd) == %d",strlen(filtered_cwd));
+    if(strlen(filtered_cwd) == 0)
+    {
+        filtered_cwd[0] = ' ';
+    filtered_cwd[1] = '\0';
+    }
+    
+    strcpy(cwd, filtered_cwd);
+}
+void remove_leading_whitespace(char* path) {
+    char* trimmed_path = path;
+
+    // Find the first non-whitespace character
+    while (isspace((unsigned char)*trimmed_path)) {
+        trimmed_path++;
+    }
+
+    // Move the trimmed path to the beginning of the original string
+    memmove(path, trimmed_path, strlen(trimmed_path) + 1);
+}
+char* process_path(const char* input_string) {
+    // Check if the input string starts with '/'
+    if (input_string[0] == '/' || input_string[0] == '.' ) {
+        // Allocate memory and return the input string as is
+        char* result = (char*)malloc(strlen(input_string) + 1);
+        if (result == NULL) {
+            perror("malloc");
+            return NULL;
+            // exit(EXIT_FAILURE);
+        }
+        strcpy(result, input_string);
+        return result;
+    } else {
+        // Get the current working directory
+        char cwd[FATFS_MAX_LONG_FILENAME];
+        if (getcwd(cwd, sizeof(cwd)) == NULL) {
+            perror("getcwd");
+            return NULL;
+        }
+
+        // Filter the current working directory to remove invalid characters
+        filter_cwd(cwd);
+
+        // Allocate memory for the concatenated result
+        size_t result_size = strlen(cwd) + strlen(input_string) + 2; // +2 for '/' and '\0'
+        char* result = (char*)malloc(result_size);
+        if (result == NULL) {
+            perror("malloc");
+                        return NULL;
+
+        }
+
+        // Construct the full path
+        printf("\nlen(filtered_cwd) == %d\n",strlen(cwd));
+
+        snprintf(result, result_size, "%s/%s", cwd, input_string);
+        remove_leading_whitespace(result);
+        return result;
+    }
+}
 
 void *fopen(const char *path,const char *modifiers)
 {
     char *path_to_open = malloc(strlen(path) + 100);
-    char *path_fake = malloc(strlen(path) + strlen(modifiers));
     // printf("path_to_open = %p\n",path_to_open);
     // printf("path_fake = %p\n",path_fake);
     memset(path_to_open, 0, strlen(path) + 100);
-    path_to_open[0] = '\0';
     if(path_to_open == NULL)
     {
         printf("Couldn't allocate memory for path\n");
@@ -152,54 +227,58 @@ void *fopen(const char *path,const char *modifiers)
     }
     else if(0 == 0)//If fat32 or ext#, ATM only fat works
     {
-        if(path[0] == '.' && path[1] == '/')
-        {
-            char *cwd = getcwd();
-            if(cwd[0] != '/')
-            {
-                printf("Invalid\n");
-                strcpy(path_to_open,"/");
-            }
-            else
-            {
-                // printf("C[%c]\n",cwd[0]);
-                strcpy(path_to_open,'/');
-            }
-            strcpy(path_to_open,cwd);
-            path++;
-            path++;
-            strcpy(path_to_open,"/");
-            strcpy(path_to_open,path);
-            if(path_to_open[0] != '/')
-            {
-                char *path_tmp = malloc(strlen(path_to_open)+2);
-                memset(path_tmp, 0, strlen(path_to_open)+2);
-                strcat(path_tmp,"/");
-                strcat(path_tmp,path_to_open);
-                free(path_to_open);
-                // printf("Hello, world! %s | %s\n",path_tmp,path_to_open);
+        // if(path[0] == '.' && path[1] == '/')
+        // {
+        //     char *cwd = getcwd();
+        //     if(cwd[0] != '/')
+        //     {
+        //         printf("Invalid\n");
+        //         strcpy(path_to_open,"/");
+        //     }
+        //     else
+        //     {
+        //         // printf("C[%c]\n",cwd[0]);
+        //         strcpy(path_to_open,'/');
+        //     }
+        //     strcpy(path_to_open,cwd);
+        //     path++;
+        //     path++;
+        //     strcpy(path_to_open,"/");
+        //     strcpy(path_to_open,path);
+        //     printf("path_to_open[0] == %c\n",path_to_open[0]);
+        //     if(path_to_open[0] != '/')
+        //     {
+        //         char *path_tmp = malloc(strlen(path_to_open)+2);
+        //         memset(path_tmp, 0, strlen(path_to_open)+2);
+        //         strcat(path_tmp,"/");
+        //         strcat(path_tmp,path_to_open);
+        //         // free(path_to_open);
+        //         // printf("Hello, world! %s | %s\n",path_tmp,path_to_open);
                 
-                path_to_open = path_tmp;
+        //         path_to_open = path_tmp;
+        //         strcpy(path_to_open,path_tmp);
+        //         printf("Opening file %s\n",path_to_open);
                 
-            }
-            // printf("path = %s\n",path_to_open);
-            // path--;
-            // path--;
-        }
-        else
-        {
-            strcpy(path_to_open,path);
-        }
-        // printf("Path to open == %s\n",path_to_open);
-        void * ret = fl_fopen(path_to_open,modifiers);
+        //     }
+        //     // printf("path = %s\n",path_to_open);
+        //     // path--;
+        //     // path--;
+        // }
+        // else
+        // {
+        //     strcpy(path_to_open,path);
+        // }
+        // // printf("Path to open == %s\n",path_to_open);
+        char* result = process_path(path);
+        printf("Opening file [%s]\n",result);
+        void * ret = fl_fopen(result,modifiers);
         if(ret != NULL)
         {
             open_files[open_files_count] = ret;
             open_files_count++;
         }
-        free(path_to_open);
+        free(result);
         // free(path_tmp);makemake
-        free(path_fake);
         return ret;
     }
     else if (2 == 1)
@@ -336,7 +415,9 @@ int fputc(int c, void *stream) {
     }
     else
     {
+        printf("%c",c);
         return fl_fputc(c,stream);
+        
     }
     
     // Empty implementation
@@ -413,7 +494,7 @@ int fclose(void *stream) {
         }
     }
     
-     fl_fclose(stream);
+    fl_fclose(stream);
      return 1;
 }
 

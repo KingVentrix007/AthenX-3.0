@@ -3,8 +3,33 @@ DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeHello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Tuesday June 25 6:29:17 2024
-DEBUG: Tuesday June 25 6:29:17 2024
+DEBUG: Tuesday June 25 7:8:53 2024
+DEBUG: Tuesday June 25 7:8:53 2024
+DEBUG: called video interrupt
+DEBUG: Address 0x7E22
+DEBUG: ax = 0x4F
+
+DEBUG: Checked All modesDEBUG: Find modes for vbe
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: DRQ 32 registered
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeStarting kernel
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeHello World!
+DEBUG: initializing vesa vbe 2.0
+DEBUG: Calling BIOS interrupt
+DEBUG: Tuesday June 25 7:8:54 2024
+DEBUG: Tuesday June 25 7:8:54 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -51,7 +76,7 @@ DEBUG: enabled acpi.
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi C == 1
 DEBUG: Multi D == 1
 Current Date and Time:
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeTuesday June 25 6:29:17 2024
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeTuesday June 25 7:8:54 2024
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too large   DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi B == 1
 DEBUG: Multi A == 1
 Booting AthenX-3.0
@@ -170,52 +195,33 @@ DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memo
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 114 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 15 bytes of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 14 bytes of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 15 bytes of memory
-DEBUG: raw_read at 6176
-DEBUG: Name to find: init | boot
-DEBUG: Name to find: init | grub
-DEBUG: Name to find: init | bin
-DEBUG: Name to find: init | img
-DEBUG: Name to find: init | init
-DEBUG: raw_read at 36272
-DEBUG: Name to find: ini.ini | ini.ini
-DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464C0A80
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: raw_read at 36280
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-Flushing to file ini.ini
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1800 bytes of memory
+Opening file [./init/ini.ini]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 16 bytes of memory
+Error: Can't load './init/ini.ini'
+DEBUG: Error: Can't load './init/ini.ini'
+DEBUG: Error: Can't load './init/ini.ini'
 DEBUG: raw_read at 6176
-DEBUG: Name to find: bin | boot
-DEBUG: Name to find: bin | grub
-DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34640
-DEBUG: raw_read at 34641
-DEBUG: raw_read at 34642
-DEBUG: raw_read at 34643
-DEBUG: raw_read at 34644
-DEBUG: raw_read at 34645
-DEBUG: raw_read at 34646
-DEBUG: raw_read at 34647
-DEBUG: raw_read at 2107
+DEBUG: raw_read at 6177
+DEBUG: raw_read at 6178
+DEBUG: raw_read at 6179
+DEBUG: raw_read at 6180
+DEBUG: raw_read at 6181
+DEBUG: raw_read at 6182
+DEBUG: raw_read at 6183
+DEBUG: raw_read at 2080
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
 DEBUG: raw_read at 6176
-DEBUG: Name to find: bin | boot
-DEBUG: Name to find: bin | grub
-DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34640
-DEBUG: raw_read at 34641
-DEBUG: raw_read at 34642
-DEBUG: raw_read at 34643
-DEBUG: raw_read at 34644
-DEBUG: raw_read at 34645
-DEBUG: raw_read at 34646
-DEBUG: raw_read at 34647
+DEBUG: raw_read at 6177
+DEBUG: raw_read at 6178
+DEBUG: raw_read at 6179
+DEBUG: raw_read at 6180
+DEBUG: raw_read at 6181
+DEBUG: raw_read at 6182
+DEBUG: raw_read at 6183
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
@@ -223,10 +229,10 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 
 
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 8 bytes of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 9 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
 DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-Executable echo.elf found
+Executable testd.txt found
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
 DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2048 bytes of memory
 DEBUG: registering keyboard
@@ -275,6 +281,7 @@ DEBUG: Called 4 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
 DEBUG: Called 4 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3100 bytes of memory
 -	Number of Bridge Devices: 3
+DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
 DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1500 bytes of memory
 Starting shell
@@ -291,6 +298,7 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 rDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Handler got keyboard called
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
 iDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory
@@ -312,42 +320,9 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory
 
-Dev@/>DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-cDEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-lDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-sDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: kernel/cmd/command.c:233 -->cmd
-DEBUG: kernel/cmd/command.c:35 -->parse_command
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
-DEBUG: kernel/cmd/command.c:37 -->parse_command
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory
-DEBUG: kernel/cmd/command.c:236 -->cmd
-
-cls: DEBUG: 
-cls: DEBUG: kernel/cmd/command.c:249 -->cmd
-DEBUG: Handler got keyboard called
-DEBUG: freeing memory
-DEBUG: kernel/cmd/command.c:133 -->free_command
-DEBUG: made it here
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory
-
-Dev@/>DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+Dev@/>DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 oDEBUG: Handler got keyboard called
@@ -370,6 +345,10 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+/DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 cDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
@@ -380,23 +359,7 @@ DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memo
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 tDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-.DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-xDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: kernel/cmd/command.c:233 -->cmd
+DEBUG: kernel/cmd/command.c:235 -->cmd
 DEBUG: kernel/cmd/command.c:35 -->parse_command
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
@@ -404,22 +367,29 @@ DEBUG: kernel/cmd/command.c:37 -->parse_command
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 8 bytes of memory
-DEBUG: kernel/cmd/command.c:236 -->cmd
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: kernel/cmd/command.c:238 -->cmd
 
 touch: DEBUG: 
 touch: 
-cat.txt: DEBUG: 
-cat.txt: DEBUG: kernel/cmd/command.c:249 -->cmd
+/cat: DEBUG: 
+/cat: DEBUG: kernel/cmd/command.c:251 -->cmd
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 9 bytes of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 104 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1800 bytes of memory
+Opening file [/cat]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
 DEBUG: raw_read at 6176
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
 DEBUG: raw_read at 6177
 DEBUG: raw_read at 6178
 DEBUG: raw_read at 6179
@@ -427,7 +397,6 @@ DEBUG: Name to find: cat.txt | testd.txt
 DEBUG: raw_read at 6181
 DEBUG: raw_read at 6182
 DEBUG: raw_read at 6183
-DEBUG: raw_read at 2080
 DEBUG: raw_read at 2049
 DEBUG: raw_write at 2049
 DEBUG: raw_read at 2080
@@ -445,8 +414,7 @@ DEBUG: Name to find: cat.txt | testd.txt
 DEBUG: raw_read at 2092
 DEBUG: raw_read at 2093
 DEBUG: raw_read at 2094
-DEBUG: Handler got keyboard called
-DEBUG: raw_read at 2095
+DEBUG: raw_read at 2095
 DEBUG: raw_read at 2096
 DEBUG: raw_read at 2097
 DEBUG: raw_read at 2098
@@ -471,14 +439,13 @@ DEBUG: raw_read at 2095
 DEBUG: raw_read at 6183
 DEBUG: raw_write at 2109
 DEBUG: raw_read at 2080
-DEBUG: raw_read at 6176
+DEBUG: rDEBUG: Handler got keyboard called
+aw_read at 6176
 DEBUG: raw_write at 6176
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-File cat.txt was created
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464C3A80
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
 DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-Flushing to file cat.txt
+File /cat was created
 DEBUG: freeing memory
 DEBUG: kernel/cmd/command.c:133 -->free_command
 DEBUG: kernel/cmd/command.c:133 -->free_command
@@ -489,6 +456,67 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 Dev@/>DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+lDEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+sDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: kernel/cmd/command.c:235 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3 bytes of memory
+DEBUG: kernel/cmd/command.c:238 -->cmd
+
+ls: DEBUG: 
+ls: DEBUG: kernel/cmd/command.c:251 -->cmd
+DEBUG: Calling fl_listdir()
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1600 bytes of memory
+
+Directory /
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1200 bytes of memory
+-  boot <DIR>
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1200 bytes of memory
+-  grub <DIR>
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1200 bytes of memory
+-  bin <DIR>
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1200 bytes of memory
+-  img <DIR>
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1200 bytes of memory
+-  init <DIR>
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1700 bytes of memory
+-  testd.txt [5 bytes]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1700 bytes of memory
+-  cat [0 bytes]
+DEBUG: raw_read at 6177
+DEBUG: raw_read at 6178
+DEBUG: raw_read at 6179
+DEBUG: raw_read at 6180
+DEBUG: raw_read at 6181
+DEBUG: raw_read at 6182
+DEBUG: raw_read at 6183
+DEBUG: kernel/cmd/command.c:319 -->cmd
+DEBUG: freeing memory
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: made it here
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory
+
+Dev@/>DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 oDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
@@ -505,113 +533,27 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-/DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 cDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 aDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-.DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-xDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: kernel/cmd/command.c:233 -->cmd
-DEBUG: kernel/cmd/command.c:35 -->parse_command
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
-DEBUG: kernel/cmd/command.c:37 -->parse_command
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 9 bytes of memory
-DEBUG: kernel/cmd/command.c:236 -->cmd
-
-out: DEBUG: 
-out: 
-/cat.txt: DEBUG: 
-/cat.txt: DEBUG: kernel/cmd/command.c:249 -->cmd
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
-
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 10 bytes of memory
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
-DEBUG: Name to find: cat.txt | cat.txt
-DEBUG: Handler got keyboard called
-DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F604
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
->>DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-hDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-oDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-sDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-iDEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-sDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-mDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-yDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
@@ -619,6 +561,18 @@ dDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+ DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+/DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+cDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 aDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
@@ -627,71 +581,364 @@ tDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-aDEBUG: Handler got keyboard called
+.DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: kernel/cmd/command.c:235 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: kernel/cmd/command.c:238 -->cmd
+
+cad: DEBUG: 
+cad: 
+/cat: DEBUG: 
+/cat: DEBUG: kernel/cmd/command.c:251 -->cmd
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
+
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 104 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1800 bytes of memory
+Opening file [/cat]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
+DEBUG: raw_read at 6176
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464C4280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
+>>DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+fDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+dDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 300 bytes of memory
 
-thos is my dataDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+fooooooooodytes]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
 
-/cat.txt
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-Flushing to file cat.txt
+/cat
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 10 bytes of memory
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
-DEBUG: Name to find: cat.txt | cat.txt
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
-DEBUG: Name to find: cat.txt | cat.txt
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: Handler got keyboard called
 DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F604
-DEBUG: raw_read at 36296
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_alDEBUG: Handler got keyboard called
-locate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-hDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+fDEBUG: raw_read at 36280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-sDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-iDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-sDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-mDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-yDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+dDEBUG: raw_write at 36280
+DEBUG: raw_write at 6176
+DEBUG: freeing memory
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: made it here
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory
+
+Dev@/>DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+cDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+aDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+tDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+ DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+cDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+aDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+dDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+ DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+uDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+tDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+/DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+cDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+aDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+tDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: kernel/cmd/command.c:235 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: kernel/cmd/command.c:238 -->cmd
+
+cad: DEBUG: 
+cad: 
+/cat: DEBUG: 
+/cat: DEBUG: kernel/cmd/command.c:251 -->cmd
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
+
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 104 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1800 bytes of memory
+Opening file [/cat]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464C5280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 111 bytes of memory
+DEBUG: raw_read at 36280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
+>>fooooooooodDEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+dDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 300 bytes of memory
+
+foooodDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
+
+/catDEBUG: Handler got keyboard called
+
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F604
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+fDEBUG: raw_read at 36280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 dDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-aDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-aDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-Flushing to file cat.txt
-DEBUG: raw_write at 36296
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: raw_write at 36280
 DEBUG: raw_write at 6176
 DEBUG: freeing memory
 DEBUG: kernel/cmd/command.c:133 -->free_command
@@ -703,15 +950,63 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 Dev@/>DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-oDEBUG: Handler got keyboard called
+cDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-uDEBUG: Handler got keyboard called
+aDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 tDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+ DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+/DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/DEBUG: Handler got keyboard called
+kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+dDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+ DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+aDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+dDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
@@ -728,28 +1023,12 @@ DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 aDEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-.DEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 tDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-xDEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: kernel/cmd/command.c:233 -->cmd
+DEBUG: kernel/cmd/command.c:235 -->cmd
 DEBUG: kernel/cmd/command.c:35 -->parse_command
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
@@ -757,119 +1036,79 @@ DEBUG: kernel/cmd/command.c:37 -->parse_command
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 9 bytes of memory
-DEBUG: kernel/cmd/command.c:236 -->cmd
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: kernel/cmd/command.c:238 -->cmd
 
-out: DEBUG: 
-out: 
-/cat.txt: DEBUG: 
-/cat.txt: DEBUG: kernel/cmd/command.c:249 -->cmd
+cad: DEBUG: 
+cad: 
+/cat: DEBUG: 
+/cat: DEBUG: kernel/cmd/command.c:251 -->cmd
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
+DEBUG: Handler got keyboard called
 
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 10 bytes of memory
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
-DEBUG: Name to find: cat.txt | cat.txt
-DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F604
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 104 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 115 bytes of memory
-DEBUG: raw_read at 36296
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 5 bytes of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1800 bytes of memory
+Opening file [/cat]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464C6280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 111 bytes of memory
+DEBUG: raw_read at 36280
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
->>thos is my dataDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-mDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-eDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
+>>foooodDEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 300 bytes of memory
 
-thos is meDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+foooodDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
 
-/cat.txt
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-Flushing to file cat.txt
+/catDEBUG: Handler got keyboard called
+
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 10 bytes of memory
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
-DEBUG: Name to find: cat.txt | cat.txt
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
-DEBUG: Name to find: cat.txt | cat.txt
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6 bytes of memory
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
+DEBUG: Name to find: cat | boot
+DEBUG: Name to find: cat | grub
+DEBUG: Name to find: cat | bin
+DEBUG: Name to find: cat | img
+DEBUG: Name to find: cat | init
+DEBUG: Name to find: cat | testd.txt
+DEBUG: Name to find: cat | cat
 DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F604
-DEBUG: raw_read at 36296
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-hDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+fDEBUG: raw_read at 36280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes oDEBUG: Handler got keyboard called
-f memory
-sDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-iDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-sDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+oDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-mDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-eDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+dDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
@@ -879,10 +1118,7 @@ DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memo
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: Called 2 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory
-Flushing to file cat.txt
-DEBUG: raw_write at 36296
+DEBUG: raw_write at 36280
 DEBUG: raw_write at 6176
 DEBUG: freeing memory
 DEBUG: kernel/cmd/command.c:133 -->free_command
@@ -894,7 +1130,11 @@ DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Functi
 Dev@/>DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-oDEBUG: Handler got keyboard called
+sDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
+hDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
@@ -906,71 +1146,29 @@ tDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
- DEBUG: Handler got keyboard called
+dDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-/DEBUG: Handler got keyboard called
+oDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-cDEBUG: Handler got keyboard called
+wDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-aDEBUG: Handler got keyboard called
+nDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-.DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-xDEBUG: Handler got keyboard called
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Handler got keyboard called
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory
-tDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
-DEBUG: kernel/cmd/command.c:233 -->cmd
+DEBUG: kernel/cmd/command.c:235 -->cmd
 DEBUG: kernel/cmd/command.c:35 -->parse_command
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory
 DEBUG: kernel/cmd/command.c:37 -->parse_command
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 9 bytes of memory
-DEBUG: kernel/cmd/command.c:236 -->cmd
+DEBUG: kernel/cmd/command.c:238 -->cmd
 
-out: DEBUG: 
-out: 
-/cat.txt: DEBUG: 
-/cat.txt: DEBUG: kernel/cmd/command.c:249 -->cmd
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory
-
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 10 bytes of memory
-DEBUG: Name to find: cat.txt | boot
-DEBUG: Name to find: cat.txt | grub
-DEBUG: Name to find: cat.txt | bin
-DEBUG: Name to find: cat.txt | img
-DEBUG: Name to find: cat.txt | init
-DEBUG: Name to find: cat.txt | testd.txt
-DEBUG: Name to find: cat.txt | cat.txt
-DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F604
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 115 bytes of memory
-DEBUG: raw_read at 36296
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: Called 1 timesDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory
->>thos is meDEBUG: Handler got keyboard called
+shutdown: DEBUG: 
+shutdown: DEBUG: kernel/cmd/command.c:251 -->cmd
+D

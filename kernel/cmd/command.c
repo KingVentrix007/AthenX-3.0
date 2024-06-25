@@ -179,6 +179,8 @@ void help() {
     printf("cls                  Clear the screen\n");
     printf("key                  Display key mapping\n");
     printf("help                 Display this help message\n");
+    printf("touch <file name>    Create a new file\n");
+    printf("cad <file name>      Open a super basic file editor\n");
     printf("<program_name>       Execute program\n");
 }
 char *get_cwd() {
@@ -277,12 +279,28 @@ int cmd(char *command)
     }
     else if(strcmp(argv[0], "touch") == 0)
     {
-        FILE *fp = fl_fopen(argv[1],"a");
-        if(fp!= NULL)
+        if(argc == 2)
+        
         {
-            printf("File %s was created\n",argv[1]);
+            if(argv[1][0] != '/' && argv[1][0] != '.')
+            {
+                printf("WARNING: It is suggested to use the FULL path at the moment.\n");
+            }
+             FILE *fp = fopen(argv[1],"a");
+            if(fp!= NULL)
+            {
+                printf("File %s was created\n",argv[1]);
+            }
+            else
+            {
+                printf("File %s was not created\n",argv[1]);
+            }
+            fclose(fp);
+        }else
+        {
+            printf("Please provide 1 argument\n");
         }
-        fl_fclose(fp);
+       
     }
     else if(strcmp(argv[0], "mmap") == 0)
     {
@@ -318,7 +336,7 @@ int cmd(char *command)
 
         //  load_elf_file("/test/test.elf", argc, argv);
     }
-    else if(strcmp(argv[0],"out") ==  0)
+    else if(strcmp(argv[0],"cad") ==  0)
     {
         printf("\n");
         edit_file(argv[1]);
@@ -338,6 +356,7 @@ int cmd(char *command)
     else
     {
         LOG_LOCATION;
+        printf("\n");
 
         // int num_dir;
         // int num_files;

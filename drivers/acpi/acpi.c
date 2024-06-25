@@ -391,7 +391,7 @@ void acpiPowerOff(void)
    if ( PM1b_CNT != 0 )
       outports((unsigned int) PM1b_CNT, SLP_TYPb | SLP_EN );
 
-   printf_com("acpi poweroff failed.\n");
+   printf("acpi poweroff failed.\n");
 }
 void *findFACP();
 void reboot(void)

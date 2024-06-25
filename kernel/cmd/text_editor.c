@@ -14,7 +14,7 @@
 int edit_file(char *file_path) {
     char path[FATFS_MAX_LONG_FILENAME];
     strcpy(path,file_path);
-    FILE *fp = fl_fopen(path, "r+");
+    FILE *fp = fopen(path, "r+");
     if (fp == NULL) {
         printf("Cant open file %s",path);
         return -1;
@@ -23,11 +23,11 @@ int edit_file(char *file_path) {
     uint32_t file_size = get_file_size(fp);
     char *file_data = malloc(file_size + 100); // Extra space for edits
     if (file_data == NULL) {
-        fl_fclose(fp);
+        fclose(fp);
         return -1;
     }
 
-    size_t bytesRead = fl_fread(file_data, 1, file_size, fp);
+    size_t bytesRead = fread(file_data, 1, file_size, fp);
     // fl_fclose(fp)
     if (bytesRead != file_size) {
         perror("Error reading file");
@@ -76,7 +76,7 @@ int edit_file(char *file_path) {
 
     printf("\n%s",file_data);
     printf("\n%s\n",path);
-    fl_fclose(fp);
+    fclose(fp);
     FILE *write_file = fl_fopen(path, "w");
     int size;
     if(current_cur_pos > file_size)
@@ -89,12 +89,12 @@ int edit_file(char *file_path) {
     }
     for (size_t j = 0; j < size; j++)
     {
-        fl_fputc((int)file_data[j], write_file);
+        fputc((int)file_data[j], write_file);
         // printf("%c",file_data[j]);
     }
     
     // size_t bytes_written = fl_fwrite(file_data,1,current_cur_pos,write_file);
-    fl_fclose(write_file);
+    fclose(write_file);
 
     // Write the modified content back to the file
     return 0;
