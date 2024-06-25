@@ -275,6 +275,15 @@ int cmd(char *command)
             printf("Current version doesn't support specific help commands\n");
         }
     }
+    else if(strcmp(argv[0], "touch") == 0)
+    {
+        FILE *fp = fl_fopen(argv[1],"a");
+        if(fp!= NULL)
+        {
+            printf("File %s was created\n",argv[1]);
+        }
+        fl_fclose(fp);
+    }
     else if(strcmp(argv[0], "mmap") == 0)
     {
         printf("\n");
@@ -308,6 +317,11 @@ int cmd(char *command)
         LOG_LOCATION;
 
         //  load_elf_file("/test/test.elf", argc, argv);
+    }
+    else if(strcmp(argv[0],"out") ==  0)
+    {
+        printf("\n");
+        edit_file(argv[1]);
     }
     else if(strcmp(argv[0],"shutdown") == 0)
     {

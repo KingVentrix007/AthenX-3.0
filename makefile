@@ -33,7 +33,7 @@ OBJ_FILES_S := $(patsubst %.s, $(OBJ_DIR)/%.o, $(SRC_FILES_S))
 OBJ_FILES_ASM := $(patsubst %.asm, $(OBJ_DIR)/%.o, $(SRC_FILES_ASM))
 
 all:
-	python update_version.py
+	# python update_version.py
 	make AthenX.bin
 # Compile C files
 $(OBJ_DIR)/%.o: %.c
@@ -65,16 +65,14 @@ run: AthenX.bin
 	
 	bash ./scripts/boot32.sh
 	qemu-system-i386 -drive file=AthenX.img,format=raw \
-	-drive id=disk,file=ahci.img,if=none -device ahci,id=ahci -device ide-hd,drive=disk,bus=ahci.0 \
   -m 4G -serial file:out.log -serial stdio 
 
 	bash ./scripts/athenxHost.sh
 
 # Run the OS in QEMU without debugging output
 runt:
-	qemu-system-i386 -drive id=disk,file=AthenX.img,if=none \
--device ahci,id=ahci \
--device ide-hd,drive=disk,bus=ahci.0
+	qemu-system-i386 -drive file=AthenX.img,format=raw \
+  -m 4G -serial file:out.log -serial stdio 
 
 
 libc:
