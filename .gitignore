@@ -25,3 +25,4 @@ ahci.img
 .vscode/settings.json
 *.json
 personal_thank_you.md
+drive_output/
