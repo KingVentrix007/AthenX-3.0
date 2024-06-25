@@ -71,7 +71,7 @@ run: AthenX.bin
 	-device ide-hd,drive=disk,bus=ahci.0 \
 	-m 4G \
 	-serial file:out.log \
-	-monitor stdio
+	-monitor stdio -trace events=trace-events -D qemu.log
 
 
 

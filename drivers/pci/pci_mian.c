@@ -159,7 +159,8 @@ int is_ahci(pci_config_register *config)
         return 1;
     }
 }
-uint32_t get_ahci_abar()
+
+pci_config_register *get_ahci_abar()
 {
     for (size_t i = 0; i < dev_count; i++)
     {
@@ -172,7 +173,7 @@ uint32_t get_ahci_abar()
             {
                 
                 
-
+                
                 printf("Memory Address: 0x%08X\n", devs[i].base_address_5);
 
                  printf_com("0x%08X\n", devs[i].base_address_4);
@@ -183,14 +184,14 @@ uint32_t get_ahci_abar()
 
 
                 
-            return devs[i].base_address_5;
+            return &devs[i];
             }   
            
         }
 
     }
     printf_com("loop done\n");
-    return -1;
+    return NULL;
 }
 
 uint32_t read_bar5(uint8_t bus, uint8_t slot, uint8_t func) {

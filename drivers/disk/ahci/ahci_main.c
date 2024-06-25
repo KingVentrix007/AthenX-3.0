@@ -10,6 +10,9 @@
 #include "printf.h"
 #include "string.h"
 uint32_t HBA_MEM_BASE_ADDRESS;
+#define MAX_CMD_SLOT 32
+
+void setup_cmd_list(HBA_PORT *port);
 #define AHCI_BASE 0x400000 // 4M
 typedef unsigned int DWORD;
 #define ATA_DEV_BUSY 0x80
@@ -29,6 +32,10 @@ typedef unsigned short WORD;
 #define SATA_SIG_ATAPI 0xEB140101
 #define SATA_SIG_SEMB 0xC33C0101
 #define SATA_SIG_PM 0x96690101
+#define HBA_PxIE_DHRE 0x1   // Device to Host Register FIS interrupt enable
+#define HBA_PxIE_PCE  0x2   // PIO Setup FIS interrupt enable
+#define HBA_PxIE_DSE  0x4   // DMA Setup FIS interrupt enable
+#define HBA_PxIE_SDBE 0x8   // Set Device Bits FIS interrupt enable
 
 #define AHCI_DEV_NULL 0
 #define AHCI_DEV_SATA 1
@@ -56,28 +63,28 @@ void* allocate_and_map_memory(uint32_t size) {
     return addr2;
 }
 void print_HBA_PORT(const HBA_PORT *port) {
-    printf("clb: 0x%08X\n", port->clb);
-    printf("clbu: 0x%08X\n", port->clbu);
-    printf("fb: 0x%08X\n", port->fb);
-    printf("fbu: 0x%08X\n", port->fbu);
-    printf("is: 0x%08X\n", port->is);
-    printf("ie: 0x%08X\n", port->ie);
-    printf("cmd: 0x%08X\n", port->cmd);
-    printf("rsv0: 0x%08X\n", port->rsv0);
-    printf("tfd: 0x%08X\n", port->tfd);
-    printf("sig: 0x%08X\n", port->sig);
-    printf("ssts: 0x%08X\n", port->ssts);
-    printf("sctl: 0x%08X\n", port->sctl);
-    printf("serr: 0x%08X\n", port->serr);
-    printf("sact: 0x%08X\n", port->sact);
-    printf("ci: 0x%08X\n", port->ci);
-    printf("sntf: 0x%08X\n", port->sntf);
-    printf("fbs: 0x%08X\n", port->fbs);
+    printf_com("clb: 0x%08X\n", port->clb);
+    printf_com("clbu: 0x%08X\n", port->clbu);
+    printf_com("fb: 0x%08X\n", port->fb);
+    printf_com("fbu: 0x%08X\n", port->fbu);
+    printf_com("is: 0x%08X\n", port->is);
+    printf_com("ie: 0x%08X\n", port->ie);
+    printf_com("cmd: 0x%08X\n", port->cmd);
+    printf_com("rsv0: 0x%08X\n", port->rsv0);
+    printf_com("tfd: 0x%08X\n", port->tfd);
+    printf_com("sig: 0x%08X\n", port->sig);
+    printf_com("ssts: 0x%08X\n", port->ssts);
+    printf_com("sctl: 0x%08X\n", port->sctl);
+    printf_com("serr: 0x%08X\n", port->serr);
+    printf_com("sact: 0x%08X\n", port->sact);
+    printf_com("ci: 0x%08X\n", port->ci);
+    printf_com("sntf: 0x%08X\n", port->sntf);
+    printf_com("fbs: 0x%08X\n", port->fbs);
     for (int i = 0; i < 11; ++i) {
-        printf("rsv1[%d]: 0x%08X\n", i, port->rsv1[i]);
+        printf_com("rsv1[%d]: 0x%08X\n", i, port->rsv1[i]);
     }
     for (int i = 0; i < 4; ++i) {
-        printf("vendor[%d]: 0x%08X\n", i, port->vendor[i]);
+        printf_com("vendor[%d]: 0x%08X\n", i, port->vendor[i]);
     }
 }
 void print_HBA_MEM(const HBA_MEM *mem)
@@ -88,7 +95,7 @@ void print_HBA_MEM(const HBA_MEM *mem)
     printf_com("is: 0x%08X\n", mem->is);
     printf_com("pi: 0x%08X\n", mem->pi);
     printf_com("vs: 0x%08X\n", mem->vs);
-    printf_com("ccc_ctl: 0x%08X\n", mem->ccc_ctl);
+    // printf_com("ccc_ctl: 0x%08X\n", mem->ccc_ctl);
     printf_com("ccc_pts: 0x%08X\n", mem->ccc_pts);
     printf_com("em_loc: 0x%08X\n", mem->em_loc);
     printf_com("em_ctl: 0x%08X\n", mem->em_ctl);
@@ -162,13 +169,50 @@ void group_read(HBA_PORT *port) {
         printf("Read failed\n");
     }
 }
+void AHCI_handler(REGISTERS *r)
+{
+    printf("Called AHCI interrupt\n");
+}
+void init_port(HBA_PORT *port) {
+    // Clear interrupt enable bits
+    port->ie = 0;
+
+    // Clear pending interrupts
+    port->is = port->is;
+
+    // Setup command list and FIS
+    setup_cmd_list(port);
+    setup_fis(port);
+
+    // Enable interrupts
+    port->ie = HBA_PxIE_DHRE | HBA_PxIE_PCE | HBA_PxIE_DSE | HBA_PxIE_SDBE;
+
+    // Start command engine
+    start_cmd(port);
+}
+void setup_cmd_list(HBA_PORT *port) {
+    // Allocate and initialize Command List
+    port->clb = (uint32_t)malloc(sizeof(HBA_CMD_HEADER) * MAX_CMD_SLOT);
+    memset((void *)port->clb, 0, sizeof(HBA_CMD_HEADER) * MAX_CMD_SLOT);
+    port->clbu = 0;
+
+    // Initialize FIS
+    port->fb = (uint32_t)malloc(sizeof(FIS_REG_H2D));
+    memset((void *)port->fb, 0, sizeof(FIS_REG_H2D));
+    port->fbu = 0;
+}
+
 int ahci_main()
 {
-    HBA_MEM *abar = (HBA_MEM *)get_ahci_abar();
-
-    map(abar,abar,PAGE_PRESENT|PAGE_WRITE);
+    pci_config_register *dev = get_ahci_abar();
+    HBA_MEM *abar = (HBA_MEM *)dev->base_address_5;
+    printf("IRQ == %d\n",IRQ_BASE+dev->interrupt_line);
+    isr_register_interrupt_handler(IRQ_BASE+dev->interrupt_line,AHCI_handler);
+    map((uint32)abar,(uint32)abar,PAGE_PRESENT|PAGE_WRITE);
     printf_com("Mapping abar to %p\n",abar);
-    abar->ghc |= (1U << 31);
+    abar->ghc |= 0x80000000; // Enable AHCI
+    abar->ghc |= 0x00000001; // HBA reset
+    while (abar->ghc & 0x00000001);
     print_HBA_MEM(abar);
     // printf("%p\n", abar);
     int32_t pi = abar->pi;
@@ -186,11 +230,13 @@ int ahci_main()
                 // map(&abar->ports[i],&abar->ports[i],PAGE_PRESENT);
               
                 port_rebase(&abar->ports[i], i);
+                init_port(&abar->ports[i]);
                 // start_cmd(&abar->ports[i]); 
                 // print_HBA_PORT(&abar->ports[i]);
                 // group_read(&abar->ports[i]);
                   char read_buf[512] ;
                                     // memset(read_buf, 0, 512);
+                print_HBA_PORT(&abar->ports[i]);
                 test(&abar->ports[i]);
                 printf("\nread_buf == [%s]\n",read_buf);
                 // return;
@@ -323,18 +369,22 @@ void stop_cmd(HBA_PORT *port)
 static int read_from_disk(HBA_PORT *port, DWORD startl, DWORD starth, DWORD count, void *buf) {
     stop_cmd(port);
 
+    // Setup command header
     HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)(port->clb);
-    cmdheader[0].cfl = sizeof(FIS_REG_H2D) / sizeof(DWORD);
-    cmdheader[0].w = 0; // Read
-    cmdheader[0].prdtl = (WORD)((count - 1) >> 4) + 1;
+    cmdheader[0].cfl = sizeof(FIS_REG_H2D) / sizeof(DWORD); // Command FIS length
+    cmdheader[0].w = 0; // Read operation
+    cmdheader[0].prdtl = (WORD)((count - 1) >> 4) + 1; // PRDT entries count
 
+    // Setup command table
     HBA_CMD_TBL *cmdtbl = (HBA_CMD_TBL*)(cmdheader[0].ctba);
     memset_ahci(cmdtbl, 0, sizeof(HBA_CMD_TBL) + (cmdheader[0].prdtl - 1) * sizeof(HBA_PRDT_ENTRY));
 
-    cmdtbl->prdt_entry[0].dba = (DWORD)buf;
-    cmdtbl->prdt_entry[0].dbc = (count << 9) - 1; // 512 bytes per sector
-    cmdtbl->prdt_entry[0].i = 1;
+    // Setup PRDT entry
+    cmdtbl->prdt_entry[0].dba = (DWORD)buf; // Physical address of data buffer
+    cmdtbl->prdt_entry[0].dbc = (count << 9) - 1; // Byte count: 512 bytes per sector
+    cmdtbl->prdt_entry[0].i = 1; // Interrupt on completion
 
+    // Setup command FIS
     FIS_REG_H2D *cmdfis = (FIS_REG_H2D*)(&cmdtbl->cfis);
     cmdfis->fis_type = FIS_TYPE_REG_H2D;
     cmdfis->c = 1; // Command
@@ -354,8 +404,10 @@ static int read_from_disk(HBA_PORT *port, DWORD startl, DWORD starth, DWORD coun
 
     start_cmd(port);
 
+    // Wait for command completion
     while (port->ci & 1);
 
+    // Check for errors
     if (port->is & HBA_PxIS_TFES) {
         printf("Read disk error\n");
         return -1;
@@ -366,18 +418,22 @@ static int read_from_disk(HBA_PORT *port, DWORD startl, DWORD starth, DWORD coun
 static int write_to_disk(HBA_PORT *port, DWORD startl, DWORD starth, DWORD count, void *buf) {
     stop_cmd(port);
 
+    // Setup command header
     HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)(port->clb);
-    cmdheader[0].cfl = sizeof(FIS_REG_H2D) / sizeof(DWORD);
-    cmdheader[0].w = 1; // Write
-    cmdheader[0].prdtl = (WORD)((count - 1) >> 4) + 1;
+    cmdheader[0].cfl = sizeof(FIS_REG_H2D) / sizeof(DWORD); // Command FIS length
+    cmdheader[0].w = 1; // Write operation
+    cmdheader[0].prdtl = (WORD)((count - 1) >> 4) + 1; // PRDT entries count
 
+    // Setup command table
     HBA_CMD_TBL *cmdtbl = (HBA_CMD_TBL*)(cmdheader[0].ctba);
     memset_ahci(cmdtbl, 0, sizeof(HBA_CMD_TBL) + (cmdheader[0].prdtl - 1) * sizeof(HBA_PRDT_ENTRY));
 
-    cmdtbl->prdt_entry[0].dba = (DWORD)buf;
-    cmdtbl->prdt_entry[0].dbc = (count << 9) - 1; // 512 bytes per sector
-    cmdtbl->prdt_entry[0].i = 1;
+    // Setup PRDT entry
+    cmdtbl->prdt_entry[0].dba = (DWORD)buf; // Physical address of data buffer
+    cmdtbl->prdt_entry[0].dbc = (count << 9) - 1; // Byte count: 512 bytes per sector
+    cmdtbl->prdt_entry[0].i = 1; // Interrupt on completion
 
+    // Setup command FIS
     FIS_REG_H2D *cmdfis = (FIS_REG_H2D*)(&cmdtbl->cfis);
     cmdfis->fis_type = FIS_TYPE_REG_H2D;
     cmdfis->c = 1; // Command
@@ -397,8 +453,10 @@ static int write_to_disk(HBA_PORT *port, DWORD startl, DWORD starth, DWORD count
 
     start_cmd(port);
 
+    // Wait for command completion
     while (port->ci & 1);
 
+    // Check for errors
     if (port->is & HBA_PxIS_TFES) {
         printf("Write disk error\n");
         return -1;

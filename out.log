@@ -5,8 +5,45 @@ DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is
 Hello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Tuesday June 25 17:17:31 2024
-DEBUG: Tuesday June 25 17:17:31 2024
+DEBUG: Tuesday June 25 17:50:46 2024
+DEBUG: Tuesday June 25 17:50:46 2024
+DEBUG: called video interrupt
+DEBUG: Address 0x7E22
+DEBUG: ax = 0x4F
+
+DEBUG: Checked All modesDEBUG: Find modes for vbe
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: DRQ 32 registered
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 2300 bytes at 00000000 for printf
+Starting kernel
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 1700 bytes at 00000000 for printf
+Hello World!
+DEBUG: initializing vesa vbe 2.0
+DEBUG: Calling BIOS interrupt
+DEBUG: Tuesday June 25 17:50:48 2024
+DEBUG: Tuesday June 25 17:50:48 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -55,7 +92,7 @@ DEBUG: Multi C == 1
 DEBUG: Multi D == 1
 Current Date and Time:
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 2100 bytes at 00000000 for printf
-Tuesday June 25 17:17:31 2024
+Tuesday June 25 17:50:48 2024
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 400 bytes at 00000000 for printf
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 300 bytes at 00000000 for printf
    DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 2400 bytes at 00000000 for printf
@@ -163,6 +200,11 @@ DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  
 DEBUG: Allocating 2300 bytes at 41CC0220 for printf
 Memory Address: 0xFEBB1000
 DEBUG: 0x0000C041
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1000 bytes of memory at 41CC0220
+DEBUG: Allocating 1000 bytes at 41CC0220 for printf
+IRQ == 43
+DEBUG: DRQ 43 registered
 DEBUG: Mapping abar to FEBB1000
 DEBUG: les goo
 DEBUG: cap: 0xC0141F05
@@ -170,7 +212,6 @@ DEBUG: ghc: 0x80000000
 DEBUG: is: 0x00000000
 DEBUG: pi: 0x0000003F
 DEBUG: vs: 0x00010000
-DEBUG: ccc_ctl: 0x00000000
 DEBUG: ccc_pts: 0x00000000
 DEBUG: em_loc: 0x00000000
 DEBUG: em_ctl: 0x00000000
@@ -320,6 +361,38 @@ DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memo
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2400 bytes of memory at 41CC8A20
 DEBUG: Allocating 2400 bytes at 41CC8A20 for printf
 Starting command engine
+DEBUG: clb: 0x41CC0220
+DEBUG: clbu: 0x00000000
+DEBUG: fb: 0x41CC0620
+DEBUG: fbu: 0x00000000
+DEBUG: is: 0x00000001
+DEBUG: ie: 0x00000000
+DEBUG: cmd: 0x0000C017
+DEBUG: rsv0: 0x00000000
+DEBUG: tfd: 0x00000130
+DEBUG: sig: 0x00000101
+DEBUG: ssts: 0x00000113
+DEBUG: sctl: 0x00000000
+DEBUG: serr: 0x00000000
+DEBUG: sact: 0x00000000
+DEBUG: ci: 0x00000000
+DEBUG: sntf: 0x00000000
+DEBUG: fbs: 0x00000000
+DEBUG: rsv1[0]: 0x00000000
+DEBUG: rsv1[1]: 0x00000000
+DEBUG: rsv1[2]: 0x00000000
+DEBUG: rsv1[3]: 0x00000000
+DEBUG: rsv1[4]: 0x00000000
+DEBUG: rsv1[5]: 0x00000000
+DEBUG: rsv1[6]: 0x00000000
+DEBUG: rsv1[7]: 0x00000000
+DEBUG: rsv1[8]: 0x00000000
+DEBUG: rsv1[9]: 0x00000000
+DEBUG: rsv1[10]: 0x00000000
+DEBUG: vendor[0]: 0x00000000
+DEBUG: vendor[1]: 0x00000000
+DEBUG: vendor[2]: 0x00000000
+DEBUG: vendor[3]: 0x00000000
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4096 bytes of memory at 41CC8A20
 DEBUG: Allocating 4096 bytes at 41CC8A20 for test
@@ -334,13 +407,13 @@ read_data == 00000000
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory at 41CCAA20
 DEBUG: Allocating 2000 bytes at 41CCAA20 for printf
-write_data == 001A4164
+write_data == 001A4154
 
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1800 bytes of memory at 41CCAA20
 DEBUG: Allocating 1800 bytes at 41CCAA20 for printf
 
-read_buf == [¨A]
+read_buf == [32]
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2600 bytes of memory at 41CCAA20
 DEBUG: Allocating 2600 bytes at 41CCAA20 for printf
@@ -395,25 +468,25 @@ DEBUG: Name to find: init | grub
 DEBUG: Name to find: init | bin
 DEBUG: Name to find: init | img
 DEBUG: Name to find: init | init
-DEBUG: raw_read at 36264
+DEBUG: raw_read at 36272
 DEBUG: Name to find: ini.ini | ini.ini
 DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464CAE20
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464CAE20
 DEBUG: Allocating 200 bytes at 464CAE20 for ini_parse_stream
-DEBUG: raw_read at 36272
+DEBUG: raw_read at 36280
 DEBUG: raw_read at 6176
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34656
-DEBUG: raw_read at 34657
-DEBUG: raw_read at 34658
-DEBUG: raw_read at 34659
-DEBUG: raw_read at 34660
-DEBUG: raw_read at 34661
-DEBUG: raw_read at 34662
-DEBUG: raw_read at 34663
+DEBUG: raw_read at 34664
+DEBUG: raw_read at 34665
+DEBUG: raw_read at 34666
+DEBUG: raw_read at 34667
+DEBUG: raw_read at 34668
+DEBUG: raw_read at 34669
+DEBUG: raw_read at 34670
+DEBUG: raw_read at 34671
 DEBUG: raw_read at 2107
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 464CAE20
@@ -422,14 +495,14 @@ DEBUG: Allocating 256 bytes at 464CAE20 for init
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34656
-DEBUG: raw_read at 34657
-DEBUG: raw_read at 34658
-DEBUG: raw_read at 34659
-DEBUG: raw_read at 34660
-DEBUG: raw_read at 34661
-DEBUG: raw_read at 34662
-DEBUG: raw_read at 34663
+DEBUG: raw_read at 34664
+DEBUG: raw_read at 34665
+DEBUG: raw_read at 34666
+DEBUG: raw_read at 34667
+DEBUG: raw_read at 34668
+DEBUG: raw_read at 34669
+DEBUG: raw_read at 34670
+DEBUG: raw_read at 34671
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory at 464CB620
 DEBUG: Allocating 4 bytes at 464CB620 for fill_program_list
