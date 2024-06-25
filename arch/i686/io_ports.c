@@ -52,9 +52,9 @@ void outportl(uint16 port, uint32 data) {
     asm volatile ("outl %%eax, %%dx" : : "dN" (port), "a" (data));
 }
 void write_to_com1(uint8 data) {
-    #ifndef NO_COM1
+    
     outportb(COM1_PORT, data);
-    #endif
+
 }
 void write_to_com1_string(char *s)
 {

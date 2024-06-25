@@ -1,4 +1,4 @@
-image_name="AthenX-3.img"
+image_name="ahci.img"
 image_size_mb=100  # Set the desired size in megabytes
 
 # Create an empty disk image file

@@ -156,7 +156,7 @@ void map(uint32_t va, uint32_t pa, uint32_t flags) {
 			&& current_directory->pages[page_num]
 					!= kernel_directory.pages[page_num])
 					{
-						
+						printf("I THINK THIS IS BAD\n");
 					}
 		//("WARNING: kernel outdated\n");
 }

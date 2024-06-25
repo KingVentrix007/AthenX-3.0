@@ -127,6 +127,7 @@ RECENT REVISION HISTORY:
 #ifndef STBI_INCLUDE_STB_IMAGE_H
 #define STBI_INCLUDE_STB_IMAGE_H
 #include "io_ports.h"
+#include "stdlib.h"
 // DOCUMENTATION
 //
 // Limitations:
@@ -679,7 +680,7 @@ typedef unsigned char validate_uint32[sizeof(stbi__uint32)==4 ? 1 : -1];
 #endif
 
 #ifndef STBI_MALLOC
-#define STBI_MALLOC(sz)           malloc(sz)
+#define STBI_MALLOC(sz)           malloc_int(sz)
 #define STBI_REALLOC(p,newsz)     realloc(p,newsz)
 #define STBI_FREE(p)              free(p)
 #endif

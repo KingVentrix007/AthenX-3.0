@@ -7,8 +7,9 @@
 void* calloc(size_t num_elements, size_t element_size);
 
 // Declaration for malloc function
-void* malloc(size_t size);
-
+void* malloc_int(size_t size);
+void *malloc_wrap(size_t size,char function[1000]);
+#define malloc(size) malloc_wrap(size, __func__)
 // Declaration for free function
 void *free(void *ptr);
 

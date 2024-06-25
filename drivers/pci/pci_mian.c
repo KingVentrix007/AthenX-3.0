@@ -173,7 +173,7 @@ uint32_t get_ahci_abar()
                 
                 
 
-                printf_com("Memory Address: 0x%08X\n", devs[i].base_address_5);
+                printf("Memory Address: 0x%08X\n", devs[i].base_address_5);
 
                  printf_com("0x%08X\n", devs[i].base_address_4);
                 //  printf_com("0x%08X\n", devs[i].base_address_3);

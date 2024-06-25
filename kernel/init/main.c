@@ -194,7 +194,7 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize ATA drivers
     ata_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
+    init_com1();
     // Initialize FAT file system
     fl_init();
     if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK)
@@ -236,6 +236,7 @@ void init(unsigned long magic, unsigned long addr) {
     // Scan PCI devices
     pci_scan();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    ahci_main();
 
     // Initialize timer
     timer_init();

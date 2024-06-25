@@ -48,7 +48,7 @@
 #include <ext4_inode.h>
 #include <ext4_ialloc.h>
 #include <ext4_mkfs.h>
-
+#include "stdlib.h"
 #include <inttypes.h>
 #include <string.h>
 

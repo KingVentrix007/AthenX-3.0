@@ -8,6 +8,7 @@
 #include "pagepmm.h"
 #include "printf.h"
 #include "vga.h"
+#include "stdlib.h"
 #define PRINT_MODES 1
 // vbe information
 int update_pixel(int x, int y);

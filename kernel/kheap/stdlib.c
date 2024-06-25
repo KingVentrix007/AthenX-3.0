@@ -8,7 +8,7 @@ uint32_t *allocation_ptrs;
 uint32_t allocation_ptrs_count;
 int init_allocation_system()
 {
-    allocation_ptrs = malloc(1024*10);
+    allocation_ptrs = malloc_int(1024*10);
     memset(allocation_ptrs, 0, 1024*2);
     allocation_ptrs_count = 0;
     
@@ -16,7 +16,7 @@ int init_allocation_system()
 }
 void* calloc(size_t num_elements, size_t element_size) {
     size_t total_size = num_elements * element_size;
-    void* ptr = malloc(total_size); // Allocate memory using malloc
+    void* ptr = malloc_int(total_size); // Allocate memory using malloc
 
     if (ptr != NULL) {
         // Initialize allocated memory to zero
@@ -28,7 +28,13 @@ void* calloc(size_t num_elements, size_t element_size) {
     return ptr;
 }
 
-void *malloc(size_t size) {
+void *malloc_wrap(size_t size,char function[1000])
+{
+    void *addr = malloc_int(size);
+    printf_com("Allocating %d bytes at %p for %s\n", size,addr, function);
+    return addr;
+}
+void *malloc_int(size_t size) {
     // Calculate the number of pages needed
     // size_t num_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
 
@@ -73,7 +79,7 @@ void* realloc(void* ptr, size_t new_size) {
     // If ptr is NULL, equivalent to malloc(new_size)
     if (ptr == NULL) {
         LOG_LOCATION;
-        void *ret_ptr = malloc(new_size);
+        void *ret_ptr = malloc_int(new_size);
         if(ret_ptr != NULL)
         {
             LOG_LOCATION;
@@ -95,7 +101,7 @@ void* realloc(void* ptr, size_t new_size) {
     }
     
     // Allocate memory for the new size
-    void* new_ptr = malloc(new_size);
+    void* new_ptr = malloc_int(new_size);
     
     if (new_ptr != NULL) {
         LOG_LOCATION;

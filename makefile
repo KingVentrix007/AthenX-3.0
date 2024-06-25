@@ -66,14 +66,21 @@ run: AthenX.bin
 	
 	bash ./scripts/boot32.sh
 	qemu-system-i386 -drive file=AthenX.img,format=raw \
-  -m 4G -serial file:out.log -serial stdio 
+	-drive id=disk,file=ahci.img,format=raw,if=none \
+	-device ahci,id=ahci \
+	-device ide-hd,drive=disk,bus=ahci.0 \
+	-m 4G \
+	-serial file:out.log \
+	-monitor stdio
+
+
 
 	bash ./scripts/athenxHost.sh
 
-# Run the OS in QEMU without debugging output
+
 runt:
 	qemu-system-i386 -drive file=AthenX.img,format=raw \
-  -m 1G -serial file:out.log -serial stdio 
+  -m 4G -serial file:out.log -serial stdio 
 
 
 libc:

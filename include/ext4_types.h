@@ -49,7 +49,7 @@ extern "C" {
 #include <ext4_config.h>
 #include <ext4_blockdev.h>
 #include <misc/tree.h>
-
+#include "stdlib.h"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -829,7 +829,7 @@ struct jbd_sb {
 
 #else
 
-#define ext4_malloc  malloc
+#define ext4_malloc  malloc_int
 #define ext4_calloc  calloc
 #define ext4_realloc realloc
 #define ext4_free    free
