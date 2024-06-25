@@ -113,24 +113,34 @@ void print_HBA_MEM(const HBA_MEM *mem)
 // Test function to write and read back data
 void test(HBA_PORT *port) {
     // Perform write operation
-    int write_data = 0xDEADBEEF;
-    if (write_to_disk(port, 0, 0, 1, &write_data) != 0) {
+    uint64_t write_data = (uint64_t )malloc(4096);
+    memset((void *)write_data, MAGIC_NUMBER, 4096);
+    // for (size_t i = 0; i < 4096; i++)
+    // {
+    //  write_data[i] = i; write_data = MAGIC_NUMBER;
+    // }
+    
+    if (write_to_disk(port, 0, 0, 1, write_data) != 0) {
         printf("Write failed\n");
         return;
     }
 
     // Perform read operation
-    int read_data;
-    if (read_from_disk(port, 0, 0, 1, &read_data) != 0) {
+    uint64_t *read_data = (uint64_t *)malloc(4096);
+    memset(read_data, 0, 4096);
+    if (read_from_disk(port, 0, 0, 1, read_data) != 0) {
         printf("Read failed\n");
         return;
     }
 
     // Verify data
-    if (read_data == write_data) {
+    if (read_data == MAGIC_NUMBER) {
         printf("Write and read back successful\n");
     } else {
-        printf("Verification failed: Expected %08X, got %s\n", write_data, read_data);
+        printf("read_data == %08X\n\n",*read_data);
+        printf("write_data == %08X\n\n",&write_data);
+
+        // printf("Verification failed: Expected %08X, got %08X\n", write_data, *read_data);
     }
 }
 void group_read(HBA_PORT *port) {
