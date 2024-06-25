@@ -48,7 +48,7 @@ void set_font_fg_color(int color_index) {
             break;
         default:
             // Invalid color index
-            printf("Invalid color index.\n");
+            printf("Invalid color index.(%d)\n",color_index);
             break;
     }
 }

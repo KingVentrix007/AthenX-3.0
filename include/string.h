@@ -40,4 +40,7 @@ unsigned long long strtoull(const char *str, char **endptr, int base);
 bool isalnum(int c);
 size_t strcspn(const char* str, const char* reject);
 char* strdup(const char* str);
+char* formatBytes(uint32_t bytes);
+
+char* formatBytes64(uint64_t bytes);
 #endif

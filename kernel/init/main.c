@@ -35,13 +35,54 @@
 #include "dwarf.h"
 #include <stdio.h>
 #include "ini/ini.h"
+#include "inttypes.h"
 struct BootConfig {
     char version_number[20];
     char program_path[256];
     char bin_path[256];
     char error_log[256];
 };
+void print_ram_size(uint64_t ram_size_kb) {
+    // Determine the color based on RAM size
+    const char *color_code;
+    char *ram_size_str = formatBytes(ram_size_kb*1024);
+    if (ram_size_kb <= 1048576) {
+        // Red (Critical): 1GB or less (since 1 GB = 1024 MB = 1048576 KB)
+        color_code = "\x1b[31m"; // ANSI escape code for red
+        printf("-\tRAM size: ");
+        printf("%s",color_code);
+        printf("%u Kilobytes(", ram_size_kb);
 
+    } else if (ram_size_kb <= 4194304) {
+        // Yellow (Caution): 2GB to 4GB (2048 MB to 4096 MB)
+        color_code = "\x1b[33m"; // ANSI escape code for yellow
+        printf("-\tRAM size: ");
+        printf("%s",color_code);
+        printf("%u Kilobytes(", ram_size_kb);
+        
+
+    } else if (ram_size_kb <= 8388608) {
+        // Green (Good): 4GB to 8GB (4096 MB to 8192 MB)
+        color_code = "\x1b[32m"; // ANSI escape code for green
+        printf("-\tRAM size: ");
+        printf("%s",color_code);
+        printf("%u Kilobytes(", ram_size_kb);
+
+    } else {
+        // Blue (Excellent): More than 8GB (more than 8192 MB)
+        color_code = "\x1b[34m"; // ANSI escape code for blue
+        printf("-\tRAM size: ");
+        printf("%s",color_code);
+        printf("%u Kilobytes(", ram_size_kb);
+
+    }
+    printf("%s+-", ram_size_str);
+    printf(")\n");
+    printf("\033[32m");
+    // char *ram_size_str = formatBytes(ram_size_kb*1024);
+    // Print RAM size with color
+    // printf("%s-\tRAM size: %u Kilobytes\x1b[0m\n", color_code, ram_size_kb);
+}
 
 int fill_program_list(int num_programs,Entry *entries);
 /**
@@ -224,7 +265,7 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
 
     struct BootConfig config;
-    load_boot_config("./init/ini.ini", &config);
+    load_boot_config("/init/ini.ini", &config);
 
     int num_programs;
     int num_program_dirs;
@@ -237,6 +278,7 @@ void init(unsigned long magic, unsigned long addr) {
     } else {
         fill_program_list(num_programs, programs);
     }
+    printf("Loaded %d programs\n", num_programs);
     keyboard_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
@@ -244,8 +286,18 @@ void init(unsigned long magic, unsigned long addr) {
     printf("System Info:\n");
 
     uint64_t ram_size = mboot_info->mem_low + mboot_info->mem_high;
-    printf("-\tRAM size: %u Kilobytes\n", ram_size);
-    printf("-\tAllocation heap size: %u Kilobytes\n", g_kmap.available.size / 1024);
+    // printf("%u bytes",ram_size); //3145215
+    if (ram_size <= 1048063)
+    {
+        printf("ERROR: Inadequate memory. This OS requires more than 1GB of RAM to run.\n");
+        printf("Please increase memory and try again.\n");
+        printf("The system will now hang.\n");
+        for (;;); // Infinite loop to halt the system
+    }
+    // char *ram_size_str = formatBytes64(ram_size);
+    print_ram_size(ram_size);
+    char *allocation_heap = formatBytes(g_kmap.available.size);
+    printf("-\tAllocation heap size: %u Kilobytes (%s)\n", g_kmap.available.size / 1024,allocation_heap);
 
     char cpu_name[49];
     char architecture[5];
@@ -261,8 +313,10 @@ void init(unsigned long magic, unsigned long addr) {
     {
         
     }
-    const char *acpi_status = (acpi == 0) ? "\x1b[32mtrue\x1b[0m":"\x1b[31mFALSE\x1b[0m";
-    printf("-\tACPI enabled: %s\n", acpi_status);
+    // const char *acpi_status = (acpi == 0) ? "\x1b[32mtrue\x1b[0m":"\x1b[31mFALSE\x1b[0m";
+    // printf("-\tACPI enabled: %s\n", acpi_status);
+    const char *acpi_status2 = (acpi == 0) ? "\x1b[34mtrue\x1b[0m" : "\x1b[31mFALSE\x1b[0m";
+    printf("-\tACPI enabled: %s\n", acpi_status2);
 
     printf("\033[0m"); // Reset text formatting and colors
 
@@ -290,7 +344,7 @@ int fill_program_list(int num_programs,Entry *entries)
         printf("\n\n");
         executables_path[i] = (char*)malloc(strlen(entries[i].name));
         strcpy(executables_path[i],entries[i].name);
-        printf("Executable %s found\n",executables_path[i]);
+        
         if (executables_path[i] == NULL) {
             perror("Memory allocation failed");
             return -1;

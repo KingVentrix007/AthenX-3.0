@@ -38,6 +38,11 @@ void *malloc(size_t size) {
     {
         return NULL;
     }
+    else if (ptr == NULL)
+    {
+        return NULL;
+    }
+    
     // Map each page
     allocation_ptrs[allocation_ptrs_count] = ptr;
     allocation_ptrs_count++;

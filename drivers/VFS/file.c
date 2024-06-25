@@ -32,7 +32,7 @@ int init_fs()
     else
     {
         _cwd[0] = '/';
-        _cwd_len = 0;
+        _cwd_len = 1;
         use_cwd = true;
         return 1;
     }
@@ -270,7 +270,7 @@ void *fopen(const char *path,const char *modifiers)
         // }
         // // printf("Path to open == %s\n",path_to_open);
         char* result = process_path(path);
-        printf("Opening file [%s]\n",result);
+        // printf("Opening file [%s]\n",result);
         void * ret = fl_fopen(result,modifiers);
         if(ret != NULL)
         {

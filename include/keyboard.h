@@ -139,4 +139,9 @@ void lock_kb_input(int caller_process_id);
  *   void
  */
 void unlock_kb_input();
+
+
+typedef void (*arrow_callback_t)();
+int register_arrow_callback(int scancode, arrow_callback_t callback);
+void arrow_press(int scancode) ;
 #endif

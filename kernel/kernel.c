@@ -168,12 +168,12 @@ void command_line(void)
     LOG_LOCATION;
     // sleep(3);
     size_t command_buffer_size = 1024;
-    // char **history = (char**)malloc(1024);
-    // if(history == NULL)
-    // {
-    //     perror("Failed to allocate for history buffer");
+    char **history = (char**)malloc(1024);
+    if(history == NULL)
+    {
+        perror("Failed to allocate for history buffer");
 
-    // }
+    }
     size_t cmd_count = 0;
     char *input_buffer = (char *)malloc(command_buffer_size+1);
     // printf("HERE\n");
@@ -202,17 +202,17 @@ void command_line(void)
         {   
             // printf("\n%s",input_buffer);
             cmd(input_buffer);
-            // history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
-            // if(history[cmd_count] == NULL)
-            // {
-            //     perror("Failed to allocate memory for command history\n");
-            // }
-            // else
-            // {
-            // strcpy(history[cmd_count],input_buffer);
-
-            // }
-            // cmd_count++;
+            history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
+            if(history[cmd_count] == NULL)
+            {
+                perror("Failed to allocate memory for command history\n");
+            }
+            else
+            {
+            strcpy(history[cmd_count],input_buffer);
+// 
+            }
+            cmd_count++;
             memset(input_buffer, 0,command_buffer_size);
             printf("\n%s@%s>",user,getcwd());
             

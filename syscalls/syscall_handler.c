@@ -1,4 +1,4 @@
-#include "syscall.h"
+#include "../include/syscall.h"
 #include "printf.h"
 #include "keyboard.h"
 #include "stdio.h"

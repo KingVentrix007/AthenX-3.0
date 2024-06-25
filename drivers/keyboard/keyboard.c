@@ -2,6 +2,8 @@
 #include "stdbool.h"
 #include "isr.h"
 #include "stream.h"
+arrow_callback_t arrow_callbacks[256]; // Array to hold callbacks for scan codes (assuming scan codes are 8-bit)
+
 static bool g_caps_lock = false;
 static bool g_shift_pressed = false;
 char *g_ch = 0, g_scan_code = 0;
@@ -87,17 +89,24 @@ void keyboard_handler(REGISTERS *r) {
                 g_shift_pressed = true;
                 break;
             case 0x48: // Up Arrow
-                scroll_up();
-                g_ch = -1;
+                // scroll_up();
+                arrow_press(SCAN_CODE_KEY_UP);
+                g_ch = -1;//SCAN_CODE_KEY_UP;
                 break;
             case 0x50: // Down Arrow
-                scroll_down();
-                g_ch = -1;
+                // scroll_down();
+                // g_ch = SCAN_CODE_KEY_DOWN;
+                g_ch = -1;//SCAN_CODE_KEY_UP;
+
+                arrow_press(SCAN_CODE_KEY_DOWN);
+
                 break;
             case 0x4D: // Right Arrow
+                arrow_press(SCAN_CODE_KEY_RIGHT);
                 g_ch =  -1;
                 break;
             case 0x4B: // Left Arrow
+                arrow_press(SCAN_CODE_KEY_LEFT);
                 g_ch = -1;
                 break;
             case 0x3B: // F1
@@ -433,8 +442,15 @@ void handle_F11_press(int scancode) {
 void handle_F12_press(int scancode) {
     printf("F12 key pressed. Scancode: %d\n", scancode);
 }
-
-int arrow_press(int scancode)
-{
-
+int register_arrow_callback(int scancode, arrow_callback_t callback) {
+    if (scancode >= 0 && scancode < 256) {
+        arrow_callbacks[scancode] = callback;
+        return 0; // Success
+    }
+    return -1; // Invalid scancode
+}
+void arrow_press(int scancode) {
+    if (scancode >= 0 && scancode < 256 && arrow_callbacks[scancode] != NULL) {
+        arrow_callbacks[scancode]();
+    }
 }

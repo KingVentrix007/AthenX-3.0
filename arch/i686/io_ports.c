@@ -187,7 +187,7 @@ void get_cpu_name(char *cpu_name) {
 void get_cpu_info(char *cpu_name, char *architecture, unsigned int *family,
                   unsigned int *model, unsigned int *stepping) {
     unsigned int eax, ebx, ecx, edx;
-    
+
     // Execute CPUID instruction to get processor brand string
     cpuid(0x80000002, &eax, &ebx, &ecx, &edx);
     // Copy the brand string from each register to the cpu_name buffer
@@ -195,13 +195,13 @@ void get_cpu_info(char *cpu_name, char *architecture, unsigned int *family,
     *(unsigned int*)(cpu_name + 4) = ebx;
     *(unsigned int*)(cpu_name + 8) = ecx;
     *(unsigned int*)(cpu_name + 12) = edx;
-    
+
     cpuid(0x80000003, &eax, &ebx, &ecx, &edx);
     *(unsigned int*)(cpu_name + 16) = eax;
     *(unsigned int*)(cpu_name + 20) = ebx;
     *(unsigned int*)(cpu_name + 24) = ecx;
     *(unsigned int*)(cpu_name + 28) = edx;
-    
+
     cpuid(0x80000004, &eax, &ebx, &ecx, &edx);
     *(unsigned int*)(cpu_name + 32) = eax;
     *(unsigned int*)(cpu_name + 36) = ebx;
@@ -220,7 +220,7 @@ void get_cpu_info(char *cpu_name, char *architecture, unsigned int *family,
     memcpy(signature + 4, &edx, 4);
     memcpy(signature + 8, &ecx, 4);
     signature[12] = '\0';
-    
+
     if (strcmp(signature, "GenuineIntel") == 0) {
         strcpy(architecture, "x86");
     } else if (strcmp(signature, "AuthenticAMD") == 0) {
@@ -228,9 +228,27 @@ void get_cpu_info(char *cpu_name, char *architecture, unsigned int *family,
     } else {
         strcpy(architecture, "Unknown");
     }
-    
+
+    // Execute CPUID instruction with EAX = 1 to get family, model, and stepping
+    cpuid(1, &eax, &ebx, &ecx, &edx);
+
     // Extract family, model, and stepping from eax
-    *stepping = eax & 0x0F;
-    *model = (eax >> 4) & 0x0F;
-    *family = (eax >> 8) & 0x0F;
+    unsigned int base_family = (eax >> 8) & 0xF;
+    unsigned int base_model = (eax >> 4) & 0xF;
+    unsigned int ext_family = (eax >> 20) & 0xFF;
+    unsigned int ext_model = (eax >> 16) & 0xF;
+
+    if (base_family == 0xF) {
+        *family = base_family + ext_family;
+    } else {
+        *family = base_family;
+    }
+
+    if (base_family == 0x6 || base_family == 0xF) {
+        *model = (ext_model << 4) | base_model;
+    } else {
+        *model = base_model;
+    }
+
+    *stepping = eax & 0xF;
 }

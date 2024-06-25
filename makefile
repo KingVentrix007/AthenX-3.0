@@ -73,7 +73,7 @@ run: AthenX.bin
 # Run the OS in QEMU without debugging output
 runt:
 	qemu-system-i386 -drive file=AthenX.img,format=raw \
-  -m 4G -serial file:out.log -serial stdio 
+  -m 1G -serial file:out.log -serial stdio 
 
 
 libc:
