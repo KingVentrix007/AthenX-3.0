@@ -93,7 +93,7 @@ make run
   - [ ] USB keyboard support
 - [ ] HDD/SSD driver
   - [X] ATA/ATAPI driver
-  - [ ] AHCI driver
+  - [X] AHCI driver
   - [ ] USB storage driver
   - [ ] NVME driver
 - [ ] File system support
