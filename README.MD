@@ -83,7 +83,16 @@ export PATH=$PATH:/your/new/path
 ```bash
 make run
 ```
+## More Commands
 
+1. Run the OS without recompiling or remaking the disk image. Usefull for testing disk drivers and file operations
+    ```bash
+    make run-no-compile
+    ```
+2. Make a new fat32 disk image
+    ```bash .
+    bash /scripts/fat32.sh <image_name> <image_size_mb>
+    ```
 ## Roadmap
 
 - [X] Boot with Grub

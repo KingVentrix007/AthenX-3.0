@@ -65,8 +65,8 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 run: AthenX.bin
 	
 	bash ./scripts/boot32.sh
-	qemu-system-i386 -drive file=AthenX.img,format=raw \
-	-drive id=disk,file=ahci.img,format=raw,if=none \
+	qemu-system-i386 \
+	-drive id=disk,file=AthenX.img,format=raw,if=none \
 	-device ahci,id=ahci \
 	-device ide-hd,drive=disk,bus=ahci.0 \
 	-m 4G \
@@ -78,8 +78,7 @@ run: AthenX.bin
 	bash ./scripts/athenxHost.sh
 
 
-runt: AthenX.bin
-	bash ./scripts/boot32.sh
+run-no-compile:
 	qemu-system-i386 \
 	-drive id=disk,file=AthenX.img,format=raw,if=none \
 	-device ahci,id=ahci \

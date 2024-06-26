@@ -3,24 +3,8 @@ DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeHello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Wednesday June 26 12:47:7 2024
-DEBUG: Wednesday June 26 12:47:7 2024
-DEBUG: called video interrupt
-DEBUG: Address 0x7E22
-DEBUG: ax = 0x4F
-
-DEBUG: Checked All modesDEBUG: Find modes for vbe
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: IRQ 32 registered
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeStarting kernel
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeHello World!
-DEBUG: initializing vesa vbe 2.0
-DEBUG: Calling BIOS interrupt
-DEBUG: Wednesday June 26 12:47:8 2024
-DEBUG: Wednesday June 26 12:47:8 2024
+DEBUG: Wednesday June 26 13:12:1 2024
+DEBUG: Wednesday June 26 13:12:1 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -67,7 +51,7 @@ DEBUG: enabled acpi.
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi C == 1
 DEBUG: Multi D == 1
 Current Date and Time:
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeWednesday June 26 12:47:8 2024
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeWednesday June 26 13:12:1 2024
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too large   DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi B == 1
 DEBUG: Multi A == 1
 Booting AthenX-3.0
@@ -262,12 +246,10 @@ DEBUG: Allocating 4351 bytes at 41CE9220 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEA000 for Command table(253)
 DEBUG: AHCI :: Command Table buffer allocated at 41CEA000
 DEBUG: AHCI :: port->clb == 41CC0000
-AHCI :: Failed to start command engine for port 0
+Done Rebasing port 0
 DEBUG: AHCI :: AHCI debug logs end here
 ----------------------------------------------------------------
 Initialize FAT file system
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
 DEBUG: kernel/init/main.c:238 -->init
 DEBUG: kernel/init/main.c:240 -->init
 DEBUG: IRQ 32 registered
@@ -284,43 +266,21 @@ DEBUG: kernel/init/main.c:270 -->init
 DEBUG: Allocating 113 bytes at 464EAA20 for fopen
 DEBUG: Allocating 14 bytes at 464EAE20 for process_path
 DEBUG: Allocating 15 bytes at 464EB220 for fl_fopen
-ahci_read_sector_fat == 1
 DEBUG: Name to find: init | boot
 DEBUG: Name to find: init | grub
 DEBUG: Name to find: init | bin
 DEBUG: Name to find: init | img
 DEBUG: Name to find: init | init
-ahci_read_sector_fat == 1
 DEBUG: Name to find: ini.ini | ini.ini
 DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464EAE20
 DEBUG: Allocating 200 bytes at 464EAE20 for ini_parse_stream
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
 DEBUG: Allocating 256 bytes at 464EAE20 for init
-ahci_read_sector_fat == 1
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
-ahci_read_sector_fat == 1
 DEBUG: Allocating 4 bytes at 464EB620 for fill_program_list
 
 
@@ -350,5 +310,4 @@ DEBUG: Allocating 1024 bytes at 464EC620 for command_line
 DEBUG: Allocating 1025 bytes at 464ECA20 for command_line
 DEBUG: Allocating 1024 bytes at 464ED220 for command_line
 
-Dev@/hci_read_sector_fat == 1
->
+Dev@/>

@@ -948,7 +948,7 @@ int printf(const char *format, ...) {
     va_list args; // Variable argument list
     va_start(args, format); // Initialize the variable argument list
     int len = 0;
-    char *buffer = malloc(strlen(format)*100); // Buffer to hold the formatted string
+    char *buffer = malloc(strlen(format)*1024); // Buffer to hold the formatted string
     if(buffer == NULL)
     {
       char buf[1024];
@@ -970,6 +970,7 @@ int printf(const char *format, ...) {
     va_end(args); // Clean up the variable argument list
     if(buffer != NULL)
     {
+    memset(buffer, 0, strlen(buffer));
     free(buffer); // Free the buffer
 
     }

@@ -58,13 +58,13 @@ int ahci_read_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t cou
 int ahci_write_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
 	int ret =  ahci_write_sector(port, sector, buffer,sector_count);
-	printf("%s == %d\n",__func__,ret);
+	// printf("%s == %d\n",__func__,ret);
 	return ret;
 }
 int ahci_read_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
 	int ret = ahci_read_sector(port, sector, buffer, sector_count);
-	printf("%s == %d\n",__func__,ret);
+	// printf("%s == %d\n",__func__,ret);
 	return ret;
 }
 uint32_t ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
@@ -263,10 +263,10 @@ void port_rebase(HBA_PORT *port, int portno)
 
     // Start command engine and check status
     start_cmd(port);
-    if (port->cmd & HBA_PxCMD_CR) {
-        printf("AHCI :: Failed to start command engine for port %d\n", portno);
-        return;
-    }
+    // if (port->cmd & HBA_PxCMD_CR) {
+    //     // printf("AHCI :: Failed to start command engine for port %d\n", portno);
+    //     return;
+    // }
 
     printf("Done Rebasing port %d\n", portno);
 }
