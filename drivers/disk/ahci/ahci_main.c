@@ -117,11 +117,12 @@ int ahci_main()
     reset_ahci_controller(abar); //Reset controller
 
     int irq = dev->interrupt_line;
-    isr_register_interrupt_handler(irq, ahci_isr); //Register IRQ handler, using interrupt line given in the PCI register. This interrupt line may be shared with other devices, so the usual implications of this apply.
+    isr_register_interrupt_handler(IRQ_BASE+irq, ahci_isr); //Register IRQ handler, using interrupt line given in the PCI register. This interrupt line may be shared with other devices, so the usual implications of this apply.
 
     enable_ahci_mode_and_interrupts(abar); //Enable AHCI mode and interrupts in global host control register.
 
     probe_port(abar); // Scan all ports
+    // printf("Successfully initialized AHCI controller\n");
     printf_com("AHCI :: AHCI debug logs end here\n----------------------------------------------------------------\n");
 
 
@@ -136,11 +137,11 @@ void probe_port(HBA_MEM *abar)
 	{
 		if (pi & 1)
 		{
-            printf("\nScanning ports\n");
+            // printf("\nScanning ports\n");
 			int dt = check_type(&abar->ports[i]);
 			if (dt == AHCI_DEV_SATA)
 			{
-				printf("SATA drive found at port %d\n", i);
+				// printf("SATA drive found at port %d\n", i);
                 port_rebase(&abar->ports[i],i);
 				uint32_t start_sector = 0; // Starting LBA
 				uint32_t num_sectors = 32; // Number of sectors to read
@@ -230,7 +231,7 @@ void port_rebase(HBA_PORT *port, int portno)
         printf("AHCI :: Failed to verify Command List buffer for port %d. Expected %x, got %x\n", portno, test_value, read_back);
         return;
     } else {
-        printf("AHCI :: Successfully verified Command List buffer for port %d. Value: %x\n", portno, read_back);
+        // printf("AHCI :: Successfully verified Command List buffer for port %d. Value: %x\n", portno, read_back);
     }
     memset((void*)(port->clb), 0, 1024);
 
@@ -268,7 +269,7 @@ void port_rebase(HBA_PORT *port, int portno)
     //     return;
     // }
 
-    printf("Done Rebasing port %d\n", portno);
+    // printf("Done Rebasing port %d\n", portno);
 }
 
 // Start command engine

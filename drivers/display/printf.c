@@ -983,6 +983,7 @@ void set_color(int color_code) {
 }
 // Function to handle ANSI escape sequences
 void handle_ansi(const char *fmt) {
+
     // Ensure fmt is not NULL
     if (fmt == NULL) {
         return;
@@ -1119,9 +1120,11 @@ void handle_ansi(const char *fmt) {
 
     // If foreground or background color values are valid, set the colors
     if (foreground_color != -1) {
+      printf_com("Setting foreground color %d\n", foreground_color);
         set_color(foreground_color);
     }
     if (background_color != -1) {
+        printf_com("Setting background color %d\n", background_color);
         set_font_bg_color(background_color);
     }
 }

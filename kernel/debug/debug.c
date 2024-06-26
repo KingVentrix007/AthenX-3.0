@@ -18,9 +18,9 @@ void print_kernel_memory_map(KERNEL_MEMORY_MAP *memory_map) {
     printf("  BSS End Address: 0x%x\n", memory_map->kernel.bss_end_addr);
     printf("  BSS Length: %u\n", memory_map->kernel.bss_len);
     printf("System:\n");
-    printf("  Total Memory: %u\n", memory_map->system.total_memory);
+    printf("  Total Memory: %u bytes\n", memory_map->system.total_memory*1024);
     printf("Available:\n");
     printf("  Start Address: 0x%x\n", memory_map->available.start_addr);
     printf("  End Address: 0x%x\n", memory_map->available.end_addr);
-    printf("  Size: %u\n", memory_map->available.size);
+    printf("  Size: %u bytes\n", memory_map->available.size);
 }

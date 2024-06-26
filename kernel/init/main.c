@@ -166,16 +166,16 @@ void init(unsigned long magic, unsigned long addr) {
     printf("Version: %s - %d.%d.%d\n", VERSION_STRING, VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
     printf("Compile version %d\n", VERSION_COMPILE);
     printf("Please stand by\n");
-    printf("Booting: ");
+    printf("Booting: \n");
     int draw_x = get_terminal_postion_x();
     int draw_y = get_terminal_postion_y();
     set_terminal_postion_x(draw_x + 120); // Adjust position for loading bar
 
     // Display loading bar
-    int total_steps = 10;
+    int total_steps = 11;
     int current_step = 1;
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
+    // printf("\n\nLoading multiboot info\n");
     MULTIBOOT_INFO *mboot_info;
     if (magic == MULTIBOOT_BOOTLOADER_MAGIC) {
         // Cast addr to MULTIBOOT_INFO pointer
@@ -191,15 +191,14 @@ void init(unsigned long magic, unsigned long addr) {
         }
         // Calculate allocation size for memory
     }
-
-    // Initialize ATA drivers
-    ata_init();
-    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    
+    // printf("Initializing com port 1\n");
     init_com1();
     
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize Scheduler
+    // printf("Initializing scheduler\n");
     InitScheduler();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
@@ -207,9 +206,10 @@ void init(unsigned long magic, unsigned long addr) {
     size_t size = (g_kmap.available.size / 2) + 10;
     uint32_t pmm_start = (uint32_t)g_kmap.available.start_addr;
     asm("cli");
+    // printf("Initiating physical memory manager\n");
     init_pmm_page(pmm_start, g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
+    // printf("Initializing Virtual Memory Manager\n");
     // Initialize Virtual Memory Manager
     init_vmm();
     LOG_LOCATION;
@@ -222,13 +222,17 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
 
     // Initialize kernel heap
+    // printf("Initializing kernel heap\n");
     init_kheap(g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    // printf("Scanning PCI\n");
     pci_scan();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    // printf("Attempting to initialize AHCI driver\n");
     ahci_main();
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // Initialize FAT file system
-    printf("Initialize FAT file system\n");
+    // printf("Initialize FAT file system\n");
     fl_init();
     if (fl_attach_media(ahci_read_sector_fat, ahci_write_sector_fat) != FAT_INIT_OK)
     {
@@ -238,11 +242,11 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
     init_fs();
     LOG_LOCATION;
-
-    // Scan PCI devices
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     
 
     // Initialize timer
+    // printf("Initializing timer\n");
     timer_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 

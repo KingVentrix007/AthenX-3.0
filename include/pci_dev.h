@@ -2,6 +2,7 @@
 #define PCI_STRUCT_H
 #include "stdint.h"
 #include "stdbool.h"
+#include "ahci.h"
 #define DRIVER_STRUCT_SIZE 365
 //class codes
 #define PCI_CLASS_UNCLASSIFIED       0x00
@@ -65,6 +66,25 @@ typedef struct {
     uint32_t reserved;              // Reserved
     uint32_t capabilities_pointer;  // Capabilities Pointer
 } pci_config_register;
+
+typedef enum
+{
+    IDE = 1,
+    AHCI
+
+
+}storage_type;
+typedef int (*storage_medium_read) (uint32 sector, uint8 *buffer, uint32 sector_count);
+typedef int (*storage_medium_write)(uint32 sector, uint8 *buffer, uint32 sector_count);
+typedef struct
+{
+    int set;
+    storage_medium_read read_func;
+    storage_medium_write write_func;
+    pci_config_register dev;
+    HBA_PORT ahci_port;
+}pci_storage_device;
+
 
 typedef struct _pci_device
 {
