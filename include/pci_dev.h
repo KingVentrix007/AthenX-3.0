@@ -33,6 +33,9 @@
  * Description: Represents the PCI configuration space registers.
  */
 typedef struct {
+    uint8_t bus;
+    uint8_t slot;
+    uint8_t func;
     uint16_t device_id;             // Device ID
     uint16_t vendor_id;             // Vendor ID
     uint16_t status;                // Status

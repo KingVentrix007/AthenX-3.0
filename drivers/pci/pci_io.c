@@ -1,6 +1,35 @@
 #include "stdint-gcc.h"
 #include "pci_dev.h"
 #include "io_ports.h"
+uint16_t pci_config_read_word(uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset) ;
+void enable_bus_mastering(uint8_t bus, uint8_t slot, uint8_t func) {
+    pci_config_register device;
+
+    // Read the current PCI configuration registers
+    // found_device(bus, slot, func, &device);
+
+    // Enable bus mastering by setting the second bit (bit 2) in the command register
+    uint16_t command = pci_config_read_word(bus, slot, func, 0x06);
+    command |= (1 << 2);  // Set bit 2
+
+    // Write back the modified command register value
+    pci_write(bus, slot, func, 0x06, command);
+}
+void init_achi_pci(uint8_t bus, uint8_t slot, uint8_t func) {
+    pci_config_register device;
+
+    // Read the current PCI configuration registers
+    // found_device(bus, slot, func, &device);
+
+    // Enable interrupts (bit 10), DMA (bit 8), and memory space access (bit 1)
+    uint16_t command = pci_config_read_word(bus, slot, func, 0x06);
+    command |= (1 << 10);  // Set bit 10 for interrupts
+    command |= (1 << 8);   // Set bit 8 for DMA
+    command |= (1 << 1);   // Set bit 1 for memory space access
+
+    // Write back the modified command register value
+    pci_write(bus, slot, func, 0x06, command);
+}
 uint16_t pci_config_read_word(uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset) {
     uint32_t address;
     uint32_t lbus  = (uint32_t)bus;
@@ -51,6 +80,10 @@ void pci_write(uint8_t bus, uint8_t device, uint8_t function, uint8_t offset, ui
 
 void found_device(uint8_t bus, uint8_t slot, uint8_t func, pci_config_register *device) {
     // Fill each field in the pci_config_register struct using pci_config_read_word function
+    // enable_bus_mastering(bus,slot,func);
+    device->bus = bus;
+    device->func = func;
+    device->slot = slot;
     device->device_id = pci_config_read_word(bus, slot, func, 0x00);
     device->vendor_id = pci_config_read_word(bus, slot, func, 0x02);
     device->status = pci_config_read_word(bus, slot, func, 0x04);

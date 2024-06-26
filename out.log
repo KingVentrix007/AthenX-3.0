@@ -1,49 +1,12 @@
-DEBUG: DRQ 32 registered
+DEBUG: IRQ 32 registered
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 2300 bytes at 00000000 for printf
 Starting kernel
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 1700 bytes at 00000000 for printf
 Hello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Tuesday June 25 17:50:46 2024
-DEBUG: Tuesday June 25 17:50:46 2024
-DEBUG: called video interrupt
-DEBUG: Address 0x7E22
-DEBUG: ax = 0x4F
-
-DEBUG: Checked All modesDEBUG: Find modes for vbe
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: Checking modes
-DEBUG: DRQ 32 registered
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 2300 bytes at 00000000 for printf
-Starting kernel
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 1700 bytes at 00000000 for printf
-Hello World!
-DEBUG: initializing vesa vbe 2.0
-DEBUG: Calling BIOS interrupt
-DEBUG: Tuesday June 25 17:50:48 2024
-DEBUG: Tuesday June 25 17:50:48 2024
+DEBUG: Wednesday June 26 6:21:52 2024
+DEBUG: Wednesday June 26 6:21:52 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -92,7 +55,7 @@ DEBUG: Multi C == 1
 DEBUG: Multi D == 1
 Current Date and Time:
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 2100 bytes at 00000000 for printf
-Tuesday June 25 17:50:48 2024
+Wednesday June 26 6:21:52 2024
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 400 bytes at 00000000 for printf
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 300 bytes at 00000000 for printf
    DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Allocating 2400 bytes at 00000000 for printf
@@ -195,458 +158,1134 @@ DEBUG: Display Controller
 DEBUG: Network Controller
 DEBUG: Mass Storage Controller
 DEBUG: AHCI Controller found
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2300 bytes of memory at 41CC0220
-DEBUG: Allocating 2300 bytes at 41CC0220 for printf
-Memory Address: 0xFEBB1000
+DEBUG: Memory Address: 0xFEBB1000
 DEBUG: 0x0000C041
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1000 bytes of memory at 41CC0220
-DEBUG: Allocating 1000 bytes at 41CC0220 for printf
-IRQ == 43
-DEBUG: DRQ 43 registered
-DEBUG: Mapping abar to FEBB1000
-DEBUG: les goo
-DEBUG: cap: 0xC0141F05
-DEBUG: ghc: 0x80000000
-DEBUG: is: 0x00000000
-DEBUG: pi: 0x0000003F
-DEBUG: vs: 0x00010000
-DEBUG: ccc_pts: 0x00000000
-DEBUG: em_loc: 0x00000000
-DEBUG: em_ctl: 0x00000000
-DEBUG: cap2: 0x00000000
-DEBUG: bohc: 0x00000000
+DEBUG: IRQ 11 registered
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1600 bytes of memory at 41CC0220
+DEBUG: Allocating 1600 bytes at 41CC0220 for printf
+
+Scanning ports
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2800 bytes of memory at 41CC0220
 DEBUG: Allocating 2800 bytes at 41CC0220 for printf
 SATA drive found at port 0
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1024 bytes of memory at 41CC0220
-DEBUG: Allocating 1024 bytes at 41CC0220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC0220 to 41CC0220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC0620
-DEBUG: Allocating 256 bytes at 41CC0620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC0620 to 41CC0620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC0A20
-DEBUG: Allocating 256 bytes at 41CC0A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC0A20 to 41CC0A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC0E20
-DEBUG: Allocating 256 bytes at 41CC0E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC0E20 to 41CC0E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC1220
-DEBUG: Allocating 256 bytes at 41CC1220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC1220 to 41CC1220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC1620
-DEBUG: Allocating 256 bytes at 41CC1620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC1620 to 41CC1620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC1A20
-DEBUG: Allocating 256 bytes at 41CC1A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC1A20 to 41CC1A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC1E20
-DEBUG: Allocating 256 bytes at 41CC1E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC1E20 to 41CC1E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC2220
-DEBUG: Allocating 256 bytes at 41CC2220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC2220 to 41CC2220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC2620
-DEBUG: Allocating 256 bytes at 41CC2620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC2620 to 41CC2620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC2A20
-DEBUG: Allocating 256 bytes at 41CC2A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC2A20 to 41CC2A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC2E20
-DEBUG: Allocating 256 bytes at 41CC2E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC2E20 to 41CC2E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC3220
-DEBUG: Allocating 256 bytes at 41CC3220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC3220 to 41CC3220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC3620
-DEBUG: Allocating 256 bytes at 41CC3620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC3620 to 41CC3620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC3A20
-DEBUG: Allocating 256 bytes at 41CC3A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC3A20 to 41CC3A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC3E20
-DEBUG: Allocating 256 bytes at 41CC3E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC3E20 to 41CC3E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC4220
-DEBUG: Allocating 256 bytes at 41CC4220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC4220 to 41CC4220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC4620
-DEBUG: Allocating 256 bytes at 41CC4620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC4620 to 41CC4620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC4A20
-DEBUG: Allocating 256 bytes at 41CC4A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC4A20 to 41CC4A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC4E20
-DEBUG: Allocating 256 bytes at 41CC4E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC4E20 to 41CC4E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC5220
-DEBUG: Allocating 256 bytes at 41CC5220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC5220 to 41CC5220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC5620
-DEBUG: Allocating 256 bytes at 41CC5620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC5620 to 41CC5620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC5A20
-DEBUG: Allocating 256 bytes at 41CC5A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC5A20 to 41CC5A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC5E20
-DEBUG: Allocating 256 bytes at 41CC5E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC5E20 to 41CC5E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC6220
-DEBUG: Allocating 256 bytes at 41CC6220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC6220 to 41CC6220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC6620
-DEBUG: Allocating 256 bytes at 41CC6620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC6620 to 41CC6620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC6A20
-DEBUG: Allocating 256 bytes at 41CC6A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC6A20 to 41CC6A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC6E20
-DEBUG: Allocating 256 bytes at 41CC6E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC6E20 to 41CC6E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC7220
-DEBUG: Allocating 256 bytes at 41CC7220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC7220 to 41CC7220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC7620
-DEBUG: Allocating 256 bytes at 41CC7620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC7620 to 41CC7620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC7A20
-DEBUG: Allocating 256 bytes at 41CC7A20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC7A20 to 41CC7A20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC7E20
-DEBUG: Allocating 256 bytes at 41CC7E20 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC7E20 to 41CC7E20
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC8220
-DEBUG: Allocating 256 bytes at 41CC8220 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC8220 to 41CC8220
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 41CC8620
-DEBUG: Allocating 256 bytes at 41CC8620 for allocate_and_map_memory
-DEBUG: allocate_and_map_memory = Mapping 41CC8620 to 41CC8620
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2400 bytes of memory at 41CC8A20
-DEBUG: Allocating 2400 bytes at 41CC8A20 for printf
-Starting command engine
-DEBUG: clb: 0x41CC0220
-DEBUG: clbu: 0x00000000
-DEBUG: fb: 0x41CC0620
-DEBUG: fbu: 0x00000000
-DEBUG: is: 0x00000001
-DEBUG: ie: 0x00000000
-DEBUG: cmd: 0x0000C017
-DEBUG: rsv0: 0x00000000
-DEBUG: tfd: 0x00000130
-DEBUG: sig: 0x00000101
-DEBUG: ssts: 0x00000113
-DEBUG: sctl: 0x00000000
-DEBUG: serr: 0x00000000
-DEBUG: sact: 0x00000000
-DEBUG: ci: 0x00000000
-DEBUG: sntf: 0x00000000
-DEBUG: fbs: 0x00000000
-DEBUG: rsv1[0]: 0x00000000
-DEBUG: rsv1[1]: 0x00000000
-DEBUG: rsv1[2]: 0x00000000
-DEBUG: rsv1[3]: 0x00000000
-DEBUG: rsv1[4]: 0x00000000
-DEBUG: rsv1[5]: 0x00000000
-DEBUG: rsv1[6]: 0x00000000
-DEBUG: rsv1[7]: 0x00000000
-DEBUG: rsv1[8]: 0x00000000
-DEBUG: rsv1[9]: 0x00000000
-DEBUG: rsv1[10]: 0x00000000
-DEBUG: vendor[0]: 0x00000000
-DEBUG: vendor[1]: 0x00000000
-DEBUG: vendor[2]: 0x00000000
-DEBUG: vendor[3]: 0x00000000
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4096 bytes of memory at 41CC8A20
-DEBUG: Allocating 4096 bytes at 41CC8A20 for test
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4096 bytes of memory at 41CC9A20
-DEBUG: Allocating 4096 bytes at 41CC9A20 for test
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1900 bytes of memory at 41CCAA20
-DEBUG: Allocating 1900 bytes at 41CCAA20 for printf
-read_data == 00000000
-
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2000 bytes of memory at 41CCAA20
-DEBUG: Allocating 2000 bytes at 41CCAA20 for printf
-write_data == 001A4154
-
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1800 bytes of memory at 41CCAA20
-DEBUG: Allocating 1800 bytes at 41CCAA20 for printf
-
-read_buf == [32]
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2047 bytes of memory at 41CC0220
+DEBUG: Allocating 2047 bytes at 41CC0220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC0A20
+DEBUG: Allocating 511 bytes at 41CC0A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC0E20
+DEBUG: Allocating 511 bytes at 41CC0E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC1220
+DEBUG: Allocating 511 bytes at 41CC1220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC1620
+DEBUG: Allocating 511 bytes at 41CC1620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC1A20
+DEBUG: Allocating 511 bytes at 41CC1A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC1E20
+DEBUG: Allocating 511 bytes at 41CC1E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC2220
+DEBUG: Allocating 511 bytes at 41CC2220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC2620
+DEBUG: Allocating 511 bytes at 41CC2620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC2A20
+DEBUG: Allocating 511 bytes at 41CC2A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC2E20
+DEBUG: Allocating 511 bytes at 41CC2E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC3220
+DEBUG: Allocating 511 bytes at 41CC3220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC3620
+DEBUG: Allocating 511 bytes at 41CC3620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC3A20
+DEBUG: Allocating 511 bytes at 41CC3A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC3E20
+DEBUG: Allocating 511 bytes at 41CC3E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC4220
+DEBUG: Allocating 511 bytes at 41CC4220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC4620
+DEBUG: Allocating 511 bytes at 41CC4620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC4A20
+DEBUG: Allocating 511 bytes at 41CC4A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC4E20
+DEBUG: Allocating 511 bytes at 41CC4E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC5220
+DEBUG: Allocating 511 bytes at 41CC5220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC5620
+DEBUG: Allocating 511 bytes at 41CC5620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC5A20
+DEBUG: Allocating 511 bytes at 41CC5A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC5E20
+DEBUG: Allocating 511 bytes at 41CC5E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC6220
+DEBUG: Allocating 511 bytes at 41CC6220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC6620
+DEBUG: Allocating 511 bytes at 41CC6620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC6A20
+DEBUG: Allocating 511 bytes at 41CC6A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC6E20
+DEBUG: Allocating 511 bytes at 41CC6E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC7220
+DEBUG: Allocating 511 bytes at 41CC7220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC7620
+DEBUG: Allocating 511 bytes at 41CC7620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC7A20
+DEBUG: Allocating 511 bytes at 41CC7A20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC7E20
+DEBUG: Allocating 511 bytes at 41CC7E20 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC8220
+DEBUG: Allocating 511 bytes at 41CC8220 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC8620
+DEBUG: Allocating 511 bytes at 41CC8620 for ahci_malloc
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 511 bytes of memory at 41CC8A20
+DEBUG: Allocating 511 bytes at 41CC8A20 for ahci_malloc
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2600 bytes of memory at 41CCAA20
-DEBUG: Allocating 2600 bytes at 41CCAA20 for printf
-No drive found at port 1
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2600 bytes of memory at 41CCAA20
-DEBUG: Allocating 2600 bytes at 41CCAA20 for printf
-No drive found at port 2
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2600 bytes of memory at 41CCAA20
-DEBUG: Allocating 2600 bytes at 41CCAA20 for printf
-No drive found at port 3
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2600 bytes of memory at 41CCAA20
-DEBUG: Allocating 2600 bytes at 41CCAA20 for printf
-No drive found at port 4
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2600 bytes of memory at 41CCAA20
-DEBUG: Allocating 2600 bytes at 41CCAA20 for printf
-No drive found at port 5
-DEBUG: DRQ 32 registered
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2200 bytes of memory at 41CC8E20
+DEBUG: Allocating 2200 bytes at 41CC8E20 for printf
+Done Rebasing port 0
+DEBUG: IRQ 32 registered
 DEBUG: kernel/init/main.c:245 -->init
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 24576 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 25165824 bytes of memory at 41CCAA20
-DEBUG: Allocating 25165824 bytes at 41CCAA20 for vesa_init_buffers
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 25165824 bytes of memory at 41CC8E20
+DEBUG: Allocating 25165824 bytes at 41CC8E20 for vesa_init_buffers
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 24576 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 25165824 bytes of memory at 434CAA20
-DEBUG: Allocating 25165824 bytes at 434CAA20 for vesa_init_buffers
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 25165824 bytes of memory at 434C8E20
+DEBUG: Allocating 25165824 bytes at 434C8E20 for vesa_init_buffers
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 24576 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 25165824 bytes of memory at 44CCAA20
-DEBUG: Allocating 25165824 bytes at 44CCAA20 for vesa_init_buffers
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 25165824 bytes of memory at 44CC8E20
+DEBUG: Allocating 25165824 bytes at 44CC8E20 for vesa_init_buffers
 DEBUG: 0
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1048576 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1073741824 bytes of memory at 464CAA20
-DEBUG: Allocating 1073741824 bytes at 464CAA20 for init
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1073741824 bytes of memory at 464C8E20
+DEBUG: Allocating 1073741824 bytes at 464C8E20 for init
 [1;32mSuccessfully allocated memory of 1GB
 DEBUG: [1;32mSuccessfully allocated memory of 1GB
 DEBUG: kernel/init/main.c:255 -->init
 DEBUG: kernel/init/main.c:266 -->init
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 113 bytes of memory at 464CAA20
-DEBUG: Allocating 113 bytes at 464CAA20 for fopen
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 113 bytes of memory at 464C8E20
+DEBUG: Allocating 113 bytes at 464C8E20 for fopen
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 14 bytes of memory at 464CAE20
-DEBUG: Allocating 14 bytes at 464CAE20 for process_path
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 14 bytes of memory at 464C9220
+DEBUG: Allocating 14 bytes at 464C9220 for process_path
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 15 bytes of memory at 464CB220
-DEBUG: Allocating 15 bytes at 464CB220 for fl_fopen
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 15 bytes of memory at 464C9620
+DEBUG: Allocating 15 bytes at 464C9620 for fl_fopen
 DEBUG: raw_read at 6176
 DEBUG: Name to find: init | boot
 DEBUG: Name to find: init | grub
 DEBUG: Name to find: init | bin
 DEBUG: Name to find: init | img
 DEBUG: Name to find: init | init
-DEBUG: raw_read at 36272
+DEBUG: raw_read at 36264
 DEBUG: Name to find: ini.ini | ini.ini
-DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464CAE20
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464C9220
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464CAE20
-DEBUG: Allocating 200 bytes at 464CAE20 for ini_parse_stream
-DEBUG: raw_read at 36280
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464C9220
+DEBUG: Allocating 200 bytes at 464C9220 for ini_parse_stream
+DEBUG: raw_read at 36272
 DEBUG: raw_read at 6176
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34664
-DEBUG: raw_read at 34665
-DEBUG: raw_read at 34666
-DEBUG: raw_read at 34667
-DEBUG: raw_read at 34668
-DEBUG: raw_read at 34669
-DEBUG: raw_read at 34670
-DEBUG: raw_read at 34671
+DEBUG: raw_read at 34656
+DEBUG: raw_read at 34657
+DEBUG: raw_read at 34658
+DEBUG: raw_read at 34659
+DEBUG: raw_read at 34660
+DEBUG: raw_read at 34661
+DEBUG: raw_read at 34662
+DEBUG: raw_read at 34663
 DEBUG: raw_read at 2107
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 464CAE20
-DEBUG: Allocating 256 bytes at 464CAE20 for init
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 256 bytes of memory at 464C9220
+DEBUG: Allocating 256 bytes at 464C9220 for init
 DEBUG: raw_read at 6176
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34664
-DEBUG: raw_read at 34665
-DEBUG: raw_read at 34666
-DEBUG: raw_read at 34667
-DEBUG: raw_read at 34668
-DEBUG: raw_read at 34669
-DEBUG: raw_read at 34670
-DEBUG: raw_read at 34671
+DEBUG: raw_read at 34656
+DEBUG: raw_read at 34657
+DEBUG: raw_read at 34658
+DEBUG: raw_read at 34659
+DEBUG: raw_read at 34660
+DEBUG: raw_read at 34661
+DEBUG: raw_read at 34662
+DEBUG: raw_read at 34663
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory at 464CB620
-DEBUG: Allocating 4 bytes at 464CB620 for fill_program_list
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4 bytes of memory at 464C9A20
+DEBUG: Allocating 4 bytes at 464C9A20 for fill_program_list
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464CBA20
-DEBUG: Allocating 200 bytes at 464CBA20 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464C9E20
+DEBUG: Allocating 200 bytes at 464C9E20 for printf
 
 
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 8 bytes of memory at 464CBA20
-DEBUG: Allocating 8 bytes at 464CBA20 for fill_program_list
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 8 bytes of memory at 464C9E20
+DEBUG: Allocating 8 bytes at 464C9E20 for fill_program_list
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1900 bytes of memory at 464CBE20
-DEBUG: Allocating 1900 bytes at 464CBE20 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1900 bytes of memory at 464CA220
+DEBUG: Allocating 1900 bytes at 464CA220 for printf
 Loaded 1 programs
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2048 bytes of memory at 464CBE20
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2048 bytes of memory at 464CA220
 DEBUG: registering keyboard
-DEBUG: DRQ 33 registered
+DEBUG: IRQ 33 registered
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3800 bytes of memory at 464CC620
-DEBUG: Allocating 3800 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3800 bytes of memory at 464CAA20
+DEBUG: Allocating 3800 bytes at 464CAA20 for printf
 System Initialization Complete
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1300 bytes of memory at 464CC620
-DEBUG: Allocating 1300 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1300 bytes of memory at 464CAA20
+DEBUG: Allocating 1300 bytes at 464CAA20 for printf
 System Info:
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1200 bytes of memory at 464CC620
-DEBUG: Allocating 1200 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1200 bytes of memory at 464CAA20
+DEBUG: Allocating 1200 bytes at 464CAA20 for printf
 -	RAM size: DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464CC620
-DEBUG: Allocating 200 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464CAA20
+DEBUG: Allocating 200 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1300 bytes of memory at 464CC620
-DEBUG: Allocating 1300 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1300 bytes of memory at 464CAA20
+DEBUG: Allocating 1300 bytes at 464CAA20 for printf
 3145211 Kilobytes(DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory at 464CC620
-DEBUG: Allocating 400 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory at 464CAA20
+DEBUG: Allocating 400 bytes at 464CAA20 for printf
 3.00 GB+-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464CC620
-DEBUG: Allocating 200 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 200 bytes of memory at 464CAA20
+DEBUG: Allocating 200 bytes at 464CAA20 for printf
 )
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 500 bytes of memory at 464CC620
-DEBUG: Allocating 500 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 500 bytes of memory at 464CAA20
+DEBUG: Allocating 500 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 5 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4200 bytes of memory at 464CC620
-DEBUG: Allocating 4200 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 4200 bytes of memory at 464CAA20
+DEBUG: Allocating 4200 bytes at 464CAA20 for printf
 -	Allocation heap size: 3142992 Kilobytes (3.00 GB)
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1500 bytes of memory at 464CC620
-DEBUG: Allocating 1500 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1500 bytes of memory at 464CAA20
+DEBUG: Allocating 1500 bytes at 464CAA20 for printf
 -	CPU Name: QEMU Virtual CPU version 2.5+
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1900 bytes of memory at 464CC620
-DEBUG: Allocating 1900 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1900 bytes of memory at 464CAA20
+DEBUG: Allocating 1900 bytes at 464CAA20 for printf
 -	Architecture: x86
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3800 bytes of memory at 464CC620
-DEBUG: Allocating 3800 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3800 bytes of memory at 464CAA20
+DEBUG: Allocating 3800 bytes at 464CAA20 for printf
 -	Family: 6, Model: 6, Stepping: 3
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 3 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2700 bytes of memory at 464CC620
-DEBUG: Allocating 2700 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 2700 bytes of memory at 464CAA20
+DEBUG: Allocating 2700 bytes at 464CAA20 for printf
 -	Screen resolution: 1024x768
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1900 bytes of memory at 464CC620
-DEBUG: Allocating 1900 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1900 bytes of memory at 464CAA20
+DEBUG: Allocating 1900 bytes at 464CAA20 for printf
 -	ACPI enabled: true
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory at 464CC620
-DEBUG: Allocating 400 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory at 464CAA20
+DEBUG: Allocating 400 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1300 bytes of memory at 464CC620
-DEBUG: Allocating 1300 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1300 bytes of memory at 464CAA20
+DEBUG: Allocating 1300 bytes at 464CAA20 for printf
 Device Info:
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3700 bytes of memory at 464CC620
-DEBUG: Allocating 3700 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3700 bytes of memory at 464CAA20
+DEBUG: Allocating 3700 bytes at 464CAA20 for printf
 -	Number of Mass Storage Devices: 2
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3200 bytes of memory at 464CC620
-DEBUG: Allocating 3200 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3200 bytes of memory at 464CAA20
+DEBUG: Allocating 3200 bytes at 464CAA20 for printf
 -	Number of Network Devices: 1
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3200 bytes of memory at 464CC620
-DEBUG: Allocating 3200 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3200 bytes of memory at 464CAA20
+DEBUG: Allocating 3200 bytes at 464CAA20 for printf
 -	Number of Display Devices: 1
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 4 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3100 bytes of memory at 464CC620
-DEBUG: Allocating 3100 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 3100 bytes of memory at 464CAA20
+DEBUG: Allocating 3100 bytes at 464CAA20 for printf
 -	Number of Bridge Devices: 3
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1500 bytes of memory at 464CC620
-DEBUG: Allocating 1500 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1500 bytes of memory at 464CAA20
+DEBUG: Allocating 1500 bytes at 464CAA20 for printf
 Starting shell
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1100 bytes of memory at 464CC620
-DEBUG: Allocating 1100 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1100 bytes of memory at 464CAA20
+DEBUG: Allocating 1100 bytes at 464CAA20 for printf
 Welcome to DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CC620
-DEBUG: Allocating 700 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CAA20
+DEBUG: Allocating 700 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CC620
-DEBUG: Allocating 100 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CAA20
+DEBUG: Allocating 100 bytes at 464CAA20 for printf
 IDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CC620
-DEBUG: Allocating 700 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CAA20
+DEBUG: Allocating 700 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CC620
-DEBUG: Allocating 100 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CAA20
+DEBUG: Allocating 100 bytes at 464CAA20 for printf
 rDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CC620
-DEBUG: Allocating 700 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CAA20
+DEBUG: Allocating 700 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CC620
-DEBUG: Allocating 100 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CAA20
+DEBUG: Allocating 100 bytes at 464CAA20 for printf
 iDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CC620
-DEBUG: Allocating 700 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CAA20
+DEBUG: Allocating 700 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CC620
-DEBUG: Allocating 100 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 100 bytes of memory at 464CAA20
+DEBUG: Allocating 100 bytes at 464CAA20 for printf
 sDEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory at 464CC620
-DEBUG: Allocating 400 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 400 bytes of memory at 464CAA20
+DEBUG: Allocating 400 bytes at 464CAA20 for printf
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 7 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6600 bytes of memory at 464CC620
-DEBUG: Allocating 6600 bytes at 464CC620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 6600 bytes of memory at 464CAA20
+DEBUG: Allocating 6600 bytes at 464CAA20 for printf
 ! A simple bash like shell
 Type help or iris for more information
 DEBUG: kernel/kernel.c:168 -->command_line
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1024 bytes of memory at 464CC620
-DEBUG: Allocating 1024 bytes at 464CC620 for command_line
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1024 bytes of memory at 464CAA20
+DEBUG: Allocating 1024 bytes at 464CAA20 for command_line
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 2 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1025 bytes of memory at 464CCA20
-DEBUG: Allocating 1025 bytes at 464CCA20 for command_line
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1025 bytes of memory at 464CAE20
+DEBUG: Allocating 1025 bytes at 464CAE20 for command_line
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1024 bytes of memory at 464CD220
-DEBUG: Allocating 1024 bytes at 464CD220 for command_line
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 1024 bytes of memory at 464CB620
+DEBUG: Allocating 1024 bytes at 464CB620 for command_line
 DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:105  Function: sys_allocate_memory,  - Allocating 1 blocks of memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CD620
-DEBUG: Allocating 700 bytes at 464CD620 for printf
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:635  Function: find_free_zone,  - Allocated 700 bytes of memory at 464CBA20
+DEBUG: Allocating 700 bytes at 464CBA20 for printf
 
-Dev@/>
+Dev@/>000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x1a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x1a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxCMD] @ 0x18: 0x00004016
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x198: 0x00004016
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x198: 0x0000000000004016
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x198: 0x0000000000004006
+ahci_port_write ahci(0x557c2d8a9250)[1]: port write [reg:PxCMD] @ 0x18: 0x00004006
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x198: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x198: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x194: 0x0000000000000000
+ahci_port_write ahci(0x557c2d8a9250)[1]: port write [reg:PXIE] @ 0x14: 0x00000000
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[1]: port read [reg:PxIS] @ 0x10: 0x00000001
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x190: 0x00000001
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x190: 0x0000000000000001
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x190: 0x0000000000000001
+ahci_port_write ahci(0x557c2d8a9250)[1]: port write [reg:PxIS] @ 0x10: 0x00000001
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x228: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x228: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxCMD] @ 0x18: 0x00004016
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x218: 0x00004016
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x218: 0x0000000000004016
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x218: 0x0000000000004006
+ahci_port_write ahci(0x557c2d8a9250)[2]: port write [reg:PxCMD] @ 0x18: 0x00004006
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x218: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x218: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x214: 0x0000000000000000
+ahci_port_write ahci(0x557c2d8a9250)[2]: port write [reg:PXIE] @ 0x14: 0x00000000
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[2]: port read [reg:PxIS] @ 0x10: 0x00000001
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x210: 0x00000001
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x210: 0x0000000000000001
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x210: 0x0000000000000001
+ahci_port_write ahci(0x557c2d8a9250)[2]: port write [reg:PxIS] @ 0x10: 0x00000001
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x2a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x2a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxCMD] @ 0x18: 0x00004016
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x298: 0x00004016
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x298: 0x0000000000004016
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x298: 0x0000000000004006
+ahci_port_write ahci(0x557c2d8a9250)[3]: port write [reg:PxCMD] @ 0x18: 0x00004006
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x298: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x298: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x294: 0x0000000000000000
+ahci_port_write ahci(0x557c2d8a9250)[3]: port write [reg:PXIE] @ 0x14: 0x00000000
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[3]: port read [reg:PxIS] @ 0x10: 0x00000001
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x290: 0x00000001
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x290: 0x0000000000000001
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x290: 0x0000000000000001
+ahci_port_write ahci(0x557c2d8a9250)[3]: port write [reg:PxIS] @ 0x10: 0x00000001
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x328: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x328: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxCMD] @ 0x18: 0x00004016
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x318: 0x00004016
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x318: 0x0000000000004016
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x318: 0x0000000000004006
+ahci_port_write ahci(0x557c2d8a9250)[4]: port write [reg:PxCMD] @ 0x18: 0x00004006
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x318: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x318: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x314: 0x0000000000000000
+ahci_port_write ahci(0x557c2d8a9250)[4]: port write [reg:PXIE] @ 0x14: 0x00000000
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[4]: port read [reg:PxIS] @ 0x10: 0x00000001
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x310: 0x00000001
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x310: 0x0000000000000001
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x310: 0x0000000000000001
+ahci_port_write ahci(0x557c2d8a9250)[4]: port write [reg:PxIS] @ 0x10: 0x00000001
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxSSTS] @ 0x28: 0x00000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x3a8: 0x00000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x3a8: 0x0000000000000000
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxCMD] @ 0x18: 0x00004016
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x398: 0x00004016
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x398: 0x0000000000004016
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x398: 0x0000000000004006
+ahci_port_write ahci(0x557c2d8a9250)[5]: port write [reg:PxCMD] @ 0x18: 0x00004006
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x398: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x398: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x394: 0x0000000000000000
+ahci_port_write ahci(0x557c2d8a9250)[5]: port write [reg:PXIE] @ 0x14: 0x00000000
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[5]: port read [reg:PxIS] @ 0x10: 0x00000001
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x390: 0x00000001
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x390: 0x0000000000000001
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x390: 0x0000000000000001
+ahci_port_write ahci(0x557c2d8a9250)[5]: port write [reg:PxIS] @ 0x10: 0x00000001
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_mem_read_32_host ahci(0x557c2d8a9250): mem read [reg:GHC] @ 0x4: 0x80000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x4: 0x80000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x4: 0x0000000080000000
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x4: 0x0000000080000001
+ahci_reset ahci(0x557c2d8a9250): HBA reset
+ahci_reset_port ahci(0x557c2d8a9250)[0]: reset port
+ahci_set_signature ahci(0x557c2d8a9250)[0]: set signature sector:0x01 nsector:0x01 lcyl:0x00 hcyl:0x00 (cumulatively: 0x00000101)
+ahci_reset_port ahci(0x557c2d8a9250)[1]: reset port
+ahci_reset_port ahci(0x557c2d8a9250)[2]: reset port
+ahci_reset_port ahci(0x557c2d8a9250)[3]: reset port
+ahci_reset_port ahci(0x557c2d8a9250)[4]: reset port
+ahci_reset_port ahci(0x557c2d8a9250)[5]: reset port
+ahci_mem_write_host ahci(0x557c2d8a9250) write4 [reg:GHC] @ 0x4: 0x0000000080000001
+ahci_mem_read_32_host ahci(0x557c2d8a9250): mem read [reg:GHC] @ 0x4: 0x80000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x4: 0x80000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x4: 0x0000000080000000
+ahci_mem_read_32_host ahci(0x557c2d8a9250): mem read [reg:GHC] @ 0x4: 0x80000000
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x4: 0x80000000
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x4: 0x0000000080000000
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x4: 0x0000000080000002
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_mem_write_host ahci(0x557c2d8a9250) write4 [reg:GHC] @ 0x4: 0x0000000080000002
+ahci_mem_read_32_host ahci(0x557c2d8a9250): mem read [reg:PI] @ 0xc: 0x0000003f
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0xc: 0x0000003f
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0xc: 0x000000000000003f
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxSSTS] @ 0x28: 0x00000113
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x128: 0x00000113
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x128: 0x0000000000000113
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxSIG] @ 0x24: 0xffffffff
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x124: 0xffffffff
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x124: 0x00000000ffffffff
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x118: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x118: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x118: 0x0000000000000006
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxCMD] @ 0x18: 0x00000006
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x118: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x118: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x118: 0x0000000000000006
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxCMD] @ 0x18: 0x00000006
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x118: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x118: 0x0000000000000006
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x118: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x118: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x100: 0x0000000041cc0400
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxCLB] @ 0x0: 0x41cc0400
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x104: 0x0000000000000000
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxCLBU] @ 0x4: 0x00000000
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCLB] @ 0x0: 0x41cc0400
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x100: 0x41cc0400
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x100: 0x0000000041cc0400
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x108: 0x0000000041cc0b00
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxFB] @ 0x8: 0x41cc0b00
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x10c: 0x0000000000000000
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxFBU] @ 0xc: 0x00000000
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxFB] @ 0x8: 0x41cc0b00
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x108: 0x41cc0b00
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x108: 0x0000000041cc0b00
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCLB] @ 0x0: 0x41cc0400
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x100: 0x41cc0400
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x100: 0x0000000041cc0400
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x118: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x118: 0x0000000000000006
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCMD] @ 0x18: 0x00000006
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x118: 0x00000006
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x118: 0x0000000000000006
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x118: 0x0000000000000016
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxCMD] @ 0x18: 0x00000016
+ahci_trigger_irq ahci(0x557c2d8a9250)[0]: trigger irq +DHRS (0x00000001); irqstat: 0x00000000 --> 0x00000001; effective: 0x00000000
+ahci_check_irq ahci(0x557c2d8a9250): check irq 0x00000000 --> 0x00000000
+ahci_irq_lower ahci(0x557c2d8a9250): lower irq
+ahci_port_read ahci(0x557c2d8a9250)[0]: port read [reg:PxCMD] @ 0x18: 0x00004016
+ahci_mem_read_32 ahci(0x557c2d8a9250): mem read @ 0x118: 0x00004016
+ahci_mem_read ahci(0x557c2d8a9250): read4 @ 0x118: 0x0000000000004016
+ahci_mem_write ahci(0x557c2d8a9250): write4 @ 0x118: 0x0000000000004017
+ahci_port_write ahci(0x557c2d8a9250)[0]: port write [reg:PxCMD] @ 0x18: 0x00004017

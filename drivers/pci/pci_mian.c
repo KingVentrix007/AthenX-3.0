@@ -42,8 +42,8 @@ void pci_scan() {
                     else
                     {
                         create_device(&dev);
-                    devs[dev_count] = dev;
-                    dev_count++;
+                        devs[dev_count] = dev;
+                        dev_count++;
                     }
                     
                 }
@@ -174,7 +174,7 @@ pci_config_register *get_ahci_abar()
                 
                 
                 
-                printf("Memory Address: 0x%08X\n", devs[i].base_address_5);
+                printf_com("Memory Address: 0x%08X\n", devs[i].base_address_5);
 
                  printf_com("0x%08X\n", devs[i].base_address_4);
                 //  printf_com("0x%08X\n", devs[i].base_address_3);

@@ -23,4 +23,3 @@ ahci_populate_sglist
 ahci_populate_sglist_no_prdtl
 ahci_populate_sglist_no_map
 ahci_populate_sglist_short_map
-ahci_populate_sglist_bad_offset
