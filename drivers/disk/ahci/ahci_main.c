@@ -44,6 +44,7 @@ typedef unsigned short WORD;
 
 #define SECTOR_SIZE 512
 
+HBA_PORT *port;
 
 void probe_port(HBA_MEM *abar);
 static int check_type(HBA_PORT *port);
@@ -52,6 +53,20 @@ void stop_cmd(HBA_PORT *port);
 void port_rebase(HBA_PORT *port, int portno);
 int ahci_write_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count);
 int ahci_read_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count);
+
+
+int ahci_write_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
+{
+	int ret =  ahci_write_sector(port, sector, buffer,sector_count);
+	printf("%s == %d\n",__func__,ret);
+	return ret;
+}
+int ahci_read_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
+{
+	int ret = ahci_read_sector(port, sector, buffer, sector_count);
+	printf("%s == %d\n",__func__,ret);
+	return ret;
+}
 uint32_t ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
 {
     if (alignment & (alignment - 1)) {
@@ -131,30 +146,11 @@ void probe_port(HBA_MEM *abar)
 				uint32_t num_sectors = 32; // Number of sectors to read
 				char buffer[SECTOR_SIZE * 32]; // Buffer to hold 32 sectors of data
 				char write_buffer[512]; // Buffer to hold 1 sector of data
-
+				port = &abar->ports[i];
     			// Fill buffer with data to write (example data)
-				for (int i = 0; i < 512; i++) {
-					write_buffer[i] = (char)119;
-				}
-				uint64_t lba = 0; // Sector to write to
-				uint32_t count = 1; // Number of sectors to write
+			
 
-				if (ahci_write_sector(&abar->ports[i], lba, write_buffer, count))
-				{
-					printf("Write to sector %llu successful!\n", lba);
-				}
-				else
-				{
-					printf("Write to sector %llu failed.\n", lba);
-				}
-				if (ahci_read_sector(&abar->ports[i], lba, buffer,count))
-				{
-					printf("Read successful!(%s)\n",buffer);
-				}
-				else
-				{
-					printf("Read failed.\n");
-				}
+				
                 return;
 			}
 			else if (dt == AHCI_DEV_SATAPI)

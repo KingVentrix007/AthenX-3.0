@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #include "fis.h"
-
+#include "types.h"
 // Information of each port
 typedef volatile struct tagHBA_PORT
 {
@@ -174,4 +174,7 @@ void debug_HBA_CMD_TBL(HBA_CMD_TBL *ptr);
 void enable_bus_mastering(uint8_t bus, uint8_t slot, uint8_t func);
 void init_achi_pci(uint8_t bus, uint8_t slot, uint8_t func);
 
+
+int ahci_write_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count);
+int ahci_read_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count);
 #endif

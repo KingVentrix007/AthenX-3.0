@@ -78,9 +78,15 @@ run: AthenX.bin
 	bash ./scripts/athenxHost.sh
 
 
-runt:
-	qemu-system-i386 -drive file=AthenX.img,format=raw \
-  -m 4G -serial file:out.log -serial stdio 
+runt: AthenX.bin
+	bash ./scripts/boot32.sh
+	qemu-system-i386 \
+	-drive id=disk,file=AthenX.img,format=raw,if=none \
+	-device ahci,id=ahci \
+	-device ide-hd,drive=disk,bus=ahci.0 \
+	-m 4G \
+	-serial file:AthenX-3.0.log \
+	# -trace ahci_* 
 
 
 libc:

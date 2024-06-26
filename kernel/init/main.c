@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include "ini/ini.h"
 #include "inttypes.h"
+#include "ahci.h"
 struct BootConfig {
     char version_number[20];
     char program_path[256];
@@ -195,13 +196,7 @@ void init(unsigned long magic, unsigned long addr) {
     ata_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     init_com1();
-    // Initialize FAT file system
-    fl_init();
-    if (fl_attach_media(ide_read_sectors_fat, ide_write_sectors_fat) != FAT_INIT_OK)
-    {
-        printf("\033[1;31mERROR: Failed to init file system\n"); // Set text color to red
-        return -1;
-    }
+    
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize Scheduler
@@ -229,14 +224,23 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize kernel heap
     init_kheap(g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    pci_scan();
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    ahci_main();
+    // Initialize FAT file system
+    printf("Initialize FAT file system\n");
+    fl_init();
+    if (fl_attach_media(ahci_read_sector_fat, ahci_write_sector_fat) != FAT_INIT_OK)
+    {
+        printf("\033[1;31mERROR: Failed to init file system\n"); // Set text color to red
+        return -1;
+    }
     LOG_LOCATION;
     init_fs();
     LOG_LOCATION;
 
     // Scan PCI devices
-    pci_scan();
-    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    ahci_main();
+    
 
     // Initialize timer
     timer_init();
