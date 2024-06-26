@@ -42,6 +42,8 @@ typedef unsigned short WORD;
 #define AHCI_ENABLE 0x80000000  // AHCI Enable bit in Global Host Control register
 #define AHCI_IE 0x00000002      // Interrupt Enable bit in Global Host Control register 
 
+#define SECTOR_SIZE 512
+
 
 void probe_port(HBA_MEM *abar);
 static int check_type(HBA_PORT *port);
@@ -49,7 +51,7 @@ void start_cmd(HBA_PORT *port);
 void stop_cmd(HBA_PORT *port);
 void port_rebase(HBA_PORT *port, int portno);
 
-void *ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
+uint32_t ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
 {
     if (alignment & (alignment - 1)) {
         // Alignment must be a power of two
@@ -67,7 +69,7 @@ void *ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
     uintptr_t aligned_addr = ((uintptr_t)raw_addr + alignment - 1) & ~(alignment - 1);
     map(aligned_addr, aligned_addr, PAGE_PRESENT | PAGE_WRITE);
     printf_com("AHCI :: Allocating %d bytes of memory at %p for %s(%d)\n",total_size,aligned_addr,msg,line);
-    return (void *)aligned_addr;
+    return (uint32_t)aligned_addr;
 
 }
 void reset_ahci_controller(HBA_MEM *abar) {
@@ -124,6 +126,18 @@ void probe_port(HBA_MEM *abar)
 			{
 				printf("SATA drive found at port %d\n", i);
                 port_rebase(&abar->ports[i],i);
+				uint32_t start_sector = 0; // Starting LBA
+				uint32_t num_sectors = 32; // Number of sectors to read
+				char buffer[SECTOR_SIZE * 32]; // Buffer to hold 32 sectors of data
+
+				if (ahci_read(&abar->ports[i], start_sector, 0, num_sectors, buffer))
+				{
+					printf("Read successful!(%s)\n",buffer);
+				}
+				else
+				{
+					printf("Read failed.\n");
+				}
                 return;
 			}
 			else if (dt == AHCI_DEV_SATAPI)
@@ -179,44 +193,68 @@ static int check_type(HBA_PORT *port)
 
 void port_rebase(HBA_PORT *port, int portno)
 {
-	stop_cmd(port);	// Stop command engine
+    // Stop command engine and check status
+    stop_cmd(port);
+    if (port->cmd & HBA_PxCMD_CR) {
+        printf_com("AHCI :: Failed to stop command engine for port %d\n", portno);
+        return;
+    }
 
-	// Command list offset: 1K*portno
-	// Command list entry size = 32
-	// Command list entry maxim count = 32
-	// Command list maxim size = 32*32 = 1K per port
-    uint32_t clb_adder = ahci_malloc(1024,1024*4,__LINE__,"port->clb-> Command list");
-    printf_com("AHCI :: clb is at %p\n",clb_adder);
-	port->clb = clb_adder;
-	port->clbu = 0;
-	memset((void*)(port->clb), 0, 1024);
+    // Command list offset: 1K*portno
+    uint32_t clb_addr = ahci_malloc(1024, 4096, __LINE__, "port->clb-> Command list");
+    if (clb_addr == 0) {
+        printf_com("AHCI :: Failed to allocate Command List buffer for port %d\n", portno);
+        return;
+    }
+    printf_com("AHCI :: Command List buffer allocated at %p\n", clb_addr);
+    port->clb = clb_addr;
+    port->clbu = 0;
+    memset((void*)(port->clb), 0, 1024);
+	  uint32_t test_value = 0xDEADBEEF;
+    *(volatile uint32_t*)(port->clb) = test_value;
+    uint32_t read_back = *(volatile uint32_t*)(port->clb);
+    if (read_back != test_value) {
+        printf("AHCI :: Failed to verify Command List buffer for port %d. Expected %x, got %x\n", portno, test_value, read_back);
+        return;
+    } else {
+        printf("AHCI :: Successfully verified Command List buffer for port %d. Value: %x\n", portno, read_back);
+    }
+    memset((void*)(port->clb), 0, 1024);
 
-	// FIS offset: 32K+256*portno
-	// FIS entry size = 256 bytes per port
-    uint32_t fb_adder = ahci_malloc(256,4096,__LINE__,"FIS entry");
-    printf_com("AHCI :: fb is at %p\n",fb_adder);
-    port->fb = fb_adder;
-	// port->fb = ahci_malloc(256,256,__LINE__,"FIS entry");
-	port->fbu = 0;
-	memset((void*)(port->fb), 0, 256);
+    // FIS offset: 32K+256*portno
+    uint32_t fb_addr = ahci_malloc(256, 4096, __LINE__, "FIS entry");
+    if (fb_addr == 0) {
+        printf("AHCI :: Failed to allocate FIS buffer for port %d\n", portno);
+        return;
+    }
+    printf_com("AHCI :: FIS buffer allocated at %p\n", fb_addr);
+    port->fb = fb_addr;
+    port->fbu = 0;
+    memset((void*)(port->fb), 0, 256);
 
-	// Command table offset: 40K + 8K*portno
-	// Command table size = 256*32 = 8K per port
-	HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)(port->clb);
-	for (int i=0; i<32; i++)
-	{
-		cmdheader[i].prdtl = 8;	// 8 prdt entries per command table
-					// 256 bytes per command table, 64+16+48+16*8
-		// Command table offset: 40K + 8K*portno + cmdheader_index*256
-        uint32_t ct_adder = ahci_malloc(256,4096,__LINE__,"Command table");
-        printf_com("AHCI :: ct is at %p\n",ct_adder);
-        cmdheader[i].ctba = ct_adder;
-		// cmdheader[i].ctba = ahci_malloc(256,256,__LINE__,"Command table");
-		cmdheader[i].ctbau = 0;
-		memset((void*)cmdheader[i].ctba, 0, 256);
-	}
+    // Command table offset: 40K + 8K*portno
+    HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)(port->clb);
+    for (int i = 0; i < 32; i++) {
+        cmdheader[i].prdtl = 8; // 8 prdt entries per command table
 
-	start_cmd(port);	// Start command engine
+        uint32_t ct_addr = ahci_malloc(256, 4096, __LINE__, "Command table");
+        if (ct_addr == 0) {
+            printf_com("AHCI :: Failed to allocate Command Table buffer for port %d, command header %d\n", portno, i);
+            return;
+        }
+        printf_com("AHCI :: Command Table buffer allocated at %p\n", ct_addr);
+        cmdheader[i].ctba = ct_addr;
+        cmdheader[i].ctbau = 0;
+        memset((void*)cmdheader[i].ctba, 0, 256);
+    }
+
+    // Start command engine and check status
+    start_cmd(port);
+    if (port->cmd & HBA_PxCMD_CR) {
+        printf("AHCI :: Failed to start command engine for port %d\n", portno);
+        return;
+    }
+
     printf("Done Rebasing port %d\n", portno);
 }
 
@@ -224,6 +262,7 @@ void port_rebase(HBA_PORT *port, int portno)
 void start_cmd(HBA_PORT *port)
 {
 	// Wait until CR (bit15) is cleared
+	printf_com("AHCI :: port->clb == %p\n",port->clb);
 	while (port->cmd & HBA_PxCMD_CR)
 		;
 
@@ -251,4 +290,85 @@ void stop_cmd(HBA_PORT *port)
 		break;
 	}
 
+}
+//41CC1000
+//41CC1000
+
+int ahci_read(HBA_PORT *port, uint32_t startl, uint32_t starth, uint32_t count, void *buf)
+{
+    port->is = (uint32_t)-1; // Clear pending interrupt bits
+	uint32_t timeout = 0;
+    HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)port->clb;
+    cmdheader->cfl = sizeof(FIS_REG_H2D) / sizeof(uint32_t); // Command FIS size
+    cmdheader->w = 0; // Read from device
+    cmdheader->prdtl = (uint16_t)((count-1)>>4) + 1; // PRDT entries count
+
+    HBA_CMD_TBL *cmdtbl = (HBA_CMD_TBL*)(cmdheader->ctba);
+    memset(cmdtbl, 0, sizeof(HBA_CMD_TBL) +
+        (cmdheader->prdtl-1)*sizeof(HBA_PRDT_ENTRY));
+
+    // 8K bytes (16 sectors) per PRDT
+    int i;
+    for (i=0; i<cmdheader->prdtl-1; i++)
+    {
+        cmdtbl->prdt_entry[i].dba = (uint32_t)buf;
+        cmdtbl->prdt_entry[i].dbc = 8*1024-1; // 8K bytes
+        cmdtbl->prdt_entry[i].i = 1;
+        buf += 8*1024; // Increment buffer pointer
+        count -= 16; // 16 sectors per PRDT
+    }
+    // Last entry
+    cmdtbl->prdt_entry[i].dba = (uint32_t)buf;
+    cmdtbl->prdt_entry[i].dbc = (count<<9)-1; // 512 bytes per sector
+    cmdtbl->prdt_entry[i].i = 1;
+
+    // Setup command
+    FIS_REG_H2D *cmdfis = (FIS_REG_H2D*)(&cmdtbl->cfis);
+
+    cmdfis->fis_type = FIS_TYPE_REG_H2D;
+    cmdfis->c = 1; // Command
+    cmdfis->command = ATA_CMD_READ_DMA_EX;
+
+    cmdfis->lba0 = (uint8_t)startl;
+    cmdfis->lba1 = (uint8_t)(startl>>8);
+    cmdfis->lba2 = (uint8_t)(startl>>16);
+    cmdfis->device = 1<<6; // LBA mode
+
+    cmdfis->lba3 = (uint8_t)(startl>>24);
+    cmdfis->lba4 = (uint8_t)starth;
+    cmdfis->lba5 = (uint8_t)(starth>>8);
+
+    cmdfis->countl = count & 0xFF;
+    cmdfis->counth = (count>>8) & 0xFF;
+
+    // The below part waits for the port to become free
+    while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && timeout < 1000000)
+    {
+        timeout++;
+    }
+
+    if (timeout >= 1000000)
+    {
+        return 0; // Timeout, return failure
+    }
+
+    port->ci = 1; // Issue command
+
+    // Wait for completion
+    while (1)
+    {
+        if ((port->ci & 1) == 0) break;
+        if (port->is & HBA_PxIS_TFES) // Task file error
+        {
+            return 0; // Read disk error
+        }
+    }
+
+    // Check again
+    if (port->is & HBA_PxIS_TFES)
+    {
+        return 0; // Read disk error
+    }
+
+    return 1; // Read successfully
 }

@@ -26,6 +26,7 @@ void init_achi_pci(uint8_t bus, uint8_t slot, uint8_t func) {
     command |= (1 << 10);  // Set bit 10 for interrupts
     command |= (1 << 8);   // Set bit 8 for DMA
     command |= (1 << 1);   // Set bit 1 for memory space access
+    command |= (1 << 2);  // Set bit 2
 
     // Write back the modified command register value
     pci_write(bus, slot, func, 0x06, command);

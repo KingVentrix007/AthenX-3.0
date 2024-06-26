@@ -70,8 +70,8 @@ run: AthenX.bin
 	-device ahci,id=ahci \
 	-device ide-hd,drive=disk,bus=ahci.0 \
 	-m 4G \
-	-serial stdio \
-	-trace ahci_* 
+	-serial file:AthenX-3.0.log \
+	# -trace ahci_* 
 
 
 

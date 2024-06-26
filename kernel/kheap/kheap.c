@@ -102,7 +102,7 @@ void *sys_allocate_memory(int size)
     }
     int num_blocks_needed = (size + (BLOCK_SIZE-1)) / BLOCK_SIZE; // Round up to the nearest whole block
 
-    MEM_ALLOC_LOG(2, "Allocating %d blocks of memory\n", num_blocks_needed);
+    // MEM_ALLOC_LOG(2, "Allocating %d blocks of memory\n", num_blocks_needed);
 
     // Find a consecutive bunch of free nodes
     Node *current_node = (Node *)memory_region;
@@ -632,7 +632,7 @@ void *find_free_zone(Node *current_node, size_t size,int num_blocks_needed)
                     current_node->num_block_used = num_blocks_needed;
                     current_node = current_node->next;
                 }
-                MEM_ALLOC_LOG(2, "Allocated %d bytes of memory at %p\n", size,start_node->addr);
+                // MEM_ALLOC_LOG(2, "Allocated %d bytes of memory at %p\n", size,start_node->addr);
                 #ifdef STANDALONE_MEMORY_ALLOCATION
                     clock_t end_time = clock();
                     long double elapsed_time = ((long double)(end_time - start_time)) / CLOCKS_PER_SEC;

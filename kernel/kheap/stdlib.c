@@ -31,7 +31,10 @@ void* calloc(size_t num_elements, size_t element_size) {
 void *malloc_wrap(size_t size,char function[1000])
 {
     void *addr = malloc_int(size);
-    printf_com("Allocating %d bytes at %p for %s\n", size,addr, function);
+    if(strcmp(function,"printf") != 0){
+        printf_com("Allocating %d bytes at %p for %s\n", size,addr, function);
+
+    }
     return addr;
 }
 void *malloc_int(size_t size) {
