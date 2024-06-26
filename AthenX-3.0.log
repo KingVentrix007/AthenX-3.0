@@ -3,8 +3,8 @@ DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeHello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Wednesday June 26 11:14:28 2024
-DEBUG: Wednesday June 26 11:14:28 2024
+DEBUG: Wednesday June 26 11:26:46 2024
+DEBUG: Wednesday June 26 11:26:46 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -51,7 +51,7 @@ DEBUG: enabled acpi.
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi C == 1
 DEBUG: Multi D == 1
 Current Date and Time:
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeWednesday June 26 11:14:28 2024
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeWednesday June 26 11:26:46 2024
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too large   DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi B == 1
 DEBUG: Multi A == 1
 Booting AthenX-3.0
@@ -154,111 +154,112 @@ DEBUG: IRQ 11 registered
 Scanning ports
 SATA drive found at port 0
 DEBUG: Allocating 5119 bytes at 41CC0220 for ahci_malloc
-DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CC1000 for port->clb-> Command list(204)
+DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CC1000 for port->clb-> Command list(221)
 DEBUG: AHCI :: Command List buffer allocated at 41CC1000
 AHCI :: Successfully verified Command List buffer for port 0. Value: deadbeef
 DEBUG: Allocating 4351 bytes at 41CC1620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC2000 for FIS entry(225)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC2000 for FIS entry(242)
 DEBUG: AHCI :: FIS buffer allocated at 41CC2000
 DEBUG: Allocating 4351 bytes at 41CC2A20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC3000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC3000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC3000
 DEBUG: Allocating 4351 bytes at 41CC3E20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC4000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC4000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC4000
 DEBUG: Allocating 4351 bytes at 41CC5220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC6000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC6000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC6000
 DEBUG: Allocating 4351 bytes at 41CC6620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC7000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC7000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC7000
 DEBUG: Allocating 4351 bytes at 41CC7A20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC8000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC8000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC8000
 DEBUG: Allocating 4351 bytes at 41CC8E20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC9000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC9000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC9000
 DEBUG: Allocating 4351 bytes at 41CCA220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCB000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCB000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCB000
 DEBUG: Allocating 4351 bytes at 41CCB620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCC000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCC000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCC000
 DEBUG: Allocating 4351 bytes at 41CCCA20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCD000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCD000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCD000
 DEBUG: Allocating 4351 bytes at 41CCDE20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCE000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCE000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCE000
 DEBUG: Allocating 4351 bytes at 41CCF220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD0000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD0000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD0000
 DEBUG: Allocating 4351 bytes at 41CD0620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD1000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD1000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD1000
 DEBUG: Allocating 4351 bytes at 41CD1A20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD2000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD2000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD2000
 DEBUG: Allocating 4351 bytes at 41CD2E20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD3000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD3000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD3000
 DEBUG: Allocating 4351 bytes at 41CD4220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD5000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD5000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD5000
 DEBUG: Allocating 4351 bytes at 41CD5620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD6000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD6000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD6000
 DEBUG: Allocating 4351 bytes at 41CD6A20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD7000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD7000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD7000
 DEBUG: Allocating 4351 bytes at 41CD7E20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD8000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD8000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD8000
 DEBUG: Allocating 4351 bytes at 41CD9220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDA000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDA000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDA000
 DEBUG: Allocating 4351 bytes at 41CDA620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDB000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDB000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDB000
 DEBUG: Allocating 4351 bytes at 41CDBA20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDC000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDC000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDC000
 DEBUG: Allocating 4351 bytes at 41CDCE20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDD000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDD000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDD000
 DEBUG: Allocating 4351 bytes at 41CDE220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDF000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDF000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDF000
 DEBUG: Allocating 4351 bytes at 41CDF620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE0000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE0000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE0000
 DEBUG: Allocating 4351 bytes at 41CE0A20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE1000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE1000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE1000
 DEBUG: Allocating 4351 bytes at 41CE1E20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE2000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE2000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE2000
 DEBUG: Allocating 4351 bytes at 41CE3220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE4000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE4000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE4000
 DEBUG: Allocating 4351 bytes at 41CE4620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE5000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE5000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE5000
 DEBUG: Allocating 4351 bytes at 41CE5A20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE6000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE6000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE6000
 DEBUG: Allocating 4351 bytes at 41CE6E20 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE7000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE7000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE7000
 DEBUG: Allocating 4351 bytes at 41CE8220 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE9000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE9000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE9000
 DEBUG: Allocating 4351 bytes at 41CE9620 for ahci_malloc
-DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEA000 for Command table(240)
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEA000 for Command table(257)
 DEBUG: AHCI :: Command Table buffer allocated at 41CEA000
 DEBUG: AHCI :: port->clb == 41CC1000
 AHCI :: Failed to start command engine for port 0
-Read successful!(aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+Write to sector  successful!
+Read successful!(wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww)
 DEBUG: AHCI :: AHCI debug logs end here
 ----------------------------------------------------------------
 DEBUG: IRQ 32 registered
@@ -281,37 +282,37 @@ DEBUG: Name to find: init | grub
 DEBUG: Name to find: init | bin
 DEBUG: Name to find: init | img
 DEBUG: Name to find: init | init
-DEBUG: raw_read at 36264
+DEBUG: raw_read at 36272
 DEBUG: Name to find: ini.ini | ini.ini
 DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x464EAE20
 DEBUG: Allocating 200 bytes at 464EAE20 for ini_parse_stream
-DEBUG: raw_read at 36272
+DEBUG: raw_read at 36280
 DEBUG: raw_read at 6176
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34656
-DEBUG: raw_read at 34657
-DEBUG: raw_read at 34658
-DEBUG: raw_read at 34659
-DEBUG: raw_read at 34660
-DEBUG: raw_read at 34661
-DEBUG: raw_read at 34662
-DEBUG: raw_read at 34663
+DEBUG: raw_read at 34664
+DEBUG: raw_read at 34665
+DEBUG: raw_read at 34666
+DEBUG: raw_read at 34667
+DEBUG: raw_read at 34668
+DEBUG: raw_read at 34669
+DEBUG: raw_read at 34670
+DEBUG: raw_read at 34671
 DEBUG: raw_read at 2107
 DEBUG: Allocating 256 bytes at 464EAE20 for init
 DEBUG: raw_read at 6176
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 34656
-DEBUG: raw_read at 34657
-DEBUG: raw_read at 34658
-DEBUG: raw_read at 34659
-DEBUG: raw_read at 34660
-DEBUG: raw_read at 34661
-DEBUG: raw_read at 34662
-DEBUG: raw_read at 34663
+DEBUG: raw_read at 34664
+DEBUG: raw_read at 34665
+DEBUG: raw_read at 34666
+DEBUG: raw_read at 34667
+DEBUG: raw_read at 34668
+DEBUG: raw_read at 34669
+DEBUG: raw_read at 34670
+DEBUG: raw_read at 34671
 DEBUG: Allocating 4 bytes at 464EB620 for fill_program_list
 
 
