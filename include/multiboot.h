@@ -2,7 +2,7 @@
 #define MULTIBOOT_H
 
 #include "types.h"
-
+#include "stdint.h"
 #define MULTIBOOT_MAGIC_HEADER      0x1BADB002
 #define MULTIBOOT_BOOTLOADER_MAGIC  0x2BADB002
 
@@ -111,4 +111,10 @@ typedef struct {
     MULTIBOOT_MEMORY_TYPE type;
 } MULTIBOOT_MEMORY_MAP;
 
+typedef struct multiboot_module {
+    uint32_t  start;
+    uint32_t  end;
+    uint32_t  name;
+    uint32_t reserved;
+} multiboot_module_t;
 #endif

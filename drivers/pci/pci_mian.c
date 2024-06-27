@@ -169,13 +169,15 @@ pci_config_register *get_ahci_abar()
         
         if(devs[i].class_code == PCI_CLASS_MASS_STORAGE)
         {
-            if(devs[i].device_id ==0x8086 && devs[i].vendor_id ==  0x2922)
+            // printf("device_id == 0x%x\n",devs[i].device_id);
+            // printf("vendor_id == 0x%x\n",devs[i].vendor_id);
+            if((devs[i].device_id ==0x8086 && devs[i].vendor_id ==  0x2922) || (devs[i].device_id == 0x8086 && devs[i].vendor_id == 0x8c02))
             {
                 
                 
                 
-                printf_com("Memory Address: 0x%08X\n", devs[i].base_address_5);
-
+                // printf("Memory Address: 0x%08X\n", devs[i].base_address_5);
+                // printf("Memory Address: %p\n", devs[i].base_address_5);
                  printf_com("0x%08X\n", devs[i].base_address_4);
                 //  printf_com("0x%08X\n", devs[i].base_address_3);
                 //  printf_com("0x%08X\n", devs[i].base_address_2);

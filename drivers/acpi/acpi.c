@@ -14,7 +14,7 @@ word SLP_TYPb;
 word SLP_EN;
 word SCI_EN;
 byte PM1_CNT_LEN;
-
+struct FADT *fadt;
 
 
 struct RSDPtr
@@ -312,6 +312,8 @@ int initAcpi(void)
          {
             entrys = -2;
             struct FACP *facp = (struct FACP *) *ptr;
+            fadt = (struct FADT *) *ptr;
+
             global_facp = (struct FADT *)ptr;
             if (acpiCheckHeader((unsigned int *) facp->DSDT, "DSDT") == 0)
             {
@@ -397,7 +399,8 @@ void *findFACP();
 void reboot(void)
 {
    
-   // struct FADT *facp = (struct FADT*) findFACP();
+   printf("Reboot doesn't work\n");
+   // struct FADT *facp = global_facp;
    // if(facp == NULL)
    // {
    //    printf("Failed to find FACP\n");
@@ -416,18 +419,18 @@ void reboot(void)
    // }
   
 }
-// void *findFACP()
-// {
-//    //  RSDT *rsdt = (RSDT *) RootSDT;
-//     int entries = (globale_rsdt->h.Length - sizeof(globale_rsdt->h)) / 4;
-//     printf("entries = %d\n", entries);
-//     for (int i = 0; i < entries; i++)
-//     {
-//         struct ACPISDTHeader *h = (struct ACPISDTHeader *) globale_rsdt->PointerToOtherSDT[i];
-//         if (!strncmp(h->Signature, "FACP", 4))
-//             return (void *) h;
-//     }
+void *findFACP()
+{
+   //  RSDT *rsdt = (RSDT *) RootSDT;
+    int entries = (globale_rsdt->h.Length - sizeof(globale_rsdt->h)) / 4;
+    printf("entries = %d\n", entries);
+    for (int i = 0; i < entries; i++)
+    {
+        struct ACPISDTHeader *h = (struct ACPISDTHeader *) globale_rsdt->PointerToOtherSDT[i];
+        if (!memcmp(h->Signature, "FACP ", 4))
+            return (void *) h;
+    }
  
-//     // No FACP found
-//     return NULL;
-// }
+    // No FACP found
+    return NULL;
+}

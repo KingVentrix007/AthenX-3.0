@@ -184,6 +184,6 @@ int ahci_write_sector_hal(uint32 sector, uint8 *buffer, uint32 sector_count);
 int ahci_read_sector_hal(uint32 sector, uint8 *buffer, uint32 sector_count);
 
 int select_ahci_drive(int index);
-
+uint64_t get_ahci_sector_count();
 #endif
 

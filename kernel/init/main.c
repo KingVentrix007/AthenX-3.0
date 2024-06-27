@@ -43,7 +43,30 @@ struct BootConfig {
     char program_path[256];
     char bin_path[256];
     char error_log[256];
+    int default_drive;
+    bool verbose;
 };
+typedef struct {
+    uint32 mod_start;
+    uint32 mod_end;
+    uint32 string;
+    uint32 reserved;
+} MULTIBOOT_MODULE;
+void store_modules(MULTIBOOT_INFO *mboot_info, MULTIBOOT_MODULE *stored_modules) {
+    if (mboot_info->flags & (1 << 3)) { // Check if the modules are present
+        MULTIBOOT_MODULE *modules = (MULTIBOOT_MODULE *)mboot_info->modules_addr;
+        for (uint32 i = 0; i < mboot_info->modules_count; i++) {
+            stored_modules[i].mod_start = modules[i].mod_start;
+            stored_modules[i].mod_end = modules[i].mod_end;
+            stored_modules[i].string = modules[i].string;
+            printf("Module %d is %s\n", i,(char *)modules[i].string);
+            stored_modules[i].reserved = modules[i].reserved;
+        }
+    } else {
+        // No modules are present
+        printf("No modules are present\n");
+    }
+}
 void print_ram_size(uint64_t ram_size_kb) {
     // Determine the color based on RAM size
     const char *color_code;
@@ -85,7 +108,35 @@ void print_ram_size(uint64_t ram_size_kb) {
     // Print RAM size with color
     // printf("%s-\tRAM size: %u Kilobytes\x1b[0m\n", color_code, ram_size_kb);
 }
+void write_first_module_to_file(MULTIBOOT_INFO *mboot_info) {
+    // Ensure there is at least one module
+    if (mboot_info->modules_count < 1) {
+        printf("No modules found.\n");
+        return;
+    }
 
+    // Get the first module
+    multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;
+
+    // Calculate module size
+    size_t module_size = module->end - module->start;
+
+    // Open a file for writing
+    FILE *file = fl_fopen("/install.iso", "wb");
+    if (file == NULL) {
+        printf("Error opening file");
+        return;
+    }
+
+    // Write module data to the file
+    fl_fseek(file, 0, SEEK_SET); // Ensure we start at the beginning of the file
+    fl_fwrite((void *)module->start, 1, module_size, file);
+
+    // Close the file
+    fl_fclose(file);
+
+    printf("Module written to install.iso successfully.\n");
+}
 int fill_program_list(int num_programs,Entry *entries);
 /**
  * Function Name: init
@@ -178,6 +229,9 @@ void init(unsigned long magic, unsigned long addr) {
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // printf("\n\nLoading multiboot info\n");
     MULTIBOOT_INFO *mboot_info;
+    char command_line[256];
+    struct BootConfig config;
+    char *ini_data;
     if (magic == MULTIBOOT_BOOTLOADER_MAGIC) {
         // Cast addr to MULTIBOOT_INFO pointer
         mboot_info = (MULTIBOOT_INFO *)addr;
@@ -190,16 +244,34 @@ void init(unsigned long magic, unsigned long addr) {
             printf("\033[1;31merror: failed to get kernel memory map\n"); // Set text color to red
             return -1;
         }
+       printf_t("\nThere are %d grub modules\n", mboot_info->modules_count);
+        
+        strcpy(command_line,mboot_info->cmdline);
+        // printf("Grub cmd == %s\n",);
+        multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;
+
+        ini_data = module[0].start;
+        // printf("Ini data == %s\n", ini_data);
+        
+        for (int i = 0; i < mboot_info->modules_count; ++i) {
+            // printf("Module %d(%s): Start Address %p, Size %d bytes\n", i + 1,  module[i].name,(void *)module[i].start,module[i].end - module[i].start);
+            // printf("Module == %s",(unsigned char *)(module[i].start));
+            // Example: Printing the first few bytes of the module as hexadecimal
+            for (int j = 0; j < 16 && j < (module[i].end - module[i].start); ++j) {
+                // printf("%0x ", *((unsigned char *)(module[i].start + j)));
+            }
+            printf("\n");
+        }
         // Calculate allocation size for memory
     }
     
-    // printf("Initializing com port 1\n");
+    printf_t("Initializing com port 1\n");
     init_com1();
     
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize Scheduler
-    // printf("Initializing scheduler\n");
+    printf_t("Initializing scheduler\n");
     InitScheduler();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
@@ -207,10 +279,10 @@ void init(unsigned long magic, unsigned long addr) {
     size_t size = (g_kmap.available.size / 2) + 10;
     uint32_t pmm_start = (uint32_t)g_kmap.available.start_addr;
     asm("cli");
-    // printf("Initiating physical memory manager\n");
+    printf_t("Initiating physical memory manager\n");
     init_pmm_page(pmm_start, g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    // printf("Initializing Virtual Memory Manager\n");
+    printf_t("Initializing Virtual Memory Manager\n");
     // Initialize Virtual Memory Manager
     init_vmm();
     LOG_LOCATION;
@@ -223,21 +295,28 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
 
     // Initialize kernel heap
-    // printf("Initializing kernel heap\n");
+    printf_t("Initializing kernel heap\n");
     init_kheap(g_kmap.available.size);
+    load_boot_config(ini_data, &config);
+    if(config.verbose != true)
+    {
+        disable_verbose();
+    }
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    // printf("Scanning PCI\n");
+    printf_t("Scanning PCI\n");
     pci_scan();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    // printf("Attempting to initialize AHCI driver\n");
+    printf_t("Attempting to initialize AHCI driver\n");
     init_storage();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // Initialize FAT file system
-    // printf("Initialize FAT file system\n");
+    printf_t("Init keyboard\n");
     keyboard_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     STI();
-    init_file_system();
+    printf_t("Initialize FAT file system\n");
+
+    init_file_system(config.default_drive);
     CLI();
     LOG_LOCATION;
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
@@ -249,6 +328,7 @@ void init(unsigned long magic, unsigned long addr) {
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
+    
 
     int ret_buf = vesa_init_buffers();
     printf_com("%d\n", ret_buf);
@@ -271,8 +351,7 @@ void init(unsigned long magic, unsigned long addr) {
 
     LOG_LOCATION;
 
-    struct BootConfig config;
-    load_boot_config("/init/ini.ini", &config);
+    
 
     int num_programs;
     int num_program_dirs;
@@ -332,9 +411,17 @@ void init(unsigned long magic, unsigned long addr) {
     
 
     printf("Starting shell\n");
+    if(strcmp(command_line,"install")==0)
+    {   
+        write_first_module_to_file(mboot_info);
+        install_athenx();
+
+    }
+    
     CreateProcess(command_line);
     CreateProcess(loop_timer);
     PerformButler();
+
     STI();
 }
 
@@ -450,20 +537,27 @@ static int config_handler(void *user, const char *section, const char *name,
         if (strcmp(name, "error_log") == 0) {
             strncpy(config->error_log, value, sizeof(config->error_log));
         }
+    } else if (strcmp(section, "Settings") == 0) {
+        if (strcmp(name, "VerboseOutput") == 0) {
+            config->verbose = (strcmp(value, "true") == 0);
+        } else if (strcmp(name, "DefaultBootDrive") == 0) {
+            config->default_drive = atoi(value);
+        }
     }
 
     return 1; // Continue parsing
 }
 
-int load_boot_config(const char *config_file,struct BootConfig *boot_config) {
+int load_boot_config(const char *data,struct BootConfig *boot_config) {
     struct BootConfig config;
 
     // Initialize config with default values
     memset(boot_config, 0, sizeof(struct BootConfig));
 
     // Parse the INI file
-    if (ini_parse(config_file, config_handler, boot_config) < 0) {
-        fprintf(stderr, "Error: Can't load '%s'\n", config_file);
+    int ret = ini_parse(data, config_handler, boot_config);
+    if ( ret < 0) {
+        printf("Error: Can't load ini file %d\n",ret);
         return -1;
     }
 

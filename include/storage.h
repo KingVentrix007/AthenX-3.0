@@ -9,4 +9,6 @@ int secondary_storage_read(uint32 sector, uint8 *buffer, uint32 sector_count);
 int secondary_storage_write(uint32 sector, uint8 *buffer, uint32 sector_count);
 
 int set_primary_dev(int d);
+int write_iso_to_disk(uint8_t *iso_buffer, uint32_t iso_size);
+int install_athenx();
 #endif

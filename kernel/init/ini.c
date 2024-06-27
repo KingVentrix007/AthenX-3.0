@@ -155,7 +155,6 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
 #endif
 
         lineno++;
-
         start = line;
 #if INI_ALLOW_BOM
         if (lineno == 1 && (unsigned char)start[0] == 0xEF &&
@@ -229,6 +228,9 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
                     error = lineno;
 #else
                 error = lineno;
+                printf("INI parser: lineno %d\n", lineno);
+
+                
 #endif
             }
         }
@@ -253,19 +255,19 @@ int ini_parse_file(FILE* file, ini_handler handler, void* user)
 }
 
 /* See documentation in header file. */
-int ini_parse(const char* filename, ini_handler handler, void* user)
+int ini_parse(const char* data, ini_handler handler, void* user)
 {
-    FILE* file;
+    // FILE* file;
     int error;
 
-    file = fopen(filename, "r");
-    if (file == NULL) 
-    {
-        return -1;
+    // file = fopen(filename, "r");
+    // if (file == NULL) 
+    // {
+    //     return -1;
 
-    }
-    error = ini_parse_file(file, handler, user);
-    fclose(file);
+    // }
+    error = ini_parse_string(data, handler, user);
+    // fclose(file);
     return error;
 }
 
@@ -302,6 +304,7 @@ int ini_parse_string(const char* string, ini_handler handler, void* user) {
 
     ctx.ptr = string;
     ctx.num_left = strlen(string);
+    printf_com("INI :: parsing %s",string);
     return ini_parse_stream((ini_reader)ini_reader_string, &ctx, handler,
                             user);
 }

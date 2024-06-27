@@ -266,6 +266,33 @@ int cmd(char *command)
         LOG_LOCATION;
 
     }
+    else if (strcmp(argv[0],"format") == 0)
+    {
+        if(argc < 2)
+        {
+            printf("This is a VERY destructive command\nIt will reformat the ENTIRE current disk\nRun with '-sure' to format the disk\n");
+        }
+        else if (strcmp(argv[1], "-sure") == 0)
+        {
+
+            printf("\nFormatting disk\n");
+             uint32_t sectors;
+            if(argc == 3)
+            {
+                sectors = atoi(argv[2]);
+            }
+            else
+            {   
+            sectors= get_current_drive_sector_count();
+
+
+            }
+            char name = "disk";
+            fl_format(sectors,name);
+        }
+        
+    }
+    
     else if(strcmp(argv[0], "help") == 0)
     {
         if(argc < 2)

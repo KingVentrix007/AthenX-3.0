@@ -1,4 +1,7 @@
 #include "kernel.h"
+#include <stdarg.h>
+#include "stdbool.h"
+bool verbose_output = true;
 void print_kernel_memory_map(KERNEL_MEMORY_MAP *memory_map) {
     printf("Kernel Memory Map:\n");
     printf("Kernel:\n");
@@ -23,4 +26,29 @@ void print_kernel_memory_map(KERNEL_MEMORY_MAP *memory_map) {
     printf("  Start Address: 0x%x\n", memory_map->available.start_addr);
     printf("  End Address: 0x%x\n", memory_map->available.end_addr);
     printf("  Size: %u bytes\n", memory_map->available.size);
+}
+
+int disable_verbose()
+{
+    verbose_output = false;
+    return 0;
+}
+
+void printf_t(const char *format, ...) {
+
+    if(verbose_output == true)
+    {
+        va_list args;
+        va_start(args, format);
+
+        // Add custom functionality here
+        // For example, adding a prefix to each message
+        // printf("[MyPrintf] ");
+
+        // Call the original printf function with the provided arguments
+        vprintf_(format, args);
+
+        va_end(args);
+    }
+    
 }

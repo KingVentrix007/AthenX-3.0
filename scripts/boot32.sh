@@ -13,6 +13,7 @@ hackos_bin="AthenX.bin"
     # sudo cp -r "sysroot"/* /mnt/AthenX-3.0/
     sudo mkdir /mnt/AthenX-3.0/boot
     sudo cp AthenX.bin /mnt/AthenX-3.0/boot
+    sudo cp AthenX.iso /mnt/AthenX-3.0/boot
     sudo grub-install --target=i386-pc --boot-directory=/mnt/AthenX-3.0 --root-directory=/mnt/AthenX-3.0 --force --no-floppy --modules="part_msdos fat" /dev/loop0
     echo "saved_entry=grub.cfg" | sudo tee /grub/grubenv
     sudo cp -r "grub/." "/mnt/AthenX-3.0/grub"
