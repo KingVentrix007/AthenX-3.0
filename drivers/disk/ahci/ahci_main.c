@@ -9,6 +9,7 @@
 #include "stdlib.h"
 #include "printf.h"
 #include "string.h"
+#include "storage.h"
 uint32_t HBA_MEM_BASE_ADDRESS;
 #define AHCI_BASE 0x400000 // 4M
 typedef unsigned int DWORD;
@@ -45,27 +46,57 @@ typedef unsigned short WORD;
 #define SECTOR_SIZE 512
 
 HBA_PORT *port;
-
+HBA_DEVICE ahci_devices[100];
 void probe_port(HBA_MEM *abar);
 static int check_type(HBA_PORT *port);
 void start_cmd(HBA_PORT *port);
 void stop_cmd(HBA_PORT *port);
 void port_rebase(HBA_PORT *port, int portno);
-int ahci_write_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count);
-int ahci_read_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count);
+int ahci_write_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count);
+int ahci_read_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count);
 
 
-int ahci_write_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
+int current_ahci_drive = 0;
+
+int select_ahci_drive(int index)
 {
-	int ret =  ahci_write_sector(port, sector, buffer,sector_count);
-	// printf("%s == %d\n",__func__,ret);
+    current_ahci_drive = index;
+    printf("\nUsing current AHCI drive %d\n", current_ahci_drive);
+    return current_ahci_drive;
+}
+
+int ahci_write_sector_hal(uint32 sector, uint8 *buffer, uint32 sector_count)
+{
+	int ret =  ahci_write_sectors(ahci_devices[current_ahci_drive].port, sector, buffer,sector_count);
+	printf_com("AHCI :: %s == %d\n",__func__,ret);
 	return ret;
 }
-int ahci_read_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
+int ahci_read_sector_hal(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
-	int ret = ahci_read_sector(port, sector, buffer, sector_count);
-	// printf("%s == %d\n",__func__,ret);
+	int ret = ahci_read_sectors(ahci_devices[current_ahci_drive].port, sector, buffer, sector_count);
+	printf_com("AHCI :: %s == %d\n",__func__,ret);
 	return ret;
+}
+
+int add_ahci_drive(HBA_PORT *dev)
+{
+    for (size_t i = 0; i < 100; i++)
+    {
+        if(ahci_devices[i].valid != 1)
+        {
+
+            ahci_devices[i].valid = 1;
+            ahci_devices[i].port = dev;
+            pci_storage_device device;
+            device.set == 0;
+            device.storage_specific_number = i;
+            device.storage_type = AHCI_DEVICE;
+            add_device(device);
+            return 0;
+        }
+    }
+    return -1;
+    
 }
 uint32_t ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
 {
@@ -115,7 +146,11 @@ int ahci_main()
     map((uint32_t)abar,(uint32_t)abar,PAGE_PRESENT|PAGE_WRITE); //Memory map BAR 5 register as uncacheable.
 
     reset_ahci_controller(abar); //Reset controller
-
+    for (size_t i = 0; i < 100; i++)
+    {
+        ahci_devices[i].valid = -1;
+    }
+    
     int irq = dev->interrupt_line;
     isr_register_interrupt_handler(IRQ_BASE+irq, ahci_isr); //Register IRQ handler, using interrupt line given in the PCI register. This interrupt line may be shared with other devices, so the usual implications of this apply.
 
@@ -147,28 +182,30 @@ void probe_port(HBA_MEM *abar)
 				uint32_t num_sectors = 32; // Number of sectors to read
 				char buffer[SECTOR_SIZE * 32]; // Buffer to hold 32 sectors of data
 				char write_buffer[512]; // Buffer to hold 1 sector of data
-				port = &abar->ports[i];
+				// port = &abar->ports[i];
+                add_ahci_drive(&abar->ports[i]);
+                // add_device(pci_storage_device dev)
     			// Fill buffer with data to write (example data)
 			
 
 				
-                return;
+                // return;
 			}
 			else if (dt == AHCI_DEV_SATAPI)
 			{
-				printf("SATAPI drive found at port %d\n", i);
+				printf_com("SATAPI drive found at port %d\n", i);
 			}
 			else if (dt == AHCI_DEV_SEMB)
 			{
-				printf("SEMB drive found at port %d\n", i);
+				printf_com("SEMB drive found at port %d\n", i);
 			}
 			else if (dt == AHCI_DEV_PM)
 			{
-				printf("PM drive found at port %d\n", i);
+				printf_com("PM drive found at port %d\n", i);
 			}
 			else
 			{
-				printf("No drive found at port %d\n", i);
+				printf_com("No drive found at port %d\n", i);
 			}
 		}
 
@@ -308,7 +345,7 @@ void stop_cmd(HBA_PORT *port)
 //41CC1000
 //41CC1000
 
-int ahci_read_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count)
+int ahci_read_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count)
 {
     port->is = (uint32_t)-1; // Clear pending interrupt bits
 
@@ -381,7 +418,7 @@ int ahci_read_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t cou
 
     return 1; // Read successfully
 }
-int ahci_write_sector(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count)
+int ahci_write_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count)
 {
     port->is = (uint32_t)-1; // Clear pending interrupt bits
 

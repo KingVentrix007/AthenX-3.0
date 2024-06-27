@@ -37,6 +37,7 @@
 #include "ini/ini.h"
 #include "inttypes.h"
 #include "ahci.h"
+#include "vfs.h"
 struct BootConfig {
     char version_number[20];
     char program_path[256];
@@ -229,18 +230,15 @@ void init(unsigned long magic, unsigned long addr) {
     pci_scan();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // printf("Attempting to initialize AHCI driver\n");
-    ahci_main();
+    init_storage();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // Initialize FAT file system
     // printf("Initialize FAT file system\n");
-    fl_init();
-    if (fl_attach_media(ahci_read_sector_fat, ahci_write_sector_fat) != FAT_INIT_OK)
-    {
-        printf("\033[1;31mERROR: Failed to init file system\n"); // Set text color to red
-        return -1;
-    }
-    LOG_LOCATION;
-    init_fs();
+    keyboard_init();
+    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    STI();
+    init_file_system();
+    CLI();
     LOG_LOCATION;
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     
@@ -288,8 +286,7 @@ void init(unsigned long magic, unsigned long addr) {
         fill_program_list(num_programs, programs);
     }
     printf("Loaded %d programs\n", num_programs);
-    keyboard_init();
-    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
+    
 
     printf("\033[1;32mSystem Initialization Complete\n"); // Set text color to green
     printf("System Info:\n");
@@ -332,7 +329,7 @@ void init(unsigned long magic, unsigned long addr) {
     printf("Device Info:\n");
     print_pci_devices();
 
-    STI();
+    
 
     printf("Starting shell\n");
     CreateProcess(command_line);

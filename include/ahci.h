@@ -164,6 +164,11 @@ typedef struct tagHBA_CMD_TBL
     HBA_PRDT_ENTRY prdt_entry[1];  // Physical region descriptor table entries, 0 ~ 65535
 } HBA_CMD_TBL;
 
+typedef struct tagHBA_DEVICE
+{
+    int valid;
+    HBA_PORT *port;
+}HBA_DEVICE;
 void debug_HBA_PORT(HBA_PORT *ptr);
 void debug_HBA_MEM(HBA_MEM *ptr);
 void debug_HBA_CMD_HEADER(HBA_CMD_HEADER *ptr);
@@ -175,6 +180,10 @@ void enable_bus_mastering(uint8_t bus, uint8_t slot, uint8_t func);
 void init_achi_pci(uint8_t bus, uint8_t slot, uint8_t func);
 
 
-int ahci_write_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count);
-int ahci_read_sector_fat(uint32 sector, uint8 *buffer, uint32 sector_count);
+int ahci_write_sector_hal(uint32 sector, uint8 *buffer, uint32 sector_count);
+int ahci_read_sector_hal(uint32 sector, uint8 *buffer, uint32 sector_count);
+
+int select_ahci_drive(int index);
+
 #endif
+

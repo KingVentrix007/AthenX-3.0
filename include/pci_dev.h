@@ -67,22 +67,17 @@ typedef struct {
     uint32_t capabilities_pointer;  // Capabilities Pointer
 } pci_config_register;
 
-typedef enum
-{
-    IDE = 1,
-    AHCI
-
-
-}storage_type;
+#define AHCI_DEVICE  0x1
+#define IDE_DEVICE  0x2
+#define USB_DEVICE  0x3
 typedef int (*storage_medium_read) (uint32 sector, uint8 *buffer, uint32 sector_count);
 typedef int (*storage_medium_write)(uint32 sector, uint8 *buffer, uint32 sector_count);
 typedef struct
 {
     int set;
-    storage_medium_read read_func;
-    storage_medium_write write_func;
-    pci_config_register dev;
-    HBA_PORT ahci_port;
+    int storage_type;
+    int storage_count; // Overall storage count
+    int storage_specific_number; // drive number for specific storage device
 }pci_storage_device;
 
 

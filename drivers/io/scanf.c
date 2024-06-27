@@ -2172,6 +2172,7 @@ int getch_(void)
         }
         
     }
+    printf_com("%c", ch);
     return ch;
 }
 

@@ -182,6 +182,7 @@ void help() {
     printf("touch <file name>    Create a new file\n");
     printf("cad <file name>      Open a super basic file editor\n");
     printf("<program_name>       Execute program\n");
+    printf("setd <drive_number>  Sets the current active drive\n");
 }
 char *get_cwd() {
     char *current_path;
@@ -348,6 +349,25 @@ int cmd(char *command)
     else if(strcmp(argv[0],"cls") == 0)
     {
         cls();
+    }
+    else if(strcmp(argv[0],"setd") == 0)
+    {
+        if(argc < 2)
+        {
+            printf("Usage: setd <driver_number>\n");
+        }
+        else
+        {
+            int ret = set_primary_dev(atoi(argv[1]));
+            if(ret == -1)
+            {
+                printf("Error: Failed to set primary device\n");
+            }
+            else
+            {
+                printf("Primary device %d\n", atoi(argv[1]));
+            }
+        }
     }
     else if(strcmp(argv[0],"key") == 0)
     {

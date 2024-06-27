@@ -66,11 +66,13 @@ run: AthenX.bin
 	
 	bash ./scripts/boot32.sh
 	qemu-system-i386 \
-	-drive id=disk,file=AthenX.img,format=raw,if=none \
-	-device ahci,id=ahci \
-	-device ide-hd,drive=disk,bus=ahci.0 \
-	-m 4G \
-	-serial file:AthenX-3.0.log \
+    -drive id=disk,file=AthenX.img,format=raw,if=none \
+    -drive id=disk2,file=ahci.img,format=raw,if=none \
+    -device ahci,id=ahci \
+    -device ide-hd,drive=disk,bus=ahci.0 \
+    -device ide-hd,drive=disk2,bus=ahci.1 \
+    -m 4G \
+    -serial file:AthenX-3.0.log
 	# -trace ahci_* 
 
 
