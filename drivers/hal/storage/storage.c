@@ -55,6 +55,11 @@ int set_primary_dev(int dev)
         printf("ONLY one NON AHCI device can be used\n");
     }
     fl_init();
+    if (fl_attach_media(secondary_storage_read, secondary_storage_write) != FAT_INIT_OK)
+    {
+        printf("\033[1;31mERROR: Failed to init file system\n"); // Set text color to red
+        return -1;
+    }
     // init_fs();
 
 }

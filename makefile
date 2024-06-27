@@ -89,7 +89,15 @@ run-no-compile:
 	-serial file:AthenX-3.0.log \
 	# -trace ahci_* 
 
-
+run-iso:
+	qemu-system-i386 \
+    -drive file=AthenX.iso,media=cdrom \
+    -drive id=disk2,file=ahci.img,format=raw,if=none \
+    -device ahci,id=ahci \
+    -device ide-hd,drive=disk2,bus=ahci.0 \
+    -m 4G \
+    -serial file:AthenX-3.0.log \
+	-boot d
 libc:
 	(cd libc  && make )
 
