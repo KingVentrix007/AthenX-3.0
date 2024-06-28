@@ -121,7 +121,7 @@ INI_API int ini_parse_string(const char* string, ini_handler handler, void* user
 
 /* Nonzero to use stack for line buffer, zero to use heap (malloc/free). */
 #ifndef INI_USE_STACK
-#define INI_USE_STACK 1
+#define INI_USE_STACK -1
 #endif
 
 /* Maximum line length for any line in INI file (stack or heap). Note that

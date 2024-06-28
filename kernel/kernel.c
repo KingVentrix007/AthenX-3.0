@@ -34,6 +34,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "immintrin.h"
+#include "keyboard.h"
 void command_line(void);
 unsigned int get_random_number();
 void loop(void);
@@ -142,9 +143,50 @@ void kmain(unsigned long magic, unsigned long addr)
     
    
 }
+size_t command_buffer_size = 1024;
+char *input_buffer;
+char **history;
+int history_pos = 0;
+size_t cmd_count;
+void load_history_up()
+{
+    if(cmd_count >= 1 && history_pos < cmd_count)
+    {
+        for (size_t i = 0; i < strlen(input_buffer); i++)
+        {
+            printf("\b");
+        }
+        
+        memset(input_buffer,0,command_buffer_size+1);
+        // strcpy(input_buffer,history[history_pos]);
+        memcpy(input_buffer,history[history_pos],strlen(history[history_pos]));
 
+        history_pos++;
+        printf("%s",input_buffer);
+
+    }
+    
+}
+void load_history_down()
+{
+    if(cmd_count >= 1 && history_pos < cmd_count)
+    {
+         for (size_t i = 0; i < strlen(input_buffer); i++)
+        {
+            printf("\b");
+        }
+        memset(input_buffer,0,command_buffer_size+1);
+        memcpy(input_buffer,history[history_pos],strlen(history[history_pos]));
+        history_pos--;
+        printf("%s",input_buffer);
+
+    }
+}
 void command_line(void)
 {
+    register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
+    register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
+
     printf("Welcome to ");
     printf("\033[0;31m"); // Set color to red
     printf("I");
@@ -167,24 +209,24 @@ void command_line(void)
 
     LOG_LOCATION;
     // sleep(3);
-    size_t command_buffer_size = 1024;
-    char **history = (char**)malloc(1024);
+    
+    history = (char**)malloc(1024);
     if(history == NULL)
     {
         perror("Failed to allocate for history buffer");
 
     }
-    size_t cmd_count = 0;
-    char *input_buffer = (char *)malloc(command_buffer_size+1);
+    cmd_count = 0;
+    input_buffer = (char *)malloc(command_buffer_size+1);
     // printf("HERE\n");
-    int buffer_pos = 0;
+    // int buffer_pos = 0;
     char *user = malloc(1024);
     if(user == NULL)
     {
         perror("Failed to allocate memory for user buffer");
     }
     strcpy(user,"Dev");
-    memset(input_buffer,1,command_buffer_size);
+    memset(input_buffer,0,command_buffer_size);
     // free(input_buffer);
     printf("\n%s@%s>",user,getcwd());
     while(1)
@@ -199,8 +241,8 @@ void command_line(void)
 
         }
         else
-        {   
-            // printf("\n%s",input_buffer);
+        {   //configuration
+            // printf("input_buffer\n%s",input_buffer);
             cmd(input_buffer);
             history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
             if(history[cmd_count] == NULL)

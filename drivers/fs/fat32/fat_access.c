@@ -112,7 +112,11 @@ int fatfs_init(struct fatfs *fs)
         fs->lba_begin = GET_32BIT_WORD(fs->currentsector.sector, PARTITION1_LBA_BEGIN_LOCATION); 
     // Else possibly MBR less disk
     else
+    {
+        // printf("No MBR found\n");
         fs->lba_begin = 0;
+    }
+        
 
     // Load Volume 1 table into sector buffer
     // (We may already have this in the buffer if MBR less drive!)

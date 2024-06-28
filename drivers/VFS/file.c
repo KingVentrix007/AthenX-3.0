@@ -600,14 +600,18 @@ char *fgets(char *s, int n, void *f) {
                 if (count > 0) { // Ensure not underflowing the buffer
                     s--;
                     count--;
+                    printf("\b");
                 }
             } else {
+                printf("%c", ch);
                 *s = ch;
                 s++;
                 count++;
             }
         }
-        *s = '\0'; // Null-terminate the string
+        int point = strlen(s);
+        // printf("Point: %d\n", point);
+        s[point] = '\0'; // Null-terminate the string
     } else {
         return fl_fgets(s, n, f); // Use the standard library fgets for other file streams
     }

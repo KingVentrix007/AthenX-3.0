@@ -29,11 +29,18 @@ void ini_free(void* ptr);
 void* ini_realloc(void* ptr, size_t size);
 #else
 #include <stdlib.h>
-#define ini_malloc malloc
+// #define ini_malloc malloc
 #define ini_free free
 #define ini_realloc realloc
 #endif
 #endif
+void* ini_malloc(size_t size);
+void * ini_malloc(size_t size)
+{
+    printf("MALLOC FROM INI\n");
+    return malloc(size);
+}
+
 
 #define MAX_SECTION 50
 #define MAX_NAME 50
@@ -98,14 +105,15 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
                      void* user)
 {
     /* Uses a fair bit of stack (use heap instead if you need to) */
-#if INI_USE_STACK
+#if 1
+    // printf("Using stack\n");
     char line[INI_MAX_LINE];
     size_t max_line = INI_MAX_LINE;
 #else
     char* line;
     size_t max_line = INI_INITIAL_ALLOC;
 #endif
-#if INI_ALLOW_REALLOC && !INI_USE_STACK
+#if INI_ALLOW_REALLOC && !1
     char* new_line;
     size_t offset;
 #endif
@@ -119,7 +127,7 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
     int lineno = 0;
     int error = 0;
 
-#if !INI_USE_STACK
+#if !1
     line = (char*)ini_malloc(INI_INITIAL_ALLOC);
     if (!line) {
         return -2;
@@ -134,7 +142,7 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
 
     /* Scan through stream line by line */
     while (reader(line, (int)max_line, stream) != NULL) {
-#if INI_ALLOW_REALLOC && !INI_USE_STACK
+#if INI_ALLOW_REALLOC && !1
         offset = strlen(line);
         while (offset == max_line - 1 && line[offset - 1] != '\n') {
             max_line *= 2;
@@ -228,7 +236,7 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
                     error = lineno;
 #else
                 error = lineno;
-                printf("INI parser: lineno %d\n", lineno);
+                // printf("INI parser: lineno %d\n", lineno);
 
                 
 #endif
@@ -241,7 +249,7 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
 #endif
     }
 
-#if !INI_USE_STACK
+#if !1
     ini_free(line);
 #endif
 

@@ -229,7 +229,7 @@ void init(unsigned long magic, unsigned long addr) {
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // printf("\n\nLoading multiboot info\n");
     MULTIBOOT_INFO *mboot_info;
-    char command_line[256];
+    char grub_command_line[256];
     struct BootConfig config;
     char *ini_data;
     if (magic == MULTIBOOT_BOOTLOADER_MAGIC) {
@@ -246,7 +246,7 @@ void init(unsigned long magic, unsigned long addr) {
         }
        printf_t("\nThere are %d grub modules\n", mboot_info->modules_count);
         
-        strcpy(command_line,mboot_info->cmdline);
+        strcpy(grub_command_line,mboot_info->cmdline);
         // printf("Grub cmd == %s\n",);
         multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;
 
@@ -264,7 +264,11 @@ void init(unsigned long magic, unsigned long addr) {
         }
         // Calculate allocation size for memory
     }
-    
+    load_boot_config(ini_data, &config);
+    if(config.verbose != true)
+    {
+        disable_verbose();
+    }
     printf_t("Initializing com port 1\n");
     init_com1();
     
@@ -297,11 +301,7 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize kernel heap
     printf_t("Initializing kernel heap\n");
     init_kheap(g_kmap.available.size);
-    load_boot_config(ini_data, &config);
-    if(config.verbose != true)
-    {
-        disable_verbose();
-    }
+    
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     printf_t("Scanning PCI\n");
     pci_scan();
@@ -411,8 +411,9 @@ void init(unsigned long magic, unsigned long addr) {
     
 
     printf("Starting shell\n");
-    if(strcmp(command_line,"install")==0)
+    if(strcmp(grub_command_line,"install")==0)
     {   
+        printf("Installing\n");
         write_first_module_to_file(mboot_info);
         install_athenx();
 

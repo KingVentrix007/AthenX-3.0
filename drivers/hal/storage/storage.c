@@ -48,7 +48,7 @@ int set_primary_dev(int dev)
     primary_dev = device;
     if(device.storage_type == AHCI_DEVICE)
     {
-        printf("device.set == %d\n", device.set);
+        // printf("device.set == %d\n", device.set);
         select_ahci_drive(device.storage_specific_number);
     }
     else

@@ -67,7 +67,7 @@ int current_ahci_drive = 0;
 int select_ahci_drive(int index)
 {
     current_ahci_drive = index;
-    printf("\nUsing current AHCI drive %d\n", current_ahci_drive);
+    printf_t("\nUsing current AHCI drive %d\n", current_ahci_drive);
     return current_ahci_drive;
 }
 
@@ -126,7 +126,7 @@ uint32_t ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
 
 }
 void reset_ahci_controller(HBA_MEM *abar) {
-    printf("Reseting ahci controller\n");
+    printf_t("Reseting ahci controller\n");
     // Request HBA reset
     abar->ghc |= HBA_RESET;
     
@@ -136,7 +136,7 @@ void reset_ahci_controller(HBA_MEM *abar) {
 }
 void ahci_isr(REGISTERS16 *reg)
 {
-    printf("ahci isr called\n");
+    printf_t("ahci isr called\n");
 }
 void enable_ahci_mode_and_interrupts(HBA_MEM *abar) {
     // Set the AHCI Enable bit and Interrupt Enable bit
@@ -145,37 +145,37 @@ void enable_ahci_mode_and_interrupts(HBA_MEM *abar) {
 
 int ahci_main()
 {
-    printf("AHCI :: Initializing AHCI\nFrom this point on, debug logs are related to AHCI or functions called in AHCI\n----------------------------------------------------------------\n");
+    printf_t("AHCI :: Initializing AHCI\nFrom this point on, debug logs are related to AHCI or functions called in AHCI\n----------------------------------------------------------------\n");
     pci_config_register *dev = get_ahci_abar();
     HBA_MEM *abar = (HBA_MEM *)dev->base_address_5;
     init_achi_pci(dev->bus,dev->slot,dev->func); //Enable interrupts, DMA, and memory space access in the PCI command register
     // enable_bus_mastering(dev->bus,dev->slot,dev->func);
-    printf("Mapping AHCI abar %p\n",abar);
-    printf("AHCI BAR0 == %p\n",dev->base_address_0);
-    printf("AHCI BAR1 == %p\n",dev->base_address_1);
-    printf("AHCI BAR2 == %p\n",dev->base_address_2);
-    printf("AHCI BAR3 == %p\n",dev->base_address_2);
-    printf("AHCI BAR4 == %p\n",dev->base_address_4);
-    printf("AHCI BAR5 == %p\n",dev->base_address_5);
+    printf_t("Mapping AHCI abar %p\n",abar);
+    printf_t("AHCI BAR0 == %p\n",dev->base_address_0);
+    printf_t("AHCI BAR1 == %p\n",dev->base_address_1);
+    printf_t("AHCI BAR2 == %p\n",dev->base_address_2);
+    printf_t("AHCI BAR3 == %p\n",dev->base_address_2);
+    printf_t("AHCI BAR4 == %p\n",dev->base_address_4);
+    printf_t("AHCI BAR5 == %p\n",dev->base_address_5);
 
     map((uint32_t)abar,(uint32_t)abar,PAGE_PRESENT|PAGE_WRITE); //Memory map BAR 5 register as uncacheable.
     // abar = 0xf7d16m00;//! Might have to change back to mapping apar to abar
-    // printf("Mapped AHCI abar\n");
+    // printf_t("Mapped AHCI abar\n");
     reset_ahci_controller(abar); //Reset controller
-    // printf("Reset AHCI controller\n");
+    // printf_t("Reset AHCI controller\n");
     for (size_t i = 0; i < 100; i++)
     {
         ahci_devices[i].valid = -1;
     }
     
     int irq = dev->interrupt_line;
-    printf("Regestering IRQ %d\n", IRQ_BASE+irq);
+    printf_t("Regestering IRQ %d\n", IRQ_BASE+irq);
     isr_register_interrupt_handler(IRQ_BASE+irq, ahci_isr); //Register IRQ handler, using interrupt line given in the PCI register. This interrupt line may be shared with other devices, so the usual implications of this apply.
 
     enable_ahci_mode_and_interrupts(abar); //Enable AHCI mode and interrupts in global host control register.
-    printf("Probing for AHCI ports\n");
+    printf_t("Probing for AHCI ports\n");
     probe_port(abar); // Scan all ports
-    printf("Successfully initialized AHCI controller\n");
+    printf_t("Successfully initialized AHCI controller\n");
     printf_com("AHCI :: AHCI debug logs end here\n----------------------------------------------------------------\n");
 
 
@@ -190,11 +190,11 @@ void probe_port(HBA_MEM *abar)
 	{
 		if (pi & 1)
 		{
-            // printf("\nScanning ports\n");
+            // printf_t("\nScanning ports\n");
 			int dt = check_type(&abar->ports[i]);
 			if (dt == AHCI_DEV_SATA)
 			{
-				printf("SATA drive found at port %d\n", i);
+				printf_t("SATA drive found at port %d\n", i);
                 port_rebase(&abar->ports[i],i);
 				uint32_t start_sector = 0; // Starting LBA
 				uint32_t num_sectors = 32; // Number of sectors to read
@@ -284,17 +284,17 @@ void port_rebase(HBA_PORT *port, int portno)
     *(volatile uint32_t*)(port->clb) = test_value;
     uint32_t read_back = *(volatile uint32_t*)(port->clb);
     if (read_back != test_value) {
-        printf("AHCI :: Failed to verify Command List buffer for port %d. Expected %x, got %x\n", portno, test_value, read_back);
+        printf_t("AHCI :: Failed to verify Command List buffer for port %d. Expected %x, got %x\n", portno, test_value, read_back);
         return;
     } else {
-        // printf("AHCI :: Successfully verified Command List buffer for port %d. Value: %x\n", portno, read_back);
+        // printf_t("AHCI :: Successfully verified Command List buffer for port %d. Value: %x\n", portno, read_back);
     }
     memset((void*)(port->clb), 0, 1024);
 
     // FIS offset: 32K+256*portno
     uint32_t fb_addr = ahci_malloc(256, 4096, __LINE__, "FIS entry");
     if (fb_addr == 0) {
-        printf("AHCI :: Failed to allocate FIS buffer for port %d\n", portno);
+        printf_t("AHCI :: Failed to allocate FIS buffer for port %d\n", portno);
         return;
     }
     printf_com("AHCI :: FIS buffer allocated at %p\n", fb_addr);
@@ -321,11 +321,11 @@ void port_rebase(HBA_PORT *port, int portno)
     // Start command engine and check status
     start_cmd(port);
     // if (port->cmd & HBA_PxCMD_CR) {
-    //     // printf("AHCI :: Failed to start command engine for port %d\n", portno);
+    //     // printf_t("AHCI :: Failed to start command engine for port %d\n", portno);
     //     return;
     // }
 
-    // printf("Done Rebasing port %d\n", portno);
+    // printf_t("Done Rebasing port %d\n", portno);
 }
 
 // Start command engine
@@ -525,10 +525,10 @@ void get_drive_info(HBA_PORT *port) {
         uint64_t sector_count = identify_data.data[100] | ((uint64_t)identify_data.data[101] << 16) |
                                 ((uint64_t)identify_data.data[102] << 32) | ((uint64_t)identify_data.data[103] << 48);
 
-        printf("Drive sector size: %u bytes\n", logical_sector_size);
-        printf("Drive total sectors: %u\n", sector_count);
+        printf_t("Drive sector size: %u bytes\n", logical_sector_size);
+        printf_t("Drive total sectors: %u\n", sector_count);
     } else {
-        printf("Failed to identify device on port.\n");
+        printf_t("Failed to identify device on port.\n");
     }
 }
 int ahci_identify_device(HBA_PORT *port, IDENTIFY_DEVICE_DATA *identify_data) {
@@ -598,7 +598,7 @@ uint64_t int_get_sector_count(HBA_PORT *port) {
     }
 
     if (timeout >= 1000000) {
-        printf("Timeout waiting for port to be ready\n");
+        printf_t("Timeout waiting for port to be ready\n");
         return 0;
     }
 
@@ -635,7 +635,7 @@ uint64_t int_get_sector_count(HBA_PORT *port) {
     while (1) {
         if ((port->ci & 1) == 0) break;
         if (port->is & HBA_PxIS_TFES) {
-            printf("Error: Task file error\n");
+            printf_t("Error: Task file error\n");
             return 0;
         }
     }

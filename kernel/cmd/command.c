@@ -229,9 +229,29 @@ void key_map()
 
 
 }
+int print_iris()
+{
+     printf("\033[0;31m"); // Set color to red
+        printf("I");
+        
+        // Print "r" in green
+        printf("\033[0;32m"); // Set color to green
+        printf("r");
+
+        // Print "i" in yellow
+        printf("\033[0;33m"); // Set color to yellow
+        printf("i");
+
+        // Print "s" in blue
+        printf("\033[0;34m"); // Set color to blue
+        printf("s");
+
+        // Reset color
+        printf("\033[0m");
+}
 int cmd(char *command)
 {
-
+    // printf("command: %s\n", command);
     int argc;
         LOG_LOCATION;
 
@@ -392,10 +412,22 @@ int cmd(char *command)
             }
             else
             {
-                printf("Primary device %d\n", atoi(argv[1]));
+                printf("\nPrimary device %d\n", atoi(argv[1]));
             }
         }
     }
+    else if (strcmp(argv[0], "iris") == 0)
+    {
+        printf("Welcome to ");
+        print_iris();
+        printf("\n");
+        print_iris();
+        printf(" Is a simple bash like shell. Currently, the number of commands supported are the bare minimum for testing purposes, but that hopefully will change at some point\n");
+        print_iris();
+        printf(" Is named after the greek goddess iris. Who is the Goddess of rainbows and messages\n");
+        printf("Type 'help' for a list of available");
+    }
+    
     else if(strcmp(argv[0],"key") == 0)
     {
         key_map();

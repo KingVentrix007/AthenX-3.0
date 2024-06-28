@@ -2163,7 +2163,7 @@ int getch_(void)
         if(echo == 10)
         {
             // printf_debug("%d", echo);
-            printf("%c", ch);   
+            // printf("%c", ch);   
         }
         else
         {
