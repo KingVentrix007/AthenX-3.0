@@ -25,12 +25,14 @@ int init_fs()
     _cwd = kmalloc(FATFS_MAX_LONG_FILENAME);
     if(_cwd == NULL)
     {
-        printf(3,__LINE__,__func__,__FILE__,"FS: Failed to allocate memory for _cwd. Defaulting to fixed size buffer\nUsing fixed size buffer");
+        printf("%d %d %s %s %s",3,__LINE__,__func__,__FILE__,"FS: Failed to allocate memory for _cwd. Defaulting to fixed size buffer\nUsing fixed size buffer");
         use_cwd = false;
+
         return -1;
     }
     else
     {
+        memset(_cwd, 0, sizeof(FATFS_MAX_LONG_FILENAME));
         _cwd[0] = '/';
         _cwd_len = 1;
         use_cwd = true;
@@ -227,49 +229,15 @@ void *fopen(const char *path,const char *modifiers)
     }
     else if(0 == 0)//If fat32 or ext#, ATM only fat works
     {
-        // if(path[0] == '.' && path[1] == '/')
-        // {
-        //     char *cwd = getcwd();
-        //     if(cwd[0] != '/')
-        //     {
-        //         printf("Invalid\n");
-        //         strcpy(path_to_open,"/");
-        //     }
-        //     else
-        //     {
-        //         // printf("C[%c]\n",cwd[0]);
-        //         strcpy(path_to_open,'/');
-        //     }
-        //     strcpy(path_to_open,cwd);
-        //     path++;
-        //     path++;
-        //     strcpy(path_to_open,"/");
-        //     strcpy(path_to_open,path);
-        //     printf("path_to_open[0] == %c\n",path_to_open[0]);
-        //     if(path_to_open[0] != '/')
-        //     {
-        //         char *path_tmp = malloc(strlen(path_to_open)+2);
-        //         memset(path_tmp, 0, strlen(path_to_open)+2);
-        //         strcat(path_tmp,"/");
-        //         strcat(path_tmp,path_to_open);
-        //         // free(path_to_open);
-        //         // printf("Hello, world! %s | %s\n",path_tmp,path_to_open);
-                
-        //         path_to_open = path_tmp;
-        //         strcpy(path_to_open,path_tmp);
-        //         printf("Opening file %s\n",path_to_open);
-                
-        //     }
-        //     // printf("path = %s\n",path_to_open);
-        //     // path--;
-        //     // path--;
-        // }
-        // else
-        // {
-        //     strcpy(path_to_open,path);
-        // }
+        if(path[0] != '/')
+        {
+            char *cwd_path = _cwd;
+            strcat(path_to_open, cwd_path);
+            strcat(path_to_open,"/");
+            strcat(path_to_open,path);
+        }
         // // printf("Path to open == %s\n",path_to_open);
-        char* result = process_path(path);
+        char* result = process_path(path_to_open);
         // printf("Opening file [%s]\n",result);
         void * ret = fl_fopen(result,modifiers);
         if(ret != NULL)

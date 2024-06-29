@@ -52,13 +52,13 @@ int edit_file(char *file_path) {
                 current_cur_pos--;
                 num_chars--;
                 file_data[current_cur_pos] = '\0';
-                // printf("\b \b"); // Move cursor back, print space, move cursor back again
+                printf("\b"); // Move cursor back, print space, move cursor back again
             }
         } else {
             file_data[current_cur_pos] = user_char;
             current_cur_pos++;
             num_chars++;
-            // printf("%c", user_char); // Echo the character
+            printf("%c", user_char); // Echo the character
         }
     }
 

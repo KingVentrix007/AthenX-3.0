@@ -169,15 +169,17 @@ void load_history_up()
 }
 void load_history_down()
 {
+    // printf("LOAD DPWN\n ");
     if(cmd_count >= 1 && history_pos < cmd_count)
     {
          for (size_t i = 0; i < strlen(input_buffer); i++)
         {
             printf("\b");
         }
+        history_pos--;
         memset(input_buffer,0,command_buffer_size+1);
         memcpy(input_buffer,history[history_pos],strlen(history[history_pos]));
-        history_pos--;
+        
         printf("%s",input_buffer);
 
     }

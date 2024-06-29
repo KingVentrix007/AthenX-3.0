@@ -330,10 +330,7 @@ int cmd(char *command)
         if(argc == 2)
         
         {
-            if(argv[1][0] != '/' && argv[1][0] != '.')
-            {
-                printf("WARNING: It is suggested to use the FULL path at the moment.\n");
-            }
+            
              FILE *fp = fopen(argv[1],"a");
             if(fp!= NULL)
             {
