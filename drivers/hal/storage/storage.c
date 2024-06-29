@@ -6,6 +6,7 @@
 #include "fat_access.h"
 #include "storage.h"
 #include "stdlib.h"
+#include "vfs.h"
 #define MAX_STORAGE_DEVICES 100
 pci_storage_device storage_devs[MAX_STORAGE_DEVICES];
 pci_storage_device primary_dev;
@@ -21,33 +22,69 @@ int init_storage()
     }
     ata_init();
     ahci_main();
+    check_fs_types();
+    
     
 }
-int list_devices()
+
+int check_fs_types()
 {
     for (size_t i = 0; i < MAX_STORAGE_DEVICES; i++)
     {
         if(storage_devs[i].set == 0)
         {
+            int ret = init_file_system(storage_devs[i].storage_count);
+            storage_devs[i].file_system = ret;
+        }
+    }
+}
+int list_devices()
+{
+    for (size_t i = 0; i < MAX_STORAGE_DEVICES; i++)
+    {
+        if (storage_devs[i].set == 0)
+        {
             char msg[40];
             uint32_t size = 0;
-            if(storage_devs[i].storage_type == AHCI_DEVICE)
+            if (storage_devs[i].storage_type == AHCI_DEVICE)
             {
-                char ahci_dev[40] = "AHCI device";
-                strcpy(msg, ahci_dev);
+                strcpy(msg, "AHCI device");
                 size = get_ahci_sector_count(storage_devs[i].storage_specific_number);
             }
             else if (storage_devs[i].storage_type == IDE_STORAGE_DEVICE)
             {
-                char ahci_dev[40] = "IDE device";
-                strcpy(msg, ahci_dev);
+                strcpy(msg, "IDE device");
                 size = get_drive_size(storage_devs[i].storage_specific_number);
             }
-            char *device_size = formatBytes(size*512);
-            printf("Device %d: %s - %u sectors %u bytes(%s+-)\n", storage_devs[i].storage_count,msg,size,size*512,device_size);
+            else
+            {
+                strcpy(msg, "Unknown device (High probability that it is supported by AHCI or IDE, but not guaranteed)");
+                size = -1;
+            }
+            char *device_size = formatBytes(size * 512);
+            printf("Device %d: %s - %u sectors %u bytes (%s) - File System: ", storage_devs[i].storage_count, msg, size, size * 512, device_size);
+            print_fs_type(storage_devs[i].file_system);
+            printf("\n");
         }
     }
-     
+    return 0;
+}
+void print_fs_type(int file_system) {
+    switch(file_system) {
+        case FAT_TYPE:
+            printf("FAT");
+            break;
+        case NTFS_TYPE:
+            printf("NTFS");
+            break;
+        case EXT_TYPE:
+            printf("EXT");
+            break;
+        case UNKNOWN_DEVICE_FS:
+        default:
+            printf("\033[1;31mUNKNOWN\033[0m"); // Red color for UNKNOWN
+            break;
+    }
 }
 int add_device(pci_storage_device dev)
 {
@@ -80,6 +117,7 @@ int set_primary_dev(int dev)
     {
         select_ide_drive(device.storage_specific_number);
     }
+    
     fl_init();
     if (fl_attach_media(secondary_storage_read, secondary_storage_write) != FAT_INIT_OK)
     {

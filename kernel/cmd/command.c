@@ -286,6 +286,21 @@ int cmd(char *command)
         LOG_LOCATION;
 
     }
+    else if (strcmp(argv[0],"list") == 0)
+    {
+        if(argc < 2)
+        {
+            printf("\nSupported arguments:\n");
+            printf("\t list -s: List all secondary storage devices\n");
+        }
+        else if (strcmp(argv[1],"-s") == 0)
+        {
+            printf("\n");
+            list_devices();
+        }
+        
+    }
+    
     else if (strcmp(argv[0],"format") == 0)
     {
         if(argc < 2)
@@ -383,8 +398,16 @@ int cmd(char *command)
     }
     else if(strcmp(argv[0],"cad") ==  0)
     {
-        printf("\n");
+        if(argc != 2)
+        {
+            printf("\nUsage: cad <filename>\n");
+        }
+        else
+        {
+            printf("\n");
         edit_file(argv[1]);
+        }
+        
     }
     else if(strcmp(argv[0],"shutdown") == 0)
     {
@@ -461,7 +484,20 @@ int cmd(char *command)
 
         if(f == NULL)
         {
-            printf("\nCommand '\033[31m%s\033[0m' not recognized\n",argv[0]);
+            FILE *f_to_print = fopen(argv[0], "r");
+            if(f_to_print == NULL)
+            {
+                printf("\nCommand '\033[31m%s\033[0m' is not a valid command,executable or file\n",argv[0]);
+                
+            }
+            else
+            {
+                char *buffer = malloc(get_file_size(f_to_print));
+                fread(buffer,1,get_file_size(f_to_print),f_to_print);
+                printf("%s\n",buffer);
+                free(buffer);
+                fclose(f_to_print);
+            }
         }
         else
         {

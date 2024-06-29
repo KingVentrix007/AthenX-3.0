@@ -4,8 +4,8 @@ Starting kernel
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeHello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Saturday June 29 8:47:4 2024
-DEBUG: Saturday June 29 8:47:4 2024
+DEBUG: Saturday June 29 16:45:14 2024
+DEBUG: Saturday June 29 16:45:14 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -53,7 +53,7 @@ DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is
 DEBUG: Multi D == 1
 DEBUG: Setting foreground color 3
 Current Date and Time:
-DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeSaturday June 29 8:47:5 2024
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeSaturday June 29 16:45:14 2024
 DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too large   DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi B == 1
 DEBUG: Multi A == 1
 DEBUG: Setting foreground color 0
@@ -157,14 +157,7 @@ DEBUG: Display Controller
 DEBUG: Network Controller
 DEBUG: Mass Storage Controller
 DEBUG: AHCI Controller found
-DEBUG: 0:-
-DEBUG:   model: QEMU HARDDISK
-DEBUG:   type: ATA
-DEBUG:   drive: 0, channel: 0
-DEBUG:   base: 0x1f0, control: 0x3f6
-DEBUG:   size: 2097152 sectors, 1073741824 bytes
-DEBUG:   signature: 0x40, features: 2816
-DEBUG: 0x0000C041
+DEBUG: 0x0000C041
 DEBUG: IRQ 43 registered
 DEBUG: Allocating 5119 bytes at 41CBFD60 for ahci_malloc
 DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CC0000 for port->clb-> Command list(275)
@@ -269,60 +262,170 @@ DEBUG: Allocating 4351 bytes at 41CE9160 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEA000 for Command table(311)
 DEBUG: AHCI :: Command Table buffer allocated at 41CEA000
 DEBUG: AHCI :: port->clb == 41CC0000
-DEBUG: No drive found at port 1
+DEBUG: Allocating 5119 bytes at 41CEA560 for ahci_malloc
+DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CEB000 for port->clb-> Command list(275)
+DEBUG: AHCI :: Command List buffer allocated at 41CEB000
+DEBUG: Allocating 4351 bytes at 41CEB960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEC000 for FIS entry(296)
+DEBUG: AHCI :: FIS buffer allocated at 41CEC000
+DEBUG: Allocating 4351 bytes at 41CECD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CED000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CED000
+DEBUG: Allocating 4351 bytes at 41CEE160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEF000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CEF000
+DEBUG: Allocating 4351 bytes at 41CEF560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF0000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF0000
+DEBUG: Allocating 4351 bytes at 41CF0960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF1000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF1000
+DEBUG: Allocating 4351 bytes at 41CF1D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF2000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF2000
+DEBUG: Allocating 4351 bytes at 41CF3160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF4000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF4000
+DEBUG: Allocating 4351 bytes at 41CF4560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF5000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF5000
+DEBUG: Allocating 4351 bytes at 41CF5960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF6000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF6000
+DEBUG: Allocating 4351 bytes at 41CF6D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF7000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF7000
+DEBUG: Allocating 4351 bytes at 41CF8160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF9000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF9000
+DEBUG: Allocating 4351 bytes at 41CF9560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFA000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFA000
+DEBUG: Allocating 4351 bytes at 41CFA960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFB000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFB000
+DEBUG: Allocating 4351 bytes at 41CFBD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFC000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFC000
+DEBUG: Allocating 4351 bytes at 41CFD160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFE000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFE000
+DEBUG: Allocating 4351 bytes at 41CFE560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFF000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFF000
+DEBUG: Allocating 4351 bytes at 41CFF960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D00000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D00000
+DEBUG: Allocating 4351 bytes at 41D00D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D01000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D01000
+DEBUG: Allocating 4351 bytes at 41D02160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D03000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D03000
+DEBUG: Allocating 4351 bytes at 41D03560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D04000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D04000
+DEBUG: Allocating 4351 bytes at 41D04960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D05000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D05000
+DEBUG: Allocating 4351 bytes at 41D05D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D06000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D06000
+DEBUG: Allocating 4351 bytes at 41D07160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D08000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D08000
+DEBUG: Allocating 4351 bytes at 41D08560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D09000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D09000
+DEBUG: Allocating 4351 bytes at 41D09960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0A000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0A000
+DEBUG: Allocating 4351 bytes at 41D0AD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0B000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0B000
+DEBUG: Allocating 4351 bytes at 41D0C160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0D000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0D000
+DEBUG: Allocating 4351 bytes at 41D0D560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0E000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0E000
+DEBUG: Allocating 4351 bytes at 41D0E960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0F000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0F000
+DEBUG: Allocating 4351 bytes at 41D0FD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D10000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D10000
+DEBUG: Allocating 4351 bytes at 41D11160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D12000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D12000
+DEBUG: Allocating 4351 bytes at 41D12560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D13000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D13000
+DEBUG: Allocating 4351 bytes at 41D13960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D14000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D14000
+DEBUG: AHCI :: port->clb == 41CEB000
 DEBUG: No drive found at port 2
 DEBUG: No drive found at port 3
 DEBUG: No drive found at port 4
 DEBUG: No drive found at port 5
 DEBUG: AHCI :: AHCI debug logs end here
 ----------------------------------------------------------------
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: IRQ 33 registered
-DEBUG: raw_read at 0
-DEBUG: raw_read at 2048
-DEBUG: raw_read at 0
-DEBUG: raw_read at 2048
-DEBUG: kernel/init/main.c:321 -->init
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: kernel/init/main.c:325 -->init
 DEBUG: IRQ 32 registered
-DEBUG: kernel/init/main.c:330 -->init
-DEBUG: Allocating 25165824 bytes at 41CEB160 for vesa_init_buffers
-DEBUG: Allocating 25165824 bytes at 434EB160 for vesa_init_buffers
-DEBUG: Allocating 25165824 bytes at 44CEB160 for vesa_init_buffers
+DEBUG: kernel/init/main.c:334 -->init
+DEBUG: Allocating 25165824 bytes at 41D16160 for vesa_init_buffers
+DEBUG: Allocating 25165824 bytes at 43516160 for vesa_init_buffers
+DEBUG: Allocating 25165824 bytes at 44D16160 for vesa_init_buffers
 DEBUG: 0
-DEBUG: Allocating 1073741824 bytes at 464EB160 for init
+DEBUG: Allocating 1073741824 bytes at 46516160 for init
 [1;32mSuccessfully allocated memory of 1GB
 DEBUG: [1;32mSuccessfully allocated memory of 1GB
-DEBUG: kernel/init/main.c:341 -->init
-DEBUG: kernel/init/main.c:352 -->init
-DEBUG: raw_read at 6176
+DEBUG: kernel/init/main.c:345 -->init
+DEBUG: kernel/init/main.c:356 -->init
+DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 46696
-DEBUG: raw_read at 46697
-DEBUG: raw_read at 46698
-DEBUG: raw_read at 46699
-DEBUG: raw_read at 46700
-DEBUG: raw_read at 46701
-DEBUG: raw_read at 46702
-DEBUG: raw_read at 46703
-DEBUG: raw_read at 2119
-DEBUG: Allocating 256 bytes at 464EB160 for init
-DEBUG: raw_read at 6176
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Allocating 256 bytes at 46516160 for init
+DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Name to find: bin | boot
 DEBUG: Name to find: bin | grub
 DEBUG: Name to find: bin | bin
-DEBUG: raw_read at 46696
-DEBUG: raw_read at 46697
-DEBUG: raw_read at 46698
-DEBUG: raw_read at 46699
-DEBUG: raw_read at 46700
-DEBUG: raw_read at 46701
-DEBUG: raw_read at 46702
-DEBUG: raw_read at 46703
-DEBUG: Allocating 4 bytes at 464EB560 for fill_program_list
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Allocating 4 bytes at 46516560 for fill_program_list
 
 
-DEBUG: Allocating 8 bytes at 464EB960 for fill_program_list
+DEBUG: Allocating 8 bytes at 46516960 for fill_program_list
 Loaded 1 programs
 DEBUG: Setting foreground color 2
 System Initialization Complete
@@ -330,7 +433,7 @@ System Info:
 -	RAM size: DEBUG: Setting foreground color 3
 3145211 Kilobytes(3.00 GB+-)
 DEBUG: Setting foreground color 2
--	Allocation heap size: 3142977 Kilobytes (3.00 GB)
+-	Allocation heap size: 3142976 Kilobytes (3.00 GB)
 -	CPU Name: QEMU Virtual CPU version 2.5+
 -	Architecture: x86
 -	Family: 6, Model: 6, Stepping: 3
@@ -343,8 +446,8 @@ Device Info:
 -	Number of Display Devices: 1
 -	Number of Bridge Devices: 3
 Available drives
-Device 0: IDE device - 2097152 sectors 1073741824 bytes(1.00 GB+-)
-Device 1: AHCI device - 2097152 sectors 1073741824 bytes(1.00 GB+-)
+Device 0: AHCI device - 2097152 sectors 1073741824 bytes (1.00 GB) - File System: FAT
+Device 1: AHCI device - 2097152 sectors 1073741824 bytes (1.00 GB) - File System: FAT
 Starting shell
 Welcome to DEBUG: Setting foreground color 1
 IDEBUG: Setting foreground color 2
@@ -353,45 +456,609 @@ iDEBUG: Setting foreground color 4
 s! A simple bash like shell
 Type help or iris for more information
 DEBUG: kernel/kernel.c:212 -->command_line
-DEBUG: Allocating 1024 bytes at 464EBD60 for command_line
-DEBUG: Allocating 1025 bytes at 464EC160 for command_line
-DEBUG: Allocating 1024 bytes at 464EC960 for command_line
+DEBUG: Allocating 1024 bytes at 46516D60 for command_line
+DEBUG: Allocating 1025 bytes at 46517160 for command_line
+DEBUG: Allocating 1024 bytes at 46517960 for command_line
+
+Dev@/>DEBUG: IRQ 32 registered
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Setting foreground color 4
+Starting kernel
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeHello World!
+DEBUG: initializing vesa vbe 2.0
+DEBUG: Calling BIOS interrupt
+DEBUG: Saturday June 29 16:45:22 2024
+DEBUG: Saturday June 29 16:45:22 2024
+DEBUG: called video interrupt
+DEBUG: Address 0x7E22
+DEBUG: ax = 0x4F
+
+DEBUG: Checked All modesDEBUG: Find modes for vbe
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: 
+selected mode: 324 
+DEBUG: Ret = 0
+DEBUG: Made it here
+DEBUG: s = 248, size = 92
+DEBUG: enabled acpi.
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi C == 1
+DEBUG: Multi D == 1
+DEBUG: Setting foreground color 3
+Current Date and Time:
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeSaturday June 29 16:45:22 2024
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too large   DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: Multi B == 1
+DEBUG: Multi A == 1
+DEBUG: Setting foreground color 0
+Booting AthenX-3.0
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeDEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeVersion: ALPHA - 1.1.1
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeCompile version 802
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largePlease stand by
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too largeBooting: 
+
+There are 1 grub modules
+DEBUG: File: kernel/kheap/kheap.c:100  Function: sys_allocate_memory,  - Size is too large
+DEBUG: INI :: parsing ; AthenX Boot Configuration
+
+[version]
+version_number = 3.0
+
+[paths]
+program_path = /bin/
+bin_path = /boot/
+
+
+[logs]
+error_log = /log/
+
+[Settings]
+; Verbose output setting: true for verbose, false for silent
+VerboseOutput=false
+
+; Default bDEBUG: Initializing pageing with 785744 pages
+DEBUG: pmm_location alloc: 0x0028f000
+DEBUG: pmm_location alloc: 0x00290000
+DEBUG: pmm_location alloc: 0x00291000
+DEBUG: pmm_location alloc: 0x00292000
+DEBUG: pmm_location alloc: 0x00293000
+DEBUG: pmm_location alloc: 0x00294000
+DEBUG: pmm_location alloc: 0x00295000
+DEBUG: pmm_location alloc: 0x00296000
+DEBUG: pmm_location alloc: 0x00297000
+DEBUG: pmm_location alloc: 0x00298000
+DEBUG: pmm_location alloc: 0x00299000
+DEBUG: pmm_location alloc: 0x0029a000
+DEBUG: pmm_location alloc: 0x0029b000
+DEBUG: pmm_location alloc: 0x0029c000
+DEBUG: pmm_location alloc: 0x0029d000
+DEBUG: pmm_location alloc: 0x0029e000
+DEBUG: pmm_location alloc: 0x0029f000
+DEBUG: pmm_location alloc: 0x002a0000
+DEBUG: pmm_location alloc: 0x002a1000
+DEBUG: pmm_location alloc: 0x002a2000
+DEBUG: pmm_location alloc: 0x002a3000
+DEBUG: pmm_location alloc: 0x002a4000
+DEBUG: pmm_location alloc: 0x002a5000
+DEBUG: pmm_location alloc: 0x002a6000
+DEBUG: pmm_location alloc: 0x002a7000
+DEBUG: pmm_location alloc: 0x002a8000
+DEBUG: pmm_location alloc: 0x002a9000
+DEBUG: pmm_location alloc: 0x002aa000
+DEBUG: pmm_location alloc: 0x002ab000
+DEBUG: pmm_location alloc: 0x002ac000
+DEBUG: pmm_location alloc: 0x002ad000
+DEBUG: pmm_location alloc: 0x002ae000
+DEBUG: pmm_location alloc: 0x002af000
+DEBUG: pmm_location alloc: 0x002b0000
+DEBUG: pmm_location alloc: 0x002b1000
+DEBUG: pmm_location alloc: 0x002b2000
+DEBUG: pmm_location alloc: 0x002b3000
+DEBUG: pmm_location alloc: 0x002b4000
+DEBUG: pmm_location alloc: 0x002b5000
+DEBUG: pmm_location alloc: 0x002b6000
+DEBUG: pmm_location alloc: 0x002b7000
+DEBUG: pmm_location alloc: 0x002b8000
+DEBUG: pmm_location alloc: 0x002b9000
+DEBUG: pmm_location alloc: 0x002ba000
+DEBUG: pmm_location alloc: 0x002bb000
+DEBUG: pmm_location alloc: 0x002bc000
+DEBUG: pmm_location alloc: 0x002bd000
+DEBUG: pmm_location alloc: 0x002be000
+DEBUG: pmm_location alloc: 0x002bf000
+DEBUG: pmm_location alloc: 0x002c0000
+DEBUG: pmm_location alloc: 0x002c1000
+DEBUG: pmm_location alloc: 0x002c2000
+DEBUG: pmm_location alloc: 0x002c3000
+DEBUG: pmm_location alloc: 0x002c4000
+DEBUG: pmm_location alloc: 0x002c5000
+DEBUG: pmm_location alloc: 0x002c6000
+DEBUG: kernel/init/main.c:292 -->init
+DEBUG: kernel/init/main.c:299 -->init
+DEBUG: Using 314297 pages for kheap
+DEBUG: Initializing memory region 0x3FFF9000
+DEBUG: Setting up region of size 1287360512
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:322  Function: init_memory_region,  - 1257188 nodes 
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:323  Function: init_memory_region,  - 30172512 bytes are taken up by the nodes in memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:324  Function: init_memory_region,  - 1257188000 bytes are available for actual allocation
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:342  Function: init_memory_region,  - Bytes available = 1227016192
+DEBUG: Bridge Device
+DEBUG: Bridge Device
+DEBUG: Mass Storage Controller
+DEBUG: AHCI Controller found
+DEBUG: Bridge Device
+DEBUG: Display Controller
+DEBUG: Network Controller
+DEBUG: Mass Storage Controller
+DEBUG: AHCI Controller found
+DEBUG: 0x0000C041
+DEBUG: IRQ 43 registered
+DEBUG: Allocating 5119 bytes at 41CBFD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CC0000 for port->clb-> Command list(275)
+DEBUG: AHCI :: Command List buffer allocated at 41CC0000
+DEBUG: Allocating 4351 bytes at 41CC1160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC2000 for FIS entry(296)
+DEBUG: AHCI :: FIS buffer allocated at 41CC2000
+DEBUG: Allocating 4351 bytes at 41CC2560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC3000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CC3000
+DEBUG: Allocating 4351 bytes at 41CC3960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC4000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CC4000
+DEBUG: Allocating 4351 bytes at 41CC4D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC5000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CC5000
+DEBUG: Allocating 4351 bytes at 41CC6160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC7000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CC7000
+DEBUG: Allocating 4351 bytes at 41CC7560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC8000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CC8000
+DEBUG: Allocating 4351 bytes at 41CC8960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC9000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CC9000
+DEBUG: Allocating 4351 bytes at 41CC9D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCA000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CCA000
+DEBUG: Allocating 4351 bytes at 41CCB160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCC000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CCC000
+DEBUG: Allocating 4351 bytes at 41CCC560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCD000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CCD000
+DEBUG: Allocating 4351 bytes at 41CCD960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCE000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CCE000
+DEBUG: Allocating 4351 bytes at 41CCED60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCF000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CCF000
+DEBUG: Allocating 4351 bytes at 41CD0160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD1000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD1000
+DEBUG: Allocating 4351 bytes at 41CD1560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD2000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD2000
+DEBUG: Allocating 4351 bytes at 41CD2960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD3000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD3000
+DEBUG: Allocating 4351 bytes at 41CD3D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD4000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD4000
+DEBUG: Allocating 4351 bytes at 41CD5160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD6000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD6000
+DEBUG: Allocating 4351 bytes at 41CD6560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD7000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD7000
+DEBUG: Allocating 4351 bytes at 41CD7960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD8000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD8000
+DEBUG: Allocating 4351 bytes at 41CD8D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD9000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CD9000
+DEBUG: Allocating 4351 bytes at 41CDA160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDB000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CDB000
+DEBUG: Allocating 4351 bytes at 41CDB560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDC000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CDC000
+DEBUG: Allocating 4351 bytes at 41CDC960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDD000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CDD000
+DEBUG: Allocating 4351 bytes at 41CDDD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDE000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CDE000
+DEBUG: Allocating 4351 bytes at 41CDF160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE0000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE0000
+DEBUG: Allocating 4351 bytes at 41CE0560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE1000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE1000
+DEBUG: Allocating 4351 bytes at 41CE1960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE2000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE2000
+DEBUG: Allocating 4351 bytes at 41CE2D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE3000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE3000
+DEBUG: Allocating 4351 bytes at 41CE4160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE5000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE5000
+DEBUG: Allocating 4351 bytes at 41CE5560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE6000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE6000
+DEBUG: Allocating 4351 bytes at 41CE6960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE7000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE7000
+DEBUG: Allocating 4351 bytes at 41CE7D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE8000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CE8000
+DEBUG: Allocating 4351 bytes at 41CE9160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEA000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CEA000
+DEBUG: AHCI :: port->clb == 41CC0000
+DEBUG: Allocating 5119 bytes at 41CEA560 for ahci_malloc
+DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CEB000 for port->clb-> Command list(275)
+DEBUG: AHCI :: Command List buffer allocated at 41CEB000
+DEBUG: Allocating 4351 bytes at 41CEB960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEC000 for FIS entry(296)
+DEBUG: AHCI :: FIS buffer allocated at 41CEC000
+DEBUG: Allocating 4351 bytes at 41CECD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CED000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CED000
+DEBUG: Allocating 4351 bytes at 41CEE160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEF000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CEF000
+DEBUG: Allocating 4351 bytes at 41CEF560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF0000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF0000
+DEBUG: Allocating 4351 bytes at 41CF0960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF1000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF1000
+DEBUG: Allocating 4351 bytes at 41CF1D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF2000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF2000
+DEBUG: Allocating 4351 bytes at 41CF3160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF4000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF4000
+DEBUG: Allocating 4351 bytes at 41CF4560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF5000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF5000
+DEBUG: Allocating 4351 bytes at 41CF5960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF6000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF6000
+DEBUG: Allocating 4351 bytes at 41CF6D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF7000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF7000
+DEBUG: Allocating 4351 bytes at 41CF8160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF9000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CF9000
+DEBUG: Allocating 4351 bytes at 41CF9560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFA000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFA000
+DEBUG: Allocating 4351 bytes at 41CFA960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFB000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFB000
+DEBUG: Allocating 4351 bytes at 41CFBD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFC000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFC000
+DEBUG: Allocating 4351 bytes at 41CFD160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFE000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFE000
+DEBUG: Allocating 4351 bytes at 41CFE560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFF000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41CFF000
+DEBUG: Allocating 4351 bytes at 41CFF960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D00000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D00000
+DEBUG: Allocating 4351 bytes at 41D00D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D01000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D01000
+DEBUG: Allocating 4351 bytes at 41D02160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D03000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D03000
+DEBUG: Allocating 4351 bytes at 41D03560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D04000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D04000
+DEBUG: Allocating 4351 bytes at 41D04960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D05000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D05000
+DEBUG: Allocating 4351 bytes at 41D05D60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D06000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D06000
+DEBUG: Allocating 4351 bytes at 41D07160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D08000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D08000
+DEBUG: Allocating 4351 bytes at 41D08560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D09000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D09000
+DEBUG: Allocating 4351 bytes at 41D09960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0A000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0A000
+DEBUG: Allocating 4351 bytes at 41D0AD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0B000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0B000
+DEBUG: Allocating 4351 bytes at 41D0C160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0D000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0D000
+DEBUG: Allocating 4351 bytes at 41D0D560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0E000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0E000
+DEBUG: Allocating 4351 bytes at 41D0E960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0F000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D0F000
+DEBUG: Allocating 4351 bytes at 41D0FD60 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D10000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D10000
+DEBUG: Allocating 4351 bytes at 41D11160 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D12000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D12000
+DEBUG: Allocating 4351 bytes at 41D12560 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D13000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D13000
+DEBUG: Allocating 4351 bytes at 41D13960 for ahci_malloc
+DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D14000 for Command table(311)
+DEBUG: AHCI :: Command Table buffer allocated at 41D14000
+DEBUG: AHCI :: port->clb == 41CEB000
+DEBUG: No drive found at port 2
+DEBUG: No drive found at port 3
+DEBUG: No drive found at port 4
+DEBUG: No drive found at port 5
+DEBUG: AHCI :: AHCI debug logs end here
+----------------------------------------------------------------
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: IRQ 33 registered
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: kernel/init/main.c:325 -->init
+DEBUG: IRQ 32 registered
+DEBUG: kernel/init/main.c:334 -->init
+DEBUG: Allocating 25165824 bytes at 41D16160 for vesa_init_buffers
+DEBUG: Allocating 25165824 bytes at 43516160 for vesa_init_buffers
+DEBUG: Allocating 25165824 bytes at 44D16160 for vesa_init_buffers
+DEBUG: 0
+DEBUG: Allocating 1073741824 bytes at 46516160 for init
+[1;32mSuccessfully allocated memory of 1GB
+DEBUG: [1;32mSuccessfully allocated memory of 1GB
+DEBUG: kernel/init/main.c:345 -->init
+DEBUG: kernel/init/main.c:356 -->init
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: bin | boot
+DEBUG: Name to find: bin | grub
+DEBUG: Name to find: bin | bin
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Allocating 256 bytes at 46516160 for init
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: bin | boot
+DEBUG: Name to find: bin | grub
+DEBUG: Name to find: bin | bin
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Allocating 4 bytes at 46516560 for fill_program_list
+
+
+DEBUG: Allocating 8 bytes at 46516960 for fill_program_list
+Loaded 1 programs
+DEBUG: Setting foreground color 2
+System Initialization Complete
+System Info:
+-	RAM size: DEBUG: Setting foreground color 3
+3145211 Kilobytes(3.00 GB+-)
+DEBUG: Setting foreground color 2
+-	Allocation heap size: 3142976 Kilobytes (3.00 GB)
+-	CPU Name: QEMU Virtual CPU version 2.5+
+-	Architecture: x86
+-	Family: 6, Model: 6, Stepping: 3
+-	Screen resolution: 1024x768
+-	ACPI enabled: DEBUG: Setting foreground color 4
+true
+Device Info:
+-	Number of Mass Storage Devices: 2
+-	Number of Network Devices: 1
+-	Number of Display Devices: 1
+-	Number of Bridge Devices: 3
+Available drives
+Device 0: AHCI device - 2097152 sectors 1073741824 bytes (1.00 GB) - File System: FAT
+Device 1: AHCI device - 2097152 sectors 1073741824 bytes (1.00 GB) - File System: FAT
+Starting shell
+Welcome to DEBUG: Setting foreground color 1
+IDEBUG: Setting foreground color 2
+rDEBUG: Setting foreground color 3
+iDEBUG: Setting foreground color 4
+s! A simple bash like shell
+Type help or iris for more information
+DEBUG: kernel/kernel.c:212 -->command_line
+DEBUG: Allocating 1024 bytes at 46516D60 for command_line
+DEBUG: Allocating 1025 bytes at 46517160 for command_line
+DEBUG: Allocating 1024 bytes at 46517960 for command_line
 
 Dev@/>DEBUG: Handler got keyboard called
-DEBUG: ssDEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
+DEBUG: ttDEBUG: Handler got keyboard called
 DEBUG: eeDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ssDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: ttDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: ddDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
-DEBUG:   DEBUG: Handler got keyboard called
+DEBUG: 
+DEBUG: kernel/cmd/command.c:256 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: Allocating 256 bytes at 46517D60 for parse_command
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: kernel/cmd/command.c:259 -->cmd
+
+testd: DEBUG: 
+testd: DEBUG: kernel/cmd/command.c:272 -->cmd
+DEBUG: kernel/cmd/command.c:457 -->cmd
+
+DEBUG: kernel/cmd/command.c:477 -->cmd
+DEBUG: Allocating 16 bytes at 46518560 for fl_fopen
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: bin | boot
+DEBUG: Name to find: bin | grub
+DEBUG: Name to find: bin | bin
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: testd.elf | echo.elf
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F81C
+DEBUG: kernel/cmd/command.c:483 -->cmd
+DEBUG: Allocating 105 bytes at 46518960 for fopen
+DEBUG: Allocating 8 bytes at 46518D60 for process_path
+DEBUG: Allocating 9 bytes at 46519160 for fl_fopen
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: testd | boot
+DEBUG: Name to find: testd | grub
+DEBUG: Name to find: testd | bin
+DEBUG: Name to find: testd | img
+DEBUG: Name to find: testd | init
+DEBUG: Name to find: testd | testd.txt
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x46518D60
+
+Command 'DEBUG: Setting foreground color 1
+testd' is not a valid command,executable or file
+DEBUG: freeing memory
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: made it here
+DEBUG: Allocating 6 bytes at 46517D60 for command_line
+
+DDEBUG: Handler got keyboard called
+ev@/>DEBUG: Handler got keyboard called
+DEBUG: ttDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
-DEBUG: 11DEBUG: Handler got keyboard called
+DEBUG: eeDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ssDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ttDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ddDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ..DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ttDEBUG: Handler got keyboard called
+DEBUG: xxDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ttDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: 
 DEBUG: kernel/cmd/command.c:256 -->cmd
 DEBUG: kernel/cmd/command.c:35 -->parse_command
-DEBUG: Allocating 256 bytes at 464ECD60 for parse_command
+DEBUG: Allocating 256 bytes at 46518160 for parse_command
 DEBUG: kernel/cmd/command.c:37 -->parse_command
 DEBUG: kernel/cmd/command.c:259 -->cmd
 
-setd: DEBUG: 
-setd: 
-1: DEBUG: 
-1: DEBUG: kernel/cmd/command.c:272 -->cmd
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
+testd.txt: DEBUG: 
+testd.txt: DEBUG: kernel/cmd/command.c:272 -->cmd
+DEBUG: kernel/cmd/command.c:457 -->cmd
 
-Primary device 1
+DEBUG: kernel/cmd/command.c:477 -->cmd
+DEBUG: Allocating 20 bytes at 46519560 for fl_fopen
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: bin | boot
+DEBUG: Name to find: bin | grub
+DEBUG: Name to find: bin | bin
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: testd.txt.elf | echo.elf
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F81C
+DEBUG: kernel/cmd/command.c:483 -->cmd
+DEBUG: Allocating 109 bytes at 46519960 for fopen
+DEBUG: Allocating 12 bytes at 46519D60 for process_path
+DEBUG: Allocating 13 bytes at 4651A160 for fl_fopen
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: testd.txt | boot
+DEBUG: Name to find: testd.txt | grub
+DEBUG: Name to find: testd.txt | bin
+DEBUG: Name to find: testd.txt | img
+DEBUG: Name to find: testd.txt | init
+DEBUG: Name to find: testd.txt | testd.txt
+DEBUG: Handler got keyboard called
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x46519D60
+DEBUG: Allocating 5 bytes at 46519D60 for cmd
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+hellotd.txt
 DEBUG: freeing memory
 DEBUG: kernel/cmd/command.c:133 -->free_command
-DEBUG: kernel/cmd/command.c:133 -->free_command
 DEBUG: made it here
-DEBUG: Allocating 5 bytes at 464ECD60 for command_line
+DEBUG: Allocating 10 bytes at 46518160 for command_line
 
 Dev@/>DEBUG: Handler got keyboard called
+DEBUG: ccDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: llDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
@@ -400,56 +1067,217 @@ DEBUG: Handler got keyboard called
 DEBUG: 
 DEBUG: kernel/cmd/command.c:256 -->cmd
 DEBUG: kernel/cmd/command.c:35 -->parse_command
-DEBUG: Allocating 256 bytes at 464ED160 for parse_command
+DEBUG: Allocating 256 bytes at 46518D60 for parse_command
 DEBUG: kernel/cmd/command.c:37 -->parse_command
 DEBUG: kernel/cmd/command.c:259 -->cmd
 
-ls: DEBUG: 
-ls: DEBUG: kernel/cmd/command.c:272 -->cmd
-DEBUG: Calling fl_listdir()
-
-Directory /
-DEBUG: AHCI :: ahci_read_sector_hal == 1
--  food.txt [18 bytes]
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: kernel/cmd/command.c:364 -->cmd
+cls: DEBUG: 
+cls: DEBUG: kernel/cmd/command.c:272 -->cmd
+DEBUG: Handler got keyboard called
 DEBUG: freeing memory
 DEBUG: kernel/cmd/command.c:133 -->free_command
 DEBUG: made it here
-DEBUG: Allocating 3 bytes at 464ED160 for command_line
+DEBUG: Allocating 4 bytes at 46518D60 for command_line
+
+Dev@/>DEBUG: Handler got keyboard called
+DEBUG: mmDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: mmDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: aaDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ppDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: 
+DEBUG: kernel/cmd/command.c:256 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: Allocating 256 bytes at 46519D60 for parse_command
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: kernel/cmd/command.c:259 -->cmd
+
+mmap: DEBUG: 
+mmap: DEBUG: kernel/cmd/command.c:272 -->cmd
+
+Kernel Memory Map:
+Kernel:
+  Kernel Start Address: 0x0
+  Kernel End Address: 0x18ec94
+  Kernel Length: 1633428
+  Text Start Address: 0x100000
+  Text End Address: 0x15f000
+  Text Length: DEBUG: Handler got keyboard called
+389120
+  Data Start Address: 0x15f000
+  Data End Address: 0x161000
+  Data Length: 8192
+  RoData Start Address: 0x161000
+  RoData End Address: 0x161000
+  RoData Length: 0
+  BSS Start Address: 0x16e960
+  BSS End Address: 0x17e000
+  BSS Length: 63136
+System:
+  Total Memory: 3220696064 bytes
+Available:
+  Start Address: 0x28ec94
+  End Address: 0xbffdf000
+  Size: 3218408300 bytes
+DEBUG: freeing memory
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: made it here
+DEBUG: Allocating 5 bytes at 46519D60 for command_line
+
+Dev@/>DEBUG: Handler got keyboard called
+DEBUG: mmDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: aaDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ppDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: 
+DEBUG: kernel/cmd/command.c:256 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: Allocating 256 bytes at 4651A560 for parse_command
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: kernel/cmd/command.c:259 -->cmd
+
+map: DEBUG: 
+map: DEBUG: kernel/cmd/command.c:272 -->cmd
+DEBUG: kernel/cmd/command.c:457 -->cmd
+
+DEBUG: kernel/cmd/command.c:477 -->cmd
+DEBUG: Allocating 14 bytes at 4651AD60 for fl_fopen
+DEBUG: Name to find: bin | boot
+DEBUG: Name to find: bin | grub
+DEBUG: Name to find: bin | bin
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: map.elf | echo.elf
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0017F81C
+DEBUG: kernel/cmd/command.c:483 -->cmd
+DEBUG: Allocating 103 bytes at 4651B160 for fopen
+DEBUG: Allocating 6 bytes at 4651B560 for process_path
+DEBUG: Allocating 7 bytes at 4651B960 for fl_fopen
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: map | boot
+DEBUG: Name to find: map | grub
+DEBUG: Name to find: map | bin
+DEBUG: Name to find: map | img
+DEBUG: Name to find: map | init
+DEBUG: Name to find: map | testd.txt
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: File: kernel/kheap/kheap.c:188  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x4651B560
+
+Command 'DEBUG: Setting foreground color 1
+map' is not a valid command,executable or file
+DEBUG: freeing memory
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: made it here
+DEBUG: Allocating 4 bytes at 4651A560 for command_line
 
 Dev@/>DEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
+DEBUG: hhDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: eeDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: llDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ppDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: 
+DEBUG: kernel/cmd/command.c:256 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: Allocating 256 bytes at 4651A960 for parse_command
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: kernel/cmd/command.c:259 -->cmd
+
+help: DEBUG: 
+help: DEBUG: kernel/cmd/command.c:272 -->cmd
+Available commands:
+cd <directory>       Change current directory
+ls <paramater>       List files in the current directory
+date                 Display current date
+mmap                 Display kernel memory map
+shutdown             Shutdown the system
+cls                  Clear the screen
+key                  Display key mapping
+help                 Display this help message
+touch <file name>    Create a new file
+cad <file name>      Open a super basic file editor
+<program_name>       Execute program
+setd <drive_number>  Sets the current active drive
+DEBUG: freeing memory
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: made it here
+DEBUG: Allocating 5 bytes at 4651A960 for command_line
+
+Dev@/>DEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: kkDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: eeDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: yyDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: 
+DEBUG: kernel/cmd/command.c:256 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: Allocating 256 bytes at 4651B560 for parse_command
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: kernel/cmd/command.c:259 -->cmd
+
+key: DEBUG: 
+key: DEBUG: kernel/cmd/command.c:272 -->cmd
+Key map
+-	a-z-A-Z-1-0: Standard
+-	f2: Open error screen
+DEBUG: Handler got keyboard called
+-	f1,f3-f12: Not implemented
+-	PS-PB: Not implemented
+-	Up Down: Scroll up down
+-	Left Right: Not implemented
+DEBUG: freeing memory
+DEBUG: kernel/cmd/command.c:133 -->free_command
+DEBUG: made it here
+DEBUG: Allocating 4 bytes at 4651B560 for command_line
+
+Dev@/>DEBUG: Handler got keyboard called
+DEBUG: ssDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: hhDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: uuDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ttDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ddDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: ooDEBUG: Handler got keyboard called
+DEBUG: Handler got keyboard called
+DEBUG: wwDEBUG: Handler got keyboard called
+DEBUG: nnDEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
 DEBUG: Handler got keyboard called
-DEBUG: Handler got keyboard called
+DEBUG: 
+DEBUG: kernel/cmd/command.c:256 -->cmd
+DEBUG: kernel/cmd/command.c:35 -->parse_command
+DEBUG: Allocating 256 bytes at 4651BD60 for parse_command
+DEBUG: kernel/cmd/command.c:37 -->parse_command
+DEBUG: kernel/cmd/command.c:259 -->cmd
+
+shutdown: DEBUG: 
+shutdown: DEBUG: kernel/cmd/command.c:272 -->cmd

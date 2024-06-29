@@ -316,7 +316,11 @@ void init(unsigned long magic, unsigned long addr) {
     STI();
     printf_t("Initialize FAT file system\n");
 
-    init_file_system(config.default_drive);
+    int fs_init = init_file_system(config.default_drive);
+    if(fs_init == -1)
+    {
+        printf("Failed to init filesystem for drive %d\n",config.default_drive);
+    }
     CLI();
     LOG_LOCATION;
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
