@@ -31,6 +31,10 @@ int select_ide_drive(int drive_num)
     
     
 }
+uint32_t get_drive_size(int count)
+{
+    return g_ide_devices[count].size;
+}
 int add_ide_drive(int drive_num)
 {
     valid_drive_nums[valid_drive_nums_count] = drive_num;

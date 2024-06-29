@@ -84,6 +84,7 @@ int ahci_read_sector_hal(uint32 sector, uint8 *buffer, uint32 sector_count)
 	return ret;
 }
 
+
 int add_ahci_drive(HBA_PORT *dev)
 {
     for (size_t i = 0; i < 100; i++)

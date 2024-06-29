@@ -3,6 +3,7 @@
 
 // https://wiki.osdev.org/PCI_IDE_Controller
 #include "../include/types.h"
+#include "stdint.h"
 #define MAXIMUM_CHANNELS    2
 #define MAXIMUM_IDE_DEVICES    5
 typedef struct {
@@ -157,5 +158,5 @@ void ata_init();
 int ata_get_drive_by_model(const char *model);
 
 uint64 get_sectors(int drive);
-
+uint32_t get_drive_size(int count);
 #endif

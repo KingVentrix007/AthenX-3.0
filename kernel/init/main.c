@@ -407,6 +407,8 @@ void init(unsigned long magic, unsigned long addr) {
 
     printf("Device Info:\n");
     print_pci_devices();
+    printf("Available drives\n");
+    list_devices();
 
     
 

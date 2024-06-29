@@ -23,7 +23,32 @@ int init_storage()
     ahci_main();
     
 }
-
+int list_devices()
+{
+    for (size_t i = 0; i < MAX_STORAGE_DEVICES; i++)
+    {
+        if(storage_devs[i].set == 0)
+        {
+            char msg[40];
+            uint32_t size = 0;
+            if(storage_devs[i].storage_type == AHCI_DEVICE)
+            {
+                char ahci_dev[40] = "AHCI device";
+                strcpy(msg, ahci_dev);
+                size = get_ahci_sector_count(storage_devs[i].storage_specific_number);
+            }
+            else if (storage_devs[i].storage_type == IDE_STORAGE_DEVICE)
+            {
+                char ahci_dev[40] = "IDE device";
+                strcpy(msg, ahci_dev);
+                size = get_drive_size(storage_devs[i].storage_specific_number);
+            }
+            char *device_size = formatBytes(size*512);
+            printf("Device %d: %s - %u sectors %u bytes(%s+-)\n", storage_devs[i].storage_count,msg,size,size*512,device_size);
+        }
+    }
+     
+}
 int add_device(pci_storage_device dev)
 {
     for (size_t i = 0; i < MAX_STORAGE_DEVICES; i++)
