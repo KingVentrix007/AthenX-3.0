@@ -13,6 +13,6 @@ image_size_mb="$2"
 dd if=/dev/zero of="$image_name" bs=1M count="$image_size_mb"
 
 # Format the disk image as FAT32
-# mkfs.fat -F 32 "$image_name"
+mkfs.fat -F 32 "$image_name"
 
 echo "FAT32 disk image '$image_name' created successfully."

@@ -68,7 +68,7 @@ typedef struct {
 } pci_config_register;
 
 #define AHCI_DEVICE  0x1
-#define IDE_DEVICE  0x2
+#define IDE_STORAGE_DEVICE  0x2
 #define USB_DEVICE  0x3
 typedef int (*storage_medium_read) (uint32 sector, uint8 *buffer, uint32 sector_count);
 typedef int (*storage_medium_write)(uint32 sector, uint8 *buffer, uint32 sector_count);

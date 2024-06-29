@@ -53,7 +53,7 @@ int set_primary_dev(int dev)
     }
     else
     {
-        printf("ONLY one NON AHCI device can be used\n");
+        select_ide_drive(device.storage_specific_number);
     }
     fl_init();
     if (fl_attach_media(secondary_storage_read, secondary_storage_write) != FAT_INIT_OK)
@@ -69,10 +69,12 @@ int secondary_storage_read(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
     if(primary_dev.storage_type == AHCI_DEVICE)
     {
+        // printf_com("storage:: using AHCI");
         return ahci_read_sector_hal(sector,buffer,sector_count);
     }
     else
     {
+        // printf_com("storage:: using ide\n");
         return ide_read_sectors_fat(sector,buffer,sector_count);
     }
 }

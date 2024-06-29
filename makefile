@@ -54,7 +54,7 @@ $(OBJ_DIR)/%.o: %.asm
 # Link object files into binary
 AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 
-	ld $(LDPARAMS) -o $@ $^
+	ld $(LDPARAMS) -o $@ $^ -Map AthenX.bin.map
 	mkdir -p isodir/boot/grub
 	cp AthenX.bin isodir/boot/AthenX.bin
 	cp grub.cfg isodir/boot/grub/grub.cfg
@@ -79,7 +79,16 @@ run: AthenX.bin
 
 	bash ./scripts/athenxHost.sh
 
-
+run-ide:AthenX.bin
+	bash ./scripts/boot32.sh
+	qemu-system-i386 \
+    -drive file=AthenX.img \
+    -drive id=disk2,file=ahci.img,format=raw,if=none \
+    -device ahci,id=ahci \
+    -device ide-hd,drive=disk2,bus=ahci.0 \
+    -m 4G \
+    -serial file:AthenX-3.0.log 
+	bash ./scripts/athenxHost.sh
 run-no-compile:
 	qemu-system-i386 \
     -drive id=disk,file=AthenX.img,format=raw,if=none \

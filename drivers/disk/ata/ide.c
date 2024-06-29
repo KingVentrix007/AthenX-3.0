@@ -2,6 +2,8 @@
 #include "vesa.h"
 #include "io_ports.h"
 #include "string.h"
+#include "pci_dev.h"
+#include "storage.h"
 
 // https://wiki.osdev.org/PCI_IDE_Controller
 // https://datacadamia.com/io/drive/lba
@@ -9,9 +11,36 @@
 IDE_CHANNELS g_ide_channels[MAXIMUM_CHANNELS];
 IDE_DEVICE g_ide_devices[MAXIMUM_IDE_DEVICES];
 int _drive_num = 0;
+int valid_drive_nums[100];
+int valid_drive_nums_count = 0;
 int global_drive_count = 0;
 static volatile unsigned char g_ide_irq_invoked = 0;
 
+int select_ide_drive(int drive_num)
+{
+    for (size_t i = 0; i < valid_drive_nums_count; i++)
+    {
+        if(drive_num == valid_drive_nums[i])
+        {
+            _drive_num = drive_num;
+            return _drive_num;
+        }
+    }
+    printf("Failed to find IDE drive %d\n", drive_num);
+    return -1;
+    
+    
+}
+int add_ide_drive(int drive_num)
+{
+    valid_drive_nums[valid_drive_nums_count] = drive_num;
+    valid_drive_nums_count++;
+    pci_storage_device device;
+    device.set == 0;
+    device.storage_specific_number = drive_num;
+    device.storage_type = IDE_STORAGE_DEVICE;
+    add_device(device);
+}
 static uint8 ide_read_register(uint8 channel, uint8 reg);
 static void ide_write_register(uint8 channel, uint8 reg, uint8 data);
 
@@ -319,7 +348,7 @@ void ide_init(uint32 prim_channel_base_addr, uint32 prim_channel_control_base_ad
                 else
                     break;
             }
-
+            add_ide_drive(count);
             count++;
         }
     }

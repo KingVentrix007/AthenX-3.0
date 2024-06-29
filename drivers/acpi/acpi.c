@@ -4,6 +4,7 @@
 #include <io_ports.h>
 #include "types.h"
 #include "stdint.h"
+
 dword *SMI_CMD;
 byte ACPI_ENABLE;
 byte ACPI_DISABLE;
