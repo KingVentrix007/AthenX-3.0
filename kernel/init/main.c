@@ -38,6 +38,7 @@
 #include "inttypes.h"
 #include "ahci.h"
 #include "vfs.h"
+#include "system.h"
 struct BootConfig {
     char version_number[20];
     char program_path[256];
@@ -249,7 +250,7 @@ void init(unsigned long magic, unsigned long addr) {
         strcpy(grub_command_line,mboot_info->cmdline);
         // printf("Grub cmd == %s\n",);
         multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;
-
+        init_system_info();
         ini_data = module[0].start;
         // printf("Ini data == %s\n", ini_data);
         
@@ -392,6 +393,10 @@ void init(unsigned long magic, unsigned long addr) {
     char architecture[5];
     unsigned int family, model, stepping;
     get_cpu_info(cpu_name, architecture, &family, &model, &stepping);
+    //  printf("CPU Manufacturer: %s\n", sys_info.cpu_info.manufacturer);
+    // printf("CPU Model: %s\n", sys_info.cpu_info.model_name);
+    // printf("CPU Cores: %d\n", sys_info.cpu_info.cores);
+    // printf("CPU Frequency: %u MHz\n", sys_info.cpu_info.frequency);
     printf("-\tCPU Name: %s\n", cpu_name);
     printf("-\tArchitecture: %s\n", architecture);
     printf("-\tFamily: %d, Model: %d, Stepping: %d\n", family, model, stepping);
