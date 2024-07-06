@@ -3,6 +3,7 @@
 #include "scanf.h"
 #include "fat_filelib.h"
 #include "device.h"
+bool fs_active = false;
 int init_file_system(int drive)
 {
     int d;
@@ -20,14 +21,17 @@ int init_file_system(int drive)
     set_primary_dev(d);
     if(try_fat() == 0)
     {
-         return FAT_TYPE;
+        fs_active = true;
+        return FAT_TYPE;
     }
     else if (try_ext() == 0)
     {
+        fs_active = true;
         return EXT_TYPE;
     }
     else
     {
+        fs_active = false;
         return UNKNOWN_DEVICE_FS;
     }
     

@@ -9,7 +9,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "printf.h"
-
+extern fs_active;
 char *_cwd;
 size_t _cwd_len;
 char _fixed_cwd[FATFS_MAX_LONG_FILENAME];
@@ -22,6 +22,10 @@ uint32_t open_files[FATFS_MAX_OPEN_FILES];
 uint32_t open_files_count = 0;
 int init_fs()
 {
+    if(fs_active != true)
+    {
+        return -1;
+    }
     _cwd = kmalloc(FATFS_MAX_LONG_FILENAME);
     if(_cwd == NULL)
     {
@@ -127,6 +131,11 @@ int chdir(const char *path)
 
 char *getcwd()
 {
+    if(fs_active != true)
+    {
+        char *none = "/";
+        return none;
+    }
     if(use_cwd)
     {
         return _cwd;
@@ -151,7 +160,7 @@ void filter_cwd(char* cwd) {
     }
 
     filtered_cwd[j] = '\0';
-    printf("len(filtered_cwd) == %d",strlen(filtered_cwd));
+    // printf("len(filtered_cwd) == %d",strlen(filtered_cwd));
     if(strlen(filtered_cwd) == 0)
     {
         filtered_cwd[0] = ' ';
@@ -204,7 +213,7 @@ char* process_path(const char* input_string) {
         }
 
         // Construct the full path
-        printf("\nlen(filtered_cwd) == %d\n",strlen(cwd));
+        // printf("\nlen(filtered_cwd) == %d\n",strlen(cwd));
 
         snprintf(result, result_size, "%s/%s", cwd, input_string);
         remove_leading_whitespace(result);
@@ -214,6 +223,7 @@ char* process_path(const char* input_string) {
 
 void *fopen(const char *path,const char *modifiers)
 {
+    
     char *path_to_open = malloc(strlen(path) + 100);
     // printf("path_to_open = %p\n",path_to_open);
     // printf("path_fake = %p\n",path_fake);
@@ -229,6 +239,10 @@ void *fopen(const char *path,const char *modifiers)
     }
     else if(0 == 0)//If fat32 or ext#, ATM only fat works
     {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         if(path[0] != '/')
         {
             char *cwd_path = _cwd;
@@ -270,6 +284,7 @@ void *fopen(const char *path,const char *modifiers)
  */
 size_t fread(void *ptr, size_t size, size_t nmemb, void *stream) {
 
+    
     if(is_virtual_device(stream) == 1)
     {
         return device_read(ptr, size, nmemb, stream);
@@ -291,6 +306,10 @@ size_t fread(void *ptr, size_t size, size_t nmemb, void *stream) {
     }
     else if(0 == 0)
     {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         return fl_fread(ptr,size,nmemb,stream);
     }
     else if (0 == 2)
@@ -315,6 +334,7 @@ size_t fread(void *ptr, size_t size, size_t nmemb, void *stream) {
  *   size_t - Number of elements successfully written.
  */
 size_t fwrite(const void *ptr, size_t size, size_t nmemb, void *stream) {
+    
     if(is_virtual_device(stream))
     {
         printf("is virtual device\n");
@@ -334,6 +354,10 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, void *stream) {
     }
     else if ((int)stream == stderr)
     {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         char *buf = (char *)ptr;
         for (size_t i = 0; i < nmemb; i++)
         {
@@ -371,6 +395,7 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, void *stream) {
  *         On failure, returns EOF.
  */
 int fputc(int c, void *stream) {
+    
     if((int)stream == stdout)
     {
         _putchar(c);
@@ -383,6 +408,10 @@ int fputc(int c, void *stream) {
     }
     else
     {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         printf("%c",c);
         return fl_fputc(c,stream);
         
@@ -405,6 +434,7 @@ int fputc(int c, void *stream) {
  *         On failure, returns EOF.
  */
 int fputs(const char *str, void *stream) {
+    
     if((int)stream == stdout)
     {
         for(int i = 0; i < strlen(str); i++)
@@ -423,6 +453,10 @@ int fputs(const char *str, void *stream) {
     }
     else if ((int)stream != stdin)
     {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         return fl_fputs(str,stream);
     }
     else
@@ -447,6 +481,10 @@ int fputs(const char *str, void *stream) {
  *         On failure, returns EOF.
  */
 int fclose(void *stream) {
+    if(fs_active != true)
+    {
+        return -1;
+    }
     for (size_t i = 0; i < open_files_count; i++)
     {
         FL_FILE *f = (FL_FILE *)stream;
@@ -480,6 +518,7 @@ int fclose(void *stream) {
  *         On failure, returns non-zero value.
  */
 int fseek(void *stream, long offset, int whence) {
+    
     if((int)stream == stdin)
     {
         long new_position;
@@ -501,6 +540,10 @@ int fseek(void *stream, long offset, int whence) {
         set_io_pos(new_position);
     }
     }
+    if(fs_active != true)
+    {
+        return -1;
+    }
     return fl_fseek(stream,offset,whence);
     // return -1;
 }
@@ -518,6 +561,10 @@ int fseek(void *stream, long offset, int whence) {
  *         On failure, returns a non-zero value.
  */
 int fgetpos(void *stream, fpos_t *pos) {
+    if(fs_active != true)
+    {
+        return -1;
+    }
     return fl_fgetpos(stream, pos);
     // Empty implementation
     // return -1;
@@ -535,9 +582,14 @@ int fgetpos(void *stream, fpos_t *pos) {
  *          On failure, returns -1L.
  */
 long ftell(void *stream) {
+    
     if((int)stream == stdin)
     {
         return get_io_pos();
+    }
+    if(fs_active != true)
+    {
+        return -1;
     }
     return fl_ftell(stream);
     // Empty implementation
@@ -555,9 +607,12 @@ long ftell(void *stream) {
  *   int - Returns non-zero if end-of-file indicator is set, otherwise returns 0.
  */
 int feof(void *stream) {
+    if(fs_active != true)
+    {
+        return -1;
+    }
     return fl_feof(stream);
-    // Empty implementation
-    return 0;
+
 }
 char *fgets(char *s, int n, void *f) {
     if ((int)f == stdin) {
@@ -566,9 +621,15 @@ char *fgets(char *s, int n, void *f) {
         while (((ch = getch_()) > 0 && ch != '\n' && ch != EOF) && count < n - 1) {
             if (ch == '\b') {
                 if (count > 0) { // Ensure not underflowing the buffer
+                    *s = '\0';
                     s--;
+                    *s = '\0';
+
+                    // s--;
                     count--;
+                    // s[count] = ' ';
                     printf("\b");
+                    printf_com(">>%s\n",s);
                 }
             } else {
                 printf("%c", ch);
@@ -579,8 +640,12 @@ char *fgets(char *s, int n, void *f) {
         }
         int point = strlen(s);
         // printf("Point: %d\n", point);
-        s[point] = '\0'; // Null-terminate the string
+        s[count] = '\0'; // Null-terminate the string
     } else {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         return fl_fgets(s, n, f); // Use the standard library fgets for other file streams
     }
     return s; // Return the pointer to the string
@@ -597,11 +662,16 @@ char *fgets(char *s, int n, void *f) {
  *   int - The next character from the input stream, or EOF if the end of the file or an error occurs.
  */
 int fgetc(void *f) {
+    
     if ((int)f == stdin) {
         char ch;
         ch = getch_(); // Assuming getch_() is a function to get a single character from input
         return (ch == EOF) ? EOF : (unsigned char)ch; // Return EOF or the character read
     } else {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         return fl_fgetc(f); // Use the standard library fgetc for other file streams
     }
 }
@@ -617,7 +687,10 @@ int fgetc(void *f) {
  *         On failure, returns -1.
  */
 int mkdir(const char *path) {
-
+    if(fs_active != true)
+    {
+        return -1;
+    }
     return fl_createdirectory(path);
     // return -1;
 }
@@ -634,7 +707,10 @@ int mkdir(const char *path) {
  *         On failure, returns -1.
  */
 int rmdir(const char *path) {
-
+    if(fs_active != true)
+    {
+        return -1;
+    }
     // Empty implementation
     return -1;
 }
@@ -652,6 +728,7 @@ int rmdir(const char *path) {
  */
 int fprintf(void *fp,const char *format,...)
 {
+    
     
     char buffer[1024*3];
     va_list va;
@@ -677,6 +754,10 @@ int fprintf(void *fp,const char *format,...)
     }
     else
     {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         int write_ret = fwrite(buffer,sizeof(char),strlen(buffer),fp);
     }
     
@@ -694,18 +775,30 @@ int ungetc(int c,void *stream)
     }
     else
     {
+        if(fs_active != true)
+    {
+        return -1;
+    }
         return fputc(c,stream);
     }
 }
 
 int fflush(void *stream)
 {
+    if(fs_active != true)
+    {
+        return -1;
+    }
     return fl_fflush(stream);
 }
 
 
 int fs_shutdown()
 {
+    if(fs_active != true)
+    {
+        return -1;
+    }
     for (size_t i = 0; i < open_files_count; i++)
     {
         if(open_files[i] != NULL)

@@ -678,7 +678,7 @@ int fl_attach_media(fn_diskio_read rd, fn_diskio_write wr)
     // Initialise FAT parameters
     if ((res = fatfs_init(&_fs)) != FAT_INIT_OK)
     {
-        FAT_PRINTF(("FAT_FS: Error could not load FAT details (%d)!\r\n", res));
+        printf_com("FAT_FS: Error could not load FAT details (%d)!\r\n", res);
         return res;
     }
 

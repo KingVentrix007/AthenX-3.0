@@ -10,9 +10,9 @@
 #include "stdio.h"
 #include "debug.h"
 #include "kernel.h"
-
+#include "stdbool.h"
 char current_path[FATFS_MAX_LONG_FILENAME];
-
+extern fs_active;
 // Function prototypes
 void loop_test();
 char** parse_command(char* cmd_line, int* argc);
@@ -185,6 +185,11 @@ void help() {
     printf("setd <drive_number>  Sets the current active drive\n");
 }
 char *get_cwd() {
+    if(fs_active != true)
+    {
+        char *none = "/";
+        return none;
+    }
     char *current_path;
     current_path = getcwd();
     // getcwd(current_path, FATFS_MAX_LONG_FILENAME);
@@ -199,6 +204,10 @@ void ls()
     Entry files[MAX];
     Entry dirs[MAX];
     printf_com("Calling fl_listdir()\n");
+    if(fs_active != true)
+    {
+        return -1;
+    }
     fl_listdirectory(get_cwd(),dirs,files,&num_dir,&num_files);
 }
 void date()
@@ -452,8 +461,20 @@ int cmd(char *command)
     {
         key_map();
     }
+    else if (strcmp(argv[0],"mkdir") == 0)
+    {
+        printf("Dir output %d\n",mkdir(argv[1]));
+    }
+    
     else
     {
+        if(fs_active != true)
+        {
+            free_command(argv, argc);
+            printf("\nCommand '\033[31m%s\033[0m' is not a valid command, and the file system is inactive\n",argv[0]);
+            return 1;
+            // return none;
+        } 
         LOG_LOCATION;
         printf("\n");
 
@@ -500,6 +521,7 @@ int cmd(char *command)
             }
         }
         else
+
         {
             fl_fclose(f);
             LOG_LOCATION;
