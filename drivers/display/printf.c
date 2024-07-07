@@ -948,11 +948,16 @@ int printf(const char *format, ...) {
     va_list args; // Variable argument list
     va_start(args, format); // Initialize the variable argument list
     int len = 0;
-    char *buffer = malloc(strlen(format)*1024); // Buffer to hold the formatted string
+    char *buffer = NULL;
+    if(is_heap_active() == true)
+    {
+     buffer = malloc(strlen(format)*1024); // Buffer to hold the formatted string
+
+    }
     if(buffer == NULL)
     {
-      char buf[1024];
-      len = vsnprintf_(buf,strlen(format)*100, format, args);
+      char buf[1024*4];
+      len = vsnprintf_(buf,1024*4, format, args);
       len = parse_ansi(buf);
 
     }

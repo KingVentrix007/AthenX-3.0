@@ -206,7 +206,8 @@ void ls()
     printf_com("Calling fl_listdir()\n");
     if(fs_active != true)
     {
-        return -1;
+        printf("Is disabled\n");
+        return;
     }
     fl_listdirectory(get_cwd(),dirs,files,&num_dir,&num_files);
 }
@@ -258,6 +259,22 @@ int print_iris()
         // Reset color
         printf("\033[0m");
 }
+int get_primary_dev_num(const char *path) {
+    // Extract the device number from the path
+    int dev_num = 0;
+    if (sscanf_(path, "%d:", &dev_num) == 1) {
+        return dev_num;
+    }
+    return -1; // Invalid device number
+}
+const char* get_path_without_dev(const char *path) {
+    // Return the path without the NUM: part
+    const char *slash_pos = strchr(path, '/');
+    if (slash_pos) {
+        return slash_pos;
+    }
+    return path; // No '/' found, return the original path
+}
 int cmd(char *command)
 {
     // printf("command: %s\n", command);
@@ -280,20 +297,22 @@ int cmd(char *command)
     
     LOG_LOCATION;
 
-    if(strcmp(argv[0],"cd") ==0 )
-    {
-        // printf()
-        if(argc >= 2)
-        {
-        set_cwd(argv[1]);
-
+     if (strcmp(argv[0], "cd") == 0) {
+        if (argc >= 2) {
+            const char *path = argv[1];
+            // Check if the path starts with NUM: or 1:/
+            if ((path[1] == ':' && path[2] == '/') || (path[1] == ':' && strchr(path, '/') != NULL)) {
+                int dev_num = get_primary_dev_num(path);
+                if (dev_num != -1) {
+                    set_primary_dev(dev_num);
+                }
+                path = get_path_without_dev(path);
+            }
+            set_cwd(path);
+        } else {
+            printf("%s\n", getcwd());
         }
-        else
-        {
-            printf("%s\n",getcwd());
-        }
-        LOG_LOCATION;
-
+        // LOG_LOCATION();
     }
     else if (strcmp(argv[0],"list") == 0)
     {
@@ -369,7 +388,7 @@ int cmd(char *command)
         {
             printf("Please provide 1 argument\n");
         }
-       
+       fs_active = true;
     }
     else if(strcmp(argv[0], "mmap") == 0)
     {
@@ -430,7 +449,7 @@ int cmd(char *command)
     {
         if(argc < 2)
         {
-            printf("Usage: setd <driver_number>\n");
+            printf("\nCurrent drive : %d\n",get_primary_dev());
         }
         else
         {

@@ -77,7 +77,6 @@ int fatfs_init(struct fatfs *fs)
     // (this should be the case regardless of the MBR or boot sector)
     if (fs->currentsector.sector[SIGNATURE_POSITION] != 0x55 || fs->currentsector.sector[SIGNATURE_POSITION+1] != 0xAA)
         return FAT_INIT_INVALID_SIGNATURE;
-
     // Now check again using the access function to prove endian conversion function
     if (GET_16BIT_WORD(fs->currentsector.sector, SIGNATURE_POSITION) != SIGNATURE_VALUE)
         return FAT_INIT_ENDIAN_ERROR;

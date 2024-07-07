@@ -167,6 +167,7 @@ int map_vesa() {
     uint32_t vesa_size_in_pages = (vesa_size + PAGE_SIZE - 1) / PAGE_SIZE; // Calculate the number of pages needed
 
     for (uint32_t i = 0; i < vesa_size_in_pages; i++) {
+        printf_com("Mapping VESA to 0x%.8x\n",vesa_virtual_address);
         map(vesa_virtual_address, vesa_physical_address, PAGE_PRESENT | PAGE_WRITE);
         vesa_virtual_address += PAGE_SIZE;
         vesa_physical_address += PAGE_SIZE;

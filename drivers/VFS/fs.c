@@ -31,7 +31,10 @@ int init_file_system(int drive)
     }
     else
     {
+        printf("FS is  not active\n");
         fs_active = false;
+        init_fs();
+
         return UNKNOWN_DEVICE_FS;
     }
     

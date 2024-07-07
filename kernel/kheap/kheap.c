@@ -33,6 +33,8 @@ FreeZone free_zones[MAX_CACHED_ALLOCATIONS] = {};
  */
 int free_zone_count = 0;
 
+bool heap_active = false;
+
 void init_kheap(uint32_t size)
 {
     int64_t num_total_pages = size / PAGE_SIZE; // Total number of pages in the memory region
@@ -41,6 +43,7 @@ void init_kheap(uint32_t size)
 	void *zone = pmm_alloc_pages(num_pages_40_percent);
     printf_com("Initializing memory region 0x%08X\n",zone);
 	init_memory_allocation(zone,num_pages_40_percent*PAGE_SIZE);
+    heap_active = true;
 	
 }
 
@@ -580,9 +583,17 @@ long double get_average_free_time()
 }
 #endif
 
+int is_heap_active()
+{
+    return heap_active;
+}
 
 void *kmalloc(size_t size)
 {
+    while(heap_active != true)
+    {
+
+    }
 	return sys_allocate_memory(size);
 }
 void kfree(void *ptr)

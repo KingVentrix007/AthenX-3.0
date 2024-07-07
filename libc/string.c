@@ -140,11 +140,6 @@ int strlen(const char *s) {
         len++;
     return len;
 }
-void * malloc(int nbytes)
-{
-	char variable[nbytes];
-	return &variable;
-}
 int strcmp(const char *s1, char *s2) {
     int i = 0;
 

@@ -23,6 +23,7 @@ int init_storage()
     ata_init();
     ahci_main();
     check_fs_types();
+    printf("Storage devices initialized\n");
     
     
 }
@@ -99,6 +100,12 @@ int add_device(pci_storage_device dev)
         }
     }
 }
+
+int get_primary_dev()
+{
+    return primary_dev.storage_count;
+}
+
 int set_primary_dev(int dev)
 {
     pci_storage_device device = storage_devs[dev];

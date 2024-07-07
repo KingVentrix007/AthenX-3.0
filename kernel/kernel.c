@@ -55,7 +55,7 @@ void Process(void)
         }
     }
 }
-void loop_timer()
+void cursor_flash()
 {
     // 
     size_t ticks = get_ticks();
@@ -186,6 +186,7 @@ void load_history_down()
 }
 void command_line(void)
 {
+    int x = 1/0;
     register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
     register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
 
@@ -230,14 +231,16 @@ void command_line(void)
     strcpy(user,"Dev");
     memset(input_buffer,0,command_buffer_size);
     // free(input_buffer);
-    printf("\n%s@%s>",user,getcwd());
+    printf("\n%s@%d:%s>",user,get_primary_dev(),getcwd());
     while(1)
     {
         fgets(input_buffer,command_buffer_size,stdin);
         if(input_buffer == NULL || input_buffer[0] == '\0')
         {
             memset(input_buffer, 0,command_buffer_size);
-            printf("\n%s@%s>",user,getcwd());
+            // printf("\n%s@%s>",user,getcwd());
+            printf("\n%s@%d:%s>",user,get_primary_dev(),getcwd());
+
 
     
 
@@ -258,7 +261,9 @@ void command_line(void)
             }
             cmd_count++;
             memset(input_buffer, 0,command_buffer_size);
-            printf("\n%s@%s>",user,getcwd());
+            // printf("\n%s@%s>",user,getcwd());
+            printf("\n%s@%d:%s>",user,get_primary_dev(),getcwd());
+
             
 
 

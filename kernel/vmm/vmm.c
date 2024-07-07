@@ -3,6 +3,7 @@
 #include "vmm.h"
 #include "pagepmm.h"
 #include "io_ports.h"
+#include "stdbool.h"
 extern uint8_t pmm_paging_active;
 
 page_directory_t* current_directory;
@@ -16,7 +17,7 @@ page_directory_t kernel_directory;
 // NOTE: kernel directory is mounted at the same place in every directory
 
 void page_fault(REGISTERS *regs);
-
+bool can_map = false;
 void init_vmm() {
 	// page faults
 	// isr_register_interrupt_handler(14, page_fault);
@@ -117,6 +118,7 @@ void init_vmm() {
 
 	// paging active
 	pmm_paging_active = 1;
+	can_map = true;
 }
 
 void switch_page_directory(page_directory_t* dir) {
@@ -125,6 +127,10 @@ void switch_page_directory(page_directory_t* dir) {
 }
 
 void map(uint32_t va, uint32_t pa, uint32_t flags) {
+	while(can_map != true)
+	{
+
+	}
 	// //("mapping\n");
 	uint32_t dir_entry = PGDIR_IDX_FROM_ADDR(va);
 	uint32_t page_num = PG_NUM_FROM_ADDR(va);

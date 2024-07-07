@@ -39,6 +39,7 @@
 #include "ahci.h"
 #include "vfs.h"
 #include "system.h"
+MULTIBOOT_INFO *mboot_info;
 struct BootConfig {
     char version_number[20];
     char program_path[256];
@@ -431,7 +432,7 @@ void init(unsigned long magic, unsigned long addr) {
     }
     
     CreateProcess(command_line);
-    CreateProcess(loop_timer);
+    CreateProcess(cursor_flash);
     PerformButler();
 
     STI();

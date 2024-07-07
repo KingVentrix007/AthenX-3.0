@@ -47,8 +47,10 @@ typedef struct {
 } KERNEL_MEMORY_MAP;
 
 extern KERNEL_MEMORY_MAP g_kmap;
+extern MULTIBOOT_INFO *mboot_info;
+ 
 void init(unsigned long magic, unsigned long addr);
 void command_line(void);
-void loop_timer();
+void cursor_flash();
 int get_kernel_memory_map(KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info);
 #endif
