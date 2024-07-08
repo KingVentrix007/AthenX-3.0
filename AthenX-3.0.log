@@ -4,8 +4,8 @@ Starting kernel
 Hello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Monday July 8 12:49:53 2024
-DEBUG: Monday July 8 12:49:53 2024
+DEBUG: Monday July 8 17:25:53 2024
+DEBUG: Monday July 8 17:25:53 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -53,7 +53,7 @@ DEBUG: Multi C == 1
 DEBUG: Multi D == 1
 DEBUG: Setting foreground color 3
 Current Date and Time:
-Monday July 8 12:49:53 2024
+Monday July 8 17:25:53 2024
    DEBUG: Multi B == 1
 DEBUG: Multi A == 1
 DEBUG: Setting foreground color 0
@@ -87,8 +87,7 @@ error_log = /log/
 ; Verbose output setting: true for verbose, false for silent
 VerboseOutput=false
 
-; Default bDEBUG: Initializing pageing with 785817 pages
-DEBUG: pmm_location alloc: 0x00246000
+; Default bDEBUG: Initializing pageing with 785816 pages
 DEBUG: pmm_location alloc: 0x00247000
 DEBUG: pmm_location alloc: 0x00248000
 DEBUG: pmm_location alloc: 0x00249000
@@ -144,6 +143,7 @@ DEBUG: pmm_location alloc: 0x0027a000
 DEBUG: pmm_location alloc: 0x0027b000
 DEBUG: pmm_location alloc: 0x0027c000
 DEBUG: pmm_location alloc: 0x0027d000
+DEBUG: pmm_location alloc: 0x0027e000
 DEBUG: kernel/init/main.c:297 -->init
 DEBUG: Mapping VESA to 0xb8000000
 DEBUG: Mapping VESA to 0xb8001000
@@ -6609,7 +6609,7 @@ System Info:
 -	RAM size: DEBUG: Setting foreground color 3
 3145211 Kilobytes(3.00 GB+-)
 DEBUG: Setting foreground color 2
--	Allocation heap size: 3143270 Kilobytes (3.00 GB)
+-	Allocation heap size: 3143266 Kilobytes (3.00 GB)
 -	CPU Name: QEMU Virtual CPU version 2.5+
 -	Architecture: x86
 -	Family: 6, Model: 6, Stepping: 3
@@ -6629,74 +6629,97 @@ REGISTERS:
 err_code=1
 eax=0x1, ebx=0x0, ecx=0x0, edx=0x0
 edi=0x0, esi=0x0, ebp=0x181fdc, esp=0x181fb8
-eip=0x107e3b, cs=0x107acd, ss=0x206, eflags=0x181ffc, useresp=0x1
+eip=0x1080c7, cs=0x107d59, ss=0x206, eflags=0x181ffc, useresp=0x1
 Error Division By Zero
+Parsing /boot/AthenX.bin
 DEBUG: Allocating 18 bytes at 46517440 for fl_fopen
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Name to find: boot | boot
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Name to find: AthenX.bin | AthenX.bin
-DEBUG: File: kernel/kheap/kheap.c:191  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0011ECC9
+DEBUG: File: kernel/kheap/kheap.c:191  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0011FAA9
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Allocating 600 bytes at 46517840 for parse_elf32
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-Section .debug_line found at offset 0x4a555 with size 0xe6cc
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-Length: 790
-Version: 2
-Header Length: 167
-Minimum Instruction Length: 1
-Default Is Statement: 1
-Line Base: -5
-Line Range: 14
-Opcode Base: 13
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-Length: 65536
-Version: 256
-Header Length: 1751347809
-Minimum Instruction Length: 47
-Default Is Statement: 105
-Line Base: 54
-Line Range: 56
-Opcode Base: 54
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Allocating 147 bytes at 46517C40 for parse_elf32
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
+Section .debug_info found at offset 0x28000 with size 0x1c38d
+DEBUG: Allocating 115597 bytes at 46518040 for parse_debug_info_section_content
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+What is this doing?
+Unknown attribute: 1667893375, Form: '€%
+Unhandled attribute form: '€%
+What is this doing?
+REGISTERS:
+err_code=0
+eax=0x6c910200, ebx=0x0, ecx=0x181e54, edx=0xffffffff
+edi=0x0, esi=0x0, ebp=0x181e6c, esp=0x181e30
+eip=0x1005be, cs=0x1, ss=0x6, eflags=0x46518040, useresp=0x0
+Error Page Fault
+Parsing /boot/AthenX.bin
+DEBUG: Allocating 18 bytes at 46534440 for fl_fopen
+DEBUG: File: kernel/kheap/kheap.c:191  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0011FAA9
+Failed to open binary /boot/AthenX.bin
 
 Stack trace:
-DEBUG: Allocating 38163 bytes at 46517840 for find_function
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
 DEBUG: Setting foreground color 1
- => Frame 0 - Address 0x107e3b corresponds to function: dev_0
+ => Frame 0 - Address 0x1005be corresponds to function: parse_debug_info
+      Defined in file: obj/arch/i686/dwarf.c
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 1 - Address 0x1004d3 corresponds to function: parse_debug_info_section_content
+      Defined in file: obj/arch/i686/dwarf.c
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 2 - Address 0x10043e corresponds to function: parse_debug_info_section
+      Defined in file: obj/arch/i686/dwarf.c
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 3 - Address 0x10095d corresponds to function: parse_elf32
+      Defined in file: obj/arch/i686/dwarf.c
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 4 - Address 0x101c4c corresponds to function: debug_output
+      Defined in file: obj/arch/i686/isr.c
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 5 - Address 0x101cb5 corresponds to function: isr_exception_handler
+      Defined in file: obj/arch/i686/isr.c
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 6 - Address 0x11e746 corresponds to function: _start
+      Defined in file: obj/arch/i686/boot.c
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 7 - Address 0x107d61 corresponds to function: command_line
       Defined in file: obj/kernel/kernel.c
-DEBUG: Allocating 38163 bytes at 46517840 for find_function
-    Frame 1 - Address 0x107ad5 corresponds to function: command_line
-      Defined in file: obj/kernel/kernel.c
-DEBUG: Allocating 38163 bytes at 46517840 for find_function
-    Frame 2 - No function found for address 0x0
+DEBUG: Allocating 38471 bytes at 46534840 for find_function
+    Frame 8 - Address 0x3193f01 corresponds to function: __kernel_text_section_end
+      Defined in file: obj/asm/scheduler/scheduler.c
 Stack strace complete
