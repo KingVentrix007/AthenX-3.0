@@ -287,5 +287,22 @@ int check_buffer(char *string)
 
 int dev_0()
 {
-    int x = 1/0;
+    dev_2();
+    dev_3();
+
+}
+
+void dev_2()
+{
+    char *msg = "dev_2";
+}
+
+int dev_3()
+{
+    dev_4();
+}
+
+int dev_4()
+{
+    int ret = 1/0;
 }
