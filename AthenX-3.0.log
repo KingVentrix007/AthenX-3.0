@@ -4,8 +4,8 @@ Starting kernel
 Hello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Monday July 8 17:25:53 2024
-DEBUG: Monday July 8 17:25:53 2024
+DEBUG: Monday July 8 17:41:32 2024
+DEBUG: Monday July 8 17:41:32 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -53,7 +53,7 @@ DEBUG: Multi C == 1
 DEBUG: Multi D == 1
 DEBUG: Setting foreground color 3
 Current Date and Time:
-Monday July 8 17:25:53 2024
+Monday July 8 17:41:32 2024
    DEBUG: Multi B == 1
 DEBUG: Multi A == 1
 DEBUG: Setting foreground color 0
@@ -6629,15 +6629,18 @@ REGISTERS:
 err_code=1
 eax=0x1, ebx=0x0, ecx=0x0, edx=0x0
 edi=0x0, esi=0x0, ebp=0x181fdc, esp=0x181fb8
-eip=0x1080c7, cs=0x107d59, ss=0x206, eflags=0x181ffc, useresp=0x1
-Error Division By Zero
+eip=0x108213, cs=0x107ea5, ss=0x206, eflags=0x181ffc, useresp=0x1
+DEBUG: Setting foreground color 1
+ => Error Division By Zero
+DEBUG: Setting foreground color 7
+---------DWARF debug info, currently unreliable and not to be used.-------------
 Parsing /boot/AthenX.bin
 DEBUG: Allocating 18 bytes at 46517440 for fl_fopen
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Name to find: boot | boot
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Name to find: AthenX.bin | AthenX.bin
-DEBUG: File: kernel/kheap/kheap.c:191  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0011FAA9
+DEBUG: File: kernel/kheap/kheap.c:191  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0011FCBA
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Allocating 600 bytes at 46517840 for parse_elf32
 DEBUG: AHCI :: ahci_read_sector_hal == 1
@@ -6645,10 +6648,8 @@ DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: Allocating 147 bytes at 46517C40 for parse_elf32
 DEBUG: AHCI :: ahci_read_sector_hal == 1
-DEBUG: AHCI :: ahci_read_sector_hal == 1
-Section .debug_info found at offset 0x28000 with size 0x1c38d
-DEBUG: Allocating 115597 bytes at 46518040 for parse_debug_info_section_content
-DEBUG: AHCI :: ahci_read_sector_hal == 1
+Section .debug_info found at offset 0x28000 with size 0x1c410
+DEBUG: Allocating 115728 bytes at 46518040 for parse_debug_info_section_content
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
@@ -6678,48 +6679,33 @@ DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
 DEBUG: AHCI :: ahci_read_sector_hal == 1
-What is this doing?
-Unknown attribute: 1667893375, Form: '€%
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+Attribute: DW_AT_use_location, Form: '€%
 Unhandled attribute form: '€%
-What is this doing?
-REGISTERS:
-err_code=0
-eax=0x6c910200, ebx=0x0, ecx=0x181e54, edx=0xffffffff
-edi=0x0, esi=0x0, ebp=0x181e6c, esp=0x181e30
-eip=0x1005be, cs=0x1, ss=0x6, eflags=0x46518040, useresp=0x0
-Error Page Fault
-Parsing /boot/AthenX.bin
-DEBUG: Allocating 18 bytes at 46534440 for fl_fopen
-DEBUG: File: kernel/kheap/kheap.c:191  Function: sys_free_memory,  - Invalid address or memory is not allocated 0x0011FAA9
-Failed to open binary /boot/AthenX.bin
+Section .debug_line found at offset 0x4b928 with size 0xe83d
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+Debug Line Header:
+  length: 1133
+  version: 2
+  header_length: 190
+  min_instruction_length: 1
+  default_is_stmt: 1
+  line_base: -5
+  line_range: 14
+  opcode_base: 13
+  std_opcode_lengths: 0 1 1 1 1 0 0 0 1 0 0 1 
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+---------End of DWARF debug info parsing.-------------
 
 Stack trace:
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
+DEBUG: Allocating 38537 bytes at 46517840 for find_function
 DEBUG: Setting foreground color 1
- => Frame 0 - Address 0x1005be corresponds to function: parse_debug_info
-      Defined in file: obj/arch/i686/dwarf.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 1 - Address 0x1004d3 corresponds to function: parse_debug_info_section_content
-      Defined in file: obj/arch/i686/dwarf.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 2 - Address 0x10043e corresponds to function: parse_debug_info_section
-      Defined in file: obj/arch/i686/dwarf.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 3 - Address 0x10095d corresponds to function: parse_elf32
-      Defined in file: obj/arch/i686/dwarf.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 4 - Address 0x101c4c corresponds to function: debug_output
-      Defined in file: obj/arch/i686/isr.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 5 - Address 0x101cb5 corresponds to function: isr_exception_handler
-      Defined in file: obj/arch/i686/isr.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 6 - Address 0x11e746 corresponds to function: _start
-      Defined in file: obj/arch/i686/boot.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 7 - Address 0x107d61 corresponds to function: command_line
+ => Frame 0 - Address 0x108213 corresponds to function(or variable): dev_0
       Defined in file: obj/kernel/kernel.c
-DEBUG: Allocating 38471 bytes at 46534840 for find_function
-    Frame 8 - Address 0x3193f01 corresponds to function: __kernel_text_section_end
+DEBUG: Allocating 38537 bytes at 46517840 for find_function
+    Frame 1 - Address 0x107ead corresponds to function(or variable): command_line
+      Defined in file: obj/kernel/kernel.c
+DEBUG: Allocating 38537 bytes at 46517840 for find_function
+    Frame 2 - Address 0x390b3b0b corresponds to function(or variable): __kernel_text_section_end
       Defined in file: obj/asm/scheduler/scheduler.c
 Stack strace complete

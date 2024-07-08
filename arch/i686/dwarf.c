@@ -138,6 +138,21 @@ void parse_debug_info_section(FILE *file, Elf32_Ehdr *ehdr, Elf32_Shdr *shdrs, c
         }
     }
 }
+void parse_debug_line_e_section(FILE *file, Elf32_Ehdr *ehdr, Elf32_Shdr *shdrs, char *strtab) {
+    for (int i = 0; i < ehdr->e_shnum; ++i) {
+        if (shdrs[i].sh_type == SHT_PROGBITS) {
+            char *section_name = &strtab[shdrs[i].sh_name];
+
+            if (strcmp(section_name, ".debug_line") == 0) {
+                printf("Section .debug_line found at offset 0x%x with size 0x%x\n", 
+                       shdrs[i].sh_offset, shdrs[i].sh_size);
+
+                // Load and process the .debug_info section
+                parse_debug_line_section(file, &shdrs[i]);
+            }
+        }
+    }
+}
 
 void parse_debug_info_section_content(FILE *file, Elf32_Shdr *debug_info_section) {
     fseek(file, debug_info_section->sh_offset, SEEK_SET);
@@ -269,6 +284,8 @@ void parse_attributes(char *data) {
 }
 
 void parse_elf32(const char *binary_path) {
+    printf("\033[37m");
+    printf("---------DWARF debug info, currently unreliable and not to be used.-------------\n");
     printf("Parsing %s\n", binary_path);
     FILE *file = fl_fopen(binary_path, "rb");
     if (!file) {
@@ -319,9 +336,11 @@ void parse_elf32(const char *binary_path) {
 
     // Parse .debug_info section
     parse_debug_info_section(file, &ehdr, shdrs, strtab);
-
+    parse_debug_line_e_section(file, &ehdr, shdrs, strtab);
     free(shdrs);
     free(strtab);
     fclose(file);
+    printf("---------End of DWARF debug info parsing.-------------\n");
+    printf("\033[0m");
 }
 // 0x4a467

@@ -177,7 +177,7 @@ uint32_t *unwind_stack(REGISTERS *reg) {
                 printf("\033[0m");
                 printf("    ");
             }
-            printf("Frame %d - Address 0x%x corresponds to function: %s\n", frame, eip, info->function_name);
+            printf("Frame %d - Address 0x%x corresponds to function(or variable): %s\n", frame, eip, info->function_name);
             printf("      Defined in file: %s\n", info->file_path);
         } else {
             printf("    Frame %d - No function found for address 0x%x\n", frame, eip);

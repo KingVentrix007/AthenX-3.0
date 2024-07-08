@@ -87,7 +87,9 @@ static void print_registers(REGISTERS *reg) {
 }
 void debug_output(REGISTERS *reg)
 {
+    printf("\033[1;31m => ");
     printf("Error %s\n",exception_messages[reg->int_no]);
+    printf("\033[0m");
     parse_elf32("/boot/AthenX.bin");
     // printf("Initial EBP = %p\n", frame_ptr);
     unwind_stack(reg);
