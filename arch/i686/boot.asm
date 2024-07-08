@@ -51,6 +51,7 @@ _start:
     mov eax, BOOTLOADER_MAGIC
     push ebx
     push eax
+    xor ebp, ebp
     call kmain
 loop:
     jmp loop

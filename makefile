@@ -5,9 +5,10 @@ CONFIG = ./config
 GCCPARAMS =  -O0 -I./include -fno-omit-frame-pointer -nostdlib -fno-pic -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations \
             -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g -DINI_USE_STACK=0
-	
+
 ASPARAMS = --32
-LDPARAMS = -m elf_i386 -T linker.ld -nostdlib 
+LDPARAMS = -m elf_i386 -T linker.ld -nostdlib --gc-sections
+
 
 OBJ_DIR = obj
 SRC_DIRS = arch kernel drivers libk asm syscalls
@@ -63,7 +64,7 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 
 # Run the OS in QEMU
 run: AthenX.bin
-	
+	python3 format_map.py
 	bash ./scripts/boot32.sh
 	qemu-system-i386 \
     -drive id=disk,file=AthenX.img,format=raw,if=none \

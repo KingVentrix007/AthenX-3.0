@@ -23,6 +23,7 @@
 #include "idt.h"
 #include "gdt.h"
 #include "debug_term.h"
+#include "debug.h"
 #include "string.h"
 #include "pmm.h"
 #include "vmm.h"
@@ -139,6 +140,7 @@ void write_first_module_to_file(MULTIBOOT_INFO *mboot_info) {
 
     printf("Module written to install.iso successfully.\n");
 }
+char *debug_map;
 int fill_program_list(int num_programs,Entry *entries);
 /**
  * Function Name: init
@@ -253,6 +255,7 @@ void init(unsigned long magic, unsigned long addr) {
         multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;
         init_system_info();
         ini_data = module[0].start;
+        debug_map = (char *)module[1].start;
         // printf("Ini data == %s\n", ini_data);
         
         for (int i = 0; i < mboot_info->modules_count; ++i) {

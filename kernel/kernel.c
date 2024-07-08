@@ -186,10 +186,10 @@ void load_history_down()
 }
 void command_line(void)
 {
-    int x = 1/0;
+    
     register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
     register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
-
+    dev_0();
     printf("Welcome to ");
     printf("\033[0;31m"); // Set color to red
     printf("I");
@@ -283,4 +283,9 @@ int check_buffer(char *string)
          printf("ls");
         printf("\033[0m");
     }
+}
+
+int dev_0()
+{
+    int x = 1/0;
 }
