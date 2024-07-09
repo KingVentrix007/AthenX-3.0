@@ -1,6 +1,7 @@
 #ifndef __CLOCK__H
 #define __CLOCK__H
 #include "stddef.h"
+#include "stdint.h"
 typedef long time_t;
 
 typedef struct
@@ -31,4 +32,5 @@ time_t time(time_t *t);
 struct tm *localtime(const time_t *timer);
 TIME get_time();
 void print_date();
+extern uint64_t time_since_last_keypress;
 #endif

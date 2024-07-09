@@ -11,6 +11,7 @@
 #include "debug.h"
 #include "kernel.h"
 #include "stdbool.h"
+
 char current_path[FATFS_MAX_LONG_FILENAME];
 extern fs_active;
 // Function prototypes
@@ -275,6 +276,7 @@ const char* get_path_without_dev(const char *path) {
     }
     return path; // No '/' found, return the original path
 }
+uint64_t rand_v = 12345;
 int cmd(char *command)
 {
     // printf("command: %s\n", command);
@@ -327,6 +329,16 @@ int cmd(char *command)
             list_devices();
         }
         
+    }
+    else if (strcmp(argv[0],"rand") == 0)
+    {
+        srand(rand_v*time_since_last_keypress);
+         rand_v = rand();
+            printf_com("%u\n", rand_v);  // Generate random numbers
+
+        
+         
+    
     }
     
     else if (strcmp(argv[0],"format") == 0)

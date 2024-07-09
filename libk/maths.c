@@ -414,23 +414,10 @@ int fac(unsigned int x)
 
 }
 
-void srand()
-{
-    seed = 120;
-}
-
-int rand()
-{
-    // char* out = char*(((seed = (seed * 1103515245 + 12345) & RAND_MAX) * NORM));
-    // printf_(out);
-    srand();
-    
-    return (seed = (seed * 1103515245 + 12345) & RAND_MAX) * NORM;
-}
 
 int small_rand()
 {
-    srand();
+    
 
     return ((seed = (seed * 1103515245 + 12345) & RAND_MAX) * NORM)/89585;
 }

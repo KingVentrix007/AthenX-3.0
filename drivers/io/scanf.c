@@ -2135,10 +2135,12 @@ int fctscanf_(int (*getch)(void *data), void (*ungetch)(int c, void *data),
 int lock_id = 0;
 int echo = 10;
 char no_echo_char = '\0';
+#include "clock.h"
 int getch_(void)
 {
 
-    
+    time_t start;
+    time(&start);
     int ch;
     while((ch = getchar()) <= 0)
     {
@@ -2172,6 +2174,9 @@ int getch_(void)
         }
         
     }
+    time_t end;
+    time(&end);
+    time_since_last_keypress = end - start;
     printf_com("%c", ch);
     return ch;
 }
