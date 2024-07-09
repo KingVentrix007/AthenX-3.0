@@ -4,8 +4,8 @@ Starting kernel
 Hello World!
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Tuesday July 9 15:7:10 2024
-DEBUG: Tuesday July 9 15:7:10 2024
+DEBUG: Tuesday July 9 17:48:52 2024
+DEBUG: Tuesday July 9 17:48:52 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -53,7 +53,7 @@ DEBUG: Multi C == 1
 DEBUG: Multi D == 1
 DEBUG: Setting foreground color 3
 Current Date and Time:
-Tuesday July 9 15:7:10 2024
+Tuesday July 9 17:48:52 2024
    DEBUG: Multi B == 1
 DEBUG: Multi A == 1
 DEBUG: Setting foreground color 0
@@ -90,9 +90,8 @@ VerboseOutput=false
 ; Default bInitializing com port 1
 Initializing scheduler
 Initiating physical memory manager
-DEBUG: Initializing pageing with 785818 pages
+DEBUG: Initializing pageing with 785817 pages
 Initializing Virtual Memory Manager
-DEBUG: pmm_location alloc: 0x00245000
 DEBUG: pmm_location alloc: 0x00246000
 DEBUG: pmm_location alloc: 0x00247000
 DEBUG: pmm_location alloc: 0x00248000
@@ -148,6 +147,7 @@ DEBUG: pmm_location alloc: 0x00279000
 DEBUG: pmm_location alloc: 0x0027a000
 DEBUG: pmm_location alloc: 0x0027b000
 DEBUG: pmm_location alloc: 0x0027c000
+DEBUG: pmm_location alloc: 0x0027d000
 DEBUG: kernel/init/main.c:297 -->init
 DEBUG: Mapping VESA to 0xb8000000
 DEBUG: Mapping VESA to 0xb8001000
@@ -6295,13 +6295,13 @@ DEBUG: Mapping VESA to 0xb97fe000
 DEBUG: Mapping VESA to 0xb97ff000
 DEBUG: kernel/init/main.c:304 -->init
 Initializing kernel heap
-DEBUG: Using 314327 pages for kheap
+DEBUG: Using 314326 pages for kheap
 DEBUG: Initializing memory region 0x3FFF9000
-DEBUG: Setting up region of size 1287483392
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:325  Function: init_memory_region,  - 1257308 nodes 
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:326  Function: init_memory_region,  - 30175392 bytes are taken up by the nodes in memory
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:327  Function: init_memory_region,  - 1257308000 bytes are available for actual allocation
-DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:345  Function: init_memory_region,  - Bytes available = 1227132928
+DEBUG: Setting up region of size 1287479296
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:325  Function: init_memory_region,  - 1257304 nodes 
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:326  Function: init_memory_region,  - 30175296 bytes are taken up by the nodes in memory
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:327  Function: init_memory_region,  - 1257304000 bytes are available for actual allocation
+DEBUG: [INFO] DEBUG: File: kernel/kheap/kheap.c:345  Function: init_memory_region,  - Bytes available = 1227128832
 Scanning PCI
 DEBUG: Bridge Device
 DEBUG: Bridge Device
@@ -6329,212 +6329,212 @@ DEBUG: Regestering IRQ 43
 DEBUG: IRQ 43 registered
 DEBUG: Probing for AHCI ports
 DEBUG: SATA drive found at port 0
-DEBUG: Allocating 5119 bytes at 41CC08A0 for ahci_malloc
+DEBUG: Allocating 5119 bytes at 41CC0840 for ahci_malloc
 DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CC1000 for port->clb-> Command list(280)
 DEBUG: AHCI :: Command List buffer allocated at 41CC1000
-DEBUG: Allocating 4351 bytes at 41CC1CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CC1C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC2000 for FIS entry(301)
 DEBUG: AHCI :: FIS buffer allocated at 41CC2000
-DEBUG: Allocating 4351 bytes at 41CC30A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CC3040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC4000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC4000
-DEBUG: Allocating 4351 bytes at 41CC44A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CC4440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC5000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC5000
-DEBUG: Allocating 4351 bytes at 41CC58A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CC5840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC6000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC6000
-DEBUG: Allocating 4351 bytes at 41CC6CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CC6C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC7000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC7000
-DEBUG: Allocating 4351 bytes at 41CC80A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CC8040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CC9000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CC9000
-DEBUG: Allocating 4351 bytes at 41CC94A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CC9440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCA000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCA000
-DEBUG: Allocating 4351 bytes at 41CCA8A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CCA840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCB000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCB000
-DEBUG: Allocating 4351 bytes at 41CCBCA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CCBC40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCC000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCC000
-DEBUG: Allocating 4351 bytes at 41CCD0A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CCD040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCE000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCE000
-DEBUG: Allocating 4351 bytes at 41CCE4A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CCE440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CCF000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CCF000
-DEBUG: Allocating 4351 bytes at 41CCF8A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CCF840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD0000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD0000
-DEBUG: Allocating 4351 bytes at 41CD0CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD0C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD1000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD1000
-DEBUG: Allocating 4351 bytes at 41CD20A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD2040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD3000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD3000
-DEBUG: Allocating 4351 bytes at 41CD34A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD3440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD4000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD4000
-DEBUG: Allocating 4351 bytes at 41CD48A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD4840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD5000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD5000
-DEBUG: Allocating 4351 bytes at 41CD5CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD5C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD6000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD6000
-DEBUG: Allocating 4351 bytes at 41CD70A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD7040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD8000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD8000
-DEBUG: Allocating 4351 bytes at 41CD84A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD8440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CD9000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CD9000
-DEBUG: Allocating 4351 bytes at 41CD98A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CD9840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDA000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDA000
-DEBUG: Allocating 4351 bytes at 41CDACA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CDAC40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDB000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDB000
-DEBUG: Allocating 4351 bytes at 41CDC0A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CDC040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDD000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDD000
-DEBUG: Allocating 4351 bytes at 41CDD4A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CDD440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDE000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDE000
-DEBUG: Allocating 4351 bytes at 41CDE8A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CDE840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CDF000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CDF000
-DEBUG: Allocating 4351 bytes at 41CDFCA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CDFC40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE0000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE0000
-DEBUG: Allocating 4351 bytes at 41CE10A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE1040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE2000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE2000
-DEBUG: Allocating 4351 bytes at 41CE24A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE2440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE3000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE3000
-DEBUG: Allocating 4351 bytes at 41CE38A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE3840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE4000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE4000
-DEBUG: Allocating 4351 bytes at 41CE4CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE4C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE5000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE5000
-DEBUG: Allocating 4351 bytes at 41CE60A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE6040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE7000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE7000
-DEBUG: Allocating 4351 bytes at 41CE74A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE7440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE8000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE8000
-DEBUG: Allocating 4351 bytes at 41CE88A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE8840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CE9000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CE9000
-DEBUG: Allocating 4351 bytes at 41CE9CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CE9C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEA000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CEA000
 DEBUG: AHCI :: port->clb == 41CC1000
 DEBUG: Drive sector size: 512 bytes
 DEBUG: Drive total sectors: 2097152
 DEBUG: SATA drive found at port 1
-DEBUG: Allocating 5119 bytes at 41CEB0A0 for ahci_malloc
+DEBUG: Allocating 5119 bytes at 41CEB040 for ahci_malloc
 DEBUG: AHCI :: Allocating 5119 bytes of memory at 41CEC000 for port->clb-> Command list(280)
 DEBUG: AHCI :: Command List buffer allocated at 41CEC000
-DEBUG: Allocating 4351 bytes at 41CEC4A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CEC440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CED000 for FIS entry(301)
 DEBUG: AHCI :: FIS buffer allocated at 41CED000
-DEBUG: Allocating 4351 bytes at 41CED8A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CED840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEE000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CEE000
-DEBUG: Allocating 4351 bytes at 41CEECA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CEEC40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CEF000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CEF000
-DEBUG: Allocating 4351 bytes at 41CF00A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF0040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF1000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF1000
-DEBUG: Allocating 4351 bytes at 41CF14A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF1440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF2000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF2000
-DEBUG: Allocating 4351 bytes at 41CF28A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF2840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF3000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF3000
-DEBUG: Allocating 4351 bytes at 41CF3CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF3C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF4000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF4000
-DEBUG: Allocating 4351 bytes at 41CF50A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF5040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF6000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF6000
-DEBUG: Allocating 4351 bytes at 41CF64A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF6440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF7000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF7000
-DEBUG: Allocating 4351 bytes at 41CF78A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF7840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF8000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF8000
-DEBUG: Allocating 4351 bytes at 41CF8CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CF8C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CF9000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CF9000
-DEBUG: Allocating 4351 bytes at 41CFA0A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CFA040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFB000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CFB000
-DEBUG: Allocating 4351 bytes at 41CFB4A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CFB440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFC000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CFC000
-DEBUG: Allocating 4351 bytes at 41CFC8A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CFC840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFD000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CFD000
-DEBUG: Allocating 4351 bytes at 41CFDCA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CFDC40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41CFE000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41CFE000
-DEBUG: Allocating 4351 bytes at 41CFF0A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41CFF040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D00000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D00000
-DEBUG: Allocating 4351 bytes at 41D004A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D00440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D01000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D01000
-DEBUG: Allocating 4351 bytes at 41D018A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D01840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D02000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D02000
-DEBUG: Allocating 4351 bytes at 41D02CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D02C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D03000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D03000
-DEBUG: Allocating 4351 bytes at 41D040A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D04040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D05000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D05000
-DEBUG: Allocating 4351 bytes at 41D054A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D05440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D06000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D06000
-DEBUG: Allocating 4351 bytes at 41D068A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D06840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D07000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D07000
-DEBUG: Allocating 4351 bytes at 41D07CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D07C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D08000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D08000
-DEBUG: Allocating 4351 bytes at 41D090A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D09040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0A000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D0A000
-DEBUG: Allocating 4351 bytes at 41D0A4A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D0A440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0B000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D0B000
-DEBUG: Allocating 4351 bytes at 41D0B8A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D0B840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0C000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D0C000
-DEBUG: Allocating 4351 bytes at 41D0CCA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D0CC40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0D000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D0D000
-DEBUG: Allocating 4351 bytes at 41D0E0A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D0E040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D0F000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D0F000
-DEBUG: Allocating 4351 bytes at 41D0F4A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D0F440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D10000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D10000
-DEBUG: Allocating 4351 bytes at 41D108A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D10840 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D11000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D11000
-DEBUG: Allocating 4351 bytes at 41D11CA0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D11C40 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D12000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D12000
-DEBUG: Allocating 4351 bytes at 41D130A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D13040 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D14000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D14000
-DEBUG: Allocating 4351 bytes at 41D144A0 for ahci_malloc
+DEBUG: Allocating 4351 bytes at 41D14440 for ahci_malloc
 DEBUG: AHCI :: Allocating 4351 bytes of memory at 41D15000 for Command table(316)
 DEBUG: AHCI :: Command Table buffer allocated at 41D15000
 DEBUG: AHCI :: port->clb == 41CEC000
@@ -6562,5 +6562,290 @@ DEBUG: AHCI :: ahci_read_sector_hal == 1
 Storage devices initialized
 Init keyboard
 DEBUG: IRQ 33 registered
+DEBUG: 
+Using current AHCI drive 0
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: kernel/init/main.c:330 -->init
+Initializing timer
+DEBUG: IRQ 32 registered
+Time done
+DEBUG: kernel/init/main.c:340 -->init
+DEBUG: Allocating 25165824 bytes at 41D16840 for vesa_init_buffers
+DEBUG: Allocating 25165824 bytes at 43516840 for vesa_init_buffers
+DEBUG: Allocating 25165824 bytes at 44D16840 for vesa_init_buffers
+DEBUG: 0
+DEBUG: Allocating 1073741824 bytes at 46516840 for init
+[1;32mSuccessfully allocated memory of 1GB
+DEBUG: [1;32mSuccessfully allocated memory of 1GB
+DEBUG: kernel/init/main.c:351 -->init
+DEBUG: kernel/init/main.c:362 -->init
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: bin | boot
+DEBUG: Name to find: bin | grub
+DEBUG: Name to find: bin | bin
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Allocating 256 bytes at 46516840 for init
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Name to find: bin | boot
+DEBUG: Name to find: bin | grub
+DEBUG: Name to find: bin | bin
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: AHCI :: ahci_read_sector_hal == 1
+DEBUG: Allocating 4 bytes at 46516C40 for fill_program_list
 
-Please enter a drive number: 
+
+DEBUG: Allocating 8 bytes at 46517040 for fill_program_list
+Loaded 1 programs
+DEBUG: Setting foreground color 2
+System Initialization Complete
+System Info:
+-	RAM size: DEBUG: Setting foreground color 3
+3145211 Kilobytes(3.00 GB+-)
+DEBUG: Setting foreground color 2
+-	Allocation heap size: 3143270 Kilobytes (3.00 GB)
+-	CPU Name: QEMU Virtual CPU version 2.5+
+-	Architecture: x86
+-	Family: 6, Model: 6, Stepping: 3
+-	Screen resolution: 1024x768
+-	ACPI enabled: DEBUG: Setting foreground color 4
+true
+Device Info:
+-	Number of Mass Storage Devices: 2
+-	Number of Network Devices: 1
+-	Number of Display Devices: 1
+-	Number of Bridge Devices: 3
+Available drives
+Device 0: AHCI device - 2097152 sectors 1073741824 bytes (1.00 GB) - File System: FAT
+Device 1: AHCI device - 2097152 sectors 1073741824 bytes (1.00 GB) - File System: FAT
+Starting shell
+DEBUG: 0x00000000
+DEBUG: 0x00000000
+DEBUG: 0x00000000
+DEBUG: 0x0000C001
+DEBUG: 0xFEB80000
+Found e1000 network device
+DEBUG: E1000 BAR0 == feb80000
+DEBUG: E1000 BAR1 == c001
+DEBUG: E1000 BAR2 == 0
+DEBUG: E1000 BAR3 == 0
+DEBUG: E1000 BAR4 == 0
+DEBUG: E1000 BAR5 == 0
+MMIO is at 0xfeb80000
+DEBUG: e1000_writeCommand(uint16_t p_address(0x0),uint32_t p_value(0x4000000))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80000),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x14),uint32_t p_value(0x1))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80014),uint32_t p_value(0x0))
+EEProm detected
+DEBUG: e1000_writeCommand(uint16_t p_address(0x14),uint32_t p_value(0x1))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80014),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x14),uint32_t p_value(0x101))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80014),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x14),uint32_t p_value(0x201))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80014),uint32_t p_value(0x0))
+MAC Address: 52:54:00:12:34:56
+DEBUG: rxinit
+DEBUG: Allocating 528 bytes at 46517440 for e1000_malloc
+DEBUG: mapping pa:0x46517440 to va:0x46517440
+DEBUG: Allocating 8208 bytes at 46517840 for e1000_malloc
+DEBUG: mapping pa:0x46517840 to va:0x46517840
+DEBUG: mapping pa:0x46518840 to va:0x46518840
+DEBUG: mapping pa:0x46519840 to va:0x46519840
+DEBUG: Allocating 8208 bytes at 46519C40 for e1000_malloc
+DEBUG: mapping pa:0x46519c40 to va:0x46519c40
+DEBUG: mapping pa:0x4651ac40 to va:0x4651ac40
+DEBUG: mapping pa:0x4651bc40 to va:0x4651bc40
+DEBUG: Allocating 8208 bytes at 4651C040 for e1000_malloc
+DEBUG: mapping pa:0x4651c040 to va:0x4651c040
+DEBUG: mapping pa:0x4651d040 to va:0x4651d040
+DEBUG: mapping pa:0x4651e040 to va:0x4651e040
+DEBUG: Allocating 8208 bytes at 4651E440 for e1000_malloc
+DEBUG: mapping pa:0x4651e440 to va:0x4651e440
+DEBUG: mapping pa:0x4651f440 to va:0x4651f440
+DEBUG: mapping pa:0x46520440 to va:0x46520440
+DEBUG: Allocating 8208 bytes at 46520840 for e1000_malloc
+DEBUG: mapping pa:0x46520840 to va:0x46520840
+DEBUG: mapping pa:0x46521840 to va:0x46521840
+DEBUG: mapping pa:0x46522840 to va:0x46522840
+DEBUG: Allocating 8208 bytes at 46522C40 for e1000_malloc
+DEBUG: mapping pa:0x46522c40 to va:0x46522c40
+DEBUG: mapping pa:0x46523c40 to va:0x46523c40
+DEBUG: mapping pa:0x46524c40 to va:0x46524c40
+DEBUG: Allocating 8208 bytes at 46525040 for e1000_malloc
+DEBUG: mapping pa:0x46525040 to va:0x46525040
+DEBUG: mapping pa:0x46526040 to va:0x46526040
+DEBUG: mapping pa:0x46527040 to va:0x46527040
+DEBUG: Allocating 8208 bytes at 46527440 for e1000_malloc
+DEBUG: mapping pa:0x46527440 to va:0x46527440
+DEBUG: mapping pa:0x46528440 to va:0x46528440
+DEBUG: mapping pa:0x46529440 to va:0x46529440
+DEBUG: Allocating 8208 bytes at 46529840 for e1000_malloc
+DEBUG: mapping pa:0x46529840 to va:0x46529840
+DEBUG: mapping pa:0x4652a840 to va:0x4652a840
+DEBUG: mapping pa:0x4652b840 to va:0x4652b840
+DEBUG: Allocating 8208 bytes at 4652BC40 for e1000_malloc
+DEBUG: mapping pa:0x4652bc40 to va:0x4652bc40
+DEBUG: mapping pa:0x4652cc40 to va:0x4652cc40
+DEBUG: mapping pa:0x4652dc40 to va:0x4652dc40
+DEBUG: Allocating 8208 bytes at 4652E040 for e1000_malloc
+DEBUG: mapping pa:0x4652e040 to va:0x4652e040
+DEBUG: mapping pa:0x4652f040 to va:0x4652f040
+DEBUG: mapping pa:0x46530040 to va:0x46530040
+DEBUG: Allocating 8208 bytes at 46530440 for e1000_malloc
+DEBUG: mapping pa:0x46530440 to va:0x46530440
+DEBUG: mapping pa:0x46531440 to va:0x46531440
+DEBUG: mapping pa:0x46532440 to va:0x46532440
+DEBUG: Allocating 8208 bytes at 46532840 for e1000_malloc
+DEBUG: mapping pa:0x46532840 to va:0x46532840
+DEBUG: mapping pa:0x46533840 to va:0x46533840
+DEBUG: mapping pa:0x46534840 to va:0x46534840
+DEBUG: Allocating 8208 bytes at 46534C40 for e1000_malloc
+DEBUG: mapping pa:0x46534c40 to va:0x46534c40
+DEBUG: mapping pa:0x46535c40 to va:0x46535c40
+DEBUG: mapping pa:0x46536c40 to va:0x46536c40
+DEBUG: Allocating 8208 bytes at 46537040 for e1000_malloc
+DEBUG: mapping pa:0x46537040 to va:0x46537040
+DEBUG: mapping pa:0x46538040 to va:0x46538040
+DEBUG: mapping pa:0x46539040 to va:0x46539040
+DEBUG: Allocating 8208 bytes at 46539440 for e1000_malloc
+DEBUG: mapping pa:0x46539440 to va:0x46539440
+DEBUG: mapping pa:0x4653a440 to va:0x4653a440
+DEBUG: mapping pa:0x4653b440 to va:0x4653b440
+DEBUG: Allocating 8208 bytes at 4653B840 for e1000_malloc
+DEBUG: mapping pa:0x4653b840 to va:0x4653b840
+DEBUG: mapping pa:0x4653c840 to va:0x4653c840
+DEBUG: mapping pa:0x4653d840 to va:0x4653d840
+DEBUG: Allocating 8208 bytes at 4653DC40 for e1000_malloc
+DEBUG: mapping pa:0x4653dc40 to va:0x4653dc40
+DEBUG: mapping pa:0x4653ec40 to va:0x4653ec40
+DEBUG: mapping pa:0x4653fc40 to va:0x4653fc40
+DEBUG: Allocating 8208 bytes at 46540040 for e1000_malloc
+DEBUG: mapping pa:0x46540040 to va:0x46540040
+DEBUG: mapping pa:0x46541040 to va:0x46541040
+DEBUG: mapping pa:0x46542040 to va:0x46542040
+DEBUG: Allocating 8208 bytes at 46542440 for e1000_malloc
+DEBUG: mapping pa:0x46542440 to va:0x46542440
+DEBUG: mapping pa:0x46543440 to va:0x46543440
+DEBUG: mapping pa:0x46544440 to va:0x46544440
+DEBUG: Allocating 8208 bytes at 46544840 for e1000_malloc
+DEBUG: mapping pa:0x46544840 to va:0x46544840
+DEBUG: mapping pa:0x46545840 to va:0x46545840
+DEBUG: mapping pa:0x46546840 to va:0x46546840
+DEBUG: Allocating 8208 bytes at 46546C40 for e1000_malloc
+DEBUG: mapping pa:0x46546c40 to va:0x46546c40
+DEBUG: mapping pa:0x46547c40 to va:0x46547c40
+DEBUG: mapping pa:0x46548c40 to va:0x46548c40
+DEBUG: Allocating 8208 bytes at 46549040 for e1000_malloc
+DEBUG: mapping pa:0x46549040 to va:0x46549040
+DEBUG: mapping pa:0x4654a040 to va:0x4654a040
+DEBUG: mapping pa:0x4654b040 to va:0x4654b040
+DEBUG: Allocating 8208 bytes at 4654B440 for e1000_malloc
+DEBUG: mapping pa:0x4654b440 to va:0x4654b440
+DEBUG: mapping pa:0x4654c440 to va:0x4654c440
+DEBUG: mapping pa:0x4654d440 to va:0x4654d440
+DEBUG: Allocating 8208 bytes at 4654D840 for e1000_malloc
+DEBUG: mapping pa:0x4654d840 to va:0x4654d840
+DEBUG: mapping pa:0x4654e840 to va:0x4654e840
+DEBUG: mapping pa:0x4654f840 to va:0x4654f840
+DEBUG: Allocating 8208 bytes at 4654FC40 for e1000_malloc
+DEBUG: mapping pa:0x4654fc40 to va:0x4654fc40
+DEBUG: mapping pa:0x46550c40 to va:0x46550c40
+DEBUG: mapping pa:0x46551c40 to va:0x46551c40
+DEBUG: Allocating 8208 bytes at 46552040 for e1000_malloc
+DEBUG: mapping pa:0x46552040 to va:0x46552040
+DEBUG: mapping pa:0x46553040 to va:0x46553040
+DEBUG: mapping pa:0x46554040 to va:0x46554040
+DEBUG: Allocating 8208 bytes at 46554440 for e1000_malloc
+DEBUG: mapping pa:0x46554440 to va:0x46554440
+DEBUG: mapping pa:0x46555440 to va:0x46555440
+DEBUG: mapping pa:0x46556440 to va:0x46556440
+DEBUG: Allocating 8208 bytes at 46556840 for e1000_malloc
+DEBUG: mapping pa:0x46556840 to va:0x46556840
+DEBUG: mapping pa:0x46557840 to va:0x46557840
+DEBUG: mapping pa:0x46558840 to va:0x46558840
+DEBUG: Allocating 8208 bytes at 46558C40 for e1000_malloc
+DEBUG: mapping pa:0x46558c40 to va:0x46558c40
+DEBUG: mapping pa:0x46559c40 to va:0x46559c40
+DEBUG: mapping pa:0x4655ac40 to va:0x4655ac40
+DEBUG: Allocating 8208 bytes at 4655B040 for e1000_malloc
+DEBUG: mapping pa:0x4655b040 to va:0x4655b040
+DEBUG: mapping pa:0x4655c040 to va:0x4655c040
+DEBUG: mapping pa:0x4655d040 to va:0x4655d040
+DEBUG: Allocating 8208 bytes at 4655D440 for e1000_malloc
+DEBUG: mapping pa:0x4655d440 to va:0x4655d440
+DEBUG: mapping pa:0x4655e440 to va:0x4655e440
+DEBUG: mapping pa:0x4655f440 to va:0x4655f440
+Allocations complete
+DEBUG: (uint32_t)((uint64_t)ptr >> 32) == 0x0
+DEBUG: e1000_writeCommand(uint16_t p_address(0x3800),uint32_t p_value(0x0))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83800),uint32_t p_value(0x0))
+206
+__LINE__DEBUG: e1000_writeCommand(uint16_t p_address(0x3804),uint32_t p_value(0x46517440))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83804),uint32_t p_value(0x0))
+208
+__LINE__DEBUG: e1000_writeCommand(uint16_t p_address(0x2800),uint32_t p_value(0x46517440))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb82800),uint32_t p_value(0x0))
+211
+__LINE__DEBUG: e1000_writeCommand(uint16_t p_address(0x2804),uint32_t p_value(0x0))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb82804),uint32_t p_value(0x0))
+214
+__LINE__DEBUG: e1000_writeCommand(uint16_t p_address(0x2808),uint32_t p_value(0x200))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb82808),uint32_t p_value(0x0))
+217
+__LINE__DEBUG: e1000_writeCommand(uint16_t p_address(0x2810),uint32_t p_value(0x0))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb82810),uint32_t p_value(0x0))
+220
+__LINE__DEBUG: e1000_writeCommand(uint16_t p_address(0x2818),uint32_t p_value(0x1f))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb82818),uint32_t p_value(0x0))
+223
+__LINE__DEBUG: e1000_writeCommand(uint16_t p_address(0x100),uint32_t p_value(0x602801e))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80100),uint32_t p_value(0x0))
+227
+__LINE__DEBUG: Allocating 144 bytes at 4655F840 for e1000_malloc
+DEBUG: mapping pa:0x4655f840 to va:0x4655f840
+DEBUG: e1000_writeCommand(uint16_t p_address(0x3804),uint32_t p_value(0x0))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83804),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x3800),uint32_t p_value(0x4655f840))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83800),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x3808),uint32_t p_value(0x80))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83808),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x3810),uint32_t p_value(0x0))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83810),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x3818),uint32_t p_value(0x0))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83818),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x400),uint32_t p_value(0x10400fa))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80400),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x400),uint32_t p_value(0x3003f0fa))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80400),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x410),uint32_t p_value(0x60200a))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb80410),uint32_t p_value(0x0))
+DEBUG: e1000_writeCommand(uint16_t p_address(0x3818),uint32_t p_value(0x1))
+DEBUG: e1000_write32(uint64_t p_address(0xfeb83818),uint32_t p_value(0x0))
+Welcome to DEBUG: Setting foreground color 1
+IDEBUG: Setting foreground color 2
+rDEBUG: Setting foreground color 3
+iDEBUG: Setting foreground color 4
+s! A simple bash like shell
+Type help or iris for more information
+DEBUG: kernel/kernel.c:214 -->command_line
+DEBUG: Allocating 1024 bytes at 4655FC40 for command_line
+DEBUG: Allocating 1025 bytes at 46560040 for command_line
+DEBUG: Allocating 1024 bytes at 46560840 for command_line
+
+Dev@0:/>

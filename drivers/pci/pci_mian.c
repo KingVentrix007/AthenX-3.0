@@ -35,6 +35,8 @@ void pci_scan() {
                     // Found a PCI device, call found_device
                     pci_config_register dev;
                     found_device(bus, device, function,&dev);
+                    dev.device_id = (vendorDeviceID >> 16) & 0xFFFF;
+                    dev.vendor_id = vendorDeviceID & 0xFFFF;
                     if(dev.vendor_id == 0xFFFF && dev.device_id == 0xFFFF)
                     {
 
@@ -171,7 +173,12 @@ pci_config_register *get_ahci_abar()
         {
             // printf("device_id == 0x%x\n",devs[i].device_id);
             // printf("vendor_id == 0x%x\n",devs[i].vendor_id);
-            if((devs[i].device_id ==0x8086 && devs[i].vendor_id ==  0x2922) || (devs[i].device_id == 0x8086 && devs[i].vendor_id == 0x8c02))
+            // 0x8086
+
+            //0x2922
+
+            //0x8c02
+            if((devs[i].device_id ==0x2922 && devs[i].vendor_id ==  0x8086) || (devs[i].device_id == 0x8c02 && devs[i].vendor_id == 0x8086))
             {
                 
                 
@@ -196,6 +203,41 @@ pci_config_register *get_ahci_abar()
     return NULL;
 }
 
+pci_config_register *get_e1000_data()
+{
+    for (size_t i = 0; i < dev_count; i++)
+    {
+            // printf_com("PCI read %d -> ven = 0x%X || dev = 0x%X\n ",i,devs[i].vendor_id,devs[i].device_id);
+
+        
+        if(devs[i].class_code == PCI_CLASS_NETWORK)
+        {
+            // printf("device_id == 0x%x\n",devs[i].device_id);
+            // printf("vendor_id == 0x%x\n",devs[i].vendor_id);
+            if(devs[i].device_id ==0x100E    && devs[i].vendor_id ==  0x8086)
+            {
+                
+                
+                
+                // printf("Memory Address: 0x%08X\n", devs[i].base_address_5);
+                // printf("Memory Address: %p\n", devs[i].base_address_5);
+                 printf_com("0x%08X\n", devs[i].base_address_4);
+                 printf_com("0x%08X\n", devs[i].base_address_3);
+                 printf_com("0x%08X\n", devs[i].base_address_2);
+                 printf_com("0x%08X\n", devs[i].base_address_1);
+                 printf_com("0x%08X\n", devs[i].base_address_0);
+
+
+                
+            return &devs[i];
+            }   
+           
+        }
+
+    }
+    printf_com("loop done\n");
+    return NULL;
+}
 uint32_t read_bar5(uint8_t bus, uint8_t slot, uint8_t func) {
     // BAR5 is located at offset 0x24 in the PCI configuration space
     return pci_config_read_dword(bus, slot, func, 0x24);

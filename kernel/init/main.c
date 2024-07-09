@@ -434,7 +434,7 @@ void init(unsigned long magic, unsigned long addr) {
         install_athenx();
 
     }
-    
+    init_e1000();
     CreateProcess(command_line);
     CreateProcess(cursor_flash);
     PerformButler();

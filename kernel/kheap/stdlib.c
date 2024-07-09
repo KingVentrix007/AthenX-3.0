@@ -28,15 +28,18 @@ void* calloc(size_t num_elements, size_t element_size) {
     return ptr;
 }
 
-void *malloc_wrap(size_t size,char function[1000])
+void *malloc_wrap(size_t size, char function[1000])
 {
     void *addr = malloc_int(size);
-    if(strcmp(function,"printf") != 0){
-        printf_com("Allocating %d bytes at %p for %s\n", size,addr, function);
-
+    if (strcmp(function, "printf") != 0)
+    {
+        printf_com("Allocating %zu bytes at %p for %s\n", size, addr, function);
     }
+
+
     return addr;
 }
+
 void *malloc_int(size_t size) {
     // Calculate the number of pages needed
     // size_t num_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;

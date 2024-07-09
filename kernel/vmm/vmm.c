@@ -131,7 +131,7 @@ void map(uint32_t va, uint32_t pa, uint32_t flags) {
 	{
 
 	}
-	// //("mapping\n");
+	
 	uint32_t dir_entry = PGDIR_IDX_FROM_ADDR(va);
 	uint32_t page_num = PG_NUM_FROM_ADDR(va);
 

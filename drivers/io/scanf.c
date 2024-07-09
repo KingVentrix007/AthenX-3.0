@@ -2055,7 +2055,9 @@ int scanf_(const char *format, ...) {
 
 static int getchw_(void *arg) {
     (void)arg;
-    return getch_();
+    char *ch = getch_();
+    printf("%c",ch);
+    return ch;
 }
 
 static void ungetchw_(int c, void *arg) {
