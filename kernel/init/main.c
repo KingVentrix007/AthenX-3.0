@@ -274,13 +274,13 @@ void init(unsigned long magic, unsigned long addr) {
     {
         disable_verbose();
     }
-    printf_t("Initializing com port 1\n");
+    printf("Initializing com port 1\n");
     init_com1();
     
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     // Initialize Scheduler
-    printf_t("Initializing scheduler\n");
+    printf("Initializing scheduler\n");
     InitScheduler();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
@@ -288,10 +288,10 @@ void init(unsigned long magic, unsigned long addr) {
     size_t size = (g_kmap.available.size / 2) + 10;
     uint32_t pmm_start = (uint32_t)g_kmap.available.start_addr;
     asm("cli");
-    printf_t("Initiating physical memory manager\n");
+    printf("Initiating physical memory manager\n");
     init_pmm_page(pmm_start, g_kmap.available.size);
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    printf_t("Initializing Virtual Memory Manager\n");
+    printf("Initializing Virtual Memory Manager\n");
     // Initialize Virtual Memory Manager
     init_vmm();
     LOG_LOCATION;
@@ -304,18 +304,18 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
 
     // Initialize kernel heap
-    printf_t("Initializing kernel heap\n");
+    printf("Initializing kernel heap\n");
     init_kheap(g_kmap.available.size);
     
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    printf_t("Scanning PCI\n");
+    printf("Scanning PCI\n");
     pci_scan();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    printf_t("Attempting to initialize AHCI driver\n");
+    printf("Attempting to initialize AHCI driver\n");
     init_storage();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // Initialize FAT file system
-    printf_t("Init keyboard\n");
+    printf("Init keyboard\n");
     keyboard_init();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     STI();
@@ -332,8 +332,9 @@ void init(unsigned long magic, unsigned long addr) {
     
 
     // Initialize timer
-    // printf("Initializing timer\n");
+    printf("Initializing timer\n");
     timer_init();
+    printf("Time done\n");
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;

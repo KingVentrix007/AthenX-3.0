@@ -359,7 +359,7 @@ int cmd(char *command)
             else
             {   
             sectors= get_current_drive_sector_count();
-
+            printf("Formatting %u sectors\n", sectors);
 
             }
             char name = "disk";

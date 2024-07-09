@@ -145,7 +145,7 @@ int secondary_storage_read(uint32 sector, uint8 *buffer, uint32 sector_count)
     else
     {
         // printf_com("storage:: using ide\n");
-        return ide_read_sectors_fat(sector,buffer,sector_count);
+        // return ide_read_sectors_fat(sector,buffer,sector_count);
     }
 }
 int secondary_storage_write(uint32 sector, uint8 *buffer, uint32 sector_count)
@@ -165,6 +165,12 @@ uint64_t get_current_drive_sector_count()
     {
         return get_ahci_sector_count();
     }
+    else if (primary_dev.storage_type == IDE_STORAGE_DEVICE)
+    {
+        return get_drive_size(primary_dev.storage_specific_number);
+    }
+    return 0;
+    
 }
 #define SECTOR_SIZE 512
 int write_iso_to_disk(uint8_t *iso_buffer, uint32_t iso_size) {

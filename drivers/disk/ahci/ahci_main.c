@@ -148,6 +148,11 @@ int ahci_main()
 {
     printf_com("AHCI :: Initializing AHCI\nFrom this point on, debug logs are related to AHCI or functions called in AHCI\n----------------------------------------------------------------\n");
     pci_config_register *dev = get_ahci_abar();
+    if(dev == NULL)
+    {
+        printf("\nNo AHCI\n");
+        return;
+    }
     HBA_MEM *abar = (HBA_MEM *)dev->base_address_5;
     init_achi_pci(dev->bus,dev->slot,dev->func); //Enable interrupts, DMA, and memory space access in the PCI command register
     // enable_bus_mastering(dev->bus,dev->slot,dev->func);

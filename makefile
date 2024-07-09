@@ -58,7 +58,9 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 	ld $(LDPARAMS) -o $@ $^ -Map AthenX.bin.map
 	mkdir -p isodir/boot/grub
 	cp AthenX.bin isodir/boot/AthenX.bin
-	cp grub.cfg isodir/boot/grub/grub.cfg
+	# cp grub.cfg isodir/boot/grub/grub.cfg
+	sudo cp -r "grub/." isodir/boot/grub/
+	sudo cp -r sysroot/. isodir/
 	grub-mkrescue -o AthenX.iso isodir
 
 
@@ -74,8 +76,10 @@ run: AthenX.bin
     -device ide-hd,drive=disk,bus=ahci.0 \
     -device ide-hd,drive=disk2,bus=ahci.1 \
     -m 4G \
-    -serial file:AthenX-3.0.log
-	# -trace ahci_* 
+    -serial file:AthenX-3.0.log \
+    -netdev user,id=n1,hostfwd=tcp::2222-:22 \
+    -device e1000,netdev=n1 \
+    -object filter-dump,id=f1,netdev=n1,file=./qemu_net.pcap
 
 
 
