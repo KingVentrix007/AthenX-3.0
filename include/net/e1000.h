@@ -121,4 +121,7 @@ struct e1000_tx_desc {
         volatile uint8_t css;
         volatile uint16_t special;
 } __attribute__((packed));
+uint8_t mac [6];
+int sendPacket(const void * p_data, uint16_t p_len);
+void create_dhcp_request(uint8_t *packet, uint8_t *mac_address, uint32_t xid);
 #endif

@@ -3,6 +3,7 @@
 #include "net/e1000.h"
 #include "vmm.h"
 #include "stdlib.h"
+#include "isr.h"
 int read_from_reg_e1000(uint64_t ioaddr,uint32_t reg);
 int write_to_reg_e1000(uint64_t ioaddr,uint32_t reg,uint32_t val);
 void reset_nic(uint32_t ioaddr);
@@ -13,6 +14,7 @@ void e1000_writeCommand(uint16_t p_address, uint32_t p_value);
 uint32_t e1000_readCommand(uint16_t p_address);
 uint32_t eepromRead( uint8_t addr);
 int sendPacket(const void * p_data, uint16_t p_len);
+void fire (void);
 uint64_t e1000_ioaddr_g;
 uint8_t mac [6];
 struct e1000_rx_desc *rx_descs[E1000_NUM_RX_DESC]; // Receive Descriptor Buffers
@@ -76,6 +78,7 @@ int init_e1000()
         printf("EEProm not found\n");
         return -1;
     }
+    isr_register_interrupt_handler(IRQ_BASE+dev->interrupt_line, fire);
     // for(int i = 0; i < 0x80; i++)
     //     e1000_writeCommand(0x5200 + i*4, 0);
     readMACAddress();
@@ -83,6 +86,7 @@ int init_e1000()
     rxinit();
     txinit();     
     sendDummyPacket();
+    send_dhcp_request();
 
 }
 void reset_nic(uint32_t ioaddr) {
@@ -291,4 +295,49 @@ int sendDummyPacket() {
 
     // Call the sendPacket function with the dummy data and its length
     return sendPacket(dummy_data, packet_length);
+}
+void fire (void)
+{
+    if (1==1)
+    {        
+        /* This might be needed here if your handler doesn't clear interrupts from each device and must be done before EOI if using the PIC.
+           Without this, the card will spam interrupts as the int-line will stay high. */
+        e1000_writeCommand(REG_IMASK, 0x1);
+       
+        uint32_t status = e1000_readCommand(0xc0);
+        if(status & 0x04)
+        {
+            printf("Start link()\n");
+            // startLink();
+        }
+        else if(status & 0x10)
+        {
+           // good threshold
+        }
+        else if(status & 0x80)
+        {
+            handleReceive();
+        }
+    }
+}
+void handleReceive()
+{
+    printf("HandleReceive()\n");
+    uint16_t old_cur;
+    bool got_packet = false;
+ 
+    while((rx_descs[rx_cur]->status & 0x1))
+    {
+            got_packet = true;
+            uint8_t *buf = (uint8_t *)rx_descs[rx_cur]->addr;
+            uint16_t len = rx_descs[rx_cur]->length;
+
+            // Here you should inject the received packet into your network stack
+
+
+            rx_descs[rx_cur]->status = 0;
+            old_cur = rx_cur;
+            rx_cur = (rx_cur + 1) % E1000_NUM_RX_DESC;
+            e1000_writeCommand(REG_RXDESCTAIL, old_cur );
+    }    
 }
