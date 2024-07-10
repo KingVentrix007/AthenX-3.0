@@ -21,7 +21,7 @@ int init_storage()
         storage_devs[i].set = -1;
     }
     ata_init();
-    ahci_main();
+    // ahci_main();
     check_fs_types();
     printf("Storage devices initialized\n");
     

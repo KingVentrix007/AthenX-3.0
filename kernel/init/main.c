@@ -40,6 +40,7 @@
 #include "ahci.h"
 #include "vfs.h"
 #include "system.h"
+extern bool fs_active;
 MULTIBOOT_INFO *mboot_info;
 struct BootConfig {
     char version_number[20];
@@ -48,6 +49,8 @@ struct BootConfig {
     char error_log[256];
     int default_drive;
     bool verbose;
+    int width;
+    int height;
 };
 typedef struct {
     uint32 mod_start;
@@ -165,25 +168,76 @@ void init(unsigned long magic, unsigned long addr) {
     // Print kernel start message
     printf("\033[1;34mStarting kernel\n"); // Set text color to blue
     printf("Hello World!\033[0m\n"); // Reset text color to default
+    MULTIBOOT_INFO *mboot_info;
+    char grub_command_line[256];
+    struct BootConfig config;
+    char *ini_data;
+    if (magic == MULTIBOOT_BOOTLOADER_MAGIC) {
+        // Cast addr to MULTIBOOT_INFO pointer
+        mboot_info = (MULTIBOOT_INFO *)addr;
 
+        // Clear kernel memory map structure
+        memset(&g_kmap, 0, sizeof(KERNEL_MEMORY_MAP));
+
+        // Get kernel memory map
+        if (get_kernel_memory_map(&g_kmap, mboot_info) < 0) {
+            printf("\033[1;31merror: failed to get kernel memory map\n"); // Set text color to red
+            return -1;
+        }
+    //    printf_t("\nThere are %d grub modules\n", mboot_info->modules_count);
+        
+        strcpy(grub_command_line,mboot_info->cmdline);
+        // printf("Grub cmd == %s\n",);
+        multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;
+        init_system_info();
+        ini_data = module[0].start;
+        debug_map = (char *)module[1].start;
+        // printf("Ini data == %s\n", ini_data);
+        
+        for (int i = 0; i < mboot_info->modules_count; ++i) {
+            // printf("Module %d(%s): Start Address %p, Size %d bytes\n", i + 1,  module[i].name,(void *)module[i].start,module[i].end - module[i].start);
+            // printf("Module == %s",(unsigned char *)(module[i].start));
+            // Example: Printing the first few bytes of the module as hexadecimal
+            for (int j = 0; j < 16 && j < (module[i].end - module[i].start); ++j) {
+                // printf("%0x ", *((unsigned char *)(module[i].start + j)));
+            }
+            // printf("\n");
+        }
+        // Calculate allocation size for memory
+    }
+    load_boot_config(ini_data, &config);
+    if(config.verbose != true)
+    {
+        disable_verbose();
+    }
     // Initialize VESA graphics mode
-    int width = 1024;
-    int height = 768;
+    int width = config.width;
+    int height = config.height;
+    printf_com("-\tScreen resolution: %dx%d\n", width, height);
     int ret = vesa_init(width, height, 32);
     printf_com("Ret = %d\n", ret);
     if (ret < 0) {
         // Try different resolutions if initialization fails
-        width = 800;
-        height = 600;
+        width = 1024;
+        height = 768;
         ret = vesa_init(width, height, 32);
         printf_com("-\tScreen resolution: %dx%d\n", width, height);
         if (ret < 0) {
-            width = 720;
-            height = 480;
+            width = 800;//720;//800
+            height = 600;//480;//600
             ret = vesa_init(width, height, 32);
             if (ret < 0) {
-                printf_com("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
+                // printf_com("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
+                // vbe_print_available_modes();
+                width = 720;//720;//800
+                height = 480;//480;//600
+                ret = vesa_init(width, height, 32);
+                if(ret < 0)
+                {
+                    printf_com("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
                 vbe_print_available_modes();
+                }
+                
             }
         }
     }
@@ -232,48 +286,7 @@ void init(unsigned long magic, unsigned long addr) {
     int current_step = 1;
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // printf("\n\nLoading multiboot info\n");
-    MULTIBOOT_INFO *mboot_info;
-    char grub_command_line[256];
-    struct BootConfig config;
-    char *ini_data;
-    if (magic == MULTIBOOT_BOOTLOADER_MAGIC) {
-        // Cast addr to MULTIBOOT_INFO pointer
-        mboot_info = (MULTIBOOT_INFO *)addr;
-
-        // Clear kernel memory map structure
-        memset(&g_kmap, 0, sizeof(KERNEL_MEMORY_MAP));
-
-        // Get kernel memory map
-        if (get_kernel_memory_map(&g_kmap, mboot_info) < 0) {
-            printf("\033[1;31merror: failed to get kernel memory map\n"); // Set text color to red
-            return -1;
-        }
-       printf_t("\nThere are %d grub modules\n", mboot_info->modules_count);
-        
-        strcpy(grub_command_line,mboot_info->cmdline);
-        // printf("Grub cmd == %s\n",);
-        multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;
-        init_system_info();
-        ini_data = module[0].start;
-        debug_map = (char *)module[1].start;
-        // printf("Ini data == %s\n", ini_data);
-        
-        for (int i = 0; i < mboot_info->modules_count; ++i) {
-            // printf("Module %d(%s): Start Address %p, Size %d bytes\n", i + 1,  module[i].name,(void *)module[i].start,module[i].end - module[i].start);
-            // printf("Module == %s",(unsigned char *)(module[i].start));
-            // Example: Printing the first few bytes of the module as hexadecimal
-            for (int j = 0; j < 16 && j < (module[i].end - module[i].start); ++j) {
-                // printf("%0x ", *((unsigned char *)(module[i].start + j)));
-            }
-            printf("\n");
-        }
-        // Calculate allocation size for memory
-    }
-    load_boot_config(ini_data, &config);
-    if(config.verbose != true)
-    {
-        disable_verbose();
-    }
+    
     printf("Initializing com port 1\n");
     init_com1();
     
@@ -321,7 +334,7 @@ void init(unsigned long magic, unsigned long addr) {
     STI();
     printf_t("Initialize FAT file system\n");
 
-    int fs_init = init_file_system(config.default_drive);
+    int fs_init = init_file_system(0);
     if(fs_init == -1)
     {
         printf("Failed to init filesystem for drive %d\n",config.default_drive);
@@ -340,7 +353,9 @@ void init(unsigned long magic, unsigned long addr) {
     LOG_LOCATION;
     
 
+    printf("allocated VESA\n");
     int ret_buf = vesa_init_buffers();
+    printf("Vesa is allocated\n");
     printf_com("%d\n", ret_buf);
     char *test_malloc = malloc(1024 * 1024 * 1024);
     if (test_malloc == NULL) {
@@ -348,6 +363,7 @@ void init(unsigned long magic, unsigned long addr) {
     } else {
         printf_debug("\033[1;32mSuccessfully allocated memory of 1GB\n"); // Set text color to green
     }
+    
     LOG_LOCATION;
 
     // Free allocated memory
@@ -365,15 +381,21 @@ void init(unsigned long magic, unsigned long addr) {
 
     int num_programs;
     int num_program_dirs;
-    fl_count_files(config.program_path, &num_program_dirs, &num_programs);
-    Entry *programs = malloc(sizeof(Entry) * num_programs);
-    int num_programs_check;
-    fl_populate_file_list(config.program_path, programs, &num_programs_check);
-    if (num_programs_check != num_programs) {
-        printf("\033[1;31mError getting list of programs\n"); // Set text color to red
-    } else {
-        fill_program_list(num_programs, programs);
+    
+    if(fs_active == true)
+    {
+        printf("looking for programs\n");
+        fl_count_files(config.program_path, &num_program_dirs, &num_programs);
+        Entry *programs = malloc(sizeof(Entry) * num_programs);
+        int num_programs_check;
+        fl_populate_file_list(config.program_path, programs, &num_programs_check);
+        if (num_programs_check != num_programs) {
+            printf("\033[1;31mError getting list of programs\n"); // Set text color to red
+        } else {
+            fill_program_list(num_programs, programs);
+        }
     }
+    
     printf("Loaded %d programs\n", num_programs);
     
 
@@ -418,11 +440,12 @@ void init(unsigned long magic, unsigned long addr) {
     printf("-\tACPI enabled: %s\n", acpi_status2);
 
     printf("\033[0m"); // Reset text formatting and colors
-
+    edit_init(ini_data,"","","");
     printf("Device Info:\n");
     print_pci_devices();
     printf("Available drives\n");
     list_devices();
+    init_e1000();
 
     
 
@@ -434,7 +457,8 @@ void init(unsigned long magic, unsigned long addr) {
         install_athenx();
 
     }
-    init_e1000();
+    
+    // call_interrupt_43();
     CreateProcess(command_line);
     CreateProcess(cursor_flash);
     PerformButler();
@@ -561,6 +585,15 @@ static int config_handler(void *user, const char *section, const char *name,
             config->default_drive = atoi(value);
         }
     }
+    else if (strcmp(section, "Screen") == 0)
+    {
+        if (strcmp(name, "Width") == 0) {
+            config->width = atoi(value);
+        } else if (strcmp(name, "Height") == 0) {
+            config->height = atoi(value);
+        }
+    }
+    
 
     return 1; // Continue parsing
 }
@@ -577,7 +610,9 @@ int load_boot_config(const char *data,struct BootConfig *boot_config) {
         printf("Error: Can't load ini file %d\n",ret);
         return -1;
     }
-
+    
+    
+    
     // Now, 'config' contains the parsed boot configuration data
     // printf("AthenX Version: %s\n", boot_config->version_number);
     // printf("Program Path: %s\n", boot_config->program_path);
@@ -587,4 +622,108 @@ int load_boot_config(const char *data,struct BootConfig *boot_config) {
     // You can use the parsed data as needed for booting AthenX
 
     return 0;
+}
+void call_interrupt_43() {
+    __asm__ __volatile__ (
+        "int $0x2B"
+        :
+        :
+        : "memory"
+    );
+}
+
+
+int edit_init(char *data,char *section,char *name,char *value) 
+{
+    int parts = 0;
+    size_t data_len = strlen(data);
+
+    // Count the number of lines
+    for (size_t i = 0; i < data_len; i++)
+    {
+        if (data[i] == '\n')
+        {
+            parts++;
+        }
+    }
+
+    // Allocate memory for inputs array
+    char **inputs = (char **)malloc(parts * sizeof(char *));
+    char **sections = (char **)malloc(parts * sizeof(char *));
+    char **names = (char **)malloc(parts * sizeof(char *));
+    // Allocate memory for buf to store each line
+    char *buf = (char *)malloc(data_len + 1); // +1 for null terminator
+    
+    int pos = 0;
+    int buf_pos = 0;
+
+    // Iterate through data to extract lines
+    for (size_t i = 0; i <= data_len; i++) // <= to include the last line without '\n'
+    {
+        if (data[i] == '\n' || i == data_len)
+        {
+            // Allocate memory for the line and copy buf to inputs[pos]
+            inputs[pos] = (char *)malloc(buf_pos + 1); // +1 for null terminator
+            memcpy(inputs[pos], buf, buf_pos);
+            inputs[pos][buf_pos] = '\0'; // Null terminate the string
+            pos++;
+
+            // Reset buf and buf_pos for the next line
+            buf[0] = '\0';
+            buf_pos = 0;
+        }
+        else
+        {
+            buf[buf_pos++] = data[i];
+        }
+    }
+    int num_sections = 0;
+    int num_names = 0;
+
+    // Print each line
+    for (size_t i = 0; i < parts; i++)
+    {
+        if (inputs[i][0] == '[')
+        {
+            // Find the end of the section name (end of ']')
+            char *end_bracket = strchr(inputs[i], ']');
+            if (end_bracket)
+            {
+                // Calculate the length of the section name excluding brackets
+                size_t section_name_length = end_bracket - inputs[i] - 1;
+
+                // Allocate memory for the section name
+                sections[num_sections] = (char *)malloc(section_name_length + 1);
+                
+                // Copy the section name (excluding brackets)
+                strncpy(sections[num_sections], inputs[i] + 1, section_name_length);
+                sections[num_sections][section_name_length] = '\0'; // Null terminate the string
+
+                num_sections++;
+            }
+        }
+        else if (inputs[i][0] == ';')
+        {
+            /* code */
+        }
+        else
+        {
+            names[num_names++] = inputs[i];
+        }
+        
+    }
+    for (size_t i = 0; i < num_sections; i++)
+    {
+        // printf("Section %s\n",sections[i]);
+
+    }
+    for (size_t i = 0; i < num_names; i++)
+    {
+        // printf("Names %s\n",names[i]);
+
+    }
+    
+    // Free allocated memory
+    free(inputs);
+    free(buf);
 }

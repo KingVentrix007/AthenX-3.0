@@ -339,18 +339,25 @@ void *init_memory_region(void *start_addr, size_t size) {
 
     // Initialize the rest of the nodes
     Node *current_node = (Node *)aligned_start_addr;
+    void *map_adder;
     for (int i = 1; i < num_nodes; ++i) {
         if (start_of_allocation_region + i * BLOCK_SIZE > aligned_start_addr + bytes_available_for_allocation) {
             node1->num_block_used = i;
             MEM_ALLOC_LOG(2, "Bytes available = %ld\n", node1->num_block_used * BLOCK_SIZE);
             break;
         }
+        
         current_node->addr = start_of_allocation_region + i * BLOCK_SIZE;
         current_node->size = BLOCK_SIZE;
         current_node->next = (i < num_nodes - 1) ? (Node *)((char *)current_node + sizeof(Node)) : NULL;
         current_node->allocated = false;
         current_node->first_block = false;
         current_node->num_block_used = 0;
+        if(i%4 == 0)
+        {
+            map_adder = current_node->addr;
+            map(map_adder,map_adder,PAGE_WRITE|PAGE_PRESENT);
+        }
         ++current_node;
     }
 

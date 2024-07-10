@@ -77,9 +77,11 @@ run: AthenX.bin
     -device ide-hd,drive=disk2,bus=ahci.1 \
     -m 4G \
     -serial file:AthenX-3.0.log \
-    -netdev user,id=n1,hostfwd=tcp::2222-:22 \
-    -device e1000,netdev=n1 \
-    -object filter-dump,id=f1,netdev=n1,file=./qemu_net.pcap
+    -netdev tap,id=net0,ifname=tap0,script=no,downscript=no \
+    -device e1000,netdev=net0 \
+    -object filter-dump,id=f1,netdev=net0,file=./qemu_net.pcap \
+    -d trace:e1000*\
+    -monitor stdio
 
 
 

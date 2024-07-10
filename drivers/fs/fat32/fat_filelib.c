@@ -1541,6 +1541,7 @@ void fl_listdirectory(const char *path, Entry dirs[MAX], Entry files[MAX], int *
     FL_UNLOCK(&_fs);
 }
 void fl_count_files(const char *path, int *dir_count, int *file_count) {
+    
     FL_DIR dirstat;
 
     // If first call to library, initialize

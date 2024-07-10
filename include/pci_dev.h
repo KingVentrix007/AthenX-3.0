@@ -121,4 +121,5 @@ int get_num_processing_accel_devices();
 int get_num_non_essential_devices();
 int get_num_coprocessor_devices();
 void pci_scan();
+int remap_irq(pci_config_register *info, int irq);
 #endif // PCI_STRUCT_H

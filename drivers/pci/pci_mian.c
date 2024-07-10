@@ -325,3 +325,33 @@ int get_num_non_essential_devices() {
 int get_num_coprocessor_devices() {
     return coprocessor_devices;
 }
+
+
+int remap_irq(pci_config_register *info, int irq)
+{
+    uint32_t old_config = pci_read(info->bus, info->slot, info->func, 0x3C);
+        uint8_t old_irq = (uint8_t)(old_config & 0x000000FF);
+        printf("Old IRQ: %u\n", old_irq);
+
+        // Set the new IRQ
+        uint8_t new_irq = irq;//request_irq(pci_registered_device_list[i].device_id,old_irq);  // Change this to the desired IRQ line
+        // print_used_irq();
+        if(new_irq == -1)
+        {
+            printf("Error\n");
+        }
+        uint32_t current_config = pci_read(info->bus, info->slot, info->func, 0x3C);
+        current_config &= 0xFFFFFF00;  // Clear the lower 8 bits
+        current_config |= new_irq;
+        
+        // Print the new IRQ
+        printf("New IRQ: %u\n", new_irq);
+        // 
+        info->interrupt_line = new_irq;
+        
+        // Update the IRQ
+        pci_write(info->bus, info->bus, info->func, 0x3C, current_config);
+        uint32_t new_confg_read = pci_read(info->bus, info->bus, info->func, 0x3C);
+        uint8_t new_irq_read = (uint8_t)(new_confg_read & 0x000000FF);
+        // printf("New2 IRQ: %u\n",new_irq_read);
+}

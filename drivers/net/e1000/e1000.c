@@ -26,16 +26,16 @@ void *e1000_malloc(size_t size)
 {
     void *addr = malloc(size);
     // Calculate the number of pages needed
-    size_t num_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
-    void *current_addr = addr;
+    // size_t num_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
+    // void *current_addr = addr;
 
     // Map each page
-    for (size_t i = 0; i < num_pages; i++)
-    {
-        void *page_addr = (void *)((uintptr_t)current_addr + i * PAGE_SIZE);
-        map((uint32_t)page_addr, (uint32_t)page_addr, PAGE_PRESENT | PAGE_WRITE);
-        printf_com("mapping pa:0x%x to va:0x%x\n", page_addr, page_addr);
-    }
+    // for (size_t i = 0; i < num_pages; i++)
+    // {
+    //     void *page_addr = (void *)((uintptr_t)current_addr + i * PAGE_SIZE);
+    //     map((uint32_t)page_addr, (uint32_t)page_addr, PAGE_PRESENT | PAGE_WRITE);
+    //     printf_com("mapping pa:0x%x to va:0x%x\n", page_addr, page_addr);
+    // }
 
     return addr;
 }
@@ -49,7 +49,7 @@ int init_e1000()
         return -1;
     }
     init_achi_pci(dev->bus,dev->slot,dev->func);
-    printf("Found e1000 network device\n");
+    // printf("Found e1000 network device\n"); 
     uint32_t e1000_ioaddr = dev->base_address_0;
     printf_com("E1000 BAR0 == %x\n",dev->base_address_0);
     printf_com("E1000 BAR1 == %x\n",dev->base_address_1);
@@ -64,29 +64,49 @@ int init_e1000()
     }
     
     
-     printf("MMIO is at 0x%x\n",e1000_ioaddr);
+    //  printf("MMIO is at 0x%x\n",e1000_ioaddr);
      e1000_ioaddr_g = e1000_ioaddr;
     reset_nic(e1000_ioaddr);
     bool EEProm_exists = detectEEProm();
     
     if(EEProm_exists == true)
     {
-        printf("EEProm detected\n");
+        // printf("EEProm detected\n");
     }
     else
     {
-        printf("EEProm not found\n");
+        // printf("EEProm not found\n");
         return -1;
     }
-    isr_register_interrupt_handler(IRQ_BASE+dev->interrupt_line, fire);
+    remap_irq(dev,13);
+    isr_register_interrupt_handler(IRQ_BASE+13, fire,__func__);
+    printf("dev->interrupt_line == %d\n",13);
+    IRQ_Enable_Line(13);
     // for(int i = 0; i < 0x80; i++)
     //     e1000_writeCommand(0x5200 + i*4, 0);
     readMACAddress();
     print_mac();
+    uint32_t ctrlReg = e1000_readCommand(REG_CTRL);
+    
+    // Set the link up
+    ctrlReg |= CTRL_SET_LINK_UP | CTRL_AUTO_SPEED_DETECT;
+
+    // Clear the PHY Reset bit
+    ctrlReg &= ~(CTRL_PHY_RESET | CTRL_INVERT_LOSS_OF_SIGNAL);
+
+    e1000_writeCommand(REG_CTRL, ctrlReg);
     rxinit();
     txinit();     
+    uint32_t rctrl_status = e1000_readCommand(REG_RCTRL);
+    printf("RCTRL status: 0x%x\n", rctrl_status);
+if (!(rctrl_status & RCTL_EN)) {
+    // Handle error or retry initialization
+    printf("Error: Receive enable failed. RCTRL status: 0x%x\n", rctrl_status);
+    return;
+}
     sendDummyPacket();
     send_dhcp_request();
+    sendDummyPacket();
 
 }
 void reset_nic(uint32_t ioaddr) {
@@ -204,31 +224,50 @@ void rxinit()
         rx_descs[i]->addr = (uint64_t)(uint8_t *)(e1000_malloc(8192 + 16));
         rx_descs[i]->status = 0;
     }
-    printf("Allocations complete\n");
+    // printf("Allocations complete\n");
     printf_com("(uint32_t)((uint64_t)ptr >> 32) == 0x%x\n",(uint32_t)((uint64_t)ptr >> 32) );
     e1000_writeCommand(REG_TXDESCLO, (uint32_t)((uint64_t)ptr >> 32) );
-    printf("%d\n__LINE__",__LINE__);
+    //printf("%d\n__LINE__",__LINE__);
     e1000_writeCommand(REG_TXDESCHI, (uint32_t)((uint64_t)ptr & 0xFFFFFFFF));
-    printf("%d\n__LINE__",__LINE__);
+    //printf("%d\n__LINE__",__LINE__);
 
     e1000_writeCommand(REG_RXDESCLO, (uint64_t)ptr);
-    printf("%d\n__LINE__",__LINE__);
+    //printf("%d\n__LINE__",__LINE__);
 
     e1000_writeCommand(REG_RXDESCHI, 0);
-    printf("%d\n__LINE__",__LINE__);
+    //printf("%d\n__LINE__",__LINE__);
 
     e1000_writeCommand(REG_RXDESCLEN, E1000_NUM_RX_DESC * 16);
-    printf("%d\n__LINE__",__LINE__);
+    //printf("%d\n__LINE__",__LINE__);
 
     e1000_writeCommand(REG_RXDESCHEAD, 0);
-    printf("%d\n__LINE__",__LINE__);
+    //printf("%d\n__LINE__",__LINE__);
 
     e1000_writeCommand(REG_RXDESCTAIL, E1000_NUM_RX_DESC-1);
-    printf("%d\n__LINE__",__LINE__);
-
+    //printf("%d\n__LINE__",__LINE__);
+    uint32_t rctrl_status = e1000_readCommand(REG_RCTRL);
+    printf("RCTRL status: 0x%x\n", rctrl_status);
     rx_cur = 0;
     e1000_writeCommand(REG_RCTRL, RCTL_EN| RCTL_SBP| RCTL_UPE | RCTL_MPE | RCTL_LBM_NONE | RTCL_RDMTS_HALF | RCTL_BAM | RCTL_SECRC  | RCTL_BSIZE_8192);
-    printf("%d\n__LINE__",__LINE__);
+    // e1000_writeCommand(REG_RCTRL, RCTL_EN);
+    
+    #define RCTL_RX_ENABLE                      2
+    #define RCTL_BROADCAST_ACCEPT               0x8000
+    // e1000_writeCommand(REG_RCTRL, RCTL_RX_ENABLE);
+
+    while (!(e1000_readCommand(REG_RCTRL) & RCTL_EN))
+    {
+        // You can add a delay here if needed, or just loop
+    }
+    rctrl_status = e1000_readCommand(REG_RCTRL);
+    printf("RCTRL status: 0x%x\n", rctrl_status);
+    
+if (!(rctrl_status & RCTL_EN)) {
+    // Handle error or retry initialization
+    printf("Error: Receive enable failed. RCTRL status: 0x%x\n", rctrl_status);
+    return;
+}
+    //printf("%d\n__LINE__",__LINE__);
     
 }
 
@@ -298,6 +337,7 @@ int sendDummyPacket() {
 }
 void fire (void)
 {
+    printf("fire was called\n");
     if (1==1)
     {        
         /* This might be needed here if your handler doesn't clear interrupts from each device and must be done before EOI if using the PIC.
@@ -340,4 +380,45 @@ void handleReceive()
             rx_cur = (rx_cur + 1) % E1000_NUM_RX_DESC;
             e1000_writeCommand(REG_RXDESCTAIL, old_cur );
     }    
+}
+#define PIC1            0x20  /* IO base address for master PIC */
+#define PIC2            0xA0  /* IO base address for slave PIC */
+#define PIC1_DATA       (PIC1+1)    /* master data */
+#define PIC2_DATA       (PIC2+1)    /* slave data */
+static inline void io_wait(void);
+void out_bytes(uint16_t port, uint8_t val);
+void IRQ_Enable_Line(unsigned char IRQline)
+{
+    printf("LINE = %d(0x%x)",IRQline,IRQline);
+    uint16_t port;
+    uint8_t value;
+
+    if (IRQline < 8)
+    {
+        port = PIC1_DATA;
+    }
+    else
+    {
+        port = PIC2_DATA;
+        IRQline -= 8;
+
+        // Make sure IRQ2 of PIC1 is enabled or we'll never receive the interrupt from PIC2
+        value = inportb(PIC1_DATA) & ~(1 << 2);
+        outportb(PIC1_DATA, value);
+        io_wait();
+    }
+    value = inportb(port) & ~(1 << IRQline);
+    outportb(port, value);
+    printf("\nLINE(2) = %d(0x%x)\n",IRQline,IRQline);
+}
+static inline void io_wait(void)
+{
+    /* Port 0x80 is used for 'checkpoints' during POST. */
+    /* The Linux kernel seems to think it is free for use :-/ */
+    out_bytes(0x80, 0);
+    //asm volatile ("outb %%al, $0x80" : : "a"(0));
+    /* %%al instead of %0 makes no difference.  TODO: does the register need to be zeroed? */
+}
+void out_bytes(uint16_t port, uint8_t val) {
+    asm volatile ("outb %0,%1" : : "a"(val),"Nd"(port):"memory");
 }

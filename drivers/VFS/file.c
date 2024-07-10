@@ -9,7 +9,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "printf.h"
-extern fs_active;
+extern bool fs_active;
 char *_cwd;
 size_t _cwd_len;
 char _fixed_cwd[FATFS_MAX_LONG_FILENAME];
@@ -24,6 +24,7 @@ int init_fs()
 {
     if(fs_active != true)
     {
+        printf("Ret -1\n");
         return -1;
     }
     _cwd = kmalloc(FATFS_MAX_LONG_FILENAME);

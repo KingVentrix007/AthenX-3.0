@@ -40,7 +40,7 @@ typedef void (*ISR)(REGISTERS *);
 /**
  * register given handler to interrupt handlers at given num
  */
-void isr_register_interrupt_handler(int num, ISR handler);
+void isr_register_interrupt_handler(int num, ISR handler,char func[255]);
 
 /*
  * turn off current interrupt

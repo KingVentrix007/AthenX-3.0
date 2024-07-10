@@ -257,7 +257,7 @@ void unlock_kb_input()
 void keyboard_init() {
     init_io_system();
     // printf("registering keyboard\n");
-    isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler);
+    isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler,__func__);
 }
 
 /**

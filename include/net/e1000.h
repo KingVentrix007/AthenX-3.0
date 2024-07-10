@@ -15,7 +15,7 @@
 #define REG_EEPROM      0x0014
 #define REG_CTRL_EXT    0x0018
 #define REG_IMASK       0x00D0
-#define REG_RCTRL       0x0100
+#define REG_RCTRL       0x100
 #define REG_RXDESCLO    0x2800
 #define REG_RXDESCHI    0x2804
 #define REG_RXDESCLEN   0x2808
@@ -124,4 +124,8 @@ struct e1000_tx_desc {
 uint8_t mac [6];
 int sendPacket(const void * p_data, uint16_t p_len);
 void create_dhcp_request(uint8_t *packet, uint8_t *mac_address, uint32_t xid);
+#define CTRL_SET_LINK_UP            0x20
+#define CTRL_AUTO_SPEED_DETECT      0x10
+#define CTRL_INVERT_LOSS_OF_SIGNAL  0x40
+#define CTRL_PHY_RESET              0x80000000
 #endif

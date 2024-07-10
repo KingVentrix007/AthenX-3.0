@@ -71,7 +71,7 @@ void timer_init() {
     // initMultitasking();
    
     timer_set_frequency(100);
-    isr_register_interrupt_handler(IRQ_BASE, timer_handler);
+    isr_register_interrupt_handler(IRQ_BASE, timer_handler,__func__);
 }
 
 void sleep(int sec) {

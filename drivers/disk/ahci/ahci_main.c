@@ -121,8 +121,8 @@ uint32_t ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
     }
 
     uintptr_t aligned_addr = ((uintptr_t)raw_addr + alignment - 1) & ~(alignment - 1);
-    map(aligned_addr, aligned_addr, PAGE_PRESENT | PAGE_WRITE);
-    printf_com("AHCI :: Allocating %d bytes of memory at %p for %s(%d)\n",total_size,aligned_addr,msg,line);
+    // map(aligned_addr, aligned_addr, PAGE_PRESENT | PAGE_WRITE);
+    // printf_com("AHCI :: Allocating %d bytes of memory at %p for %s(%d)\n",total_size,aligned_addr,msg,line);
     return (uint32_t)aligned_addr;
 
 }
@@ -137,7 +137,7 @@ void reset_ahci_controller(HBA_MEM *abar) {
 }
 void ahci_isr(REGISTERS16 *reg)
 {
-    printf_com("ahci isr called\n");
+    printf("ahci isr called\n");
 }
 void enable_ahci_mode_and_interrupts(HBA_MEM *abar) {
     // Set the AHCI Enable bit and Interrupt Enable bit
@@ -175,8 +175,8 @@ int ahci_main()
     }
     
     int irq = dev->interrupt_line;
-    printf_com("Regestering IRQ %d\n", IRQ_BASE+irq);
-    isr_register_interrupt_handler(IRQ_BASE+irq, ahci_isr); //Register IRQ handler, using interrupt line given in the PCI register. This interrupt line may be shared with other devices, so the usual implications of this apply.
+    // printf_com("Regestering IRQ %d\n", IRQ_BASE+irq);
+    isr_register_interrupt_handler(IRQ_BASE+irq, ahci_isr,__func__); //Register IRQ handler, using interrupt line given in the PCI register. This interrupt line may be shared with other devices, so the usual implications of this apply.
 
     enable_ahci_mode_and_interrupts(abar); //Enable AHCI mode and interrupts in global host control register.
     printf_com("Probing for AHCI ports\n");

@@ -31,7 +31,7 @@ int init_file_system(int drive)
     }
     else
     {
-        printf("FS is  not active\n");
+        printf("FS is not active ATM\n");
         fs_active = false;
         init_fs();
 

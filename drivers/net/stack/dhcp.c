@@ -1,75 +1,53 @@
 #include <stdint.h>
 #include <string.h>
+#include "net/stack/dhcp.h"
+#include "net/stack/ipv4.h"
+#include "net/stack/ethernet.h"
 
-#define DHCP_REQUEST 3
-#define DHCP_MAGIC_COOKIE 0x63825363
-uint32_t htonl(uint32_t hostlong) {
-    return ((hostlong & 0xff000000) >> 24) |
-           ((hostlong & 0x00ff0000) >> 8) |
-           ((hostlong & 0x0000ff00) << 8) |
-           ((hostlong & 0x000000ff) << 24);
-}
-void create_dhcp_request(uint8_t *packet, uint8_t *mac_address, uint32_t xid) {
-    memset(packet, 0, 240);  // Zero the DHCP header
 
-    // DHCP header
-    packet[0] = 1;  // op: BOOTREQUEST
-    packet[1] = 1;  // htype: Ethernet
-    packet[2] = 6;  // hlen: MAC length
-    packet[3] = 0;  // hops
-    *(uint32_t *)(packet + 4) = xid;  // xid: Transaction ID
-    packet[8] = 0;  // secs
-    packet[9] = 0;
-    packet[10] = 0;  // flags
-    packet[11] = 0;
-    // ciaddr: Client IP address (0.0.0.0)
-    // yiaddr: Your IP address (0.0.0.0)
-    // siaddr: Server IP address (0.0.0.0)
-    // giaddr: Gateway IP address (0.0.0.0)
-    memcpy(packet + 28, mac_address, 6);  // chaddr: Client hardware address
-    // sname: Server host name (optional, zeroed)
-    // file: Boot file name (optional, zeroed)
 
-    // DHCP options
-    uint8_t *options = packet + 240;
-    *(uint32_t *)options = htonl(DHCP_MAGIC_COOKIE);  // Magic cookie
-    options += 4;
+void DHCP_Send_Discovery(uint8_t *sourceMAC)
+{
 
-    // Option 53: DHCP Message Type (1 byte for type, 1 byte for length, 1 byte for value)
-    options[0] = 53;
-    options[1] = 1;
-    options[2] = DHCP_REQUEST;
-    options += 3;
+    
+    // uint8_t sourceMAC[6];
+    // printf("sourceMAC ->");
+    // for (size_t i = 0; i < sizeof(sourceMAC)/sizeof(sourceMAC[0]); i++)
+    // {
+    //         sourceMAC[i] = mac.bytes[i];
+    //         printf("%0X:",sourceMAC[i]);
+    // }
+    // printf("\n");
+    DHCP_HEADER *dhcpData;
+    uint16_t packetSize = sizeof(DHCP_HEADER) - 76 + 8;
+    Ethernet_Header *packet = UDP_Create_Packet(0xFFffFFff, 68, 67, &packetSize, sourceMAC, &dhcpData);
 
-    // Option 50: Requested IP Address (1 byte for type, 1 byte for length, 4 bytes for IP address)
-    options[0] = 50;
-    options[1] = 4;
-    // For demonstration, request IP address 192.168.1.100
-    options[2] = 192;
-    options[3] = 168;
-    options[4] = 1;
-    options[5] = 100;
-    options += 6;
+    dhcpData->opcode = DHCP_OPCODE_DISCOVER;
+    dhcpData->hardwareType = DHCP_HARDWARE_ETHERNET;
+    dhcpData->hardwareAddressLength = DHCP_ETHERNET_LENGTH;
+    dhcpData->hops = 0;
+    dhcpData->transactionID = 0x1234567; // TODO: SHould be random
+    dhcpData->seconds = 0;
+    dhcpData->flags = 0;
+    dhcpData->clientIP = 0;
+    dhcpData->yourIP = 0;
+    dhcpData->serverIP = 0xFFffFFff;
+    dhcpData->relayIP = 0;
+    memcpy(dhcpData->clientHardwareAddress, sourceMAC, 6);
+    memset(dhcpData->sname, 0, 64);
+    memset(dhcpData->file, 0, 128);
+    uint32_t magicCookie = SwapBytes32(DHCP_MAGIC_COOKIE);
+    memcpy(dhcpData->options, &magicCookie, 4);
+    // add the "DHCP Discover option - code - size (1) - value
+    dhcpData->options[4] = DHCP_OPTION_MESSAGE_TYPE;
+    dhcpData->options[5] = 1;
+    dhcpData->options[6] = DHCP_MSG_TYPE_DISCOVER;
+    dhcpData->options[7] = DHCP_OPTION_END;
 
-    // Option 55: Parameter Request List (1 byte for type, 1 byte for length, list of parameter codes)
-    options[0] = 55;
-    options[1] = 4;  // Request 4 parameters
-    options[2] = 1;  // Subnet Mask
-    options[3] = 3;  // Router
-    options[4] = 6;  // Domain Name Server
-    options[5] = 15;  // Domain Name
-    options += 6;
+    //printf("%d",packetSize);
+    //printf("\n");
 
-    // Option 54: Server Identifier (1 byte for type, 1 byte for length, 4 bytes for server IP address)
-    options[0] = 54;
-    options[1] = 4;
-    // For demonstration, use server IP address 192.168.1.1
-    options[2] = 192;
-    options[3] = 168;
-    options[4] = 1;
-    options[5] = 1;
-    options += 6;
-
-    // Option 255: End (1 byte for type)
-    options[0] = 255;
+    // now send the packet
+    printf("%0X:%0X:%0X:%0X:%0X:%0X\n",sourceMAC[0],sourceMAC[1],sourceMAC[2],sourceMAC[3],sourceMAC[4],sourceMAC[5]);
+    EthernetSendPacket(packet, packetSize);
 }
