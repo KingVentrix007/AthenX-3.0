@@ -15,21 +15,33 @@ void enable_bus_mastering(uint8_t bus, uint8_t slot, uint8_t func) {
     // Write back the modified command register value
     pci_write(bus, slot, func, 0x06, command);
 }
-void init_achi_pci(uint8_t bus, uint8_t slot, uint8_t func) {
-    pci_config_register device;
-
-    // Read the current PCI configuration registers
-    // found_device(bus, slot, func, &device);
+void init_pci_device(uint8_t bus, uint8_t slot, uint8_t func) {
+    // Read the current PCI configuration register (command register is at offset 0x04)
+    uint16_t command = pci_config_read_word(bus, slot, func, 0x04);
 
     // Enable interrupts (bit 10), DMA (bit 8), and memory space access (bit 1)
-    uint16_t command = pci_config_read_word(bus, slot, func, 0x06);
     command |= (1 << 10);  // Set bit 10 for interrupts
     command |= (1 << 8);   // Set bit 8 for DMA
+    command |= (1 << 2);   // Set bit 2 Bus mastering
     command |= (1 << 1);   // Set bit 1 for memory space access
-    command |= (1 << 2);  // Set bit 2
+    
 
     // Write back the modified command register value
-    pci_write(bus, slot, func, 0x06, command);
+    pci_write(bus, slot, func, 0x04, command);
+    
+    // Read back the command register to ensure the bits are set
+    uint16_t verify_command = pci_config_read_word(bus, slot, func, 0x04);
+
+    // Check if the necessary bits are set
+    if ((verify_command & (1 << 10)) && 
+        (verify_command & (1 << 8)) && 
+        (verify_command & (1 << 1)) && 
+        (verify_command & (1 << 2))) {
+        printf("All bits are set\n");
+    } else {
+        printf("Failed to set all bits\n");
+        // Handle the case where bits are not set as expected
+    }
 }
 uint32_t pci_config_read_dword(uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset) {
     uint32_t address;
@@ -122,7 +134,7 @@ void found_device(uint8_t bus, uint8_t slot, uint8_t func, pci_config_register *
     device->max_latency = pci_config_read_word(bus, slot, func, 0x3E) >> 8;
     device->min_grant = pci_config_read_word(bus, slot, func, 0x3E) & 0xFF;
     device->interrupt_pin = pci_config_read_word(bus, slot, func, 0x3D) >> 8;
-    device->interrupt_line = pci_config_read_word(bus, slot, func, 0x3D) & 0xFF;
+    device->interrupt_line = pci_read_mini(bus, slot, func, 0x3D) & 0xFF;
     device->reserved = 0; // Set reserved field to 0
     device->capabilities_pointer = pci_config_read_word(bus, slot, func, 0x34);
 }

@@ -154,7 +154,7 @@ int ahci_main()
         return;
     }
     HBA_MEM *abar = (HBA_MEM *)dev->base_address_5;
-    init_achi_pci(dev->bus,dev->slot,dev->func); //Enable interrupts, DMA, and memory space access in the PCI command register
+    init_pci_device(dev->bus,dev->slot,dev->func); //Enable interrupts, DMA, and memory space access in the PCI command register
     // enable_bus_mastering(dev->bus,dev->slot,dev->func);
     printf_com("Mapping AHCI abar %p\n",abar);
     printf_com("AHCI BAR0 == %p\n",dev->base_address_0);

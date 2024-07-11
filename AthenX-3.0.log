@@ -26,8 +26,47 @@ VerboseOutput=false
 ; Default bDEBUG: -	Screen resolution: 1280x1024
 DEBUG: initializing vesa vbe 2.0
 DEBUG: Calling BIOS interrupt
-DEBUG: Wednesday July 10 17:5:19 2024
-DEBUG: Wednesday July 10 17:5:19 2024
+DEBUG: Wednesday July 10 17:12:26 2024
+DEBUG: Wednesday July 10 17:12:26 2024
+DEBUG: called video interrupt
+DEBUG: Address 0x7E22
+DEBUG: ax = 0x4F
+
+DEBUG: Checked All modesDEBUG: Find modes for vbe
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+DEBUG: Checking modes
+IRQ 32 registered for timer_init
+DEBUG: Setting foreground color 4
+Starting kernel
+Hello World!
+DEBUG: CPUID 1: eax=1635, ebx=2048, ecx=2147483649, edx=125938685
+DEBUG: Cores: 0, Hyper-Threading: 0
+DEBUG: CPUID 0x16: eax=0, ebx=0, ecx=0, edx=0
+DEBUG: Base Frequency: 0 MHz, Max Frequency: 0 MHz
+DEBUG: INI :: parsing ; AthenX Boot Configuration
+
+[version]
+version_number = 3.0
+
+[paths]
+program_path = /bin/
+bin_path = /boot/
+
+
+[logs]
+error_log = /log/
+
+[Settings]
+; Verbose output setting: true for verbose, false for silent
+VerboseOutput=false
+
+; Default bDEBUG: -	Screen resolution: 1280x1024
+DEBUG: initializing vesa vbe 2.0
+DEBUG: Calling BIOS interrupt
+DEBUG: Wednesday July 10 17:12:27 2024
+DEBUG: Wednesday July 10 17:12:27 2024
 DEBUG: called video interrupt
 DEBUG: Address 0x7E22
 DEBUG: ax = 0x4F
@@ -76,7 +115,7 @@ DEBUG: Multi C == 1
 DEBUG: Multi D == 1
 DEBUG: Setting foreground color 3
 Current Date and Time:
-Wednesday July 10 17:5:19 2024
+Wednesday July 10 17:12:27 2024
    DEBUG: Multi B == 1
 DEBUG: Multi A == 1
 DEBUG: Setting foreground color 0

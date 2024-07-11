@@ -42,13 +42,14 @@ void *e1000_malloc(size_t size)
 
 int init_e1000()
 {
-    pci_config_register *dev = get_e1000_data();
+    pci_config_register *dev = get_e1000_data(); // Get device configuration for e1000 network interface
     if(dev == NULL)
     {
         printf("Unable to to find network interface\n");
         return -1;
     }
-    init_achi_pci(dev->bus,dev->slot,dev->func);
+    init_pci_device(dev->bus,dev->slot,dev->func); // Enable bus mastering,memory , IO accesses
+    // enable_bus_mastering(dev->bus,dev->slot,dev->func);
     // printf("Found e1000 network device\n"); 
     uint32_t e1000_ioaddr = dev->base_address_0;
     printf_com("E1000 BAR0 == %x\n",dev->base_address_0);
@@ -57,16 +58,20 @@ int init_e1000()
     printf_com("E1000 BAR3 == %x\n",dev->base_address_2);
     printf_com("E1000 BAR4 == %x\n",dev->base_address_4);
     printf_com("E1000 BAR5 == %x\n",dev->base_address_5);
-    map((uint32_t)e1000_ioaddr,(uint32_t)e1000_ioaddr,PAGE_PRESENT|PAGE_WRITE);
+    map((uint32_t)e1000_ioaddr,(uint32_t)e1000_ioaddr,PAGE_PRESENT|PAGE_WRITE); // Map e1000 address
     for (size_t i = 1; i <14 ; i++)
     {
-       map((uint32_t)e1000_ioaddr+(PAGE_SIZE*i),(uint32_t)e1000_ioaddr+(PAGE_SIZE*i),PAGE_PRESENT|PAGE_WRITE);
+       map((uint32_t)e1000_ioaddr+(PAGE_SIZE*i),(uint32_t)e1000_ioaddr+(PAGE_SIZE*i),PAGE_PRESENT|PAGE_WRITE); // Map e1000 address
     }
     
     
     //  printf("MMIO is at 0x%x\n",e1000_ioaddr);
-     e1000_ioaddr_g = e1000_ioaddr;
-    reset_nic(e1000_ioaddr);
+     e1000_ioaddr_g = e1000_ioaddr; 
+     // Set the link up
+     uint32_t ctrlReg = e1000_readCommand(REG_CTRL);
+    ctrlReg |= CTRL_SET_LINK_UP | CTRL_AUTO_SPEED_DETECT;
+    e1000_writeCommand(REG_CTRL, ctrlReg);
+    reset_nic(e1000_ioaddr); //Reset NIC
     bool EEProm_exists = detectEEProm();
     
     if(EEProm_exists == true)
@@ -78,32 +83,24 @@ int init_e1000()
         // printf("EEProm not found\n");
         return -1;
     }
-    remap_irq(dev,13);
-    isr_register_interrupt_handler(IRQ_BASE+13, fire,__func__);
-    printf("dev->interrupt_line == %d\n",13);
-    IRQ_Enable_Line(13);
+    
     // for(int i = 0; i < 0x80; i++)
     //     e1000_writeCommand(0x5200 + i*4, 0);
-    readMACAddress();
+    readMACAddress(); // Get the MAC address
     print_mac();
-    uint32_t ctrlReg = e1000_readCommand(REG_CTRL);
     
-    // Set the link up
-    ctrlReg |= CTRL_SET_LINK_UP | CTRL_AUTO_SPEED_DETECT;
+    
+    
 
-    // Clear the PHY Reset bit
-    ctrlReg &= ~(CTRL_PHY_RESET | CTRL_INVERT_LOSS_OF_SIGNAL);
-
-    e1000_writeCommand(REG_CTRL, ctrlReg);
+    remap_irq(dev,13); // Remap IRQ to interrupt 13
+    isr_register_interrupt_handler(IRQ_BASE+13, fire,__func__); // Register interrupt handler
+    printf("dev->interrupt_line == %d\n",13);
+    IRQ_Enable_Line(13); // Enable interrupt line 13
+    enableInterrupt(); // Enable interrupts for Driver
     rxinit();
     txinit();     
     uint32_t rctrl_status = e1000_readCommand(REG_RCTRL);
     printf("RCTRL status: 0x%x\n", rctrl_status);
-if (!(rctrl_status & RCTL_EN)) {
-    // Handle error or retry initialization
-    printf("Error: Receive enable failed. RCTRL status: 0x%x\n", rctrl_status);
-    return;
-}
     sendDummyPacket();
     send_dhcp_request();
     sendDummyPacket();
@@ -421,4 +418,12 @@ static inline void io_wait(void)
 }
 void out_bytes(uint16_t port, uint8_t val) {
     asm volatile ("outb %0,%1" : : "a"(val),"Nd"(port):"memory");
+}
+
+void enableInterrupt()
+{
+    e1000_writeCommand(REG_IMASK ,0x1F6DC);
+    e1000_writeCommand(REG_IMASK ,0xff & ~4);
+    e1000_readCommand(0xc0);
+
 }
