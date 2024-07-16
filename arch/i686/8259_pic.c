@@ -37,8 +37,8 @@ void pic8259_init() {
     outportb(PIC2_DATA, ICW4_8086);
 
     // restore the mask registers
-    outportb(PIC1_DATA, a1);
-    outportb(PIC2_DATA, a2);
+    outportb(PIC1_DATA, 0x0);
+	outportb(PIC2_DATA, 0x0);
 }
 
 /**

@@ -1,442 +1,253 @@
-
-#include "pci_io.h"
+#include "types.h"
+#include "stdint.h"
 #include "net/e1000.h"
+#include "string.h"
+#include "isr.h"
+#include "pci_dev.h"
+#include "pci_io.h"
 #include "vmm.h"
 #include "stdlib.h"
-#include "isr.h"
-#include "keyboard.h"
-#include "cpu.h"
-static void _e1000_mac();
-int read_from_reg_e1000(uint64_t ioaddr,uint32_t reg);
-int write_to_reg_e1000(uint64_t ioaddr,uint32_t reg,uint32_t val);
-void reset_nic(uint32_t ioaddr);
-bool detectEEProm();
-uint32_t e1000_read32 (uint64_t p_address);
-void e1000_write32 (uint64_t p_address,uint32_t p_value);
-void e1000_writeCommand(uint16_t p_address, uint32_t p_value);
-uint32_t e1000_readCommand(uint16_t p_address);
-uint32_t eepromRead( uint8_t addr);
-int sendPacket(const void * p_data, uint16_t p_len);
-void fire (REGISTERS *reg);
-uint64_t e1000_ioaddr_g;
-uint8_t mac [6];
-struct e1000_rx_desc *rx_descs[E1000_NUM_RX_DESC]; // Receive Descriptor Buffers
-struct e1000_tx_desc *tx_descs[E1000_NUM_TX_DESC]; // Transmit Descriptor Buffers
-uint16_t rx_cur;      // Current Receive Descriptor Buffer
-uint16_t tx_cur;      // Current Transmit Descriptor Buffer
-#define E1000_RDTR     0x02820  /* RX Delay Timer - RW */
-#define E1000_RADV     0x0282C  /* RX Interrupt Absolute Delay Timer - RW */
-#define E1000_IMS      0x000D0  /* Interrupt Mask Set - RW */
-#define E1000_DEVICE_SET(offset) (((uint64_t *)e1000_ioaddr_g)[offset >> 2])
-void *e1000_malloc(size_t size)
-{
-    void *addr = malloc(size);
-    // Calculate the number of pages needed
-    // size_t num_pages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
-    // void *current_addr = addr;
+#define PTR_SIZE sizeof(void*)
+#define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))
+#define PACKET_SIZE   2048
+#define TX_SIZE 16
+#define RX_SIZE 16
+#define TX_BUFF_SIZE (sizeof(struct e1000_tx_desc) * TX_SIZE)
+#define RX_BUFF_SIZE (sizeof(struct e1000_rx_desc) * RX_SIZE)
 
-    // Map each page
-    // for (size_t i = 0; i < num_pages; i++)
-    // {
-    //     void *page_addr = (void *)((uintptr_t)current_addr + i * PAGE_SIZE);
-    //     map((uint32_t)page_addr, (uint32_t)page_addr, PAGE_PRESENT | PAGE_WRITE);
-    //     printf_com("mapping pa:0x%x to va:0x%x\n", page_addr, page_addr);
-    // }
+static volatile uint32_t *e1000;
+#define E1000_DEVICE_SET(offset) (e1000[offset >> 2])
+#define E1000_DEVICE_GET(offset) E1000_DEVICE_SET(offset)
 
-    return addr;
-}
-void e1000_linkup()
+uint8_t mac[6] = {0x52, 0x54, 0x00, 0x12, 0x34, 0x56};
+
+/* Allocate space for transmit and recieve buffers. */
+static struct e1000_tx_desc tx_desc_list[TX_SIZE];
+static char* tx_buf[TX_SIZE];
+
+static struct e1000_rx_desc rx_desc_list[RX_SIZE];
+static char* rx_buf[RX_SIZE];
+
+static int interrupts = 0;
+
+// struct netdev e1000_netdev;
+
+void *e100_malloc(size_t size)
 {
-	uint32_t val;
-	val = e1000_readCommand(REG_CTRL);
-	e1000_writeCommand(REG_CTRL, val | ECTRL_SLU);
+    size_t new_size = ALIGN(size,PTR_SIZE);
+    return malloc(new_size);
 }
-int init_e1000()
+/**
+ * @brief Clears the transmit buffers for the e1000
+ */
+static void _e1000_reset_tx_desc()
 {
-    pci_config_register *dev = get_e1000_data(); // Get device configuration for e1000 network interface
-    uint32_t e1000_ioaddr = dev->base_address_0;
-    map((uint32_t)e1000_ioaddr,(uint32_t)e1000_ioaddr,PAGE_PRESENT|PAGE_WRITE); // Map e1000 address
-    for (size_t i = 1; i <14 ; i++)
+	memset(tx_desc_list, 0, TX_BUFF_SIZE);
+    for (int i = 0; i < TX_SIZE; i++)
+    { 
+		/* Initialize transmit buffers  */
+		tx_desc_list[i].buffer_addr = (uint32_t)tx_buf[i];
+		tx_desc_list[i].status  = E1000_TXD_STAT_DD;
+		tx_desc_list[i].cmd = (E1000_TXD_CMD_RS >> 24) | (E1000_TXD_CMD_EOP >> 24);
+    }
+}
+/**
+ * @brief Clears the recieve buffers for the e1000
+ */
+static void _e1000_reset_rx_desc()
+{
+    memset(rx_desc_list, 0, RX_BUFF_SIZE);
+    for (int i = 0; i < RX_SIZE; i++)
     {
-       map((uint32_t)e1000_ioaddr+(PAGE_SIZE*i),(uint32_t)e1000_ioaddr+(PAGE_SIZE*i),PAGE_PRESENT|PAGE_WRITE); // Map e1000 address
+		/* Initialize recv buffers  */
+		rx_desc_list[i].buffer_addr = (uint32_t)rx_buf[i];
     }
-    e1000_ioaddr_g = e1000_ioaddr;
-    detectEEProm ();
-    readMACAddress();
-    if(dev == NULL)
-    {
-        printf("Unable to to find network interface\n");
-        return -1;
-    }
-    init_pci_device(dev->bus,dev->slot,dev->func); // Enable bus mastering,memory , IO accesses
-    reset_nic(e1000_ioaddr);
-    e1000_linkup();
-    for(int i = 0; i < 0x80; i++)
-        e1000_writeCommand(0x5200 + i*4, 0);
-    
-  
-    // E1000_RDTR
-    rxinit();
-    txinit();   
-    isr_register_interrupt_handler(IRQ_BASE+dev->interrupt_line,fire,__func__);
-
-    enableInterrupt();
-    init_pci_device_interrupts(dev->bus,dev->slot,dev->func); // Enable interrupts
-    // _e1000_mac();
-    // e1000_writeCommand(REG_IMASK, 0x1);
-    // E1000_DEVICE_SET(E1000_RDTR) = 0;
-	// E1000_DEVICE_SET(E1000_RADV) = 0;
-	// E1000_DEVICE_SET(E1000_IMS) = (1 << 7);
-    send_dhcp_request();
-    
-
-
-    
-
-    
-
 }
-void reset_nic(uint32_t ioaddr) {
-    e1000_writeCommand(REG_CTRL, CTRL_RST);
-    
-}
-
-int write_to_reg_e1000(uint64_t ioaddr,uint32_t reg,uint32_t val)
-{
-    *(uint32_t *)(ioaddr + reg) = val;
-}
-int read_from_reg_e1000(uint64_t ioaddr,uint32_t reg)
-{
-    uint32_t val = *(uint32_t *)(ioaddr + reg);
-    return val;
-}
-bool detectEEProm()
-{
-    uint32_t val = 0;
-    e1000_writeCommand(REG_EEPROM, 0x1); 
-    bool eerprom_exists;
-    for(int i = 0; i < 1000 && ! eerprom_exists; i++)
-    {
-            val =  e1000_readCommand( REG_EEPROM);
-            if(val & 0x10)
-                    eerprom_exists = true;
-            else
-                    eerprom_exists = false;
-    }
-    return eerprom_exists;
-}
-
-
-
-void e1000_write32 (uint64_t p_address,uint32_t p_value)
-{
-    printf_com("e1000_write32(uint64_t p_address(0x%x),uint32_t p_value(0x%x))\n",p_address,p_value);
-    (*((volatile uint32_t*)(p_address)))=(p_value);
-    
-}
-uint32_t e1000_read32 (uint64_t p_address)
-{
-    return *((volatile uint32_t*)(p_address));
-    
-}
-
-void e1000_writeCommand(uint16_t p_address, uint32_t p_value)
-{
-    printf_com("e1000_writeCommand(uint16_t p_address(0x%x),uint32_t p_value(0x%x))\n",p_address,p_value);
-     (*((volatile uint32_t*)(e1000_ioaddr_g+p_address)))=(p_value);
-    // e1000_write32(e1000_ioaddr_g+p_address,p_value);
-}
-
-uint32_t e1000_readCommand(uint16_t p_address)
-{
-    return e1000_read32(e1000_ioaddr_g+p_address);
-}
-
-uint32_t eepromRead( uint8_t addr)
-{
-	uint16_t data = 0;
-	uint32_t tmp = 0;
-        
-        
-    e1000_writeCommand( REG_EEPROM, (1) | ((uint32_t)(addr) << 8) );
-    while( !((tmp = e1000_readCommand(REG_EEPROM)) & (1 << 4)) );
-        
-	data = (uint16_t)((tmp >> 16) & 0xFFFF);
-	return data;
-}
-
-void readMACAddress()
-{
-   
-        uint32_t temp;
-        temp = eepromRead( 0);
-        mac[0] = temp &0xff;
-        mac[1] = temp >> 8;
-        temp = eepromRead( 1);
-        mac[2] = temp &0xff;
-        mac[3] = temp >> 8;
-        temp = eepromRead( 2);
-        mac[4] = temp &0xff;
-        mac[5] = temp >> 8;
-}
-void print_mac()
-{
-
-    printf("MAC Address: ");
-    for (int i = 0; i < 6; ++i) {
-        printf("%02x", mac[i]); // PRIx8 is a macro to print uint8_t as hexadecimal
-        if (i < 5) {
-            printf(":"); // Print colon between each byte except the last one
-        }
-    }
-    printf("\n");
-
-}
-
-
-void rxinit()
-{
-    printf_com("rxinit\n");
-    uint8_t * ptr;
-    struct e1000_rx_desc *descs;
-
-    // Allocate buffer for receive descriptors. For simplicity, in my case khmalloc returns a virtual address that is identical to it physical mapped address.
-    // In your case you should handle virtual and physical addresses as the addresses passed to the NIC should be physical ones
- 
-    ptr = (uint8_t *)(e1000_malloc(sizeof(struct e1000_rx_desc)*E1000_NUM_RX_DESC + 16));
-    if(ptr == NULL)
-    {
-        printf("PTR is NULL\n");
-        return;
-    }
-    descs = (struct e1000_rx_desc *)ptr;
-    for(int i = 0; i < E1000_NUM_RX_DESC; i++)
-    {
-        rx_descs[i] = (struct e1000_rx_desc *)((uint8_t *)descs + i*16);
-        rx_descs[i]->addr = (uint64_t)(uint8_t *)(e1000_malloc(8192 + 16));
-        rx_descs[i]->status = 0;
-    }
-    // printf("Allocations complete\n");
-    printf_com("(uint32_t)((uint64_t)ptr >> 32) == 0x%x\n",(uint32_t)((uint64_t)ptr >> 32) );
-    e1000_writeCommand(REG_RXDESCLO, (uint32_t)((uint64_t)ptr >> 32) );
-    //printf("%d\n__LINE__",__LINE__);
-    e1000_writeCommand(REG_RXDESCHI, (uint32_t)((uint64_t)ptr & 0xFFFFFFFF));
-    //printf("%d\n__LINE__",__LINE__);
-
-    e1000_writeCommand(REG_RXDESCLO, (uint64_t)ptr);
-    //printf("%d\n__LINE__",__LINE__);
-
-    e1000_writeCommand(REG_RXDESCHI, 0);
-    //printf("%d\n__LINE__",__LINE__);
-
-    e1000_writeCommand(REG_RXDESCLEN, E1000_NUM_RX_DESC * 16);
-    //printf("%d\n__LINE__",__LINE__);
-
-    e1000_writeCommand(REG_RXDESCHEAD, 0);
-    //printf("%d\n__LINE__",__LINE__);
-
-    e1000_writeCommand(REG_RXDESCTAIL, E1000_NUM_RX_DESC-1);
-    //printf("%d\n__LINE__",__LINE__);
-    uint32_t rctrl_status = e1000_readCommand(REG_RCTRL);
-    printf("RCTRL status: 0x%x\n", rctrl_status);
-    rx_cur = 0;
-    // e1000_writeCommand(REG_RCTRL, RCTL_EN| RCTL_SBP| RCTL_UPE | RCTL_MPE | RCTL_LBM_NONE | RTCL_RDMTS_HALF | RCTL_BAM | RCTL_SECRC  | RCTL_BSIZE_8192);
-    // e1000_writeCommand(REG_RCTRL, RCTL_EN);
-    uint32_t flags = (2 << 16) |(1<<1)| (1 << 25) | (1 << 26) | (1 << 15) | (1 << 5) | (0 << 8) | (0 << 4) | (0 << 3) | ( 1 << 2);
-    e1000_writeCommand(REG_RCTRL, flags);//RCTRL_8192 | RCTRL_MPE | RCTRL_UPE |RCTRL_EN);
-    #define RCTL_RX_ENABLE                      2
-    #define RCTL_BROADCAST_ACCEPT               0x8000
-    // e1000_writeCommand(REG_RCTRL, RCTL_RX_ENABLE);
-
-    // while (!(e1000_readCommand(REG_RCTRL) & RCTL_EN))
-    // {
-    //     // You can add a delay here if needed, or just loop
-    // }
-    rctrl_status = e1000_readCommand(REG_RCTRL);
-    printf("RCTRL status: 0x%x\n", rctrl_status);
-    // E1000_DEVICE_SET(E1000_RCTL) = E1000_RCTL_EN | E1000_RCTL_SECRC     |    E1000_RCTL_BAM    |     E1000_RCTL_SZ_2048;;	
-if (!(rctrl_status & RCTL_EN)) {
-    // Handle error or retry initialization
-    printf("Error: Receive enable failed. RCTRL status: 0x%x(%d)\n", rctrl_status,rctrl_status);
-    return;
-}
-    //printf("%d\n__LINE__",__LINE__);
-    
-}
-#define E1000_RA       0x05400  /* Receive Address - RW Array */
-#define E1000_RAH_AV  0x80000000        /* Receive descriptor valid */ 
+/**
+ * @brief Reads in the debug_mac into correct registers.
+ */
 static void _e1000_mac()
 {
 	uint32_t low = 0, high = 0;
-	// int i;
+	int i;
 
-	// for (i = 0; i < 4; i++) {
-	// 	low |= mac[i] << (8 * i);
-	// }
+	for (i = 0; i < 4; i++) {
+		low |= mac[i] << (8 * i);
+	}
 
-	// for (i = 4; i < 6; i++) {
-	// 	high |= mac[i] << (8 * i);
-	// }
+	for (i = 4; i < 6; i++) {
+		high |= mac[i] << (8 * i);
+	}
 
-	// E1000_DEVICE_SET(E1000_RA) = low;
-	// ((uint64_t *)(e1000_ioaddr_g))[(E1000_RAH_AV >> 2)+1] = high | E1000_RAH_AV;
+	E1000_DEVICE_SET(E1000_RA) = low;
+	e1000[(E1000_RAH_AV >> 2)+1] = high | E1000_RAH_AV;
 }
-void txinit()
-{   
-    printf("txinit\n");
-    uint8_t *  ptr;
-    struct e1000_tx_desc *descs;
-    // Allocate buffer for receive descriptors. For simplicity, in my case khmalloc returns a virtual address that is identical to it physical mapped address.
-    // In your case you should handle virtual and physical addresses as the addresses passed to the NIC should be physical ones
-    ptr = (uint8_t *)(e1000_malloc(sizeof(struct e1000_tx_desc)*E1000_NUM_TX_DESC + 16));
 
-    descs = (struct e1000_tx_desc *)ptr;
-    for(int i = 0; i < E1000_NUM_TX_DESC; i++)
+/**
+ * @brief Initializes the e1000 transmit registers
+ * setting control options and giving pointers to transmit buffers.
+ */
+void _e1000_tx_init()
+{
+    _e1000_reset_tx_desc();
+
+    /* Set TX buffers for E1000 */
+    E1000_DEVICE_SET(E1000_TDBAL) = (uint32_t)tx_desc_list;
+    E1000_DEVICE_SET(E1000_TDBAH) = 0;
+    E1000_DEVICE_SET(E1000_TDLEN) = TX_BUFF_SIZE;
+
+    /* tx desc tail and head must be 0 */
+    E1000_DEVICE_SET(E1000_TDH) = 0;
+    E1000_DEVICE_SET(E1000_TDT) = 0;
+
+    /* Enable TX, for more options check e1000.h */
+				   /* enable tx */  /* pad short packets */ /* collision threshold */       /* collision distance */
+    E1000_DEVICE_SET(E1000_TCTL) |= (E1000_TCTL_EN | E1000_TCTL_PSP |	(E1000_TCTL_CT & (0x10 << 4)) | (E1000_TCTL_COLD & (0x40 << 12))); 
+
+	/* 13.4.34 Transmit IPG Register
+	   This register controls the IPG (Inter Packet Gap) timer for the Ethernet controller.
+	*/
+    E1000_DEVICE_SET(E1000_TIPG) |= (10) | (4 << 10) | (6 << 20);
+}
+
+/**
+ * @brief Initializes the e1000 receive registers
+ * setting control options and giving pointers to receive buffers.
+ */
+void _e1000_rx_init()
+{
+	_e1000_reset_rx_desc();
+
+	E1000_DEVICE_SET(E1000_IMS) = 0;
+	E1000_DEVICE_SET(E1000_ICS) = 0;
+
+	/* Set RX buffers for E1000 */
+	E1000_DEVICE_SET(E1000_RDBAL) = (uint32_t)rx_desc_list;
+	E1000_DEVICE_SET(E1000_RDBAH) = 0;
+
+	E1000_DEVICE_SET(E1000_RDLEN) = RX_BUFF_SIZE;
+	E1000_DEVICE_SET(E1000_RDT) = 128-1;
+	E1000_DEVICE_SET(E1000_RDH) = 0;
+	
+	/* Enable RX, for more options check e1000.h */
+								   /* enable */	   /* Strip Ethernet CRC */  /* broadcast enable */  /* rx buffer size 2048 */
+	E1000_DEVICE_SET(E1000_RCTL) = E1000_RCTL_EN | E1000_RCTL_SECRC     |    E1000_RCTL_BAM    |     E1000_RCTL_SZ_2048;;	
+}
+
+static int next = 0;
+int e1000_receive(char* buffer, uint32_t size)
+{
+	int tail = E1000_DEVICE_SET(E1000_RDT);
+	if(!(rx_desc_list[next].status & E1000_RXD_STAT_DD)) /* Descriptor Done */
+	{
+		return -1;
+	}
+
+	uint32_t length = rx_desc_list[next].length;
+	if(length >= PACKET_SIZE || length > size)
+	{
+		// dbgprintf("[e1000] Dropping packet with length %d\n", length);
+		length = -1;
+		goto drop;
+	}
+
+	memcpy(buffer, rx_buf[next], length);
+
+drop:
+	rx_desc_list[next].status = 0;
+	next = (next + 1) % RX_SIZE;
+	E1000_DEVICE_SET(E1000_RDT) = (tail + 1 ) % RX_SIZE;
+	//dbgprintf("[e1000] received %d bytes! (tail: %d) (\n", length, next);
+	return length;
+}
+
+/**
+ * @brief Put data into correct transmit buffer for e1000
+ * card to transmit. Updates tail pointer.
+ * 
+ * @param buffer data to transmit
+ * @param size of data to transmit
+ * @return int size of data, returns -1 on error.
+ */
+int e1000_transmit(char* buffer, uint32_t size)
+{
+	if(size >= PACKET_SIZE){
+		// dbgprintf("[e1000] Size %d is too large!\n", size);
+		return -1;
+	}
+
+	char* ptr = (char*) buffer;
+	uint16_t tail = E1000_DEVICE_GET(E1000_TDT);
+
+	struct e1000_tx_desc* txdesc = &tx_desc_list[tail];
+	if(!(txdesc->status & E1000_TXD_STAT_DD)){
+		printf("[e1000] DD status is not done!\n");
+		return -1;
+	} /* Check if status is DD (Descriptor Done) */
+
+	memcpy(tx_buf[tail], ptr, size);
+	txdesc->length = size;
+	txdesc->status &= ~E1000_TXD_STAT_DD;
+	txdesc->cmd |= E1000_TXD_CMD_EOP;
+
+	E1000_DEVICE_SET(E1000_TDT) = (tail+1) % TX_SIZE;
+
+	printf("[e1000] Sending %d bytes! (tail: %d)\n", size, (tail+1) % TX_SIZE);
+	return size;
+}
+
+void e1000_callback(REGISTERS* r)
+{
+	interrupts++;
+    // int x = 1/0;
+    printf("Incoming packet\n");
+	// net_incoming_packet(&e1000_netdev);
+
+	E1000_DEVICE_GET(E1000_ICR);
+	printf("Done packet\n");
+}
+
+void init_e1000()
+{
+	
+    pci_config_register *dev = get_e1000_data();
+    e1000 = (volatile uint32_t *)dev->base_address_0;
+    map((uint32_t)e1000,(uint32_t)e1000,PAGE_PRESENT|PAGE_WRITE); // Map e1000 address
+    for (size_t i = 1; i <14 ; i++)
     {
-        tx_descs[i] = (struct e1000_tx_desc *)((uint8_t*)descs + i*16);
-        tx_descs[i]->addr = 0;
-        tx_descs[i]->cmd = 0;
-        tx_descs[i]->status = TSTA_DD;
+       map((uint32_t)e1000+(PAGE_SIZE*i),(uint32_t)e1000+(PAGE_SIZE*i),PAGE_PRESENT|PAGE_WRITE); // Map e1000 address
     }
+	// vmem_map_driver_region((uint32_t) e1000, 5);
 
-    e1000_writeCommand(REG_TXDESCHI, (uint32_t)((uint64_t)ptr >> 32) );
-    e1000_writeCommand(REG_TXDESCLO, (uint32_t)((uint64_t)ptr & 0xFFFFFFFF));
+    pci_enable_device_busmaster(dev->bus, dev->slot, dev->func);
 
+	for (int i = 0; i < TX_SIZE; i++)
+		tx_buf[i] = e100_malloc(PACKET_SIZE);
+	
+	for (int i = 0; i < RX_SIZE; i++)
+		rx_buf[i] = e100_malloc(PACKET_SIZE);
 
-    //now setup total length of descriptors
-    e1000_writeCommand(REG_TXDESCLEN, E1000_NUM_TX_DESC * 16);
+	_e1000_tx_init();
+	_e1000_rx_init();
 
+	_e1000_mac();
 
-    //setup numbers
-    e1000_writeCommand( REG_TXDESCHEAD, 0);
-    e1000_writeCommand( REG_TXDESCTAIL, 0);
-    tx_cur = 0;
-    e1000_writeCommand(REG_TCTRL,  TCTL_EN
-        | TCTL_PSP
-        | (15 << TCTL_CT_SHIFT)
-        | (64 << TCTL_COLD_SHIFT)
-        | TCTL_RTLC);
+    /* For now.. hard code irq to 11 */
+    isr_register_interrupt_handler(32+dev->interrupt_line, e1000_callback,__func__);
 
-    // This line of code overrides the one before it but I left both to highlight that the previous one works with e1000 cards, but for the e1000e cards 
-    // you should set the TCTRL register as follows. For detailed description of each bit, please refer to the Intel Manual.
-    // In the case of I217 and 82577LM packets will not be sent if the TCTRL is not configured using the following bits.
-    e1000_writeCommand(REG_TCTRL,  0b0110000000000111111000011111010);
-    e1000_writeCommand(REG_TIPG,  0x0060200A);
+	E1000_DEVICE_SET(E1000_RDTR) = 0;
+	E1000_DEVICE_SET(E1000_RADV) = 0;
+	E1000_DEVICE_SET(E1000_IMS) = (1 << 7);
+    send_dhcp_request();
+	
 
-}
+	/* very ugly temporary fix */
+	// current_netdev = e1000_netdev;
 
-int sendPacket(const void * p_data, uint16_t p_len)
-{    
-    tx_descs[tx_cur]->addr = (uint64_t)p_data;
-    tx_descs[tx_cur]->length = p_len;
-    tx_descs[tx_cur]->cmd = CMD_EOP | CMD_IFCS | CMD_RS;
-    tx_descs[tx_cur]->status = 0;
-    uint8_t old_cur = tx_cur;
-    tx_cur = (tx_cur + 1) % E1000_NUM_TX_DESC;
-    e1000_writeCommand(REG_TXDESCTAIL, tx_cur);   
-    while(!(tx_descs[old_cur]->status & 0xff));    
-    return 0;
-}
-int sendDummyPacket() {
-    // Define a dummy packet with some arbitrary data
-    const char dummy_data[] = "This is a dummy packet.";
-    uint16_t packet_length = sizeof(dummy_data);
+	// net_register_netdev("eth0", &e1000_netdev);
 
-    // Call the sendPacket function with the dummy data and its length
-    return sendPacket(dummy_data, packet_length);
-}
-void fire (REGISTERS *reg)
-{
-    printf("fire was called\n");
-    if (1==1)
-    {        
-        /* This might be needed here if your handler doesn't clear interrupts from each device and must be done before EOI if using the PIC.
-           Without this, the card will spam interrupts as the int-line will stay high. */
-        e1000_writeCommand(REG_IMASK, 0x1);
-       
-        uint32_t status = e1000_readCommand(0xc0);
-        if(status & 0x04)
-        {
-            printf("Start link()\n");
-            // startLink();
-        }
-        else if(status & 0x10)
-        {
-           // good threshold
-        }
-        else if(status & 0x80)
-        {
-            handleReceive();
-        }
-    }
-}
-void handleReceive()
-{
-    printf("HandleReceive()\n");
-    uint16_t old_cur;
-    bool got_packet = false;
- 
-    while((rx_descs[rx_cur]->status & 0x1))
-    {
-            got_packet = true;
-            uint8_t *buf = (uint8_t *)rx_descs[rx_cur]->addr;
-            uint16_t len = rx_descs[rx_cur]->length;
+	/* Attach as current Netdevice. */
+	//netdev_attach_driver(dev, &e1000_receive, &e1000_transmit, "Intel E1000", (uint8_t*)&mac);
 
-            // Here you should inject the received packet into your network stack
-
-
-            rx_descs[rx_cur]->status = 0;
-            old_cur = rx_cur;
-            rx_cur = (rx_cur + 1) % E1000_NUM_RX_DESC;
-            e1000_writeCommand(REG_RXDESCTAIL, old_cur );
-    }    
-}
-#define PIC1            0x20  /* IO base address for master PIC */
-#define PIC2            0xA0  /* IO base address for slave PIC */
-#define PIC1_DATA       (PIC1+1)    /* master data */
-#define PIC2_DATA       (PIC2+1)    /* slave data */
-static inline void io_wait(void);
-void out_bytes(uint16_t port, uint8_t val);
-void IRQ_Enable_Line(unsigned char IRQline)
-{
-    printf("LINE = %d(0x%x)",IRQline,IRQline);
-    uint16_t port;
-    uint8_t value;
-
-    if (IRQline < 8)
-    {
-        port = PIC1_DATA;
-    }
-    else
-    {
-        port = PIC2_DATA;
-        IRQline -= 8;
-
-        // Make sure IRQ2 of PIC1 is enabled or we'll never receive the interrupt from PIC2
-        value = inportb(PIC1_DATA) & ~(1 << 2);
-        outportb(PIC1_DATA, value);
-        io_wait();
-    }
-    value = inportb(port) & ~(1 << IRQline);
-    outportb(port, value);
-    printf("\nLINE(2) = %d(0x%x)\n",IRQline,IRQline);
-}
-static inline void io_wait(void)
-{
-    /* Port 0x80 is used for 'checkpoints' during POST. */
-    /* The Linux kernel seems to think it is free for use :-/ */
-    out_bytes(0x80, 0);
-    //asm volatile ("outb %%al, $0x80" : : "a"(0));
-    /* %%al instead of %0 makes no difference.  TODO: does the register need to be zeroed? */
-}
-void out_bytes(uint16_t port, uint8_t val) {
-    asm volatile ("outb %0,%1" : : "a"(val),"Nd"(port):"memory");
-}
-
-void enableInterrupt()
-{
-    e1000_writeCommand(REG_IMASK ,0x1F6DC);
-    // e1000_writeCommand(REG_IMASK ,0xff & ~4);
-    uint32_t val = e1000_readCommand(0xc0);
-
+	// dbgprintf("[E1000] Network card Intel E1000 found and attached!.\n");
 }

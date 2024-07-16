@@ -78,9 +78,9 @@ run: AthenX.bin
     -device sb16 \
     -m 4G \
     -serial file:logs/AthenX-3.0.log \
-    -netdev user,id=net0\
     -device e1000,netdev=net0 \
-    -object filter-dump,id=f1,netdev=net0,file=logs/qemu_net.pcap \
+    -netdev user,id=net0,hostfwd=tcp::8080-:8080 \
+    -object filter-dump,id=net0,netdev=net0,file=dump.pcap\
     -trace events=trace-events,file=logs/qemu_trace.log\
     -monitor stdio 
     

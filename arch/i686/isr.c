@@ -4,7 +4,13 @@
 #include "debug_term.h"
 #include "debug.h"
 #define MAX_EXCEPTIONS 10
-
+#define EOI(irq) \
+    do {\
+        if (irq >= 0x28){\
+		    outportb(PIC2, 0x20); /* Slave */\
+        } \
+        outportb(PIC1, 0x20); /* Master */\
+    } while(0);
 // For both exceptions and irq interrupt
 ISR g_interrupt_handlers[NO_INTERRUPT_HANDLERS];
 
@@ -86,7 +92,8 @@ void isr_irq_handler(REGISTERS *reg) {
     {
         printf_com("Something tried to interrupt %d\n", reg->int_no);
     }
-    pic8259_eoi(reg->int_no);
+    if(reg->int_no != 32)
+		EOI(reg->int_no);
 }
 uint32_t *unwind_stack(REGISTERS *reg);
 static void print_registers(REGISTERS *reg) {
@@ -122,6 +129,7 @@ void isr_exception_handler(REGISTERS reg) {
         LockScheduler();
         if(exception_count < MAX_EXCEPTIONS)
         {
+            
             exception_count+=1;
             print_registers(&reg);
             debug_output(&reg);

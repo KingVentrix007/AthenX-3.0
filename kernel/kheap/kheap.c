@@ -595,17 +595,36 @@ int is_heap_active()
     return heap_active;
 }
 
+int mem_lock_alloc = 0;
+
 void *kmalloc(size_t size)
 {
+    LockScheduler();
     while(heap_active != true)
     {
 
     }
-	return sys_allocate_memory(size);
+    while (mem_lock_alloc != 0)
+    {
+        /* code */
+    }
+    mem_lock_alloc = 1;
+    void *ret = sys_allocate_memory(size);
+    mem_lock_alloc = 0;
+    UnlockScheduler();
+	return ret;
 }
+int mem_lock_free = 0;
 void kfree(void *ptr)
 {
+    while (mem_lock_free != 0)
+    {
+        /* code */
+    }
+    mem_lock_free = 1;
+    // printf_com("Freeing adder 0x%x for func %s\n",ptr,func);
 	sys_free_memory(ptr);
+    mem_lock_free = 0;
 }
 /**
  * @brief Finds a free zone of memory to allocate.

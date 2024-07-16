@@ -2,7 +2,7 @@
 #include "net/e1000.h"
 #include "net/stack/ethernet.h"
 uint8_t packetBuffer[1024];
-
+extern uint8_t mac[6];
 void send_dhcp_request() {
     uint8_t dhcp_request[300] = {};
     // uint8_t mac_address[6] = mac;
@@ -42,7 +42,7 @@ void EthernetSendPacket(Ethernet_Header *packet, uint16_t dataSize)
     // }
 
     // TODO: Support multiple NIC's and send this packet to the NIC owning the MAC in the packet
-    sendPacket(packet, dataSize);
+    e1000_transmit(packet, dataSize);
 }
 
 uint16_t SwapBytes16(uint16_t data)
