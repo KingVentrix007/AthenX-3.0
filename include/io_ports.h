@@ -45,4 +45,5 @@ void get_cpu_name(char *cpu_name);
 void get_cpu_info(char *cpu_name, char *architecture, unsigned int *family,
                   unsigned int *model, unsigned int *stepping);
 #define LOG_LOCATION printf_com("%s:%d -->%s\n", __FILE__, __LINE__,__func__)
+#define dbgprintf(a, ...) printf_com("%s():" a, __func__, ##__VA_ARGS__)
 #endif

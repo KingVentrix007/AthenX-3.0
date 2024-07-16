@@ -204,7 +204,7 @@ void ls()
     int num_files;
     Entry files[MAX];
     Entry dirs[MAX];
-    printf_com("Calling fl_listdir()\n");
+    dbgprintf("Calling fl_listdir()\n");
     if(fs_active != true)
     {
         printf("Is disabled\n");
@@ -334,7 +334,7 @@ int cmd(char *command)
     {
         srand(rand_v*time_since_last_keypress);
          rand_v = rand();
-            printf_com("%u\n", rand_v);  // Generate random numbers
+            dbgprintf("%u\n", rand_v);  // Generate random numbers
 
         
          
@@ -572,7 +572,7 @@ int cmd(char *command)
             }
             
             execute_file(tmp,argc,argv_elf);
-            // printf_com(">tmp = %s\n", tmp);
+            // dbgprintf(">tmp = %s\n", tmp);
             
             LOG_LOCATION;
 
@@ -597,9 +597,9 @@ int cmd(char *command)
         
 
     }
-    printf_com("freeing memory\n");
+    dbgprintf("freeing memory\n");
     free_command(argv, argc);
-    printf_com("made it here\n");
+    dbgprintf("made it here\n");
     return 0;
 }
     

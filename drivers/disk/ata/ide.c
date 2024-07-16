@@ -360,13 +360,13 @@ void ide_init(uint32 prim_channel_base_addr, uint32 prim_channel_control_base_ad
     // 4- Print Summary:
     for (i = 0; i < 4; i++)
         if (g_ide_devices[i].reserved == 1) {
-            printf_com("%d:-\n", i);
-            printf_com("  model: %s\n", g_ide_devices[i].model);
-            printf_com("  type: %s\n", (const char *[]){"ATA", "ATAPI"}[g_ide_devices[i].type]);
-            printf_com("  drive: %u, channel: %u\n", g_ide_devices[i].drive, g_ide_devices[i].channel);
-            printf_com("  base: 0x%x, control: 0x%x\n", g_ide_channels[i].base, g_ide_channels[i].control);
-            printf_com("  size: %u sectors, %u bytes\n", g_ide_devices[i].size, g_ide_devices[i].size * ATA_SECTOR_SIZE);
-            printf_com("  signature: 0x%x, features: %d\n", g_ide_devices[i].signature, g_ide_devices[i].features);
+            dbgprintf("%d:-\n", i);
+            dbgprintf("  model: %s\n", g_ide_devices[i].model);
+            dbgprintf("  type: %s\n", (const char *[]){"ATA", "ATAPI"}[g_ide_devices[i].type]);
+            dbgprintf("  drive: %u, channel: %u\n", g_ide_devices[i].drive, g_ide_devices[i].channel);
+            dbgprintf("  base: 0x%x, control: 0x%x\n", g_ide_channels[i].base, g_ide_channels[i].control);
+            dbgprintf("  size: %u sectors, %u bytes\n", g_ide_devices[i].size, g_ide_devices[i].size * ATA_SECTOR_SIZE);
+            dbgprintf("  signature: 0x%x, features: %d\n", g_ide_devices[i].signature, g_ide_devices[i].features);
             global_drive_count++;
         }
 }
@@ -568,7 +568,7 @@ int ide_write_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
     
     if(ide_write_sectors(_drive_num,sector_count,sector,buffer) == 0)
     {
-        printf_com("raw_write at %d\n",sector);
+        dbgprintf("raw_write at %d\n",sector);
         char *tempbuffer[512*3];
         ide_read_sectors(0,sector_count,sector,tempbuffer);
         if(strcmp(tempbuffer,buffer) == 0)
@@ -590,7 +590,7 @@ int ide_read_sectors_fat(uint32 sector, uint8 *buffer, uint32 sector_count)
     // printf
     if(ide_read_sectors(_drive_num,sector_count,sector,buffer) == 0)
     {
-         printf_com("raw_read at %d\n",sector);
+         dbgprintf("raw_read at %d\n",sector);
         return 1;
     }
     return 0;

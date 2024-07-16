@@ -135,7 +135,7 @@ Date:   Tue Mar 5 08:03:51 2024 +0200
     - Refactored code to improve performance by optimizing algorithms and reducing unnecessary computations
     - Fixed missing newline at the end of the file
     - Updated terminal width and height calculations for better performance
-    - Updated print statements with printf_com functions and added message for initializing VESA VBE 2.0
+    - Updated print statements with dbgprintf functions and added message for initializing VESA VBE 2.0
     - Refactored kprints function for improved printing functionality
     - Added loop_timer and get_kernel_memory_map functions while removing deprecated loop_timer function with input parameter
     - Added pci_scan() function for scanning PCI devices
@@ -249,7 +249,7 @@ Date:   Sat Mar 2 14:52:08 2024 +0200
     - Adds new C header files and removes old ones
     - Refactors code to optimize performance
     - Adds printf_error and printf_debug functions for debugging and error logging
-    - Replaces printf function call with printf_com for logging consistency
+    - Replaces printf function call with dbgprintf for logging consistency
     - Refactors conditional statements for readability
     - Adds functions for counting files and populating file lists
     - Updates keyboard registration message for readability
@@ -306,14 +306,14 @@ commit 00b08dc2202a7152cc1197f69e459544097e060b
 Author: KingVentrix007 <tristanjkuhn007@gmail.com>
 Date:   Fri Feb 23 05:51:10 2024 +0200
 
-    Commit Message:         This commit updates configuration settings for IntelliSense, adds new files and removes one file, refactors code for improved performance, implements logic for seeking and setting IO position in file stream, includes printf_com function call, adds functions to handle input/output stream positions, introduces new drive sub-types and I/O position functions, defines FILE, fixes syntax error in the login form, removes commented-out code and unused functions, updates API endpoint for fetching user data, and further refactors the code for improved performance.
+    Commit Message:         This commit updates configuration settings for IntelliSense, adds new files and removes one file, refactors code for improved performance, implements logic for seeking and setting IO position in file stream, includes dbgprintf function call, adds functions to handle input/output stream positions, introduces new drive sub-types and I/O position functions, defines FILE, fixes syntax error in the login form, removes commented-out code and unused functions, updates API endpoint for fetching user data, and further refactors the code for improved performance.
     Commit Description:
     - Updates configuration settings for IntelliSense
     - Adds stream.h, ext4_config.h, and ext4_blockdev.h files to project
     - Refactors code to optimize performance
     - Adds functionality for seeking and setting IO position in file stream
     - Implements fflush() function
-    - Adds printf_com function call
+    - Adds dbgprintf function call
     - Adds new functions for handling input/output stream positions
     - Adds new drive sub-types and functions for I/O positions in drive_info struct
     - Defines FILE constant as void pointer
@@ -390,11 +390,11 @@ commit 3f9b4c8c028769548537ffb67940c2f4ac6c60dc
 Author: KingVentrix007 <tristanjkuhn007@gmail.com>
 Date:   Sun Feb 18 06:33:49 2024 +0200
 
-    mmit Message:   This commit includes refactoring code for improved readability, adding a printf_com function for formatted output to COM1 and logging, fixing a bug in user authentication logic, dynamically handling command line arguments, updating memory allocation in load_elf_executable function, adding new functionality to user profile page, fixing issues with empty additions and deletions, updating user authentication logic, improving performance through code refactoring and data structure updates, and updating build system settings and ELF file copying process.
+    mmit Message:   This commit includes refactoring code for improved readability, adding a dbgprintf function for formatted output to COM1 and logging, fixing a bug in user authentication logic, dynamically handling command line arguments, updating memory allocation in load_elf_executable function, adding new functionality to user profile page, fixing issues with empty additions and deletions, updating user authentication logic, improving performance through code refactoring and data structure updates, and updating build system settings and ELF file copying process.
     Commit Description:
     - Refactored code for improved readability
-    - Introduced new function printf_com for formatted output to COM1
-    - Added printf_com function for logging with variable arguments and LOG_LOCATION macro
+    - Introduced new function dbgprintf for formatted output to COM1
+    - Added dbgprintf function for logging with variable arguments and LOG_LOCATION macro
     - Fixed bug in user authentication logic
     - Dynamically handle command line arguments
     - Improved load_elf_executable function

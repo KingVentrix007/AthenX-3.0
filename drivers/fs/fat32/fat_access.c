@@ -37,6 +37,8 @@
 #include "../include/fat_string.h"
 #include "../include/fat_misc.h"
 #include "clock.h"
+#include "io_ports.h"
+
 // #include "../include/debug.h"
 //-----------------------------------------------------------------------------
 // fatfs_init: Load FAT Parameters
@@ -458,7 +460,7 @@ uint32 fatfs_get_file_entry(struct fatfs *fs, uint32 Cluster, char *name_to_find
                 else if (fatfs_entry_lfn_exists(&lfn, directoryEntry) )
                 {
                     long_filename = fatfs_lfn_cache_get(&lfn);
-                    printf_com("Name to find: %s | %s\n", name_to_find,long_filename);
+                    dbgprintf("Name to find: %s | %s\n", name_to_find,long_filename);
                     // Compare names to see if they match
                     if (fatfs_compare_names(long_filename, name_to_find))
                     {

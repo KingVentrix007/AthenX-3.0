@@ -14,6 +14,7 @@ https://github.com/benhoyt/inih
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
+#include "io_ports.h"
 
 #include <stdio.h>
 // #include <ctype.h>
@@ -312,7 +313,7 @@ int ini_parse_string(const char* string, ini_handler handler, void* user) {
 
     ctx.ptr = string;
     ctx.num_left = strlen(string);
-    printf_com("INI :: parsing %s",string);
+    dbgprintf("INI :: parsing %s",string);
     return ini_parse_stream((ini_reader)ini_reader_string, &ctx, handler,
                             user);
 }

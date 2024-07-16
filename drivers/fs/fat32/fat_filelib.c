@@ -42,6 +42,8 @@
 #include "../include/fat_format.h"
 #include "stdint.h"
 #include "stdlib.h"
+#include "io_ports.h"
+
 //-----------------------------------------------------------------------------
 // Locals
 //-----------------------------------------------------------------------------
@@ -678,7 +680,7 @@ int fl_attach_media(fn_diskio_read rd, fn_diskio_write wr)
     // Initialise FAT parameters
     if ((res = fatfs_init(&_fs)) != FAT_INIT_OK)
     {
-        printf_com("FAT_FS: Error could not load FAT details (%d)!\r\n", res);
+        dbgprintf("FAT_FS: Error could not load FAT details (%d)!\r\n", res);
         return res;
     }
 

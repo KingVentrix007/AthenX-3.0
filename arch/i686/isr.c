@@ -3,6 +3,8 @@
 #include "8259_pic.h"
 #include "debug_term.h"
 #include "debug.h"
+#include "io_ports.h"
+
 #define MAX_EXCEPTIONS 10
 #define EOI(irq) \
     do {\
@@ -90,7 +92,7 @@ void isr_irq_handler(REGISTERS *reg) {
     }
     else
     {
-        printf_com("Something tried to interrupt %d\n", reg->int_no);
+        dbgprintf("Something tried to interrupt %d\n", reg->int_no);
     }
     if(reg->int_no != 32)
 		EOI(reg->int_no);

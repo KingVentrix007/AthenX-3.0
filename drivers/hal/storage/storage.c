@@ -21,7 +21,7 @@ int init_storage()
         storage_devs[i].set = -1;
     }
     ata_init();
-    // ahci_main();
+    ahci_main();
     check_fs_types();
     printf("Storage devices initialized\n");
     
@@ -139,12 +139,12 @@ int secondary_storage_read(uint32 sector, uint8 *buffer, uint32 sector_count)
 {
     if(primary_dev.storage_type == AHCI_DEVICE)
     {
-        // printf_com("storage:: using AHCI");
+        // dbgprintf("storage:: using AHCI");
         return ahci_read_sector_hal(sector,buffer,sector_count);
     }
     else
     {
-        // printf_com("storage:: using ide\n");
+        // dbgprintf("storage:: using ide\n");
         // return ide_read_sectors_fat(sector,buffer,sector_count);
     }
 }

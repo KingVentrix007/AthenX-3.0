@@ -97,7 +97,7 @@ int chdir(const char *path)
         strcpy(tmp,_cwd);
         if(tmp[_cwd_len] != '/')
         {
-            printf_com("error\n");
+            dbgprintf("error\n");
             strcat(tmp,"/");
         }
          //printf("cwd %s | tmp %s\n",_cwd,tmp);
@@ -120,7 +120,7 @@ int chdir(const char *path)
     }
     else
     {
-        printf_com("Fixed path\n");
+        dbgprintf("Fixed path\n");
         char tmp[FATFS_MAX_LONG_FILENAME];
         strcpy(tmp,_fixed_cwd);
         strcat(tmp,"/");
@@ -362,7 +362,7 @@ size_t fwrite(const void *ptr, size_t size, size_t nmemb, void *stream) {
         char *buf = (char *)ptr;
         for (size_t i = 0; i < nmemb; i++)
         {
-            printf_com("%c",buf[i]);
+            dbgprintf("%c",buf[i]);
         }
         return nmemb;
 
@@ -448,7 +448,7 @@ int fputs(const char *str, void *stream) {
     else if ((int)stream == stderr)
     {
         printf("%s", str);
-        printf_com("%s", str);
+        dbgprintf("%s", str);
         printf_debug("%s", str);
         return 1;
     }
@@ -630,7 +630,7 @@ char *fgets(char *s, int n, void *f) {
                     count--;
                     // s[count] = ' ';
                     printf("\b");
-                    printf_com(">>%s\n",s);
+                    dbgprintf(">>%s\n",s);
                 }
             } else {
                 printf("%c", ch);
@@ -751,7 +751,7 @@ int fprintf(void *fp,const char *format,...)
     else if ((int)fp == stderr)
     {
         printf_debug("%s",buffer);
-        printf_com("%s",buffer);
+        dbgprintf("%s",buffer);
     }
     else
     {

@@ -15,7 +15,7 @@ static uint32_t pmm_stack_end = PMM_STACK_END;
 // pmm_location if physical but identity mapped
 void init_pmm_page(uint32_t pmm_start,size_t size) {
 	// Ensure the initial page allocation location is page-aligned.
-	printf_com("Initializing pageing with %u pages\n",size/PAGE_SIZE);
+	dbgprintf("Initializing pageing with %u pages\n",size/PAGE_SIZE);
 	pmm_location = (pmm_start + PAGE_SIZE) & PAGE_ADDR_MASK;
 	// pmm_stack_end = pmm_location + size;
 }
@@ -23,7 +23,7 @@ void init_pmm_page(uint32_t pmm_start,size_t size) {
 uint32_t pmm_alloc_page() {
 	// sanity check
 	if (!pmm_paging_active) {
-		printf_com("pmm_location alloc: 0x%.8x\n", pmm_location);
+		dbgprintf("pmm_location alloc: 0x%.8x\n", pmm_location);
 
 		uint32_t addr = pmm_location;
 		pmm_location += PAGE_SIZE;

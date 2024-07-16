@@ -145,7 +145,7 @@ void draw__debug_char_8x16(int x, int y, char character) {
                 }
                 else
                 {
-                    // printf_com("%c",character);
+                    // dbgprintf("%c",character);
                     draw_pixel_buffer_2(x + col, y + row, vbe_rgb(255, 255, 255));
                 }
                 // Set the pixel at the corresponding position

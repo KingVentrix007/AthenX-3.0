@@ -1051,7 +1051,7 @@ void handle_ansi(const char *fmt) {
               multi = 1;
              }
             y = y-16*multi;
-            printf_com("Multi A == %d\n", multi);
+            dbgprintf("Multi A == %d\n", multi);
             set_terminal_postion_y(y);
             fmt++;
         } else if (*fmt == 'B') {
@@ -1067,7 +1067,7 @@ void handle_ansi(const char *fmt) {
                 multi = 1;
               }
             y = y+16*multi;
-            printf_com("Multi B == %d\n", multi);
+            dbgprintf("Multi B == %d\n", multi);
 
             set_terminal_postion_y(y);
             fmt++;
@@ -1083,7 +1083,7 @@ void handle_ansi(const char *fmt) {
              {
               multi = 1;
              }
-            printf_com("Multi C == %d\n", multi);
+            dbgprintf("Multi C == %d\n", multi);
 
             x = x+8*multi;
             set_terminal_postion_x(x);
@@ -1101,7 +1101,7 @@ void handle_ansi(const char *fmt) {
              {
               multi = 1;
              }
-            printf_com("Multi D == %d\n", multi);
+            dbgprintf("Multi D == %d\n", multi);
 
             x = x-8*multi;
             set_terminal_postion_x(x);
@@ -1125,11 +1125,11 @@ void handle_ansi(const char *fmt) {
 
     // If foreground or background color values are valid, set the colors
     if (foreground_color != -1) {
-      printf_com("Setting foreground color %d\n", foreground_color);
+      dbgprintf("Setting foreground color %d\n", foreground_color);
         set_color(foreground_color);
     }
     if (background_color != -1) {
-        printf_com("Setting background color %d\n", background_color);
+        dbgprintf("Setting background color %d\n", background_color);
         set_font_bg_color(background_color);
     }
 }
@@ -1255,7 +1255,7 @@ int set_print_mode(int mode)
 {
   if(mode > SERIAL1_PRINT_MODE)
   {
-    printf_com("%s is not a print mode\n", mode);
+    dbgprintf("%s is not a print mode\n", mode);
   }
   else
   {

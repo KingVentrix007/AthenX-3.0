@@ -215,10 +215,7 @@ void e1000_callback(REGISTERS* r)
     // int x = 1/0;
     printf("Incoming packet\n");
 	// net_incoming_packet(&e1000_netdev);
-	// int tail = E1000_DEVICE_SET(E1000_RDT);
-	Ethernet_Header buf;
-	size_t length = e1000_receive((char*)&buf, sizeof(Ethernet_Header));
-	EthernetProcessReceivedPacket(&buf, mac);
+	// int tail = E1000_DEVICE_SET(E1000_RDT)
 	E1000_DEVICE_GET(E1000_ICR);
 	printf("Done packet\n");
 	UnlockScheduler();
@@ -255,8 +252,6 @@ void init_e1000()
 	E1000_DEVICE_SET(E1000_RDTR) = 0;
 	E1000_DEVICE_SET(E1000_RADV) = 0;
 	E1000_DEVICE_SET(E1000_IMS) = (1 << 7);
-    send_dhcp_request();
-	printf("[e1000] e1000 initialized\n");
 
 	/* very ugly temporary fix */
 	// current_netdev = e1000_netdev;

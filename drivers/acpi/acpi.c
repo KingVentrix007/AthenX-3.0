@@ -159,9 +159,9 @@ unsigned int *acpiCheckRSDPtr(unsigned int *ptr)
       if (check == 0) {
          /*
           if (desc->Revision == 0)
-            printf_com("acpi 1");
+            dbgprintf("acpi 1");
          else
-            printf_com("acpi 2");
+            dbgprintf("acpi 2");
          */
          return (unsigned int *) rsdp->RsdtAddress;
       }
@@ -254,18 +254,18 @@ int acpiEnable(void)
                sleep(10);
             }
          if (i<300) {
-            printf_com("enabled acpi.\n");
+            dbgprintf("enabled acpi.\n");
             return 0;
          } else {
-            printf_com("couldn't enable acpi.\n");
+            dbgprintf("couldn't enable acpi.\n");
             return -1;
          }
       } else {
-         printf_com("no known way to enable acpi.\n");
+         dbgprintf("no known way to enable acpi.\n");
          return -1;
       }
    } else {
-      //printf_com("acpi was already enabled.\n");
+      //dbgprintf("acpi was already enabled.\n");
       return 0;
    }
 }
@@ -294,7 +294,7 @@ int initAcpi(void)
 {
     int s = sizeof(struct FADT);
    int size = sizeof(struct FACP);
-   printf_com("s = %d, size = %d\n", s, size);
+   dbgprintf("s = %d, size = %d\n", s, size);
    unsigned int *ptr = acpiGetRSDPtr();
 
    // check if address is correct  ( if acpi is available on this pc )
@@ -360,20 +360,20 @@ int initAcpi(void)
                     
                      return 0;
                   } else {
-                     printf_com("\\_S5 parse error.\n");
+                     dbgprintf("\\_S5 parse error.\n");
                   }
                } else {
-                  printf_com("\\_S5 not present.\n");
+                  dbgprintf("\\_S5 not present.\n");
                }
             } else {
-               printf_com("DSDT invalid.\n");
+               dbgprintf("DSDT invalid.\n");
             }
          }
          ptr++;
       }
-      printf_com("no valid FACP present.\n");
+      dbgprintf("no valid FACP present.\n");
    } else {
-      printf_com("no acpi.\n");
+      dbgprintf("no acpi.\n");
    }
 
    return -1;
@@ -409,8 +409,8 @@ void reboot(void)
    // // struct FACP *FADT;
    // else if(strncmp(facp->h.Signature,"FACP",4) == 0)
    // {
-   //    printf_com("global_facp->ResetReg.Address -> 0x%X\n", facp->ResetReg.Address);
-   //    printf_com("global_facp->ResetValue -> 0x%X\n", facp->ResetValue);
+   //    dbgprintf("global_facp->ResetReg.Address -> 0x%X\n", facp->ResetReg.Address);
+   //    dbgprintf("global_facp->ResetValue -> 0x%X\n", facp->ResetValue);
    //    // outportb(facp->ResetReg.Address, facp->ResetValue);
    // }
    // else

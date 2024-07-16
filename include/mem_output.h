@@ -20,13 +20,13 @@
 #define MEM_ALLOC_LOG(level,fmt, ...) \
     do { \
         if (level == LOG_ERROR && LOG_LEVEL == LOG_ERROR) \
-            printf_com("[ERROR] "); \
+            dbgprintf("[ERROR] "); \
         else if (level == LOG_WARNING && LOG_LEVEL == LOG_WARNING) \
-            printf_com("[WARNING] "); \
+            dbgprintf("[WARNING] "); \
         else if (level == LOG_INFO && LOG_LEVEL == LOG_INFO) \
-            printf_com("[INFO] "); \
+            dbgprintf("[INFO] "); \
         \
-        printf_com("File: %s:%d  Function: %s,  - " fmt, __FILE__,__LINE__, __func__,  ##__VA_ARGS__); \
+        dbgprintf("File: %s:%d  Function: %s,  - " fmt, __FILE__,__LINE__, __func__,  ##__VA_ARGS__); \
     } while (0)
 
 #else

@@ -112,7 +112,7 @@ void printf_error(const char *format, ...)
 void printf_com(const char* format, ...)
 {
     // Define a buffer to hold the formatted string
-    char buffer[256]; // Adjust the buffer size as needed
+    char buffer[1009]; // Adjust the buffer size as needed
 
     // Initialize the variable argument list
     va_list args;
@@ -126,9 +126,7 @@ void printf_com(const char* format, ...)
 
     // Call write_to_com1_string to write the formatted string to COM1
     // printf_debug("%s", buffer);
-    char *msg = "DEBUG: ";
-        write_to_com1_string(msg);
-        write_to_com1_string(buffer);
+    write_to_com1_string(buffer);
 }
 void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity) {
     // Disable interrupts

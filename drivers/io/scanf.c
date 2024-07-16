@@ -28,6 +28,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <stddef.h>
 #include "stdio.h"
 #include "keyboard.h"
+#include "io_ports.h"
+
 /* =============================== *
  *        defines &  checks        *
  * =============================== */
@@ -2157,7 +2159,7 @@ int getch_(void)
         //     {
         //         printf("%c", ch);
         //     }
-        //     printf_com(">%d", pos);
+        //     dbgprintf(">%d", pos);
              
         // }
         // else
@@ -2179,7 +2181,7 @@ int getch_(void)
     time_t end;
     time(&end);
     time_since_last_keypress = end - start;
-    printf_com("%c", ch);
+    dbgprintf("%c", ch);
     return ch;
 }
 

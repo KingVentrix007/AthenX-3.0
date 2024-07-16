@@ -56,7 +56,7 @@ draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0)
     
 
     int ret_buf = vesa_init_buffers();
-    printf_com("%d\n", ret_buf);
+    dbgprintf("%d\n", ret_buf);
     char *test_malloc = malloc(1024 * 1024 * 1024);
     if (test_malloc == NULL) {
         printf("\033[1;31mCouldn't allocate test memory\n"); // Set text color to red

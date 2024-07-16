@@ -2,6 +2,7 @@
 #include "stdbool.h"
 #include "isr.h"
 #include "stream.h"
+#include "io_ports.h"
 arrow_callback_t arrow_callbacks[256]; // Array to hold callbacks for scan codes (assuming scan codes are 8-bit)
 
 static bool g_caps_lock = false;
@@ -59,7 +60,7 @@ char alternate_chars(char ch) {
 }
 
 void keyboard_handler(REGISTERS *r) {
-    printf_com("Handler got keyboard called\n");
+    dbgprintf("Handler got keyboard called\n");
     int scancode;
     // printf("called keyboard handler\n");
     g_ch = 0;
@@ -288,7 +289,7 @@ void handle_F2_press(int scancode) {
     
 
     int buffer = cycle_buffers_vbe();
-    printf_com("Pressed F2, buffer: %d\n", buffer);
+    dbgprintf("Pressed F2, buffer: %d\n", buffer);
     if(buffer == 1)
     {
         disable_io = false;

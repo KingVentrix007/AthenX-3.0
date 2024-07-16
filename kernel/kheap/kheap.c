@@ -39,9 +39,9 @@ void init_kheap(uint32_t size)
 {
     int64_t num_total_pages = size / PAGE_SIZE; // Total number of pages in the memory region
     uint64_t num_pages_40_percent = (num_total_pages * 0.4); // 40% of the total pages
-    printf_com("Using %d pages for kheap\n", num_pages_40_percent);
+    dbgprintf("Using %d pages for kheap\n", num_pages_40_percent);
 	void *zone = pmm_alloc_pages(num_pages_40_percent);
-    printf_com("Initializing memory region 0x%08X\n",zone);
+    dbgprintf("Initializing memory region 0x%08X\n",zone);
 	init_memory_allocation(zone,num_pages_40_percent*PAGE_SIZE);
     heap_active = true;
 	
@@ -79,7 +79,7 @@ void print_node_info(const Node *node)
  */
 void init_memory_allocation(void *start_addr, size_t size)
 {
-    printf_com("Setting up region of size %u\n", size);
+    dbgprintf("Setting up region of size %u\n", size);
     init_memory_region(start_addr, size);
     // memory_allocations = (MemoryAllocationInfo *)sys_allocate_memory(sizeof(MemoryAllocationInfo) * 10);
     // Now nodes are initialized, and the available memory is divided accordingly
@@ -622,7 +622,7 @@ void kfree(void *ptr)
         /* code */
     }
     mem_lock_free = 1;
-    // printf_com("Freeing adder 0x%x for func %s\n",ptr,func);
+    // dbgprintf("Freeing adder 0x%x for func %s\n",ptr,func);
 	sys_free_memory(ptr);
     mem_lock_free = 0;
 }
@@ -655,7 +655,7 @@ void *find_free_zone(Node *current_node, size_t size,int num_blocks_needed)
             {
                 // Mark the nodes as allocated
                 current_node = start_node;
-                // printf_com("Called %d times",num_blocks_needed);
+                // dbgprintf("Called %d times",num_blocks_needed);
                 for (int i = 0; i < num_blocks_needed; ++i)
                 {
                     void *tmp_adder = current_node->addr;
@@ -711,7 +711,7 @@ void create_map()
     start_address = current_node->addr;
     while (current_node)
     {
-        printf_com("Block 0x%X is %s\n",current_node->addr,(current_node->allocated == true) ? "Allocated" : "Unallocated");
+        dbgprintf("Block 0x%X is %s\n",current_node->addr,(current_node->allocated == true) ? "Allocated" : "Unallocated");
         if(allocated_status != changed_status)
         {
             printf("Alloacted %d | changed = %d\n",allocated_status,changed_status);
@@ -722,7 +722,7 @@ void create_map()
             printf("Region of size %u: 0x%X to 0x%X is %s\n",end_address-start_address,start_address,end_address,(allocated_status == true) ? "Allocated" : "Unallocated");
             start_address = end_address;
             end_address = NULL;
-            printf_com("\n--------------------------------\n");
+            dbgprintf("\n--------------------------------\n");
 
         }
         else
@@ -742,7 +742,7 @@ int print_allocated()
     {
         if(current_node->allocated == true)
         {
-            printf_com("Node at 0x%X allocated\n", current_node->addr);
+            dbgprintf("Node at 0x%X allocated\n", current_node->addr);
         }
         current_node = current_node->next;
     }

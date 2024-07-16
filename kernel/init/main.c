@@ -213,28 +213,28 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize VESA graphics mode
     int width = config.width;
     int height = config.height;
-    printf_com("-\tScreen resolution: %dx%d\n", width, height);
+    dbgprintf("-\tScreen resolution: %dx%d\n", width, height);
     int ret = vesa_init(width, height, 32);
-    printf_com("Ret = %d\n", ret);
+    dbgprintf("Ret = %d\n", ret);
     if (ret < 0) {
         // Try different resolutions if initialization fails
         width = 1024;
         height = 768;
         ret = vesa_init(width, height, 32);
-        printf_com("-\tScreen resolution: %dx%d\n", width, height);
+        dbgprintf("-\tScreen resolution: %dx%d\n", width, height);
         if (ret < 0) {
             width = 800;//720;//800
             height = 600;//480;//600
             ret = vesa_init(width, height, 32);
             if (ret < 0) {
-                // printf_com("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
+                // dbgprintf("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
                 // vbe_print_available_modes();
                 width = 720;//720;//800
                 height = 480;//480;//600
                 ret = vesa_init(width, height, 32);
                 if(ret < 0)
                 {
-                    printf_com("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
+                    dbgprintf("\n\n\033[1;31mPrinting all modes:\n\n"); // Set text color to red
                 vbe_print_available_modes();
                 }
                 
@@ -247,7 +247,7 @@ void init(unsigned long magic, unsigned long addr) {
     init_debug_terminal(width, height);
 
     
-    printf_com("Made it here\n");
+    dbgprintf("Made it here\n");
     int acpi = initAcpi();
     int acpi2 = acpiEnable();
     if(acpi2 != acpi)
@@ -356,7 +356,7 @@ void init(unsigned long magic, unsigned long addr) {
     printf("allocated VESA\n");
     int ret_buf = vesa_init_buffers();
     printf("Vesa is allocated\n");
-    printf_com("%d\n", ret_buf);
+    dbgprintf("%d\n", ret_buf);
     char *test_malloc = malloc(1024 * 1024 * 1024);
     if (test_malloc == NULL) {
         printf("\033[1;31mCouldn't allocate test memory\n"); // Set text color to red

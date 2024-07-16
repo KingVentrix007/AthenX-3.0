@@ -41,8 +41,8 @@ void populate_cpu_info(cpu_info_t *info) {
     info->hyper_threading = edx & (1 << 28); // Hyper-threading support
 
     // Print debug information
-    printf_com("CPUID 1: eax=%u, ebx=%u, ecx=%u, edx=%u\n", eax, ebx, ecx, edx);
-    printf_com("Cores: %d, Hyper-Threading: %d\n", info->cores, info->hyper_threading);
+    dbgprintf("CPUID 1: eax=%u, ebx=%u, ecx=%u, edx=%u\n", eax, ebx, ecx, edx);
+    dbgprintf("Cores: %d, Hyper-Threading: %d\n", info->cores, info->hyper_threading);
 
     // Get cache information (assuming a simple model, L1 only)
     cpuid(2, &eax, &ebx, &ecx, &edx);
@@ -55,8 +55,8 @@ void populate_cpu_info(cpu_info_t *info) {
     info->max_frequency = ebx & 0xFFFF; // Maximum frequency in MHz
 
     // Print debug information
-    printf_com("CPUID 0x16: eax=%u, ebx=%u, ecx=%u, edx=%u\n", eax, ebx, ecx, edx);
-    printf_com("Base Frequency: %u MHz, Max Frequency: %u MHz\n", info->frequency, info->max_frequency);
+    dbgprintf("CPUID 0x16: eax=%u, ebx=%u, ecx=%u, edx=%u\n", eax, ebx, ecx, edx);
+    dbgprintf("Base Frequency: %u MHz, Max Frequency: %u MHz\n", info->frequency, info->max_frequency);
 
     // Set default values for fields not retrieved from cpuid
     info->arch = CPU_ARCH_X86; // Assuming x86_64 architecture

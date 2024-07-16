@@ -35,15 +35,15 @@ int get_vbe_info() {
     in.ax = 0x4F00;
     // set address pointer to BIOS_CONVENTIONAL_MEMORY where vbe info struct will be stored
     in.di = BIOS_CONVENTIONAL_MEMORY;
-    printf_com("Calling BIOS interrupt\n");
+    dbgprintf("Calling BIOS interrupt\n");
     print_date_com();
     int86(0x10, &in, &out);  // call video interrupt 0x10
     print_date_com();
-    printf_com("called video interrupt\n");
+    dbgprintf("called video interrupt\n");
     // copy vbe info data to our global variable g_vbe_infoblock
     memcpy(&g_vbe_infoblock, (void *)BIOS_CONVENTIONAL_MEMORY, sizeof(VBE20_INFOBLOCK));
-    printf_com("Address 0x%X\n",g_vbe_infoblock.VideoModePtr);
-    printf_com("ax = 0x%X\n\n",out.ax);
+    dbgprintf("Address 0x%X\n",g_vbe_infoblock.VideoModePtr);
+    dbgprintf("ax = 0x%X\n\n",out.ax);
     return (out.ax == 0x004F);
 }
 
@@ -68,12 +68,12 @@ void vbe_set_mode(uint32 mode) {
 
 // find the vbe mode by width & height & bits per pixel
 uint32 vbe_find_mode(uint32 width, uint32 height, uint32 bpp) {
-    printf_com("Find modes for vbe\n");
+    dbgprintf("Find modes for vbe\n");
     // iterate through video modes list
     uint16 *mode_list = (uint16 *)g_vbe_infoblock.VideoModePtr;
     uint16 mode = *mode_list++;
     while (mode != 0xffff) {
-        printf_com("Checking modes\n");
+        dbgprintf("Checking modes\n");
         // get each mode info
         get_vbe_mode_info(mode, &g_vbe_modeinfoblock);
         if (g_vbe_modeinfoblock.XResolution == width && g_vbe_modeinfoblock.YResolution == height && g_vbe_modeinfoblock.BitsPerPixel == bpp) {
@@ -87,13 +87,13 @@ uint32 vbe_find_mode(uint32 width, uint32 height, uint32 bpp) {
 // print availabel modes to console
 void vbe_print_available_modes() {
     VBE20_MODEINFOBLOCK modeinfoblock;
-    printf_com("Modes:\n");
+    dbgprintf("Modes:\n");
     // iterate through video modes list
     uint16 *mode_list = (uint16 *)g_vbe_infoblock.VideoModePtr;
     uint16 mode = *mode_list++;
     while (mode != 0xffff) {
         get_vbe_mode_info(mode, &modeinfoblock);
-        printf_com("Mode: %d, X: %d, Y: %d\n", mode, modeinfoblock.XResolution, modeinfoblock.YResolution);
+        dbgprintf("Mode: %d, X: %d, Y: %d\n", mode, modeinfoblock.XResolution, modeinfoblock.YResolution);
         mode = *mode_list++;
     }
 }
@@ -119,26 +119,26 @@ void vbe_putpixel(int x, int y, int color) {
 
 int vesa_init(uint32 width, uint32 height, uint32 bpp) {
     bios32_init();
-    printf_com("initializing vesa vbe 2.0\n");
+    dbgprintf("initializing vesa vbe 2.0\n");
     if (!get_vbe_info()) {
-        printf_com("No VESA VBE 2.0 detected\n");
+        dbgprintf("No VESA VBE 2.0 detected\n");
         return -1;
     }
-    printf_com("Checked All modes");
+    dbgprintf("Checked All modes");
     // set this to 1 to print all available modes to console
     #define PRINT_MODES 0
     #if PRINT_MODES
-        printf_com("Press UP and DOWN arrow keys to scroll\n");
-        printf_com("Modes:\n");
+        dbgprintf("Press UP and DOWN arrow keys to scroll\n");
+        dbgprintf("Modes:\n");
         vbe_print_available_modes();
         return 1;
     #else
         g_selected_mode = vbe_find_mode(width, height, bpp);
         if (g_selected_mode == -1) {
-            printf_com("failed to find mode for %d-%d\n", width, height);
+            dbgprintf("failed to find mode for %d-%d\n", width, height);
             return -1;
         }
-        printf_com("\nselected mode: %d \n", g_selected_mode);
+        dbgprintf("\nselected mode: %d \n", g_selected_mode);
         // set selection resolution to width & height
         g_width = g_vbe_modeinfoblock.XResolution;
         g_height = g_vbe_modeinfoblock.YResolution;
@@ -167,7 +167,7 @@ int map_vesa() {
     uint32_t vesa_size_in_pages = (vesa_size + PAGE_SIZE - 1) / PAGE_SIZE; // Calculate the number of pages needed
 
     for (uint32_t i = 0; i < vesa_size_in_pages; i++) {
-        printf_com("Mapping VESA to 0x%.8x\n",vesa_virtual_address);
+        dbgprintf("Mapping VESA to 0x%.8x\n",vesa_virtual_address);
         map(vesa_virtual_address, vesa_physical_address, PAGE_PRESENT | PAGE_WRITE);
         vesa_virtual_address += PAGE_SIZE;
         vesa_physical_address += PAGE_SIZE;
@@ -319,7 +319,7 @@ void draw_pixel_buffer_1(int x, int y, int color) {
 int draw_pixel_buffer_1_tty(uint32_t pos,int count,uint32_t *buffer)
 {
 
-    printf_com("draw\n");
+    dbgprintf("draw\n");
     for (size_t i = 0; i < count; i++)
     {
         *(display_buffer_1 +pos+ i) = buffer[i];
@@ -358,7 +358,7 @@ int cycle_buffers_vbe()
 }
 int update_pixel_display()
 {
-    // printf_com("Curent buffer == %d\n", curent_buffer);
+    // dbgprintf("Curent buffer == %d\n", curent_buffer);
     if(curent_buffer == 1)
     {
         memcpy(g_vbe_buffer,display_buffer_1,g_width*g_height*gbpp);
@@ -374,7 +374,7 @@ int update_pixel_display()
 }
 int update_pixel(int x, int y)
 {
-    // printf_com("Curent buffer == %d\n", curent_buffer);
+    // dbgprintf("Curent buffer == %d\n", curent_buffer);
     if(curent_buffer == 1)
     {
          uint32 i = y * g_width + x;

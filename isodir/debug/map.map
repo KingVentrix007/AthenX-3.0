@@ -15,7 +15,7 @@
 0000000000100a8b:obj/arch/i686/io_ports.c:write_to_com1
 0000000000100aac:obj/arch/i686/io_ports.c:write_to_com1_string
 0000000000100af6:obj/arch/i686/io_ports.c:printf_error
-0000000000100b50:obj/arch/i686/io_ports.c:printf_com
+0000000000100b50:obj/arch/i686/io_ports.c:dbgprintf
 0000000000100baa:obj/arch/i686/io_ports.c:configure_com1
 0000000000100c65:obj/arch/i686/io_ports.c:init_com1
 0000000000100c88:obj/arch/i686/io_ports.c:cpuid
