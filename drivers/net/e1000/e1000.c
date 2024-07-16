@@ -17,6 +17,8 @@
 #include "pci_io.h"
 #include "vmm.h"
 #include "stdlib.h"
+#include "net/stack/ethernet.h"
+#include "stdio.h"
 #define PTR_SIZE sizeof(void*)
 #define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))
 #define PACKET_SIZE   2048
@@ -208,13 +210,18 @@ int e1000_transmit(char* buffer, uint32_t size)
 
 void e1000_callback(REGISTERS* r)
 {
+	LockScheduler();
 	interrupts++;
     // int x = 1/0;
     printf("Incoming packet\n");
 	// net_incoming_packet(&e1000_netdev);
-
+	// int tail = E1000_DEVICE_SET(E1000_RDT);
+	Ethernet_Header buf;
+	size_t length = e1000_receive((char*)&buf, sizeof(Ethernet_Header));
+	EthernetProcessReceivedPacket(&buf, mac);
 	E1000_DEVICE_GET(E1000_ICR);
 	printf("Done packet\n");
+	UnlockScheduler();
 }
 
 void init_e1000()
@@ -249,7 +256,7 @@ void init_e1000()
 	E1000_DEVICE_SET(E1000_RADV) = 0;
 	E1000_DEVICE_SET(E1000_IMS) = (1 << 7);
     send_dhcp_request();
-	
+	printf("[e1000] e1000 initialized\n");
 
 	/* very ugly temporary fix */
 	// current_netdev = e1000_netdev;

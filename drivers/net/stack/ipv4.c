@@ -63,3 +63,78 @@ void IPv4_UpdateHeaderChecksum(IPv4_Header *header)
 
     header->headerChecksum = ~((uint16_t)sum);
 }
+uint32_t IPv4_PackIP(uint8_t first, uint8_t second, uint8_t third, uint8_t fourth)
+{
+    return (fourth << 24 | third << 16 | second << 8 | first);
+}
+
+void IPv4_PrintIP(uint32_t ip)
+{
+    printf("%d.%d.%d.%d", ip & 0xFF, (ip >> 8) & 0xFF, (ip >> 16) & 0xFF, (ip >> 24) & 0xFF);
+
+}
+void IPv4_ProcessReceivedPacket(IPv4_Header *ipHeader, uint8_t *sourceMAC)
+{
+    //uint16_t totalLength = SwapBytes16(ipHeader->totalLength);
+    /*printf("IPv4 packet length: ");
+    printf("%d",totalLength);
+    printf(" bytes\n");*/
+
+    if (ipHeader->protocol == IPv4_PROTO_UDP)
+    {
+        if(1==0)
+            printf("UDP Packet received\n");
+        UDP_ProcessReceivedPacket((UDP_Header *)(ipHeader->data), sourceMAC);
+    }
+}
+
+void IPv4_SetGateway(uint32_t router)
+{
+    gatewayIP = router;
+    if (1==1)
+    {
+        printf("Gateway IP set to ");
+        IPv4_PrintIP(router);
+        printf("\n");
+    }
+}
+
+void IPv4_SetClientIP(uint32_t client)
+{
+    clientIP = client;
+    if (1==1)
+    {
+        printf("Client IP set to ");
+        IPv4_PrintIP(client);
+        printf("\n");
+    }
+}
+
+// TODO: Support multiple servers
+void IPv4_SetDNS_Servers(uint32_t server1)
+{
+    DNS_Servers[0] = server1;
+    DNS_Servers[1] = 0;
+    DNS_Servers[2] = 0;
+    DNS_Servers[3] = 0;
+
+    if (1==1)
+    {
+        printf("First DNS IP set to ");
+        IPv4_PrintIP(server1);
+        printf("\n");
+    }
+}
+
+void IPv4_SetSubnetMask(uint32_t subnet)
+{
+    subnetMask = subnet;
+
+    if (1==1)
+    {
+        printf("Subnet mask IP set to ");
+        IPv4_PrintIP(subnet);
+        printf("\n");
+    }
+}
+

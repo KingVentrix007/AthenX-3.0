@@ -13,10 +13,10 @@ typedef struct Ethernet_Header
     uint8_t  destinationMAC[6];
     uint8_t  sourceMAC[6];
     uint16_t etherType;
-    uint8_t  data[1];
-} Ethernet_Header;
+} Ethernet_Header  __attribute__((packed));
 uint16_t SwapBytes16(uint16_t data);
 
 uint32_t SwapBytes32(uint32_t data);
 Ethernet_Header *EthernetCreatePacket(uint16_t etherType, uint16_t *pPacketSize, uint8_t *sourceMAC, void **dataPtr);
+void EthernetProcessReceivedPacket(Ethernet_Header *packet, uint8_t *ourMAC);
 #endif

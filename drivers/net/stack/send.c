@@ -1,6 +1,8 @@
 #include "stdint.h"
 #include "net/e1000.h"
 #include "net/stack/ethernet.h"
+#include "net/stack/ipv4.h"
+#include "stdio.h"
 uint8_t packetBuffer[1024];
 extern uint8_t mac[6];
 void send_dhcp_request() {
@@ -68,4 +70,43 @@ uint32_t SwapBytes32(uint32_t data)
     dst[3] = src[0];
 
     return returnVal;
+}
+
+void EthernetProcessReceivedPacket(Ethernet_Header *packet, uint8_t *ourMAC)
+{
+    /*for (int i = 0; i < 16; ++i)
+    {
+        printf("0x%x",((uint8_t*)packet)[i]);
+        printf(' ');
+    }*/
+    // /*printf("Packet received for ");
+    EthernetPrintMAC(packet->sourceMAC);
+    // printf("\n");*/
+    if (packet->etherType == ETHERTYPE_IPv4)
+    {
+        if(1==1)
+            printf("    IPv4 packet received.\n");
+        IPv4_Header *ipHeader = (IPv4_Header *)(packet->data);
+        IPv4_ProcessReceivedPacket(ipHeader, ourMAC);
+    }
+    else if (packet->etherType == ETHERTYPE_ARP)
+    {
+        printf("    ARP packet received.\n");
+        //ARP_Header *arpHeader = (ARP_Header *)(packet->data);
+        // TODO: Process ARP received
+    }
+    else
+    {
+        printf("    Unknown packet received %d.\n",packet->etherType);
+    }
+}
+void EthernetPrintMAC(uint8_t *macAddress)
+{
+    // printf("\n");
+    for (int i = 0; i < 5; ++i)
+    {
+        printf("%0x:",macAddress[i]);
+        
+    }
+    printf("%0x\n",macAddress[5]);
 }
