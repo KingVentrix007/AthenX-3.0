@@ -445,6 +445,7 @@ void init(unsigned long magic, unsigned long addr) {
     print_pci_devices();
     printf("Available drives\n");
     list_devices();
+    STI();
     init_e1000();
 
     
@@ -457,7 +458,7 @@ void init(unsigned long magic, unsigned long addr) {
         install_athenx();
 
     }
-    
+    // while (1);	
     // call_interrupt_43();
     CreateProcess(command_line);
     CreateProcess(cursor_flash);

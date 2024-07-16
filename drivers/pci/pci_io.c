@@ -43,6 +43,13 @@ void init_pci_device(uint8_t bus, uint8_t slot, uint8_t func) {
         // Handle the case where bits are not set as expected
     }
 }
+void pci_enable_device_busmaster(uint16_t bus, uint16_t slot, uint16_t function)
+{
+    uint16_t dev_command_reg = pci_config_read_word(bus, slot, function, 0x04);
+    uint16_t dev_status_reg = pci_config_read_word(bus, slot, function, 0x06);
+    dev_command_reg |= (1 << 2); /* enable busmaster */
+    pci_write(bus, slot, function, 0x04, (uint32_t)dev_status_reg << 16 | (uint32_t) dev_command_reg);
+}
 void init_pci_device_interrupts(uint8_t bus, uint8_t slot, uint8_t func) {
     // Read the current PCI configuration register (command register is at offset 0x04)
     uint16_t command = pci_config_read_word(bus, slot, func, 0x04);

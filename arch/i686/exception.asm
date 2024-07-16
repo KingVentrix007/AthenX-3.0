@@ -63,49 +63,49 @@ exception_handler:
 
 exception_0:
     cli
-    push byte 1    ; store default err code(0)
+    push byte 0    ; store default err code(0)
     push 0          ; push exception number index in IDT
     jmp exception_handler
 
 exception_1:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 1     ; store default err code(0)
     push 1          ; push exception number index in IDT
     jmp exception_handler
 
 exception_2:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 2     ; store default err code(0)
     push 2          ; push exception number index in IDT
     jmp exception_handler
 
 exception_3:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 3     ; store default err code(0)
     push 3          ; push exception number index in IDT
     jmp exception_handler
 
 exception_4:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 4     ; store default err code(0)
     push 4          ; push exception number index in IDT
     jmp exception_handler
 
 exception_5:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 5     ; store default err code(0)
     push 5          ; push exception number index in IDT
     jmp exception_handler
 
 exception_6:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 6     ; store default err code(0)
     push 6          ; push exception number index in IDT
     jmp exception_handler
 
 exception_7:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 7     ; store default err code(0)
     push 7          ; push exception number index in IDT
     jmp exception_handler
 
@@ -116,7 +116,7 @@ exception_8:
 
 exception_9:
     cli
-    push byte 0     ; store default err code(0)
+    push byte 9     ; store default err code(0)
     push 9          ; push exception number index in IDT
     jmp exception_handler
 
