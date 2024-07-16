@@ -37,11 +37,25 @@ void init_pci_device(uint8_t bus, uint8_t slot, uint8_t func) {
         (verify_command & (1 << 8)) && 
         (verify_command & (1 << 1)) && 
         (verify_command & (1 << 2))) {
-        printf("All bits are set\n");
+        // printf("All bits are set\n");
     } else {
-        printf("Failed to set all bits\n");
+        // printf("Failed to set all bits\n");
         // Handle the case where bits are not set as expected
     }
+}
+void init_pci_device_interrupts(uint8_t bus, uint8_t slot, uint8_t func) {
+    // Read the current PCI configuration register (command register is at offset 0x04)
+    uint16_t command = pci_config_read_word(bus, slot, func, 0x04);
+
+    // Enable interrupts (bit 10), DMA (bit 8), and memory space access (bit 1)
+    command |= (1 << 10);  // Set bit 10 for interrupts
+    // command |= (1 << 8);   // Set bit 8 for DMA
+    // command |= (1 << 2);   // Set bit 2 Bus mastering
+    // command |= (1 << 1);   // Set bit 1 for memory space access
+    
+
+    // Write back the modified command register value
+    pci_write(bus, slot, func, 0x04, command);
 }
 uint32_t pci_config_read_dword(uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset) {
     uint32_t address;

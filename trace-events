@@ -183,4 +183,5 @@ e1000e_msix_use_vector_fail
 e1000e_mac_set_permanent
 e1000e_cfg_support_virtio
 pcnet*
-e1000x_rx_can_recv_disabled on
+# e1000x_rx_can_recv_disabled on
+# pic_set_irq

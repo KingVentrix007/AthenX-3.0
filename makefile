@@ -75,14 +75,15 @@ run: AthenX.bin
     -device ahci,id=ahci \
     -device ide-hd,drive=disk,bus=ahci.0 \
     -device ide-hd,drive=disk2,bus=ahci.1 \
+    -device sb16 \
     -m 4G \
     -serial file:logs/AthenX-3.0.log \
     -netdev user,id=net0\
     -device e1000,netdev=net0 \
     -object filter-dump,id=f1,netdev=net0,file=logs/qemu_net.pcap \
     -trace events=trace-events,file=logs/qemu_trace.log\
-    -monitor stdio
-
+    -monitor stdio 
+    
 
 
 	bash ./scripts/athenxHost.sh

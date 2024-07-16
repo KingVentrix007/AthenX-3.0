@@ -1,6 +1,6 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
-
+#include "isr.h"
 #define KEYBOARD_DATA_PORT      0x60
 #define KEYBOARD_STATUS_PORT    0x64
 #define KEYBOARD_COMMAND_PORT   0x64
@@ -144,4 +144,5 @@ void unlock_kb_input();
 typedef void (*arrow_callback_t)();
 int register_arrow_callback(int scancode, arrow_callback_t callback);
 void arrow_press(int scancode) ;
+void keyboard_handler(REGISTERS *r);
 #endif

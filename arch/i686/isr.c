@@ -75,6 +75,10 @@ void isr_end_interrupt(int num) {
 void isr_irq_handler(REGISTERS *reg) {
     // printf("IRQ\n");
     if (g_interrupt_handlers[reg->int_no] != NULL) {
+        if(reg->int_no == 43)
+        {
+            printf("Calling interrupt handler for e1000\n");
+        }
         ISR handler = g_interrupt_handlers[reg->int_no];
         handler(reg);
     }

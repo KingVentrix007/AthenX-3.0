@@ -102,7 +102,11 @@
 
 #define E1000_NUM_RX_DESC 32
 #define E1000_NUM_TX_DESC 8
-
+#define E1000_RCTL     0x00100  /* RX Control - RW */
+#define E1000_RCTL_EN  0x00000002    /* enable */
+#define E1000_RCTL_SECRC 0x04000000    /* Strip Ethernet CRC */
+#define E1000_RCTL_BAM            0x00008000    /* broadcast enable */
+#define E1000_RCTL_SZ_2048        0x00000000    /* rx buffer size 2048 */
 struct e1000_rx_desc {
         volatile uint64_t addr;
         volatile uint16_t length;
@@ -128,4 +132,5 @@ void create_dhcp_request(uint8_t *packet, uint8_t *mac_address, uint32_t xid);
 #define CTRL_AUTO_SPEED_DETECT      0x10
 #define CTRL_INVERT_LOSS_OF_SIGNAL  0x40
 #define CTRL_PHY_RESET              0x80000000
+int init_e1000();
 #endif
