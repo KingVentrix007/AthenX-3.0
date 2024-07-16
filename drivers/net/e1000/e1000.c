@@ -19,6 +19,7 @@
 #include "stdlib.h"
 #include "net/stack/ethernet.h"
 #include "stdio.h"
+#include "io_ports.h"
 #define PTR_SIZE sizeof(void*)
 #define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))
 #define PACKET_SIZE   2048
@@ -261,5 +262,5 @@ void init_e1000()
 	/* Attach as current Netdevice. */
 	//netdev_attach_driver(dev, &e1000_receive, &e1000_transmit, "Intel E1000", (uint8_t*)&mac);
 
-	// dbgprintf("[E1000] Network card Intel E1000 found and attached!.\n");
+	dbgprintf("[E1000] Network card Intel E1000 found and attached!.\n");
 }

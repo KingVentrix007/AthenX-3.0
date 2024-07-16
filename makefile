@@ -80,8 +80,8 @@ run: AthenX.bin
     -serial file:logs/AthenX-3.0.log \
     -device e1000,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::8080-:8080 \
-    -object filter-dump,id=net0,netdev=net0,file=dump.pcap\
-    -trace events=trace-events,file=logs/qemu_trace.log\
+    -object filter-dump,id=net0,netdev=net0,file=./logs/qemu_net.pcap \
+    -trace events=trace-events,file=logs/qemu_trace.log \
     -monitor stdio 
     
 

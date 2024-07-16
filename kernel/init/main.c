@@ -40,6 +40,7 @@
 #include "ahci.h"
 #include "vfs.h"
 #include "system.h"
+#include "net/network.h"
 extern bool fs_active;
 MULTIBOOT_INFO *mboot_info;
 struct BootConfig {
@@ -447,6 +448,7 @@ void init(unsigned long magic, unsigned long addr) {
     list_devices();
     STI();
     init_e1000();
+    send_dhcp_request();
 
     
 
