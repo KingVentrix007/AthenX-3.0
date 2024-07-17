@@ -82,11 +82,8 @@ void isr_end_interrupt(int num) {
  */
 void isr_irq_handler(REGISTERS *reg) {
     // printf("IRQ\n");
+    // LockScheduler();
     if (g_interrupt_handlers[reg->int_no] != NULL) {
-        if(reg->int_no == 43)
-        {
-            printf("Calling interrupt handler for e1000\n");
-        }
         ISR handler = g_interrupt_handlers[reg->int_no];
         handler(reg);
     }
@@ -94,8 +91,8 @@ void isr_irq_handler(REGISTERS *reg) {
     {
         dbgprintf("Something tried to interrupt %d\n", reg->int_no);
     }
-    if(reg->int_no != 32)
-		EOI(reg->int_no);
+    pic8259_eoi(reg->int_no);
+    // UnlockScheduler();
 }
 uint32_t *unwind_stack(REGISTERS *reg);
 static void print_registers(REGISTERS *reg) {

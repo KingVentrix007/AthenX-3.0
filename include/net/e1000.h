@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <pci.h>
-
+#define PACKET_SIZE   2048
 #define E1000_VENDOR_ID 0x8086
 #define E1000_DEVICE_ID 0x100E
 
@@ -109,6 +109,8 @@ struct e1000_rx_desc
 
 void e1000_attach();
 int e1000_transmit(char* buffer, uint32_t size);
+int e1000_receive(char* buffer, uint32_t size);
+
 
 extern uint8_t mac[6];
 #endif

@@ -22,7 +22,7 @@
 #include "io_ports.h"
 #define PTR_SIZE sizeof(void*)
 #define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))
-#define PACKET_SIZE   2048
+
 #define TX_SIZE 16
 #define RX_SIZE 16
 #define TX_BUFF_SIZE (sizeof(struct e1000_tx_desc) * TX_SIZE)
@@ -194,7 +194,7 @@ int e1000_transmit(char* buffer, uint32_t size)
 
 	struct e1000_tx_desc* txdesc = &tx_desc_list[tail];
 	if(!(txdesc->status & E1000_TXD_STAT_DD)){
-		printf("[e1000] DD status is not done!\n");
+		dbgprintf("[e1000] DD status is not done!\n");
 		return -1;
 	} /* Check if status is DD (Descriptor Done) */
 
@@ -205,20 +205,21 @@ int e1000_transmit(char* buffer, uint32_t size)
 
 	E1000_DEVICE_SET(E1000_TDT) = (tail+1) % TX_SIZE;
 
-	printf("[e1000] Sending %d bytes! (tail: %d)\n", size, (tail+1) % TX_SIZE);
+	dbgprintf("[e1000] Sending %d bytes! (tail: %d)\n", size, (tail+1) % TX_SIZE);
 	return size;
 }
-
+void process_received_packet();
 void e1000_callback(REGISTERS* r)
 {
 	LockScheduler();
 	interrupts++;
     // int x = 1/0;
-    printf("Incoming packet\n");
+    // printf("Incoming packet\n");
+	process_received_packet();
 	// net_incoming_packet(&e1000_netdev);
 	// int tail = E1000_DEVICE_SET(E1000_RDT)
 	E1000_DEVICE_GET(E1000_ICR);
-	printf("Done packet\n");
+	// printf("Done packet\n");
 	UnlockScheduler();
 }
 

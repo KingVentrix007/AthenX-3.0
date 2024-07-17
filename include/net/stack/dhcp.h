@@ -2,31 +2,27 @@
 #define __DHCP__H
 
 #include <stdint.h>
-
-#define DHCP_CHADDR_LEN 16
-#define DHCP_SNAME_LEN 64
-#define DHCP_FILE_LEN 128
-#define DHCP_OPTIONS_LEN 312
-
-// Define the DHCP header struct
-struct dhcp_header {
-    uint8_t op;             // Message type: 1 for request, 2 for reply
-    uint8_t htype;          // Hardware type
-    uint8_t hlen;           // Hardware address length
-    uint8_t hops;           // Hops
-    uint32_t xid;           // Transaction ID
-    uint16_t secs;          // Seconds elapsed
-    uint16_t flags;         // Flags
-    uint32_t ciaddr;        // Client IP address
-    uint32_t yiaddr;        // 'Your' (client) IP address
-    uint32_t siaddr;        // Next server IP address
-    uint32_t giaddr;        // Relay agent IP address
-    uint8_t chaddr[DHCP_CHADDR_LEN]; // Client hardware address
-    char sname[DHCP_SNAME_LEN]; // Optional server host name
-    char file[DHCP_FILE_LEN];   // Boot file name
-    uint8_t options[DHCP_OPTIONS_LEN]; // Optional parameters
-} __attribute__((packed));
-
-
-void construct_dhcp_discover_packet(uint8_t *packet) ;
+#include "ip.h"
+#define DHCP_HEADER_SIZE 240
+#define DHCP_MAGIC_COOKIE 0x63825363
+#define DHCP_OPTION_DISCOVER 53
+#define DHCP_OPTION_END 255
+typedef struct {
+    uint8_t op;
+    uint8_t htype;
+    uint8_t hlen;
+    uint8_t hops;
+    uint32_t xid;
+    uint16_t secs;
+    uint16_t flags;
+    uint8_t ciaddr[IP_ADDR_LEN];
+    uint8_t yiaddr[IP_ADDR_LEN];
+    uint8_t siaddr[IP_ADDR_LEN];
+    uint8_t giaddr[IP_ADDR_LEN];
+    uint8_t chaddr[16];
+    uint8_t sname[64];
+    uint8_t file[128];
+    uint32_t magic_cookie;
+    uint8_t options[312];  // Options are variable length
+} __attribute__((packed)) dhcp_packet_t;
 #endif

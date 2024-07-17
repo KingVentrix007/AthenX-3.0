@@ -34,7 +34,7 @@ def parse_map_file(map_file, output_file):
                 address = match.group(1)
                 function_name = match.group(2)
                 if current_file_path:
-                    if(address == "0000000000000000"):
+                    if(address == "0000000000000000" or function_name == "__kernel_text_section_end"):
                         current_file_path = "INVALID"
                         function_name = "INVALID"
                     functions[address] = f"{address}:{current_file_path}:{function_name}"
