@@ -110,7 +110,8 @@ struct e1000_rx_desc
 void e1000_attach();
 int e1000_transmit(char* buffer, uint32_t size);
 int e1000_receive(char* buffer, uint32_t size);
-
+int setup_net_e1000();
 
 extern uint8_t mac[6];
+extern int packet_received;
 #endif

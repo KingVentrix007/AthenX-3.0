@@ -20,6 +20,8 @@
 #include "net/stack/ethernet.h"
 #include "stdio.h"
 #include "io_ports.h"
+#include "net/network.h"
+network_interface_t e1000_iface;
 #define PTR_SIZE sizeof(void*)
 #define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))
 
@@ -209,12 +211,14 @@ int e1000_transmit(char* buffer, uint32_t size)
 	return size;
 }
 void process_received_packet();
+int packet_received = 0;
 void e1000_callback(REGISTERS* r)
 {
 	LockScheduler();
 	interrupts++;
     // int x = 1/0;
     // printf("Incoming packet\n");
+	packet_received++;
 	process_received_packet();
 	// net_incoming_packet(&e1000_netdev);
 	// int tail = E1000_DEVICE_SET(E1000_RDT)
@@ -262,6 +266,27 @@ void init_e1000()
 
 	/* Attach as current Netdevice. */
 	//netdev_attach_driver(dev, &e1000_receive, &e1000_transmit, "Intel E1000", (uint8_t*)&mac);
-
+	
 	dbgprintf("[E1000] Network card Intel E1000 found and attached!.\n");
+}
+
+int setup_net_e1000()
+{
+	if (register_iface(&e1000_iface, "eth0", e1000_transmit, e1000_receive) == 0) {
+        printf("Interface %s registered successfully\n", e1000_iface.name);
+        printf("Assigned IP: %d.%d.%d.%d\n",
+               e1000_iface.info->ip_address[0], e1000_iface.info->ip_address[1], e1000_iface.info->ip_address[2], e1000_iface.info->ip_address[3]);
+        printf("Subnet Mask: %d.%d.%d.%d\n",
+               e1000_iface.info->subnet_mask[0], e1000_iface.info->subnet_mask[1], e1000_iface.info->subnet_mask[2], e1000_iface.info->subnet_mask[3]);
+        printf("Gateway: %d.%d.%d.%d\n",
+               e1000_iface.info->gateway[0], e1000_iface.info->gateway[1], e1000_iface.info->gateway[2], e1000_iface.info->gateway[3]);
+        printf("DNS Server: %d.%d.%d.%d\n",
+               e1000_iface.info->dns_server[0], e1000_iface.info->dns_server[1], e1000_iface.info->dns_server[2], e1000_iface.info->dns_server[3]);
+        printf("MAC Address: %02x:%02x:%02x:%02x:%02x:%02x\n",
+               e1000_iface.info->mac_address[0], e1000_iface.info->mac_address[1], e1000_iface.info->mac_address[2],
+               e1000_iface.info->mac_address[3], e1000_iface.info->mac_address[4], e1000_iface.info->mac_address[5]);
+        printf("Hostname: %s\n", e1000_iface.info->hostname);
+    } else {
+        printf("Failed to register interface\n");
+    }
 }

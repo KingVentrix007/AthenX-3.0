@@ -448,8 +448,8 @@ void init(unsigned long magic, unsigned long addr) {
     list_devices();
     STI();
     init_e1000();
-    send_dhcp_request();
-
+    setup_net_e1000();
+    
     
 
     printf("Starting shell\n");

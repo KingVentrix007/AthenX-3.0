@@ -15,4 +15,5 @@ typedef struct {
     char hostname[HOSTNAME_LEN];
 } network_info_t;
 extern network_info_t net_info;
+void wait_for_receive(int packet_type);
 #endif
