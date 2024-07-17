@@ -6,7 +6,7 @@
 #include "net/stack/ip.h"
 #include "net/stack/ipv4.h"
 #include "net/stack/udp.h"
-
+#include "net/network.h"
 void create_dhcp_discover(uint8_t *packet, uint8_t *src_mac) ;
 void process_received_packet();
 int send_dhcp_request()
@@ -94,5 +94,7 @@ void create_dhcp_discover(uint8_t *packet, uint8_t *src_mac) {
     int packet_size = ETHERNET_HEADER_SIZE + IP_HEADER_SIZE + UDP_HEADER_SIZE + DHCP_HEADER_SIZE;
 
     // Send the packet using e1000_transmit
-    e1000_transmit(packet, packet_size);
+    network_interface_t *info = get_current_netdev();
+    info->transmit(packet, packet_size);
+    // e1000_transmit(packet, packet_size);
 }

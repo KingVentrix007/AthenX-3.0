@@ -7,10 +7,12 @@
 #include "net/stack/udp.h"
 #include "net/stack/ip.h"
 #include "io_ports.h"
+#include "net/network.h"
 network_info_t net_info;
 int process_received_packet() {
     char buffer[PACKET_SIZE];
-    int length = e1000_receive(buffer, PACKET_SIZE);
+    network_interface_t *info = get_current_netdev();
+    int length = info->receive(buffer,PACKET_SIZE); //e1000_receive(buffer, PACKET_SIZE);
 
     if (length < 0) {
         // No packet received

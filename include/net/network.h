@@ -17,4 +17,6 @@ typedef struct
 }network_interface_t;
 int send_dhcp_request();
 int register_iface(network_interface_t* iface,char iface_name[100],int (*transmit_func)(char* buffer, uint32_t size),int (*receive_func)(char* buffer, uint32_t size));
+network_interface_t *get_current_netdev();
+void set_current_netdev(network_interface_t *iface);
 #endif
