@@ -215,6 +215,49 @@ void init(unsigned long magic, unsigned long addr) {
     int width = config.width;
     int height = config.height;
     dbgprintf("-\tScreen resolution: %dx%d\n", width, height);
+    printf("Init keyboard\n");
+    
+    keyboard_init();
+    int user_choice = 0;
+    if(user_choice == 1)
+    {
+        STI();
+        printf("Please choose a screen resolution, or press enter to use default\n");
+        printf("[1]: 800x600\n");
+        printf("[2]: 1024x768\n");
+        printf("[3]: 1920x1080\n");
+        printf("[4]: Default\n");
+        char* input = kb_getchar_w();
+        printf("%c",input);
+        // Check if input is not just enter (assuming enter gives an empty string or a specific key)
+        if (input[0] != '\0' && input[0] != '\n') {
+        int num = atoi(input);
+        printf("Input: %d\n",num);
+            // Here you can implement logic to parse and set the new resolution
+            // For simplicity, assume input is a single digit corresponding to a predefined resolution
+            switch (num) {
+                case 1 || '1':
+                    width = 800;
+                    height = 600;
+                    break;
+                case 2:
+                    width = 1024;
+                    height = 768;
+                    break;
+                case 3:
+                    width = 1920;
+                    height = 1080;
+                    break;
+                // Add more cases as needed
+                default:
+                    printf("Invalid input, using default resolution(%d|%s|%c).\n",num,input,input);
+                    break;
+            }
+        }
+    CLI();
+    }
+    
+    // for(;;);
     int ret = vesa_init(width, height, 32);
     dbgprintf("Ret = %d\n", ret);
     if (ret < 0) {
@@ -329,8 +372,7 @@ void init(unsigned long magic, unsigned long addr) {
     init_storage();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // Initialize FAT file system
-    printf("Init keyboard\n");
-    keyboard_init();
+    init_io_system();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     STI();
     printf_t("Initialize FAT file system\n");

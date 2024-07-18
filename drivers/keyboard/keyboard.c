@@ -4,7 +4,7 @@
 #include "stream.h"
 #include "io_ports.h"
 arrow_callback_t arrow_callbacks[256]; // Array to hold callbacks for scan codes (assuming scan codes are 8-bit)
-
+extern bool io_stream_active;
 static bool g_caps_lock = false;
 static bool g_shift_pressed = false;
 char *g_ch = 0, g_scan_code = 0;
@@ -189,7 +189,11 @@ void keyboard_handler(REGISTERS *r) {
     }
     if(g_ch > 0)
     {
-        push_io(g_ch);
+        if(io_stream_active == true)
+        {
+            push_io(g_ch);
+        }
+        
         // reset_poss_from_scroll();
     }
     // kb_buffer.buffer_pos++; 
@@ -256,7 +260,7 @@ void unlock_kb_input()
 }
 
 void keyboard_init() {
-    init_io_system();
+    
     // printf("registering keyboard\n");
     isr_register_interrupt_handler(IRQ_BASE + 1, keyboard_handler,__func__);
 }

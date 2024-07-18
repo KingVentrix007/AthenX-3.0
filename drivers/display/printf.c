@@ -944,41 +944,58 @@ int printf__(const char* format, ...)
   va_end(va);
   return ret;
 }
+
 int printf(const char *format, ...) {
     va_list args; // Variable argument list
     va_start(args, format); // Initialize the variable argument list
     int len = 0;
     char *buffer = NULL;
-    if(is_heap_active() == true)
-    {
-     buffer = malloc(strlen(format)*1024); // Buffer to hold the formatted string
-
-    }
-    if(buffer == NULL)
-    {
-      char buf[1024*4];
-      len = vsnprintf_(buf,1024*4, format, args);
-      len = parse_ansi(buf);
-
-    }
-    else
-    {
-      len = vsnprintf_(buffer,strlen(format)*100, format, args);
-      len = parse_ansi(buffer);
-
-    }
-     // Format the string using vsprintf
-
-    // Output each character from the buffer using putchar
+    int buffer_size = 0;
     
-    
+    if (is_heap_active() == true) {
+        buffer_size = strlen(format) * 1024;
+        buffer = malloc(buffer_size); // Buffer to hold the formatted string
+    }
+
+    if (buffer == NULL) {
+        char buf[1024 * 4];
+        len = vsnprintf_(buf, 1024 * 4, format, args);
+        len = parse_ansi(buf);
+    } else {
+        int result;
+        while (1) {
+            va_list args_copy;
+            va_copy(args_copy, args);
+            result = vsnprintf_(buffer, buffer_size, format, args_copy);
+            va_end(args_copy);
+            
+            if (result >= 0 && result < buffer_size) {
+                len = parse_ansi(buffer);
+                break;
+            }
+            
+            // Reallocate buffer with a larger size
+            buffer_size *= 2;
+            char *new_buffer = realloc(buffer, buffer_size);
+            if (new_buffer == NULL) {
+                // Fallback to stack buffer if reallocation fails
+                char buf[1024 * 4];
+                len = vsnprintf_(buf, 1024 * 4, format, args);
+                len = parse_ansi(buf);
+                free(buffer);
+                break;
+            }
+            buffer = new_buffer;
+        }
+    }
+
     va_end(args); // Clean up the variable argument list
-    if(buffer != NULL)
-    {
-    memset(buffer, 0, strlen(buffer));
-    free(buffer); // Free the buffer
-
+    
+    if (buffer != NULL) {
+        memset(buffer, 0, buffer_size);
+        free(buffer); // Free the buffer
     }
+
     return len; // Return the number of characters written
 }
 void set_color(int color_code) {

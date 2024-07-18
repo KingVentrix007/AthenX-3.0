@@ -7,10 +7,12 @@ char *io_stream;
 int io_stream_pos = 0;
 long io_stream_size = 0;
 bool disabled_io_stream = false; // true if debug screen is active;
+bool io_stream_active = false;
 int init_io_system()
 {
     io_stream = kmalloc(IO_STREAM_SIZE);
     io_stream_size = IO_STREAM_SIZE;
+    io_stream_active = true;
     if(io_stream == NULL)
     {
         logging(3,__LINE__,__func__,__FILE__,"%s\n","failed to allocate memory for io_stream");
