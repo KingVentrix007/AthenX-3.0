@@ -449,7 +449,7 @@ void init(unsigned long magic, unsigned long addr) {
     STI();
     init_e1000();
     setup_net_e1000();
-    
+    print_all_network_devs();
     
 
     printf("Starting shell\n");

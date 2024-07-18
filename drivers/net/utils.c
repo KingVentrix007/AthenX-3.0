@@ -36,3 +36,14 @@ uint16_t ntohs(uint16_t netshort) {
 uint32_t ntohl(uint32_t netlong) {
     return htonl(netlong);
 }
+uint16_t calculate_checksum(uint16_t *buf, int nwords) {
+    uint32_t sum = 0;
+    for (int i = 0; i < nwords; i++) {
+        sum += buf[i];
+    }
+    while (sum >> 16) {
+        sum = (sum & 0xFFFF) + (sum >> 16);
+    }
+    return ~sum;
+}
+

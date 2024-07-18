@@ -273,20 +273,20 @@ void init_e1000()
 int setup_net_e1000()
 {
 	if (register_iface(&e1000_iface, "eth0", e1000_transmit, e1000_receive) == 0) {
-        printf("Interface %s registered successfully\n", e1000_iface.name);
-        printf("Assigned IP: %d.%d.%d.%d\n",
+        dbgprintf("Interface %s registered successfully\n", e1000_iface.name);
+        dbgprintf("Assigned IP: %d.%d.%d.%d\n",
                e1000_iface.info->ip_address[0], e1000_iface.info->ip_address[1], e1000_iface.info->ip_address[2], e1000_iface.info->ip_address[3]);
-        printf("Subnet Mask: %d.%d.%d.%d\n",
+        dbgprintf("Subnet Mask: %d.%d.%d.%d\n",
                e1000_iface.info->subnet_mask[0], e1000_iface.info->subnet_mask[1], e1000_iface.info->subnet_mask[2], e1000_iface.info->subnet_mask[3]);
-        printf("Gateway: %d.%d.%d.%d\n",
+        dbgprintf("Gateway: %d.%d.%d.%d\n",
                e1000_iface.info->gateway[0], e1000_iface.info->gateway[1], e1000_iface.info->gateway[2], e1000_iface.info->gateway[3]);
-        printf("DNS Server: %d.%d.%d.%d\n",
+        dbgprintf("DNS Server: %d.%d.%d.%d\n",
                e1000_iface.info->dns_server[0], e1000_iface.info->dns_server[1], e1000_iface.info->dns_server[2], e1000_iface.info->dns_server[3]);
-        printf("MAC Address: %02x:%02x:%02x:%02x:%02x:%02x\n",
+        dbgprintf("MAC Address: %02x:%02x:%02x:%02x:%02x:%02x\n",
                e1000_iface.info->mac_address[0], e1000_iface.info->mac_address[1], e1000_iface.info->mac_address[2],
                e1000_iface.info->mac_address[3], e1000_iface.info->mac_address[4], e1000_iface.info->mac_address[5]);
-        printf("Hostname: %s\n", e1000_iface.info->hostname);
+        dbgprintf("Hostname: %s\n", e1000_iface.info->hostname);
     } else {
-        printf("Failed to register interface\n");
+        dbgprintf("Failed to register interface\n");
     }
 }

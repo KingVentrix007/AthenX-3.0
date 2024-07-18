@@ -25,4 +25,5 @@ typedef struct {
     uint32_t magic_cookie;
     uint8_t options[312];  // Options are variable length
 } __attribute__((packed)) dhcp_packet_t;
+int create_dhcp_discover(uint8_t *packet, uint8_t *src_mac);
 #endif

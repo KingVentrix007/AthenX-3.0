@@ -11,8 +11,8 @@
 network_info_t net_info;
 int process_received_packet() {
     char buffer[PACKET_SIZE];
-    network_interface_t *info = get_current_netdev();
-    int length = info->receive(buffer,PACKET_SIZE); //e1000_receive(buffer, PACKET_SIZE);
+    // network_interface_t *info = get_current_netdev();
+    int length = e1000_receive(buffer,PACKET_SIZE); //e1000_receive(buffer, PACKET_SIZE);
 
     if (length < 0) {
         // No packet received
@@ -106,7 +106,7 @@ int process_received_packet() {
                 }
 
                 // Extract MAC address from the DHCP packet (assuming it's the same as the client's MAC address)
-                memcpy(net_info.mac_address, dhcp_packet->chaddr, MAC_ADDR_LEN);
+                memcpy(net_info.mac_address, mac, MAC_ADDR_LEN);
                 dbgprintf("MAC Address: %02x:%02x:%02x:%02x:%02x:%02x\n",
                        net_info.mac_address[0], net_info.mac_address[1], net_info.mac_address[2],
                        net_info.mac_address[3], net_info.mac_address[4], net_info.mac_address[5]);

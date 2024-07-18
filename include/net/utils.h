@@ -10,4 +10,6 @@ uint32_t htonl(uint32_t hostlong);
 uint16_t ntohs(uint16_t netshort);
 
 uint32_t ntohl(uint32_t netlong);
+
+uint16_t calculate_checksum(uint16_t *buf, int nwords);
 #endif
