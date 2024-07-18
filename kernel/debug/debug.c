@@ -94,7 +94,7 @@ void walk_stack(struct stackframe *stk) {
         stk = stk->ebp;
     }
 }
-
+// #define COOL_OUTPUT
 const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address) {
     static FunctionInfo result;
     memset(&result, 0, sizeof(FunctionInfo)); // Clear result structure
@@ -109,15 +109,26 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
 
     char *line_ptr = strtok(buffer_copy, "\n");
     unsigned int closest_address = 0;
+
+#ifdef COOL_OUTPUT
+    printf("Scanning functions...\n");
+#endif
+
     while (line_ptr != NULL) {
         unsigned int func_address;
         char current_function_name[MAX_FUNCTION_NAME];
         char current_file_path[MAX_LINE_LENGTH];
 
         // Parse the line to extract address, function name, and path
-        int ret = sscanf_(line_ptr, "%x:%[^:]:%s", &func_address, current_file_path, current_function_name);
-        if ( ret== 3) {
-            // printf("%s",line_ptr);
+        int ret = sscanf_(line_ptr, "%x:%[^:]:%s", &func_address, current_function_name, current_file_path);
+        if (ret == 3) {
+#ifdef COOL_OUTPUT
+            // Cool effect: Print and then remove the line
+            printf("%s", line_ptr);
+            for (size_t i = 0; i < strlen(line_ptr); ++i) {
+                printf("\b");
+            }
+#endif
             // Check if the function address is less than or equal to the provided address
             if (func_address <= address && func_address > closest_address) {
                 closest_address = func_address;
@@ -133,11 +144,18 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
     free(buffer_copy);
 
     if (closest_address != 0) {
+#ifdef COOL_OUTPUT
+        printf("Function found: %s at address 0x%x in file %s\n", result.function_name, result.func_address, result.file_path);
+#endif
         return &result;
     } else {
+#ifdef COOL_OUTPUT
+        printf("No matching function found.\n");
+#endif
         return NULL;
     }
 }
+
 size_t strnlen(const char *str, size_t max_len) {
     size_t len = 0;
     while (len < max_len && str[len] != '\0') {
