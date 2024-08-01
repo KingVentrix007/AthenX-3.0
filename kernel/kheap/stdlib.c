@@ -6,6 +6,7 @@
 #include "io_ports.h"
 uint32_t *allocation_ptrs;
 uint32_t allocation_ptrs_count;
+uint32_t used_size = 0;
 int init_allocation_system()
 {
     allocation_ptrs = malloc_int(1024*10);
@@ -48,6 +49,7 @@ void *malloc_int(size_t size) {
     void *ptr = kmalloc(size);
     if(ptr <= 0x00000000)
     {
+        dbgprintf("ptr is at 0x00000000\n");
         return NULL;
     }
     else if (ptr == NULL)
@@ -58,6 +60,7 @@ void *malloc_int(size_t size) {
     // Map each page
     allocation_ptrs[allocation_ptrs_count] = ptr;
     allocation_ptrs_count++;
+    // used_size+=size;
     return ptr;
 }
 void *free(void *ptr)

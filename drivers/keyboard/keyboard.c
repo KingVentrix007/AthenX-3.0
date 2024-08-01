@@ -92,23 +92,23 @@ void keyboard_handler(REGISTERS *r) {
             case 0x48: // Up Arrow
                 // scroll_up();
                 arrow_press(SCAN_CODE_KEY_UP);
-                g_ch = -1;//SCAN_CODE_KEY_UP;
+                g_ch = 0x48;//SCAN_CODE_KEY_UP;
                 break;
             case 0x50: // Down Arrow
                 // scroll_down();
                 // g_ch = SCAN_CODE_KEY_DOWN;
-                g_ch = -1;//SCAN_CODE_KEY_UP;
+                g_ch = 0x50;//SCAN_CODE_KEY_UP;
 
                 arrow_press(SCAN_CODE_KEY_DOWN);
 
                 break;
             case 0x4D: // Right Arrow
                 arrow_press(SCAN_CODE_KEY_RIGHT);
-                g_ch =  -1;
+                g_ch =  0x4D;
                 break;
             case 0x4B: // Left Arrow
                 arrow_press(SCAN_CODE_KEY_LEFT);
-                g_ch = -1;
+                g_ch = 0x4B;
                 break;
             case 0x3B: // F1
                 handle_F1_press(scancode);
@@ -292,18 +292,18 @@ void handle_F1_press(int scancode) {
 void handle_F2_press(int scancode) {
     
 
-    int buffer = cycle_buffers_vbe();
-    dbgprintf("Pressed F2, buffer: %d\n", buffer);
-    if(buffer == 1)
-    {
-        disable_io = false;
-        enable_io_stream();
-    }
-    else if (buffer == 2)
-    {
-        disable_io = true;
-        disable_io_stream();
-    }
+    // int buffer = cycle_buffers_vbe();
+    // dbgprintf("Pressed F2, buffer: %d\n", buffer);
+    // if(buffer == 1)
+    // {
+    //     disable_io = false;
+    //     enable_io_stream();
+    // }
+    // else if (buffer == 2)
+    // {
+    //     disable_io = true;
+    //     disable_io_stream();
+    // }
     
     // printf("F2 key pressed. Scancode: %d\n", scancode);
 }

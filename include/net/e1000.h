@@ -72,7 +72,8 @@
 #define E1000_RXD_STAT_DD       0x01    /* Descriptor Done */
 #define E1000_ICR      0x000C0	/* Interrupt Cause Read - R/clr */
 
-
+#define REG_MAC_LOW     0x5400  /* AKA Receive Address Low(n), RAL(8*n)  */
+#define REG_MAC_HIGH    0x5404  /* AKA Receive Address High(n), RAH(8*n) */
 /* transmit descriptor */
 struct e1000_tx_desc
 {

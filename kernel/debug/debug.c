@@ -5,14 +5,23 @@
 #include <stddef.h>
 #include "stdlib.h"
 #include "isr.h"
+#include "scanf.h"
+#include "printf.h"
+#include "string.h"
 #define MAX_FUNCTION_NAME 128
 #define MAX_LINE_LENGTH 256
-
+#define MAX_PARAMS 10
+// const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address);
 typedef struct {
     char function_name[MAX_FUNCTION_NAME];
     char file_path[MAX_LINE_LENGTH];
     unsigned int func_address;
+    char parms[1024];
 } FunctionInfo;
+typedef struct {
+    char type[MAX_LINE_LENGTH];
+    char name[MAX_FUNCTION_NAME];
+} ParameterInfo;
 const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address);
 bool verbose_output = true;
 char *strndup(const char *str, size_t n);
@@ -68,34 +77,100 @@ void printf_t(const char *format, ...) {
 
     
 }
-
-void walk_stack(struct stackframe *stk) {
-    printf("Backtrace:\n");
-    for (unsigned int frame = 0; stk && frame < 100; ++frame) {  // Limit to 100 frames to prevent infinite loops
-        printf("  Return address: 0x%x\n", stk->eip);
-        
-        // Buffer and size of the debug map (assuming debug_map is globally defined or accessible)
-        size_t buffer_size = strlen(debug_map);
-        
-        // Variables to store function name and file path
-        char function_name[MAX_FUNCTION_NAME];
-        char file_path[MAX_LINE_LENGTH];
-        
-        // Call find_function to get function name and file path
-        const FunctionInfo *info = find_function(debug_map, buffer_size, stk->eip);
-        
-        if (info) {
-            printf("  Address 0x%x corresponds to function: %s\n", stk->eip, info->function_name);
-            printf("    Defined in file: %s\n", info->file_path);  // Print the file path
-        } else {
-            printf("  No function found for address 0x%x\n", stk->eip);
-        }
-        
-        stk = stk->ebp;
+void removeTrailingWhitespace(char *str) {
+    int len = strlen(str);
+    while (len > 0 && isspace((unsigned char)str[len - 1])) {
+        str[--len] = '\0';
     }
 }
+
+// Function to remove leading whitespace from a string
+void removeLeadingWhitespace(char *str) {
+    char *src = str;
+    char *dst = str;
+
+    // Skip leading whitespace
+    while (isspace((unsigned char)*src)) {
+        src++;
+    }
+
+    // Copy non-whitespace characters
+    while (*src) {
+        *dst++ = *src++;
+    }
+    *dst = '\0'; // Null-terminate the result
+}
+// Helper function to trim leading and trailing whitespace
+void trim_whitespace(char *str) {
+    char *end;
+
+    // Trim leading space
+    while (isspace((unsigned char)*str)) str++;
+
+    if (*str == 0) { // All spaces?
+        return;
+    }
+
+    // Trim trailing space
+    end = str + strlen(str) - 1;
+    while (end > str && isspace((unsigned char)*end)) end--;
+
+    // Write new null terminator character
+    *(end + 1) = 0;
+    
+}
+int index_of_char(const char *str, char c) {
+    const char *pos = strchr(str, c);
+    if (pos == NULL) {
+        return -1; // Character not found
+    }
+    return pos - str; // Calculate index
+}
+// Function to parse parameter strings
+int parse_parameters(const char *parms, ParameterInfo *params) {
+    int count = 0;
+    char buffer[MAX_LINE_LENGTH];
+    strcpy(buffer, parms);
+    if(strcmp(buffer,"void") == 0)
+    {
+        return 0;
+    }
+    char *token = strtok(buffer, ",");
+    while (token != NULL && count < MAX_PARAMS) {
+        removeLeadingWhitespace(token);
+        removeTrailingWhitespace(token);
+        int end_of_type_index = index_of_char(token,' ');
+        while(token[end_of_type_index] == ' ' || token[end_of_type_index] == '*')
+        {
+            end_of_type_index++;
+        }
+        // printf("Token = [%s] [%d]\n",token,end_of_type_index);
+        char type[MAX_LINE_LENGTH] = "";
+        for (size_t i = 0; i < end_of_type_index; i++)
+        {
+            type[i] = token[i];
+        }
+        // printf("type = [%s]\n",type);
+        // printf("type + 1 == [%s]\n",token + end_of_type_index);
+        removeLeadingWhitespace(type);
+        removeTrailingWhitespace(type);
+        strcpy(params[count].type, type);
+        
+        strcpy(params[count].name, token + end_of_type_index);
+        count++;
+        token = strtok(NULL, ",");
+    }
+    return count;
+}
+
+
+
 // #define COOL_OUTPUT
 const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address) {
+    if(address > 0x01000000)
+    {
+        return NULL;
+    }
     static FunctionInfo result;
     memset(&result, 0, sizeof(FunctionInfo)); // Clear result structure
 
@@ -118,10 +193,11 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
         unsigned int func_address;
         char current_function_name[MAX_FUNCTION_NAME];
         char current_file_path[MAX_LINE_LENGTH];
+        char current_params[1024];
 
-        // Parse the line to extract address, function name, and path
-        int ret = sscanf_(line_ptr, "%x:%[^:]:%s", &func_address, current_function_name, current_file_path);
-        if (ret == 3) {
+        // Parse the line to extract address, file path, function name, and parameters
+        int ret = sscanf_(line_ptr, "%x:%[^:]:%[^:]:%[^)]", &func_address, current_file_path, current_function_name, current_params);
+        if (ret == 4) {
 #ifdef COOL_OUTPUT
             // Cool effect: Print and then remove the line
             printf("%s", line_ptr);
@@ -132,10 +208,12 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
             // Check if the function address is less than or equal to the provided address
             if (func_address <= address && func_address > closest_address) {
                 closest_address = func_address;
+                // printf("Closests address == %x\n",closest_address);
                 // Update result if a closer match is found
                 strcpy(result.function_name, current_function_name);
                 strcpy(result.file_path, current_file_path);
                 result.func_address = func_address;
+                strcpy(result.parms, current_params);
             }
         }
         line_ptr = strtok(NULL, "\n");
@@ -145,7 +223,7 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
 
     if (closest_address != 0) {
 #ifdef COOL_OUTPUT
-        printf("Function found: %s at address 0x%x in file %s\n", result.function_name, result.func_address, result.file_path);
+        printf("Function found: %s at address 0x%x in file %s with params (%s)\n", result.function_name, result.func_address, result.file_path, result.parms);
 #endif
         return &result;
     } else {
@@ -155,6 +233,7 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
         return NULL;
     }
 }
+
 
 size_t strnlen(const char *str, size_t max_len) {
     size_t len = 0;
@@ -174,7 +253,46 @@ char *strndup(const char *str, size_t n) {
 }
 
 
-
+void print_parameter_value(uintptr_t ebp, int param_offset, const char *type) {
+    uintptr_t *param_ptr = (uintptr_t *)(ebp + param_offset);
+    printf("\t");
+    if (strcmp(type, "int") == 0) {
+        int value = *(int *)param_ptr;
+        printf("        Value: %d\n", value);
+    } else if (strcmp(type, "char") == 0 || strcmp(type, "char*") == 0) {
+        char value = *(char *)param_ptr;
+        printf("        Value: %c\n", value);
+    } else if (strcmp(type, "char *") == 0) {
+        char *value = *(char **)param_ptr;
+        printf("        Value: %s\n", value);
+    }  else if (strstr(type, "char") && strchr(type, '*')) {
+        // Handle strings and fixed-size arrays as strings
+        char *value = (char *)param_ptr;
+        printf("        Value: %s\n", value);
+    }else if (strcmp(type, "uint8_t") == 0) {
+        uint8_t value = *(uint8_t *)param_ptr;
+        printf("        Value: %u\n", value);
+    } else if (strcmp(type, "uint16_t") == 0) {
+        uint16_t value = *(uint16_t *)param_ptr;
+        printf("        Value: %u\n", value);
+    } else if (strcmp(type, "uint32_t") == 0) {
+        uint32_t value = *(uint32_t *)param_ptr;
+        printf("        Value: %u\n", value);
+    } else if (strcmp(type, "uint64_t") == 0) {
+        uint64_t value = *(uint64_t *)param_ptr;
+        printf("        Value: %llu\n", value);
+    } else if (strcmp(type, "float") == 0) {
+        float value = *(float *)param_ptr;
+        printf("        Value: %f\n", value);
+    } else if (strcmp(type, "double") == 0) {
+        double value = *(double *)param_ptr;
+        printf("        Value: %f\n", value);
+    } else if (strstr(type, "struct") != NULL) {
+        printf("        Value: Struct data type\n");
+    } else {
+        printf("        Value: Unknown type\n");
+    }
+}
 uint32_t *unwind_stack(REGISTERS *reg) {
     int MaxFrames = 100;
     uintptr_t eip = reg->eip;
@@ -196,7 +314,25 @@ uint32_t *unwind_stack(REGISTERS *reg) {
                 printf("    ");
             }
             printf("Frame %d - Address 0x%08x corresponds to function(or variable): %s\n", frame, eip, info->function_name);
+            // printf("      Parameters %s\n", info->parms);  // Print the file path
             printf("      Defined in file: %s\n", info->file_path);
+            ParameterInfo params[MAX_PARAMS];
+            // printf("All params == [%s]\n",info->parms);
+            int param_count = parse_parameters(info->parms, params);
+            // printf("made it here\n");
+            for (int i = 0; i < param_count; ++i) {
+                if (strcmp(params[i].type, "Unknown type") == 0) {
+                    printf("        %s: Unknown type\n", params[i].name);
+                } else if (strcmp(params[i].type, "No type") == 0) {
+                    // printf("        %s: Unknown type\n", params[i].name); 
+                }else if (strstr(params[i].type, "struct") != NULL) {
+                    printf("        %s: Struct data type\n", params[i].name);
+                } else {
+                    printf("        %s: [%s]\n", params[i].name, params[i].type);
+                    print_parameter_value(ebp, (i + 2) * sizeof(uintptr_t), params[i].type); // Parameters start at EBP + 8
+                }
+            }
+
         } else {
             printf("    Frame %d - No function found for address 0x%x\n", frame, eip);
         }

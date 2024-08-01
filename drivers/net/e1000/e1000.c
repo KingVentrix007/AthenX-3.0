@@ -46,7 +46,26 @@ static char* rx_buf[RX_SIZE];
 static int interrupts = 0;
 
 // struct netdev e1000_netdev;
+void e1000_Get_Mac()
+{
+    // Read the MAC low bytes
+    uint32_t macLow = E1000_DEVICE_GET(REG_MAC_LOW);
+    uint32_t macHigh = E1000_DEVICE_GET(REG_MAC_HIGH);
+    
+    /* We have to swap some bytes around. From the intel manual:
+    For a MAC address of 12 - 34 - 56 - 78 - 90 - AB, words 2:0 load as follows(note that these words are byteswapped) :
+        Word 0 = 3412
+        Word 1 = 7856
+        Word 2 - AB90
+        */
+    uint16_t word0 = (uint16_t)macLow;
+    uint16_t word1 = (uint16_t)(macLow >> 16);
+    uint16_t word2 = (uint16_t)macHigh;
 
+    memcpy(&mac[0], &word0, 2);
+    memcpy(&mac[2], &word1, 2);
+    memcpy(&mac[4], &word2, 2);
+}
 void *e100_malloc(size_t size)
 {
     size_t new_size = ALIGN(size,PTR_SIZE);
@@ -246,7 +265,7 @@ void init_e1000()
 	
 	for (int i = 0; i < RX_SIZE; i++)
 		rx_buf[i] = e100_malloc(PACKET_SIZE);
-
+	e1000_Get_Mac();
 	_e1000_tx_init();
 	_e1000_rx_init();
 

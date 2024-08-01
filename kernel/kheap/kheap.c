@@ -33,6 +33,7 @@ FreeZone free_zones[MAX_CACHED_ALLOCATIONS] = {};
  */
 int free_zone_count = 0;
 
+uint32_t total_region_size_g = 0;
 bool heap_active = false;
 
 void init_kheap(uint32_t size)
@@ -44,6 +45,7 @@ void init_kheap(uint32_t size)
     dbgprintf("Initializing memory region 0x%08X\n",zone);
 	init_memory_allocation(zone,num_pages_40_percent*PAGE_SIZE);
     heap_active = true;
+    total_region_size_g = size;
 	
 }
 
@@ -98,7 +100,7 @@ void *sys_allocate_memory(int size)
     #endif
     
     // Calculate the number of blocks needed
-    if (size > (memory_region_end - memory_region))
+    if (size >= total_region_size_g)
     {
         MEM_ALLOC_LOG(0, "Size is too large");
         return NULL;

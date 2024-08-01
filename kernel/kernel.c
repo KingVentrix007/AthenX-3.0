@@ -189,7 +189,7 @@ void command_line(void)
     
     register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
     register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
-    dev_0();
+    dev_0(10);
    
     printf("Welcome to ");
     printf("\033[0;31m"); // Set color to red
@@ -227,7 +227,7 @@ void command_line(void)
     char *user = malloc(1024);
     if(user == NULL)
     {
-        perror("Failed to allocate memory for user buffer");
+        printf("Failed to allocate memory for user buffer");
     }
     strcpy(user,"Dev");
     memset(input_buffer,0,command_buffer_size);
@@ -286,10 +286,11 @@ int check_buffer(char *string)
     }
 }
 
-int dev_0()
+int dev_0(int x)
 {
     dev_2();
-    dev_3();
+    char *string = "HELLO";
+    dev_3(string);
 
 }
 
@@ -298,7 +299,7 @@ void dev_2()
     char *msg = "dev_2";
 }
 
-int dev_3()
+int dev_3(char *msg)
 {
     dev_4();
 }

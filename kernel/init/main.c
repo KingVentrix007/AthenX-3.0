@@ -146,6 +146,88 @@ void write_first_module_to_file(MULTIBOOT_INFO *mboot_info) {
 }
 char *debug_map;
 int fill_program_list(int num_programs,Entry *entries);
+
+
+int draw_screen_dimensions_selection_menu(int pos,int *width,int *height)
+{
+    cls();
+    printf("Welcome to the AthenX(copyright) boot menu\nPlease choose a screen resolution, or press enter to use default\n");
+    printf("Use arrow keys to select\n");
+    switch (pos)
+    {
+    case 1:
+        printf("> [1]: 800x600\n");
+        printf("[2]: 1024x768\n");
+        printf("[3]: 1920x1080\n");
+        printf("[4]: Default(%dx%d)\n",*width, *height);
+        *width = 800;
+        *height = 600;
+        break;
+    case 2:
+        printf("[1]: 800x600\n");
+        printf("> [2]: 1024x768\n");
+        printf("[3]: 1920x1080\n");
+        printf("[4]: Default(%dx%d)\n",*width, *height);
+         *width = 1024;
+        *height = 768;
+        break;
+    case 3:
+        printf("[1]: 800x600\n");
+        printf("[2]: 1024x768\n");
+        printf("> [3]: 1920x1080\n");
+        printf("[4]: Default(%dx%d)\n",*width, *height);
+        *width = 1920;
+        *height = 1080;
+        break;
+    case 4:
+        printf("[1]: 800x600\n");
+        printf("[2]: 1024x768\n");
+        printf("[3]: 1920x1080\n");
+        printf("> [4]: Default(%dx%d)\n",*width, *height);
+        break;
+    default:
+        printf("[1]: 800x600\n");
+        printf("[2]: 1024x768\n");
+        printf("[3]: 1920x1080\n");
+        printf("> [4]: Default(%dx%d)\n",*width, *height);
+        break;
+    }
+
+}
+
+
+void set_screen_dimensions(int *width,int *hight)
+{
+    STI();
+    printf("Welcome to the AthenX(copyright) boot menu\nPlease choose a screen resolution, or press enter to use default\n");
+    printf("Use arrow keys to select\n");
+    int selected = 1;
+    draw_screen_dimensions_selection_menu(selected, width, hight);
+    int input = kb_getchar_w();
+    while(input != '\n')
+    {
+        
+        if(input == 0x48)
+        {
+            if(selected > 1)
+            {
+                selected = selected -1;
+                draw_screen_dimensions_selection_menu(selected,width,hight);
+            }
+        }
+        else if (input == 0x50)
+        {
+            if(selected < 4)
+            {
+                selected = selected +1;
+                draw_screen_dimensions_selection_menu(selected,width,hight);
+            }
+        }
+        input = kb_getchar_w();
+    }
+    printf("Set screen to %dx%d",*width,*hight);
+
+}
 /**
  * Function Name: init
  * Description: Initializes the kernel and system components.
@@ -212,48 +294,60 @@ void init(unsigned long magic, unsigned long addr) {
         disable_verbose();
     }
     // Initialize VESA graphics mode
-    int width = config.width;
-    int height = config.height;
+    int width = 800;
+    int height = 600;
+    int s_ret = vesa_init(width, height, 32);
+    if(s_ret < 0)
+    {
+    dbgprintf("-\tFailed to set vesa: %dx%d\n", width, height);
+
+        for(;;);
+    }
+    init_terminal(width, height);
+    init_debug_terminal(width, height);
     dbgprintf("-\tScreen resolution: %dx%d\n", width, height);
     printf("Init keyboard\n");
     
     keyboard_init();
-    int user_choice = 0;
+    int user_choice = 1;
     if(user_choice == 1)
     {
         STI();
-        printf("Please choose a screen resolution, or press enter to use default\n");
-        printf("[1]: 800x600\n");
-        printf("[2]: 1024x768\n");
-        printf("[3]: 1920x1080\n");
-        printf("[4]: Default\n");
-        char* input = kb_getchar_w();
-        printf("%c",input);
-        // Check if input is not just enter (assuming enter gives an empty string or a specific key)
-        if (input[0] != '\0' && input[0] != '\n') {
-        int num = atoi(input);
-        printf("Input: %d\n",num);
-            // Here you can implement logic to parse and set the new resolution
-            // For simplicity, assume input is a single digit corresponding to a predefined resolution
-            switch (num) {
-                case 1 || '1':
-                    width = 800;
-                    height = 600;
-                    break;
-                case 2:
-                    width = 1024;
-                    height = 768;
-                    break;
-                case 3:
-                    width = 1920;
-                    height = 1080;
-                    break;
-                // Add more cases as needed
-                default:
-                    printf("Invalid input, using default resolution(%d|%s|%c).\n",num,input,input);
-                    break;
-            }
-        }
+        // printf("Welcome to the AthenX(copyright) boot menu\nPlease choose a screen resolution, or press enter to use default\n");
+        // printf("[1]: 800x600\n");
+        // printf("[2]: 1024x768\n");
+        // printf("[3]: 1920x1080\n");
+        // printf("[4]: Default(%dx%d)\n",width,height);
+        // int input;
+        // input = kb_getchar_w();
+        // // printf(">>%c",input);
+        // // Check if input is not just enter (assuming enter gives an empty string or a specific key)
+        // if (0==0) {
+        // // int num = atoi(input);
+        // printf("Input: %d\n",input);
+        // // for(;;);
+        //     // Here you can implement logic to parse and set the new resolution
+        //     // For simplicity, assume input is a single digit corresponding to a predefined resolution
+        //     switch (input) {
+        //         case '1':
+        //             width = 800;
+        //             height = 600;
+        //             break;
+        //         case '2':
+        //             width = 1024;
+        //             height = 768;
+        //             break;
+        //         case '3':
+        //             width = 1920;
+        //             height = 1080;
+        //             break;
+        //         // Add more cases as needed
+        //         default:
+        //             printf("Invalid input, using default resolution: %dx%d\n",width,height);
+        //             break;
+        //     }
+        // }
+        set_screen_dimensions(&width,&height);
     CLI();
     }
     
@@ -261,6 +355,9 @@ void init(unsigned long magic, unsigned long addr) {
     int ret = vesa_init(width, height, 32);
     dbgprintf("Ret = %d\n", ret);
     if (ret < 0) {
+        dbgprintf("Failed to set vesa_init with %dx%d\n",width,height);
+        for(;;);
+
         // Try different resolutions if initialization fails
         width = 1024;
         height = 768;

@@ -287,25 +287,25 @@ int vesa_init_buffers()
     return -1;
   }
   memset(display_buffer_1, 0, g_width*g_height*gbpp);
-  display_buffer_2 = (uint32 *)malloc(g_height*g_width*gbpp);
-  if(display_buffer_2 == NULL)
-  {
-    perror("Failed to initialize display buffer 2\n");
-    return -1;
+//   display_buffer_2 = (uint32 *)malloc(g_height*g_width*gbpp);
+//   if(display_buffer_2 == NULL)
+//   {
+//     perror("Failed to initialize display buffer 2\n");
+//     return -1;
 
-  }
+//   }
   
-  memset(display_buffer_2, 0, g_width*g_height*gbpp);
-  history_buffer_1 = (uint32 *)malloc(g_height *g_width*gbpp);
-  if(history_buffer_1 == NULL)
-  {
-     perror("Failed to initialize history buffer 1\n");
-    return -1;
-  }
-  memset(history_buffer_1, 0, g_width*g_height*gbpp);
+//   memset(display_buffer_2, 0, g_width*g_height*gbpp);
+//   history_buffer_1 = (uint32 *)malloc(g_height *g_width*gbpp);
+//   if(history_buffer_1 == NULL)
+//   {
+//      perror("Failed to initialize history buffer 1\n");
+//     return -1;
+//   }
+//   memset(history_buffer_1, 0, g_width*g_height*gbpp);
 
-  multi_buffers_enabled = 1;
-  memcpy(display_buffer_1,g_vbe_buffer,g_width*g_height*gbpp);
+//   multi_buffers_enabled = 1;
+//   memcpy(display_buffer_1,g_vbe_buffer,g_width*g_height*gbpp);
   return 0;
 }
 
@@ -388,13 +388,15 @@ int update_pixel(int x, int y)
 }
 void clear_screen()
 {
+    
     if(curent_buffer == 1)
     {
+        dbgprintf("Clearing screen of size %dx%d\n",g_width,g_height);
         for (size_t y = 0; y < g_height; y++)
         {
             for (size_t x = 0; x < g_width; x++)
             {
-                draw_pixel_buffer_1(x,y,VBE_RGB(0,0,0));
+                vbe_putpixel(x,y,VBE_RGB(0,0,0));
             }
             
         }
