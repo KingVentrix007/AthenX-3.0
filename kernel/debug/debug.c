@@ -8,16 +8,14 @@
 #include "scanf.h"
 #include "printf.h"
 #include "string.h"
-#define MAX_FUNCTION_NAME 128
-#define MAX_LINE_LENGTH 256
-#define MAX_PARAMS 10
+#include "elf.h"
+#include "stdio.h"
+#include "fat_filelib.h"
+
+FunctionInfo found_functions[MAX_FRAMES];
+int num_found_functions = 0;
 // const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address);
-typedef struct {
-    char function_name[MAX_FUNCTION_NAME];
-    char file_path[MAX_LINE_LENGTH];
-    unsigned int func_address;
-    char parms[1024];
-} FunctionInfo;
+
 typedef struct {
     char type[MAX_LINE_LENGTH];
     char name[MAX_FUNCTION_NAME];
@@ -293,10 +291,59 @@ void print_parameter_value(uintptr_t ebp, int param_offset, const char *type) {
         printf("        Value: Unknown type\n");
     }
 }
+
+void find_section_for_address(const char *elf_file_path, uintptr_t address) {
+    FILE *file = fl_fopen(elf_file_path, "rb");
+    if (!file) {
+        printf("fopen\n");
+        return;
+    }
+
+    // Read the ELF header
+    Elf32_Ehdr ehdr;
+    fl_fseek(file, 0, SEEK_SET);
+    fl_fread(&ehdr, sizeof(ehdr), 1, file);
+
+    // Check if the file is an ELF file
+    if (ehdr.e_ident[EI_MAG0] != ELFMAG0 || ehdr.e_ident[EI_MAG1] != ELFMAG1 ||
+        ehdr.e_ident[EI_MAG2] != ELFMAG2 || ehdr.e_ident[EI_MAG3] != ELFMAG3) {
+        printf("Not an ELF file\n");
+        fl_fclose(file);
+        return;
+    }
+
+    // Read section headers
+    fl_fseek(file, ehdr.e_shoff, SEEK_SET);
+    Elf32_Shdr *shdrs = malloc(ehdr.e_shentsize * ehdr.e_shnum);
+    fl_fread(shdrs, ehdr.e_shentsize, ehdr.e_shnum, file);
+
+    // Find the section containing the address
+    printf("Found %d elf sections\n",ehdr.e_shnum);
+    for (int i = 0; i < ehdr.e_shnum; ++i) {
+        Elf32_Shdr *shdr = &shdrs[i];
+        printf("Section name: %s\n", shdr->sh_name); // You might need to parse the section names separately
+        if (address >= shdr->sh_addr && address < shdr->sh_addr + shdr->sh_size) {
+            printf("Address 0x%lx is in section %d\n", address, i);
+            printf("Section name: %s\n", shdr->sh_name); // You might need to parse the section names separately
+            break;
+        }
+    }
+
+    free(shdrs);
+    fl_fclose(file);
+}
+
+size_t estimate_frame_size(uintptr_t current_ebp, uintptr_t previous_ebp) {
+    if (current_ebp >= previous_ebp) {
+        return 0; // Invalid frame size
+    }
+    return previous_ebp - current_ebp;
+}
 uint32_t *unwind_stack(REGISTERS *reg) {
-    int MaxFrames = 100;
+    int MaxFrames = MAX_FRAMES;
     uintptr_t eip = reg->eip;
     uintptr_t ebp = reg->ebp;
+    uintptr_t prev_ebp = ebp;
     int esp_in = 0;
     int first_frame = 1; // Flag to mark the first frame
 
@@ -306,6 +353,8 @@ uint32_t *unwind_stack(REGISTERS *reg) {
         const FunctionInfo *info = find_function(debug_map, strlen(debug_map), eip);
 
         if (info) {
+         
+
             if (first_frame) {
                 printf("\033[1;31m => "); // Print in red color and mark with an arrow
                 first_frame = 0; // Reset flag after marking the first frame
@@ -313,26 +362,25 @@ uint32_t *unwind_stack(REGISTERS *reg) {
                 printf("\033[0m");
                 printf("    ");
             }
-            printf("Frame %d - Address 0x%08x corresponds to function(or variable): %s\n", frame, eip, info->function_name);
-            // printf("      Parameters %s\n", info->parms);  // Print the file path
+            printf("Frame %d - Address 0x%08x corresponds to function(or variable): %s\n", frame, info->func_address, info->function_name);
             printf("      Defined in file: %s\n", info->file_path);
             ParameterInfo params[MAX_PARAMS];
-            // printf("All params == [%s]\n",info->parms);
             int param_count = parse_parameters(info->parms, params);
-            // printf("made it here\n");
             for (int i = 0; i < param_count; ++i) {
                 if (strcmp(params[i].type, "Unknown type") == 0) {
                     printf("        %s: Unknown type\n", params[i].name);
                 } else if (strcmp(params[i].type, "No type") == 0) {
-                    // printf("        %s: Unknown type\n", params[i].name); 
-                }else if (strstr(params[i].type, "struct") != NULL) {
+                    // Handle No type case if needed
+                } else if (strstr(params[i].type, "struct") != NULL) {
                     printf("        %s: Struct data type\n", params[i].name);
                 } else {
                     printf("        %s: [%s]\n", params[i].name, params[i].type);
                     print_parameter_value(ebp, (i + 2) * sizeof(uintptr_t), params[i].type); // Parameters start at EBP + 8
                 }
             }
-
+            found_functions[num_found_functions] = *info;
+            num_found_functions++;
+            // print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16); // Example frame size, adjust as needed
         } else {
             printf("    Frame %d - No function found for address 0x%x\n", frame, eip);
         }
@@ -349,6 +397,17 @@ uint32_t *unwind_stack(REGISTERS *reg) {
         if (esp_in == 0) {
             esp_in = reg->esp;
         }
+
+        // Estimate and print the stack frame
+        // size_t frame_size = estimate_frame_size(ebp, prev_ebp);
+        // printf("Estimated frame size: %zu bytes\n", frame_size);
+
+        // if(frame_size != 0)
+        // {
+        //     print_stack_frame((uintptr_t*)ebp, frame_size);
+        // }
+
+        prev_ebp = ebp; // Update previous EBP for the next iteration
     }
 
     return 0; // Placeholder return

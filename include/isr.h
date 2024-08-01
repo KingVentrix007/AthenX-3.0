@@ -10,12 +10,13 @@
 #define NO_INTERRUPT_HANDLERS    256
 
 typedef struct {
-    uint32 ds;
-    uint32 edi, esi, ebp, esp, ebx, edx, ecx, eax;  // pushed by pusha
-    uint32 int_no, err_code;                        // interrupt number and error code
-    uint32 eip, cs, eflags, useresp, ss;            // pushed by the processor automatically
+    uint32 ds;                // Data segment register pushed by the handler
+    uint32 edi, esi, ebp, esp; // Pushed by pusha
+    uint32 ebx, edx, ecx, eax; // Pushed by pusha
+    uint32 int_no, err_code;   // Pushed by handler
+    uint32 eip, cs, eflags;    // Pushed by the processor
+    uint32 useresp, ss;        // Pushed by the processor (if in user mode)
 } REGISTERS;
-
 typedef struct {
     uint16 di;
     uint16 si;

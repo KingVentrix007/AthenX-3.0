@@ -4,7 +4,10 @@
 #include "debug_term.h"
 #include "debug.h"
 #include "io_ports.h"
-
+#include "cpu.h"
+#include "keyboard.h"
+#include "scheduler.h"
+#include "string.h"
 #define MAX_EXCEPTIONS 10
 #define EOI(irq) \
     do {\
@@ -119,12 +122,36 @@ void debug_output(REGISTERS *reg)
 }
 int exception_count = 0;
 
+int debug_c(char *cmd)
+{
+    if(strcmp(cmd,"dec") == 0)
+    {
+        cls();
+        for (size_t i = 0; i < num_found_functions; i++)
+        {
+            FunctionInfo *info  = &found_functions[i];
+            printf("Function %s decompiled\n",info->function_name);
+            print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions); // Example frame size, adjust as needed
+            printf("\nPress the down arrow for the next function\n");
+            int input = kb_getchar_w();
+            while(input != SCAN_CODE_KEY_DOWN)
+            {
+                input = kb_getchar_w();
+            }
+            cls();
+        }
+        
+        
+    }
+}
+
 /**
  * invoke exception routine,
  * being called in exception.asm
  */
 void isr_exception_handler(REGISTERS reg) {
     if (reg.int_no < 32) {
+        
         LockScheduler();
         if(exception_count < MAX_EXCEPTIONS)
         {
@@ -132,7 +159,41 @@ void isr_exception_handler(REGISTERS reg) {
             exception_count+=1;
             print_registers(&reg);
             debug_output(&reg);
-            for (;;);
+            printf("Debug terminal:\n");
+            // STI();
+            char cmd_buffer[1024];
+            int num_chars = 0;
+            UnlockScheduler();
+            while(1==1)
+            {
+                printf("Debug>>");
+                
+                int input = kb_getchar_w();
+                while(input != '\n')
+                {
+                    if(input == '\b' && num_chars > 0)
+                    {
+                        printf("\b");
+                        cmd_buffer[num_chars] = '\0';
+                        num_chars--;
+
+                    }
+                    else if (input != '\0')
+                    {
+                        printf("%c",input);
+                        cmd_buffer[num_chars] = input;
+                        num_chars++;
+                    }
+                    input = kb_getchar_w();
+
+                    
+                }
+                debug_c(cmd_buffer);
+                printf("\n");
+                // printf("Command == [%s]\n",cmd_buffer);
+                memset(cmd_buffer,0,1024);
+                num_chars = 0;
+            }
         }
         else
         {

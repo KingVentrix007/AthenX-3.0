@@ -290,7 +290,7 @@ int dev_0(int x)
 {
     dev_2();
     char *string = "HELLO";
-    dev_3(string);
+    dev_3();
 
 }
 
@@ -299,7 +299,7 @@ void dev_2()
     char *msg = "dev_2";
 }
 
-int dev_3(char *msg)
+int dev_3()
 {
     dev_4();
 }

@@ -4,11 +4,10 @@ ASM = nasm
 CONFIG = ./config
 GCCPARAMS =  -O0 -I./include -fno-omit-frame-pointer -nostdlib -fno-pic -fno-builtin -fno-exceptions -ffreestanding -fno-leading-underscore -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align \
             -Wwrite-strings -Wmissing-prototypes -Wmissing-declarations \
-            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long  -g -DINI_USE_STACK=0
+            -Wredundant-decls -Wnested-externs -Winline -Wno-long-long -g -DINI_USE_STACK=0
 
 ASPARAMS = --32
 LDPARAMS = -m elf_i386 -T linker.ld -nostdlib --gc-sections
-
 
 OBJ_DIR = obj
 SRC_DIRS = arch kernel drivers libk asm syscalls
@@ -37,6 +36,7 @@ all:
 	# python update_version.py
 	make AthenX.bin
 	(cd userspace && make)
+
 # Compile C files
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
@@ -54,7 +54,6 @@ $(OBJ_DIR)/%.o: %.asm
 
 # Link object files into binary
 AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
-
 	ld $(LDPARAMS) -o $@ $^ -Map AthenX.bin.map
 	mkdir -p isodir/boot/grub
 	cp AthenX.bin isodir/boot/AthenX.bin
@@ -63,10 +62,10 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 	sudo cp -r sysroot/. isodir/
 	grub-mkrescue -o AthenX.iso isodir
 
-
 # Run the OS in QEMU
 run: AthenX.bin
-	objdump -g  AthenX.bin >  AthenX.bin.dump
+	objdump -g AthenX.bin > AthenX.bin.dump
+	objdump -d AthenX.bin > disassembly.txt
 	python3 format_map_2.py
 	bash ./scripts/boot32.sh
 	qemu-system-i386 \
@@ -82,13 +81,11 @@ run: AthenX.bin
     -netdev user,id=net0,hostfwd=tcp::8080-:8080 \
     -object filter-dump,id=net0,netdev=net0,file=./logs/qemu_net.pcap \
     -trace events=trace-events,file=logs/qemu_trace.log \
-    -monitor stdio 
-    
-
-
+    -monitor stdio
 	bash ./scripts/athenxHost.sh
 
-run-ide:AthenX.bin
+
+run-ide: AthenX.bin
 	bash ./scripts/boot32.sh
 	qemu-system-i386 \
     -drive file=AthenX.img \
@@ -96,8 +93,9 @@ run-ide:AthenX.bin
     -device ahci,id=ahci \
     -device ide-hd,drive=disk2,bus=ahci.0 \
     -m 4G \
-    -serial file:AthenX-3.0.log 
+    -serial file:AthenX-3.0.log
 	bash ./scripts/athenxHost.sh
+
 run-no-compile:
 	qemu-system-i386 \
     -drive id=disk,file=AthenX.img,format=raw,if=none \
@@ -117,8 +115,9 @@ run-iso:
     -m 4G \
     -serial file:AthenX-3.0.log \
 	-boot d
+
 libc:
-	(cd libc  && make )
+	(cd libc && make)
 
 user:
 	(cd user && make)
