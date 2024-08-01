@@ -122,7 +122,7 @@ void debug_output(REGISTERS *reg)
 }
 int exception_count = 0;
 
-int debug_c(char *cmd)
+int debug_c(char *cmd,int err_code)
 {
     if(strcmp(cmd,"dec") == 0)
     {
@@ -131,7 +131,7 @@ int debug_c(char *cmd)
         {
             FunctionInfo *info  = &found_functions[i];
             printf("Function %s decompiled\n",info->function_name);
-            print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions); // Example frame size, adjust as needed
+            print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code); // Example frame size, adjust as needed
             printf("\nPress the down arrow for the next function\n");
             int input = kb_getchar_w();
             while(input != SCAN_CODE_KEY_DOWN)
@@ -188,7 +188,7 @@ void isr_exception_handler(REGISTERS reg) {
 
                     
                 }
-                debug_c(cmd_buffer);
+                debug_c(cmd_buffer,reg.err_code);
                 printf("\n");
                 // printf("Command == [%s]\n",cmd_buffer);
                 memset(cmd_buffer,0,1024);
