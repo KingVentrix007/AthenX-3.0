@@ -288,8 +288,9 @@ int check_buffer(char *string)
 
 int dev_0(int x)
 {
+    
     dev_2();
-    char *string = "HELLO";
+    int y = x;
     dev_3();
 
 }
@@ -306,6 +307,9 @@ int dev_3()
 
 int dev_4()
 {
+    int x = 1;
+    int y = 0;
+    int z = x/y;
 //     uint32 *ret = (uint32 *)(-0x0000000);
 //     memset(ret,0,100);
 // }

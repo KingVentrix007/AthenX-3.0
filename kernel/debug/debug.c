@@ -11,9 +11,10 @@
 #include "elf.h"
 #include "stdio.h"
 #include "fat_filelib.h"
-
+#include "io_ports.h"
 FunctionInfo found_functions[MAX_FRAMES];
 int num_found_functions = 0;
+const char *black_box_functions[] = {"_start"};
 // const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address);
 
 typedef struct {
@@ -362,42 +363,57 @@ uint32_t *unwind_stack(REGISTERS *reg) {
                 printf("\033[0m");
                 printf("    ");
             }
-            printf("Frame %d - Address 0x%08x corresponds to function(or variable): %s\n", frame, info->func_address, info->function_name);
-            printf("      Defined in file: %s\n", info->file_path);
-            ParameterInfo params[MAX_PARAMS];
-            int param_count = parse_parameters(info->parms, params);
-            for (int i = 0; i < param_count; ++i) {
-                if (strcmp(params[i].type, "Unknown type") == 0) {
-                    printf("        %s: Unknown type\n", params[i].name);
-                } else if (strcmp(params[i].type, "No type") == 0) {
-                    // Handle No type case if needed
-                } else if (strstr(params[i].type, "struct") != NULL) {
-                    printf("        %s: Struct data type\n", params[i].name);
-                } else {
-                    printf("        %s: [%s]\n", params[i].name, params[i].type);
-                    print_parameter_value(ebp, (i + 2) * sizeof(uintptr_t), params[i].type); // Parameters start at EBP + 8
-                }
+            printf("Frame %d - Address 0x%08x corresponds to function(or variable): %s", frame, info->func_address, info->function_name);
+            if(strcmp(info->function_name,"_start") == 0)
+            {
+                 printf(" <-- Function is a black_box function. Cannot be analyzed\n");
+            
             }
-            found_functions[num_found_functions] = *info;
-            num_found_functions++;
+            else
+            {
+                printf("\n");
+            }
+            printf("      Defined in file: %s", info->file_path);
+            if(strcmp(info->function_name,"_start") != 0)
+            {
+                printf("\n");
+                ParameterInfo params[MAX_PARAMS];
+                int param_count = parse_parameters(info->parms, params);
+                for (int i = 0; i < param_count; ++i) {
+                    if (strcmp(params[i].type, "Unknown type") == 0) {
+                        printf("        %s: Unknown type\n", params[i].name);
+                    } else if (strcmp(params[i].type, "No type") == 0) {
+                        // Handle No type case if needed
+                    } else if (strstr(params[i].type, "struct") != NULL) {
+                        printf("        %s: Struct data type\n", params[i].name);
+                    } else {
+                        printf("        %s: [%s]\n", params[i].name, params[i].type);
+                        print_parameter_value(ebp, (i + 2) * sizeof(uintptr_t), params[i].type); // Parameters start at EBP + 8
+                    }
+                }
+                found_functions[num_found_functions] = *info;
+                num_found_functions++;
+            }
+           
+            
             // print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16); // Example frame size, adjust as needed
         } else {
             printf("    Frame %d - No function found for address 0x%x\n", frame, eip);
         }
-
+        dbgprintf("Completed analysis for frame %d\n",frame);
         if (!ebp || ebp <= eip) {
             break; // Stop if we encounter an invalid frame or reach the end
         }
-
+        dbgprintf("Checked ebp for frame %d\n",frame);
         uintptr_t* stack_ptr = (uintptr_t*)ebp;
         uintptr_t old_eip = eip;
         eip = stack_ptr[1]; // Next EIP
         ebp = stack_ptr[0]; // Previous EBP
-
+        dbgprintf("Set eip and ebp  for frame %d\n",frame);
         if (esp_in == 0) {
             esp_in = reg->esp;
         }
-
+        dbgprintf("Checked and set esp_in for frame %d\n",frame);
         // Estimate and print the stack frame
         // size_t frame_size = estimate_frame_size(ebp, prev_ebp);
         // printf("Estimated frame size: %zu bytes\n", frame_size);
@@ -406,9 +422,11 @@ uint32_t *unwind_stack(REGISTERS *reg) {
         // {
         //     print_stack_frame((uintptr_t*)ebp, frame_size);
         // }
-
+        printf("Frame %d\n",frame);
         prev_ebp = ebp; // Update previous EBP for the next iteration
-    }
 
+    }
+    // printf("End of unwind\n");
+    printf("\n");
     return 0; // Placeholder return
 }

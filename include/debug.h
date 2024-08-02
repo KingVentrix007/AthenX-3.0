@@ -19,8 +19,10 @@ typedef struct {
     char parms[1024];
 } FunctionInfo;
 void print_kernel_memory_map(KERNEL_MEMORY_MAP *memory_map);
-int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES],int error_code);
+// int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES],int error_code);
+int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES], int error_code);
 extern char *debug_map;
 extern FunctionInfo found_functions[MAX_FRAMES];
+const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address);
 extern int num_found_functions;
 #endif

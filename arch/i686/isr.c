@@ -19,6 +19,8 @@
 // For both exceptions and irq interrupt
 ISR g_interrupt_handlers[NO_INTERRUPT_HANDLERS];
 
+
+
 // for more details, see Intel manual -> Interrupt & Exception Handling
 char *exception_messages[32] = {
     "Division By Zero",
@@ -134,8 +136,12 @@ int debug_c(char *cmd,int err_code)
             print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code); // Example frame size, adjust as needed
             printf("\nPress the down arrow for the next function\n");
             int input = kb_getchar_w();
-            while(input != SCAN_CODE_KEY_DOWN)
+            while(input != "\0")
             {
+                if(input == SCAN_CODE_KEY_DOWN)
+                {
+                    break;
+                }
                 input = kb_getchar_w();
             }
             cls();
@@ -145,6 +151,22 @@ int debug_c(char *cmd,int err_code)
     }
 }
 
+int test_int()
+{
+    int interrupt_number = IRQ_BASE+15;
+    
+    asm volatile (
+        "int %0"
+        :
+        : "n" (IRQ_BASE+15)
+    );
+
+    return 0;
+}
+int test_int_rec()
+{
+    printf("Interrupts are working %d\n", IRQ_BASE+15);
+}
 /**
  * invoke exception routine,
  * being called in exception.asm
@@ -163,7 +185,20 @@ void isr_exception_handler(REGISTERS reg) {
             // STI();
             char cmd_buffer[1024];
             int num_chars = 0;
-            UnlockScheduler();
+            if(reg.err_code != 14)
+            {
+                printf("Unlocking Scheduler\n");
+                UnlockScheduler();
+
+            }
+            else
+            {
+                printf("Attempting to enable interrupts\n");
+                isr_register_interrupt_handler(IRQ_BASE+15,test_int_rec,__func__);
+                STI();
+                test_int();
+
+            }
             while(1==1)
             {
                 printf("Debug>>");
