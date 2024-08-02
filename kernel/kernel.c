@@ -306,6 +306,7 @@ int dev_3()
 
 int dev_4()
 {
-    uint32 *ret = (uint32 *)(-0x0000000);
-    memset(ret,0,100);
+//     uint32 *ret = (uint32 *)(-0x0000000);
+//     memset(ret,0,100);
+// }
 }

@@ -27,5 +27,6 @@ ahci.img
 personal_thank_you.md
 drive_output/
 *.img
-
+obj
+obj/
 logs/
