@@ -453,7 +453,9 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             printf("Type cannot be decoded");
         }
         printf("\n");
+       
     }
+     push_count = 0;
 }
 
             }
