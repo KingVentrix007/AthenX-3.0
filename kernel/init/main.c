@@ -268,7 +268,7 @@ void init(unsigned long magic, unsigned long addr) {
             return -1;
         }
     //    printf_t("\nThere are %d grub modules\n", mboot_info->modules_count);
-        
+        initialize_decoder_memory();
         strcpy(grub_command_line,mboot_info->cmdline);
         // printf("Grub cmd == %s\n",);
         multiboot_module_t *module = (multiboot_module_t *)mboot_info->modules_addr;

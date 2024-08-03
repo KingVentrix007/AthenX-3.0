@@ -34,7 +34,7 @@ void *malloc_wrap(size_t size, char function[1000])
     void *addr = malloc_int(size);
     if (strcmp(function, "printf") != 0)
     {
-        dbgprintf("Allocating %zu bytes at %p for %s\n", size, addr, function);
+        // dbgprintf("Allocating %zu bytes at %p for %s\n", size, addr, function);
     }
 
 

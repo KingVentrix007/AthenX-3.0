@@ -7,7 +7,8 @@
 // Define the maximum length for function names
 #define MAX_FUNCTION_NAME 64
 #define MAX_FRAMES 128
-
+FunctionInfo *smallest_function;
+FunctionInfo *biggest_function;
 // Structure to hold function information
 
 // Define the structure to hold register states
@@ -21,6 +22,54 @@ typedef struct {
     int32_t esp;
     int32_t ebp;
 } RegisterState;
+typedef struct {
+    uint32_t address;
+    uint32_t data;
+} MemoryEntry;
+#define MEMORY_SIZE 1024
+MemoryEntry memory[MEMORY_SIZE];
+void initialize_decoder_memory() {
+    for (int i = 0; i < MEMORY_SIZE; i++) {
+        memory[i].address = 0xFFFFFFFF;  // Use an invalid address to signify empty entry
+        memory[i].data = 0;
+    }
+}
+void print_string_with_limit(const char *str, int limit) {
+    printf("[");
+    for (int j = 0; str[j] != '\0'; j++) {
+        if (j >= limit) {  // Limit to the specified number of characters
+            printf("...");
+            break;
+        }
+        if (str[j] == '\n') {
+            printf("\\n");
+        } else if (str[j] == '\t') {
+            printf("\\t");
+        } else {
+            printf("%c",str[j]);
+        }
+    }
+    printf("]");
+}
+void write_memory(uint32_t address, uint32_t data) {
+    for (int i = 0; i < MEMORY_SIZE; i++) {
+        if (memory[i].address == address || memory[i].address == 0xFFFFFFFF) {
+            memory[i].address = address;
+            memory[i].data = data;
+            return;
+        }
+    }
+    printf("Memory overflow error\n");
+}
+uint32_t read_memory(uint32_t address) {
+    for (int i = 0; i < MEMORY_SIZE; i++) {
+        if (memory[i].address == address) {
+            return memory[i].data;
+        }
+    }
+    printf("Memory read error: address not found\n");
+    return 0;
+}
 
 // Function prototypes
 void print_register_state(RegisterState *regs);
@@ -37,6 +86,7 @@ void print_register_state(RegisterState *regs) {
     printf("        ESP: 0x%08x\n", regs->esp);
     printf("        EBP: 0x%08x\n", regs->ebp);
 }
+
 int is_movl_string(uintptr_t addr)
 {
     char *str = (const char *) addr;
@@ -50,7 +100,11 @@ int is_movl_string(uintptr_t addr)
         {
             if(*str < 32)
             {
-                return -1;
+                if(*str != '\n')
+                {
+                    return -1;
+                }
+                
             }
             if(*str > 126)
             {
@@ -68,6 +122,11 @@ int get_movl_type(int32_t imm)
     {
         return 1;
     }
+    else if (addr <= biggest_function->func_address && addr >= smallest_function->func_address)
+    {
+        return 2;
+    }
+    
     
     return -1;
 }
@@ -94,6 +153,14 @@ const char* get_register_name(uint8_t reg) {
 // Copy code
 #define STACK_SIZE 4096
 int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES], int error_code) {
+    if(base == NULL)
+    {
+        printf("Error: Base address is NULL\n");
+        return -1;
+    } 
+    int push_count = 0;
+    biggest_function = find_function_with_biggest_address(debug_map, strlen(debug_map));
+    smallest_function = find_function_with_smallest_address(debug_map, strlen(debug_map));
     void *stack = malloc(STACK_SIZE);
     uint8_t *current = (uint8_t *)base;
     uint8_t *end = current + size;
@@ -118,15 +185,19 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         switch (opcode) {
         case 0x55:
             instruction_length = 1;
+
             printf("    push   %%ebp\n");
             regs.esp -= 4;  // Adjust stack pointer
             *(uintptr_t *)regs.esp = regs.ebp;  // Save %ebp to stack
+            push_count+=1;
             break;
         case 0x50:
             instruction_length = 1;
             regs.esp -= 4;  // Adjust stack pointer
             *(uintptr_t *)regs.esp = regs.eax;  // Save %eax to stack
             printf("    push   %%eax\n");
+            push_count+=1;
+
             break;
         case 0xc3:
             instruction_length = 1;
@@ -143,8 +214,11 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                             instruction_length = 6;
                             uintptr_t addr = *(uintptr_t *)(current + 2);
                             printf("    mov    %%eax, 0x%lx\n", addr);
+                            push_count = 0;
                         } else {
                             printf("    Unhandled 0x89 opcode, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
+                            push_count = 0;
+
                         }
                         break;
                     case 0x01: // 8-bit displacement
@@ -153,7 +227,10 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                         int32_t displacement = (mod == 0x01) ? (int8_t)current[2] : *(int32_t *)(current + 2);
                         if (rm == 0x05) {
                             printf("    mov    %%eax, %d(%%ebp)\n", displacement);
+                            push_count = 0;
+
                         } else {
+                            push_count = 0;
                             printf("    Unhandled 0x89 opcode with displacement, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
                         }
                         instruction_length = 3 ;
@@ -161,9 +238,13 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                     case 0x03: // Register mode
                         instruction_length = 2;
                         printf("    mov    %%%s, %%%s\n", get_register_name(rm), get_register_name(reg));
+                            push_count = 0;
+
                         break;
                     default:
                         printf("    Unhandled 0x89 opcode, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
+                            push_count = 0;
+
                         break;
                 }
                 break;
@@ -182,6 +263,8 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                             instruction_length = 6;
                             uintptr_t addr = *(uintptr_t *)(current + 2);
                             printf("    mov    %%eax, 0x%lx\n", addr);
+                            push_count = 0;
+
                         } else {
                             printf("    Unhandled 0x8b opcode, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
                         }
@@ -191,11 +274,14 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                         instruction_length = 2 + disp_size;
                         int32_t displacement = (mod == 0x01) ? (int8_t)current[2] : *(int32_t *)(current + 2);
                         printf("    mov    %%%s, %d(%%ebp)\n", get_register_name(reg), displacement);
+                            push_count = 0;
                         
                         break;
                     case 0x03:
                         instruction_length = 2;
                         printf("    mov    %%%s, %%%s\n", get_register_name(reg), get_register_name(rm));
+                            push_count = 0;
+
                         break;
                     default:
                         printf("    Unhandled 0x8b opcode, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
@@ -243,11 +329,15 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 instruction_length = 5;
                 printf("    mov    $0x%x, %%eax\n", *(int32_t *)(current + 1));
                 regs.eax = *(int32_t *)(current + 1);
+                            push_count = 0;
+
                 break;
         case 0xb9:
                 instruction_length = 5;
                 printf("    mov    $0x%x, %%ecx\n", *(int32_t *)(current + 1));
                 regs.ecx = *(int32_t *)(current + 1);
+                            push_count = 0;
+
                 break;
 
         case 0x99:
@@ -313,6 +403,49 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                     }
                 }
                 printf("    call   0x%08lx <%s>\n", target_address, func_name);
+                // push_count = 0;
+                if (push_count > 0) {
+    printf("      Stack contents at call:\n");
+    for (int i = 0; i < push_count; i++) {
+        uintptr_t value = *(uintptr_t *)(regs.esp + (i * 4));
+        int data_type = get_movl_type(value);
+
+        printf("          Parm %d --> 0x%lx --> ",i+1, value);
+        
+        if (data_type == 1) {
+            char *str = (char *)value;
+            print_string_with_limit(str,30);
+        } else if (data_type == 2) {
+            FunctionInfo *func = find_function(debug_map, strlen(debug_map), value);
+            if (func) {
+                if (func->func_address == value) {
+                    printf("[");
+                    char *func_name = func->function_name;
+                    for (int j = 0; func_name[j] != '\0'; j++) {
+                        if (j >= 30) {  // Limit to 30 characters
+                            printf("...");
+                            break;
+                        }
+                        if (func_name[j] == '\n') {
+                            printf("\\n");
+                        } else if (func_name[j] == '\t') {
+                            printf("\\t");
+                        } else {
+                            printf("%c",func_name[j]);
+                        }
+                    }
+                    printf("]");
+                }
+            }
+        }
+        else
+        {
+            printf("Type cannot be decoded");
+        }
+        printf("\n");
+    }
+}
+
             }
             break;
         case 0xc7: {
@@ -327,8 +460,12 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 uintptr_t addr = *(uintptr_t *)(current + 2);
                 int32_t imm = *(int32_t *)(current + 6);
                 printf("    movl   $0x%x, 0x%lx\n", imm, addr);
+                push_count = 0;
+
             } else {
                 printf("    Unhandled 0xc7 opcode, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
+                            push_count = 0;
+
             }
             break;
         case 0x01: // 8-bit displacement
@@ -347,22 +484,46 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                     int data_type = get_movl_type(imm);
                     if(data_type == 1)
                     {
-                        printf("    movl   $0x%x(%.5s), %d(%%ebp)\n", imm,imm, displacement);
+                        printf("    movl   $0x%x", imm);
+                        print_string_with_limit(imm,30);
+                        printf(", %d(%%ebp)\n",displacement);
 
                     }
+                    else if (data_type == 2)
+                    {
+                        FunctionInfo *func = find_function(debug_map, strlen(debug_map),imm);
+                        if(func)
+                        {
+                            if(func->func_address == imm)
+                            {
+                                printf("    movl   $0x%x(%s), %d(%%ebp)\n", imm,func->function_name, displacement);
+
+                            }
+                        }
+                            printf("    movl   $0x%x, %d(%%ebp)\n", imm, displacement);
+
+                        
+
+                    }
+                    
                     else
                     {
                         printf("    movl   $0x%x(%d), %d(%%ebp)\n", imm,imm, displacement);
                     }
                     regs.ebp = imm;
+                            push_count = 0;
                     
                 } else {
                     printf("    Unhandled 0xc7 opcode with displacement, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
+                            push_count = 0;
+
                 }
             }
             break;
         case 0x03: // Register mode
             printf("    movl   %%%s, %%%s\n", get_register_name(rm), get_register_name(reg));
+                            push_count = 0;
+
             instruction_length = 2;
             break;
         default:
@@ -374,7 +535,15 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         case 0xff:
             if (current[1] == 0x75) {
                 instruction_length = 3;
-                printf("    push   -0xc(%%ebp)\n");
+                // printf("    push   -0xc(%%ebp)\n");
+                int8_t local_displacement = (int8_t)current[2];  // 8-bit displacement
+                uintptr_t local_address = regs.ebp + local_displacement;
+                uintptr_t local_value = *(uintptr_t *)local_address;
+                printf("    push   -0x%x(%%ebp)\n",-local_displacement);
+                // regs.esp -= 4;
+                // printf("[%x]\n",local_value);
+                // *(uintptr_t *)regs.esp = local_value;
+                // push_count++;
             } else {
                 printf("    Unhandled 0xff opcode, Second opcode [0x%x]\n",current[1]);
             }
@@ -382,26 +551,98 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         case 0x53:
             instruction_length = 1;
             printf("    push   %%ebx\n");
+            // regs.esp -= 4;
+            // *(uintptr_t *)regs.esp = regs.ebx;
+            // push_count++;
+            break;
+        case 0x5d:  // pop %ebp
+            regs.ebp = *(uintptr_t *)regs.esp;  // Restore %ebp from stack
+            regs.esp += 4;  // Adjust stack pointer
+            printf("    pop    %%ebp\n");
+            push_count--;
             break;
         case 0x68:
             {
                 instruction_length = 5;
+                regs.esp -= 4;
+                *(uintptr_t *)regs.esp = *(int32_t *)(current + 1);  // Save immediate to stack
                 int32_t imm = *(int32_t *)(current + 1);
-                printf("    push   $0x%x\n", imm);
+                int data_type = get_movl_type(imm);
+                if(data_type == 1)
+                {
+                printf("    push   $0x%x -->", imm,imm);
+                print_string_with_limit(imm,30);
+                printf("\n");
+
+                }
+                else if (data_type == 2)
+                {
+                    FunctionInfo *func = find_function(debug_map, strlen(debug_map),imm);
+                    if(func)
+                    {
+                        if(func->func_address == imm)
+                        {
+                            printf("    push   $0x%x\n", imm,func->function_name);
+                        }
+                    }
+                }
+                
+                else
+                {
+                printf("    push   $0x%x(%d)\n", imm,imm);
+
+                }
+            push_count+=1;
+
             }
             break;
         case 0x6a:
             {
                 instruction_length = 2;
                 int8_t imm = *(int8_t *)(current + 1);
-                printf("    push   $0x%x\n", imm);
+                int32_t imm32 = (int32_t)imm;
+                regs.esp -= 4;
+                push_count+=1;
+                
+        // Push the 32-bit immediate value onto the stack
+                *(int32_t *)regs.esp = imm32;
+                int data_type = get_movl_type(imm);
+                if(data_type == 1)
+                {
+                // printf("    push   $0x%x(%s)\n", imm,imm);
+                    printf("    push   $0x%x -->[%s]\n", imm,imm);
+
+
+                }
+                else if (data_type == 2)
+                {
+                    FunctionInfo *func = find_function(debug_map, strlen(debug_map),imm);
+                    if(func)
+                    {
+                        if(func->func_address == imm)
+                        {
+                            printf("    push   $0x%x -->[%s]\n", imm,func->function_name);
+
+                        }
+                    }
+                }
+                
+                else
+                {
+                    printf("    push   $0x%x(%d)\n", imm,imm);
+                }
+                
             }
             break;
         case 0xa3:
             {
                 instruction_length = 5;
+
                 uintptr_t addr = *(uintptr_t *)(current + 1);
+                uint32_t address = *(uint32_t *)(current + 1);
+                write_memory(address, regs.eax);
                 printf("    mov    %%eax, 0x%lx\n", addr);
+                push_count = 0;
             }
             break;
         case 0xa1:
@@ -409,18 +650,27 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 instruction_length = 5;
                 uintptr_t addr = *(uintptr_t *)(current + 1);
                 printf("    mov    0x%lx, %%eax\n", addr);
+                push_count = 0;
+                regs.eax = read_memory(addr);
+                push_count = 0;
+
             }
             break;
         case 0x85:
+                push_count = 0;
+
             if (current[1] == 0xc0) {
                 instruction_length = 2;
                 printf("    test   %%eax, %%eax\n");
+                
             } else {
                 printf("    Unhandled 0x85 opcode, Second opcode [0x%x]\n",current[1]);
             }
             break;
         case 0x75:
             {
+                push_count = 0;
+
                 instruction_length = 2;
                 int8_t offset = *(int8_t *)(current + 1);
                 uintptr_t target_address = (uintptr_t)current + 2 + offset;
@@ -429,6 +679,8 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             break;
         case 0x74:
             {
+                push_count = 0;
+
                 instruction_length = 2;
                 int8_t offset = *(int8_t *)(current + 1);
                 uintptr_t target_address = (uintptr_t)current + 2 + offset;
@@ -436,6 +688,8 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             }
             break;
         case 0x0f:
+                push_count = 0;
+
             if (current[1] == 0xb6 && current[2] == 0x00) {
                 instruction_length = 3;
                 printf("    movzbl (%s), %s\n", "%%eax", "%%eax");
@@ -444,6 +698,8 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             }
             break;
         case 0x84:
+                push_count = 0;
+
             if (current[1] == 0xc0) {
                 instruction_length = 2;
                 printf("    test   %s, %s\n", "%%al", "%%al");
@@ -452,6 +708,8 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             }
             break;
         case 0xe9:
+                push_count = 0;
+
             instruction_length+=4;
             uint8_t *next_instruction = (uintptr_t)current+5;
              uint32_t displacement = 
@@ -464,8 +722,9 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             printf("    jmp    0x%x \n",target_addr);
             break;
         default:
-            printf("    Address 0x%08lx: 0x%08lx - ", (uintptr_t)current, value);
+            // printf("    Address 0x%08lx: 0x%08lx - ", (uintptr_t)current, value);
             printf("    Unhandled opcode [0x%x]\n", opcode);
+            push_count = 0;
             break;
         }
 
@@ -473,6 +732,7 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         current += instruction_length;
     }
     free(stack);
+    printf("Function didn't reach past this point\n");
     return 0;
 }
 

@@ -25,4 +25,7 @@ extern char *debug_map;
 extern FunctionInfo found_functions[MAX_FRAMES];
 const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsigned int address);
 extern int num_found_functions;
+const FunctionInfo* find_function_with_biggest_address(const char *buffer, size_t buffer_size);
+const FunctionInfo* find_function_with_smallest_address(const char *buffer, size_t buffer_size);
+void initialize_decoder_memory();
 #endif

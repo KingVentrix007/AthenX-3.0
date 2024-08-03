@@ -129,23 +129,106 @@ int debug_c(char *cmd,int err_code)
     if(strcmp(cmd,"dec") == 0)
     {
         cls();
-        for (size_t i = 0; i < num_found_functions; i++)
-        {
-            FunctionInfo *info  = &found_functions[i];
-            printf("Function %s decompiled\n",info->function_name);
-            print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code); // Example frame size, adjust as needed
-            printf("\nPress the down arrow for the next function\n");
-            int input = kb_getchar_w();
-            while(input != "\0")
+        size_t i = 0;
+        bool display = true;
+        char buf[100];
+        int buf_count = 0;
+        while(1==1)
+        {   
+            if(display == true)
             {
-                if(input == SCAN_CODE_KEY_DOWN)
-                {
-                    break;
-                }
-                input = kb_getchar_w();
+                FunctionInfo *info  = &found_functions[i];
+                printf("Function %s decompiled\n",info->function_name);
+                print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code); // Example frame size, adjust as needed
+                printf("\nPress the left/right arrows to change functions\n");
+                printf("Decompiler: ");
             }
-            cls();
+            
+            int input = kb_getchar_w();
+            if(input == SCAN_CODE_KEY_RIGHT)
+            {
+                if(i < num_found_functions)
+                {
+                    display = true;
+                    i++;
+                    cls();
+                }
+                else
+                {
+                    display = false;
+                }
+                
+                
+
+            }
+            else if (input == SCAN_CODE_KEY_LEFT)
+            {
+                if(i > 0)
+                {
+                    display = true;
+
+                    i--;
+                    cls();
+                }
+                else
+                {
+                    display = false;
+                }
+
+            }
+            else
+            {
+                if(input != '\n' && input!='\b')
+                {
+                    display = false;
+                    if(buf_count < 100)
+                    {
+                        buf[buf_count] = input;
+                        printf("%c",input);
+                        buf_count++;
+                    }
+                    
+                }
+                else if(input == '\b')
+                {
+                    display = false;
+
+                    if(buf_count > 0)
+                    {
+                        buf[buf_count] = "\0";
+                        buf_count--;
+                        printf("\b");
+                    }
+                }
+                else if(input == '\n')
+                {
+                    if(buf_count > 0)
+                    {
+                        printf("Executing command %s\n",buf);
+                        display = true;
+                        cls();
+                        memset(buf,0,100);
+                        buf_count = 0;
+
+                    }
+                }
+            }
+            
+            
         }
+        // for (size_t i = 0; i < num_found_functions; i++)
+        // {
+        //     FunctionInfo *info  = &found_functions[i];
+        //     printf("Function %s decompiled\n",info->function_name);
+        //     print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code); // Example frame size, adjust as needed
+        //     printf("\nPress the left arrow for the next function\n");
+        //     int input = kb_getchar_w();
+        //     while(input != "\0")
+        //     {
+                
+        //     }
+        //     cls();
+        // }
         
         
     }
