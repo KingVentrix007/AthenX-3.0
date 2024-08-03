@@ -161,7 +161,7 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
     int push_count = 0;
     biggest_function = find_function_with_biggest_address(debug_map, strlen(debug_map));
     smallest_function = find_function_with_smallest_address(debug_map, strlen(debug_map));
-    void *stack = malloc(STACK_SIZE);
+    void *stack = malloc(STACK_SIZE+100);
     uint8_t *current = (uint8_t *)base;
     uint8_t *end = current + size;
     RegisterState regs = {0};
@@ -237,8 +237,18 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                         break;
                     case 0x03: // Register mode
                         instruction_length = 2;
-                        printf("    mov    %%%s, %%%s\n", get_register_name(rm), get_register_name(reg));
-                            push_count = 0;
+                        printf("    mov    %%%s, %%%s\n", get_register_name(reg),get_register_name(rm));
+                        // mov    %esp, %ebp
+                        //reg == esp
+                        //rm = ebp
+                        // printf("reg -- >0x%x\n",reg);
+                        // printf("rm -- >0x%x\n",rm);
+
+                        if(rm == 0x05 && reg == 0x04)
+                        {
+                            regs.ebp = regs.esp;
+                        }
+                        push_count = 0;
 
                         break;
                     default:
@@ -500,7 +510,7 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
 
                             }
                         }
-                            printf("    movl   $0x%x, %d(%%ebp)\n", imm, displacement);
+                            // printf("    movl   $0x%x, %d(%%ebp)\n", imm, displacement);
 
                         
 
@@ -510,8 +520,10 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                     {
                         printf("    movl   $0x%x(%d), %d(%%ebp)\n", imm,imm, displacement);
                     }
-                    regs.ebp = imm;
-                            push_count = 0;
+                    // regs.ebp = imm;
+                    *(uintptr_t *)(regs.ebp + displacement) = imm;
+                    // printf("%s",*(uintptr_t *)(regs.ebp + displacement) );
+                    push_count = 0;
                     
                 } else {
                     printf("    Unhandled 0xc7 opcode with displacement, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
@@ -538,12 +550,22 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 // printf("    push   -0xc(%%ebp)\n");
                 int8_t local_displacement = (int8_t)current[2];  // 8-bit displacement
                 uintptr_t local_address = regs.ebp + local_displacement;
-                uintptr_t local_value = *(uintptr_t *)local_address;
-                printf("    push   -0x%x(%%ebp)\n",-local_displacement);
-                // regs.esp -= 4;
-                // printf("[%x]\n",local_value);
-                // *(uintptr_t *)regs.esp = local_value;
-                // push_count++;
+                 printf("    push   -0x%x(%%ebp)\n", -local_displacement);
+                if (local_address >= (uintptr_t)stack && local_address < (uintptr_t)stack + STACK_SIZE) {
+                    uintptr_t local_value = *(uintptr_t *)local_address;
+                   
+                    // Ensure regs.esp is within the allocated stack range
+                    if (regs.esp >= (uintptr_t)stack && regs.esp + 4 <= (uintptr_t)stack + STACK_SIZE) {
+                        regs.esp -= 4;
+                        *(uintptr_t *)regs.esp = local_value;
+                        
+                        push_count++;
+                    } else {
+                        printf("    Error: Stack pointer out of bounds\n");
+                    }
+                } else {
+                    printf("    Error: Accessing invalid address 0x%lx\n", local_address);
+                }
             } else {
                 printf("    Unhandled 0xff opcode, Second opcode [0x%x]\n",current[1]);
             }
@@ -551,9 +573,10 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         case 0x53:
             instruction_length = 1;
             printf("    push   %%ebx\n");
-            // regs.esp -= 4;
-            // *(uintptr_t *)regs.esp = regs.ebx;
-            // push_count++;
+            regs.esp -= 4;
+            // printf("Stack 0x%x : push 0x%x\n",stack,*(uintptr_t *)regs.esp);
+            *(uintptr_t *)regs.esp = regs.ebx;
+            push_count++;
             break;
         case 0x5d:  // pop %ebp
             regs.ebp = *(uintptr_t *)regs.esp;  // Restore %ebp from stack
