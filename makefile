@@ -65,7 +65,7 @@ AthenX.bin: $(OBJ_FILES_C) $(OBJ_FILES_S) $(OBJ_FILES_ASM)
 # Run the OS in QEMU
 run: AthenX.bin
 	objdump -g AthenX.bin > AthenX.bin.dump
-	objdump -d AthenX.bin > disassembly.txt
+	objdump -d AthenX.bin > ./debug/disassembly.txt
 	python3 format_map_2.py
 	bash ./scripts/boot32.sh
 	qemu-system-i386 \

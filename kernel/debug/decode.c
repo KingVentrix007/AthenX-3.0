@@ -216,7 +216,8 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                             printf("    mov    %%eax, 0x%lx\n", addr);
                             push_count = 0;
                         } else {
-                            printf("    Unhandled 0x89 opcode, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
+                            
+                            printf("    Unhandled 0x89 opcode, ModR/M [mod=0x%x, rm=0x%x]\n", current[1], current[2]);
                             push_count = 0;
 
                         }
@@ -229,9 +230,14 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                             printf("    mov    %%eax, %d(%%ebp)\n", displacement);
                             push_count = 0;
 
-                        } else {
+                        }
+                        else if(current[1] == 0x50)
+                        {
+                            printf("    mov    %%edx, %d(%%eax)\n", displacement);
+                        } 
+                        else {
                             push_count = 0;
-                            printf("    Unhandled 0x89 opcode with displacement, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
+                            printf("    Unhandled 0x89 opcode with displacement, ModR/M [mod=0x%x, rm=0x%x]\n", current[1], current[2]);
                         }
                         instruction_length = 3 ;
                         break;
@@ -252,7 +258,7 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
 
                         break;
                     default:
-                        printf("    Unhandled 0x89 opcode, ModR/M [mod=0x%x, rm=0x%x]\n", mod, rm);
+                        printf("    Unhandled 0x89 opcode, ModR/M [mod=0x%x, rm=0x%x]\n", current[1], current[2]);
                             push_count = 0;
 
                         break;
@@ -415,12 +421,12 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 printf("    call   0x%08lx <%s>\n", target_address, func_name);
                 // push_count = 0;
                 if (push_count > 0) {
-    printf("      Stack contents at call:\n");
+    printf("      \t\tStack contents at call:\n");
     for (int i = 0; i < push_count; i++) {
         uintptr_t value = *(uintptr_t *)(regs.esp + (i * 4));
         int data_type = get_movl_type(value);
 
-        printf("          Parm %d --> 0x%lx --> ",i+1, value);
+        printf("          \t\t- Parm %d --> 0x%lx --> ",i+1, value);
         
         if (data_type == 1) {
             char *str = (char *)value;
