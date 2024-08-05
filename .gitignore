@@ -30,3 +30,4 @@ drive_output/
 obj
 obj/
 logs/
+*.map

@@ -324,7 +324,7 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             else if (current[1] == 0x7d && current[2] == 0xf4) {
                 instruction_length = 4;
                 printf("    cmpl   $0x%x, -0xc(%%ebp)\n", current[3]);
-            }else if (current[1] == 0x7d && current[2] == 0xf0)
+            }else if (current[1] == 0x7d && current[2] == 0xf0) 
             {
                 instruction_length = 4;
                 printf("    cmpl   $0x%x, -0x10(%%ebp)\n", current[3]);
