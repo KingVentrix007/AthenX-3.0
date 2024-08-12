@@ -193,10 +193,10 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
         char current_function_name[MAX_FUNCTION_NAME];
         char current_file_path[MAX_LINE_LENGTH];
         char current_params[1024];
-
+        int line_num;
         // Parse the line to extract address, file path, function name, and parameters
-        int ret = sscanf_(line_ptr, "%x:%[^:]:%[^:]:%[^)]", &func_address, current_file_path, current_function_name, current_params);
-        if (ret == 4) {
+        int ret = sscanf_(line_ptr, "%x:%[^:]:%[^:]:%[^:]:%d", &func_address, current_file_path, current_function_name, current_params,&line_num);
+        if (ret == 5) {
 #ifdef COOL_OUTPUT
             // Cool effect: Print and then remove the line
             printf("%s", line_ptr);
@@ -207,11 +207,13 @@ const FunctionInfo* find_function(const char *buffer, size_t buffer_size, unsign
             // Check if the function address is less than or equal to the provided address
             if (func_address <= address && func_address > closest_address) {
                 closest_address = func_address;
+                // printf("Closest address == %x\n",closest_address);
                 // printf("Closests address == %x\n",closest_address);
                 // Update result if a closer match is found
                 strcpy(result.function_name, current_function_name);
                 strcpy(result.file_path, current_file_path);
                 result.func_address = func_address;
+                result.line_num = line_num;
                 strcpy(result.parms, current_params);
             }
         }
@@ -293,46 +295,8 @@ void print_parameter_value(uintptr_t ebp, int param_offset, const char *type) {
     }
 }
 
-void find_section_for_address(const char *elf_file_path, uintptr_t address) {
-    FILE *file = fl_fopen(elf_file_path, "rb");
-    if (!file) {
-        printf("fopen\n");
-        return;
-    }
 
-    // Read the ELF header
-    Elf32_Ehdr ehdr;
-    fl_fseek(file, 0, SEEK_SET);
-    fl_fread(&ehdr, sizeof(ehdr), 1, file);
 
-    // Check if the file is an ELF file
-    if (ehdr.e_ident[EI_MAG0] != ELFMAG0 || ehdr.e_ident[EI_MAG1] != ELFMAG1 ||
-        ehdr.e_ident[EI_MAG2] != ELFMAG2 || ehdr.e_ident[EI_MAG3] != ELFMAG3) {
-        printf("Not an ELF file\n");
-        fl_fclose(file);
-        return;
-    }
-
-    // Read section headers
-    fl_fseek(file, ehdr.e_shoff, SEEK_SET);
-    Elf32_Shdr *shdrs = malloc(ehdr.e_shentsize * ehdr.e_shnum);
-    fl_fread(shdrs, ehdr.e_shentsize, ehdr.e_shnum, file);
-
-    // Find the section containing the address
-    printf("Found %d elf sections\n",ehdr.e_shnum);
-    for (int i = 0; i < ehdr.e_shnum; ++i) {
-        Elf32_Shdr *shdr = &shdrs[i];
-        printf("Section name: %s\n", shdr->sh_name); // You might need to parse the section names separately
-        if (address >= shdr->sh_addr && address < shdr->sh_addr + shdr->sh_size) {
-            printf("Address 0x%lx is in section %d\n", address, i);
-            printf("Section name: %s\n", shdr->sh_name); // You might need to parse the section names separately
-            break;
-        }
-    }
-
-    free(shdrs);
-    fl_fclose(file);
-}
 
 size_t estimate_frame_size(uintptr_t current_ebp, uintptr_t previous_ebp) {
     if (current_ebp >= previous_ebp) {
@@ -342,16 +306,19 @@ size_t estimate_frame_size(uintptr_t current_ebp, uintptr_t previous_ebp) {
 }
 uint32_t *unwind_stack(REGISTERS *reg) {
     int MaxFrames = MAX_FRAMES;
+    // printf("Eip %x\n",eip);
     uintptr_t eip = reg->eip;
     uintptr_t ebp = reg->ebp;
     uintptr_t prev_ebp = ebp;
+    printf("Eip %x\n",eip);
+
     int esp_in = 0;
     int first_frame = 1; // Flag to mark the first frame
 
     printf("\nStack trace:\n");
 
     for (unsigned int frame = 0; frame < MaxFrames; ++frame) {
-        const FunctionInfo *info = find_function(debug_map, strlen(debug_map), eip);
+        FunctionInfo *info = find_function(debug_map, strlen(debug_map), eip);
 
         if (info) {
          
@@ -359,9 +326,13 @@ uint32_t *unwind_stack(REGISTERS *reg) {
             if (first_frame) {
                 printf("\033[1;31m => "); // Print in red color and mark with an arrow
                 first_frame = 0; // Reset flag after marking the first frame
+                info->eip = eip;
+                info->is_error = true;
             } else {
                 printf("\033[0m");
                 printf("    ");
+                info->eip = eip;
+                info->is_error = false;
             }
             printf("Frame %d - Address 0x%08x corresponds to function(or variable): %s", frame, info->func_address, info->function_name);
             if(strcmp(info->function_name,"_start") == 0)

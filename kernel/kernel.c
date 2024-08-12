@@ -189,7 +189,7 @@ void command_line(void)
     
     register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
     register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
-    // dev_0(10);
+    dev_0(10);
    
     printf("Welcome to ");
     printf("\033[0;31m"); // Set color to red
@@ -302,14 +302,16 @@ void dev_2()
 
 int dev_3()
 {
-    dev_4();
+    dev_4(6);
 }
 
-int dev_4()
+int dev_4(int x)
 {
-    int x = 1;
-    int y = 0;
+    // int x = 4;
+    int y = 2;
     int z = x/y;
+    
+    int out = 1/0;
 //     uint32 *ret = (uint32 *)(-0x0000000);
 //     memset(ret,0,100);
 // }

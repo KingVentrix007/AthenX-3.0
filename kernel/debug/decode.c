@@ -4,6 +4,7 @@
 #include "debug.h"
 #include "printf.h"
 #include "stdlib.h"
+#include "kernel.h"
 // Define the maximum length for function names
 #define MAX_FUNCTION_NAME 64
 #define MAX_FRAMES 128
@@ -86,10 +87,21 @@ void print_register_state(RegisterState *regs) {
     printf("        ESP: 0x%08x\n", regs->esp);
     printf("        EBP: 0x%08x\n", regs->ebp);
 }
-
+int is_known_memory_address(uintptr_t addr,KERNEL_MEMORY_MAP kernel) {
+    // Check if address is within known memory regions.
+    // Replace the following checks with actual ranges from your memory map.
+    if ((addr >= kernel.kernel.k_start_addr && addr <= kernel.kernel.k_end_addr) ||
+        (addr >= kernel.kernel.text_start_addr && addr <= kernel.kernel.text_end_addr) ||
+        (addr >= kernel.kernel.data_start_addr && addr <= kernel.kernel.data_end_addr) ||
+        (addr >= kernel.kernel.rodata_start_addr && addr <= kernel.kernel.rodata_end_addr) ||
+        (addr >= kernel.kernel.bss_start_addr && addr <= kernel.kernel.bss_end_addr)) {
+        return 1; // Address is within known memory range.
+    }
+    return 0; // Address is not in known memory range.
+}
 int is_movl_string(uintptr_t addr)
 {
-    char *str = (const char *) addr;
+    char *str = (const char *)addr;
     if(*str == '\0')
     {
         return -1;
@@ -118,14 +130,19 @@ int is_movl_string(uintptr_t addr)
 int get_movl_type(int32_t imm)
 {
     uintptr_t addr = (uintptr_t)imm;
-    if(is_movl_string(addr) == 1)
+    if(addr == 0)
     {
-        return 1;
+        return -1;
     }
     else if (addr <= biggest_function->func_address && addr >= smallest_function->func_address)
     {
         return 2;
     }
+    else if(is_movl_string(addr) == 1)
+    {
+        return 1;
+    }
+    
     
     
     return -1;
@@ -152,7 +169,7 @@ const char* get_register_name(uint8_t reg) {
 // c
 // Copy code
 #define STACK_SIZE 4096
-int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES], int error_code) {
+int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES], int error_code,uint32_t eip) {
     if(base == NULL)
     {
         printf("Error: Base address is NULL\n");
@@ -181,7 +198,16 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         uintptr_t value = *(uintptr_t *)current;
         uint8_t opcode = current[0];
         size_t instruction_length = 1;
-        printf("%x",(uintptr_t)current);
+        if(current == eip)
+        {
+            printf("\033[1;31m => ");
+            // printf("==> ");
+        }
+        else
+        {
+            printf("\033[0m");
+        }
+        printf("%x - 0x%x",(uintptr_t)current,opcode);
         switch (opcode) {
         case 0x55:
             instruction_length = 1;
@@ -207,7 +233,7 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 uint8_t mod = (current[1] >> 6) & 0x03;
                 uint8_t reg = (current[1] >> 3) & 0x07;
                 uint8_t rm = current[1] & 0x07;
-
+                push_count = 0;
                 switch (mod) {
                     case 0x00: // No displacement
                         if (rm == 0x05) { // Direct address
@@ -228,11 +254,13 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                         int32_t displacement = (mod == 0x01) ? (int8_t)current[2] : *(int32_t *)(current + 2);
                         if (rm == 0x05) {
                             printf("    mov    %%eax, %d(%%ebp)\n", displacement);
+                         *(int32_t *)(regs.ebp + displacement) = regs.eax;
                             push_count = 0;
 
                         }
                         else if(current[1] == 0x50)
                         {
+                            push_count = 0;
                             printf("    mov    %%edx, %d(%%eax)\n", displacement);
                         } 
                         else {
@@ -289,7 +317,12 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                     case 0x02:
                         instruction_length = 2 + disp_size;
                         int32_t displacement = (mod == 0x01) ? (int8_t)current[2] : *(int32_t *)(current + 2);
-                        printf("    mov    %%%s, %d(%%ebp)\n", get_register_name(reg), displacement);
+                        printf("    mov     %d(%%ebp),%%%s\n", displacement,get_register_name(reg));
+                        if(reg == 0x00)
+                        {
+                               regs.eax = *(int32_t *)(regs.ebp + displacement);
+                            //   printf("Putting 0x%x in 0x%x\n", regs.eax, regs.ebp + displacement);
+                        }
                             push_count = 0;
                         
                         break;
@@ -307,14 +340,18 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             }
 
         case 0x83:
+            // printf("Crash is here 0x%x\n",current[1] );
+            push_count = 0;
             if (current[1] == 0xec) {
                 instruction_length = 3;
                 printf("    sub    $0x%x, %%esp\n", current[2]);
                 regs.esp -= current[2];
             } else if (current[1] == 0xc4) {
+                
                 instruction_length = 3;
                 printf("    add    $0x%x, %%esp\n", current[2]);
                 regs.esp += current[2];
+
             }else if (current[1] ==0xe0)
             {
                 instruction_length = 3;
@@ -365,20 +402,33 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 instruction_length = 2;
                 
                 printf("    idiv   %%ecx ");
-                printf("%d/%d",regs.eax,regs.edx);
-                if (error_code == 0) {
-                    printf("<-- Possible source of error");
-                }
+                printf("%d/%d",regs.eax,regs.ecx);
+                
                 printf("\n");
             }else if ((current[1] & 0xf8) == 0x78) {
         // Handle cases like f7 7d f8 for idivl -0x8(%ebp)
         if ((current[1] & 0xc0) == 0x40) { // ModR/M byte with 8-bit displacement
             int8_t displacement = (int8_t)current[2];
-            printf("    idivl  %d(%%ebp)", displacement);
-            printf("%d/%d",regs.eax,regs.edx);
-            if (error_code == 0) {
-                printf("<-- Possible source of error");
+            int32_t divisor  = *(int32_t *)((regs.ebp + displacement));
+            int64_t  dividend = 0;//((int64_t)regs.edx << 32) | (uint32_t)regs.eax;
+            // printf(" ((int64_t)regs.edx << 32) == [0x%x]\n", ((int64_t)regs.edx << 32));
+            // printf(" (uint32_t)regs.eax == [0x%x]\n", (uint32_t)regs.eax);
+            
+            if(regs.edx == 0)
+            {
+                dividend = (int64_t)regs.eax;
             }
+            else
+            {
+                dividend = ((int64_t)regs.edx << 32) | (uint32_t)regs.eax;
+            }
+            // printf("%d/",dividend);
+            // printf("%d",divisor);
+            printf("    idivl  %d(%%ebp) ", displacement);
+            printf("%d/",dividend);
+            printf("%d",divisor);
+            // printf("    Dividend: %d\n", dividend);
+            // printf("    Divisor: %d\n", divisor);
             printf("\n");
             instruction_length = 3;
         } else {
@@ -421,16 +471,17 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 printf("    call   0x%08lx <%s>\n", target_address, func_name);
                 // push_count = 0;
                 if (push_count > 0) {
-    printf("      \t\tStack contents at call:\n");
+    printf("      \t\tStack contents at call. Num parms %d:\n",push_count);
     for (int i = 0; i < push_count; i++) {
         uintptr_t value = *(uintptr_t *)(regs.esp + (i * 4));
         int data_type = get_movl_type(value);
 
-        printf("          \t\t- Parm %d --> 0x%lx --> ",i+1, value);
+        printf("          \t\t- Parm %d --> 0x%lx(",i+1, value);
         
         if (data_type == 1) {
             char *str = (char *)value;
             print_string_with_limit(str,30);
+            printf(")");
         } else if (data_type == 2) {
             FunctionInfo *func = find_function(debug_map, strlen(debug_map), value);
             if (func) {
@@ -452,11 +503,13 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                     }
                     printf("]");
                 }
+                printf(")");
             }
         }
         else
         {
-            printf("Type cannot be decoded");
+            printf("%d)",value);
+            // printf("Type cannot be decoded");
         }
         printf("\n");
        

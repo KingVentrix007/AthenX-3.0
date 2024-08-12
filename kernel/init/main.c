@@ -156,40 +156,44 @@ int draw_screen_dimensions_selection_menu(int pos,int *width,int *height)
     switch (pos)
     {
     case 1:
-        printf("> [1]: 800x600\n");
+        printf("> [1]: 1280x1024\n");
         printf("[2]: 1024x768\n");
         printf("[3]: 1920x1080\n");
-        printf("[4]: Default(%dx%d)\n",*width, *height);
-        *width = 800;
-        *height = 600;
+        printf("[4]: Default(%dx%d)\n",800, 600);
+        *width = 1280;
+        *height = 1024;
         break;
     case 2:
-        printf("[1]: 800x600\n");
+        printf("[1]: 1280x1024\n");
         printf("> [2]: 1024x768\n");
         printf("[3]: 1920x1080\n");
-        printf("[4]: Default(%dx%d)\n",*width, *height);
+        printf("[4]: Default(%dx%d)\n",800, 600);
          *width = 1024;
         *height = 768;
         break;
     case 3:
-        printf("[1]: 800x600\n");
+        printf("[1]: 1280x1024\n");
         printf("[2]: 1024x768\n");
         printf("> [3]: 1920x1080\n");
-        printf("[4]: Default(%dx%d)\n",*width, *height);
+        printf("[4]: Default(%dx%d)\n",800, 600);
         *width = 1920;
         *height = 1080;
         break;
     case 4:
-        printf("[1]: 800x600\n");
+        printf("[1]: 1280x1024\n");
         printf("[2]: 1024x768\n");
         printf("[3]: 1920x1080\n");
-        printf("> [4]: Default(%dx%d)\n",*width, *height);
+        printf("> [4]: Default(%dx%d)\n",800, 600);
+        *width = 800;
+        *height = 600;
         break;
     default:
-        printf("[1]: 800x600\n");
+        printf("[1]: 1280x1024\n");
         printf("[2]: 1024x768\n");
         printf("[3]: 1920x1080\n");
-        printf("> [4]: Default(%dx%d)\n",*width, *height);
+        printf("> [4]: Default(%dx%d)\n",800, 600);
+        *width = 800;
+        *height = 600;
         break;
     }
 

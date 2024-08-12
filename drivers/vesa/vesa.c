@@ -199,7 +199,7 @@ int leave_vesa_mode() {
 
 int vesa_scroll(int lines)
 {
-    dbgprintf("Current buffer == %d\n",curent_buffer);
+    // dbgprintf("Current buffer == %d\n",curent_buffer);
     if(curent_buffer == 1)
     {
         // scroll_screen(lines);

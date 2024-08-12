@@ -24,7 +24,7 @@ def parse_map_file(map_file, output_file, source_dir):
 
     in_text_section = False
     current_file_path = ""
-    for line in lines:
+    for line_num,line in enumerate(lines):
         # print(line)
         # Check for the start of the .text section (with a leading space)
         if line.startswith(' .text') or line.startswith('.text'):
@@ -49,7 +49,7 @@ def parse_map_file(map_file, output_file, source_dir):
             continue
         # Parse the function addresses and names in the .text section
         if in_text_section:
-            print(line)
+            # print(line)
             match = re.match(r'^\s+0x([0-9a-fA-F]+)\s+([^\s]+)', line)
             if match:
                 address = match.group(1)
@@ -68,16 +68,18 @@ def parse_map_file(map_file, output_file, source_dir):
                         if os.path.exists(c_file_path):
                             params = parse_function_params(c_file_path, function_name)
                             if params:
-                                functions[address] = f"{address}:{current_file_path}:{function_name}:{params}"
+                                functions[address] = f"{address}:{current_file_path}:{function_name}:{params}:{line_num}"
                             else:
                                 print(f"Function {function_name} not found in {c_file_path}, skipping.")
                         else:
                             use_path = c_file_path.removesuffix(".c") + ".s"
                             use_path = use_path[len("./obj"):]
                             use_path = "./" + use_path
-                            functions[address] = f"{address}:{use_path}:{function_name}:none"
+                            functions[address] = f"{address}:{use_path}:{function_name}:none:{line_num}"
+                            print(functions[address])
                 else:
-                    functions[address] = f"{address}::{function_name}"  # No .o path found, use "::"
+                    # print(function_name)
+                    functions[address] = f"{address}::{function_name}:{0}"  # No .o path found, use "::"
 
     # Write the functions to the output file
     with open(output_file, 'w') as f:

@@ -33,4 +33,5 @@ struct tm *localtime(const time_t *timer);
 TIME get_time();
 void print_date();
 extern uint64_t time_since_last_keypress;
+uint32_t rand();
 #endif

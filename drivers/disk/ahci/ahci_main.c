@@ -166,7 +166,7 @@ int ahci_main()
     dbgprintf("AHCI BAR4 == %p\n",dev->base_address_4);
     dbgprintf("AHCI BAR5 == %p\n",dev->base_address_5);
 
-    // map((uint32_t)abar,(uint32_t)abar,PAGE_PRESENT|PAGE_WRITE); //Memory map BAR 5 register as uncacheable.
+    map((uint32_t)abar,(uint32_t)abar,PAGE_PRESENT|PAGE_WRITE); //Memory map BAR 5 register as uncacheable.
     // abar = 0xf7d16m00;//! Might have to change back to mapping apar to abar
     // dbgprintf("Mapped AHCI abar\n");
     reset_ahci_controller(abar); //Reset controller

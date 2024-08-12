@@ -8,6 +8,8 @@
 #include "keyboard.h"
 #include "scheduler.h"
 #include "string.h"
+#include "dwarf.h"
+#include "clock.h"
 #define MAX_EXCEPTIONS 10
 #define EOI(irq) \
     do {\
@@ -138,8 +140,17 @@ int debug_c(char *cmd,int err_code)
             if(display == true)
             {
                 FunctionInfo *info  = &found_functions[i];
-                printf("Function %s decompiled\n",info->function_name);
-                print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code); // Example frame size, adjust as needed
+                printf("%d: Function %s decompiled\n",i,info->function_name);
+                uint32_t eip;
+                if(info->is_error == true)
+                {
+                    eip = info->eip;
+                }
+                else
+                {
+                    eip = 0;
+                }
+                print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code,eip); // Example frame size, adjust as needed
                 printf("\nPress the left/right arrows to change functions\n");
                 printf("Decompiler: ");
             }
@@ -232,6 +243,13 @@ int debug_c(char *cmd,int err_code)
         
         
     }
+    else if (strcmp(cmd,"elf") == 0)
+    {
+        cls();
+        // FunctionInfo *info  = &found_functions[0];
+        find_section_for_address("/boot/AthenX.bin");
+    }
+    
 }
 
 int test_int()
