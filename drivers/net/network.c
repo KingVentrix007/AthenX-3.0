@@ -67,7 +67,7 @@ int register_iface(network_interface_t* iface, char iface_name[100], int (*trans
 }
 
 void print_all_network_devs() {
-    printf("List of Registered Network Devices:\n");
+    // printf("List of Registered Network Devices:\n");
 
     for (int i = 0; i < num_interfaces; i++) {
         network_interface_t *iface = &interfaces[0];

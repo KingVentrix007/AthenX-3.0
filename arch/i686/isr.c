@@ -63,7 +63,7 @@ char *exception_messages[32] = {
  * register given handler to interrupt handlers at given num
  */
 void isr_register_interrupt_handler(int num, ISR handler,char func[255]) {
-    printf("IRQ %d registered for %s\n", num,func);
+    dbgprintf("IRQ %d registered for %s\n", num,func);
     if (num < NO_INTERRUPT_HANDLERS)
         if(g_interrupt_handlers[num] == NULL)
         {
@@ -71,7 +71,7 @@ void isr_register_interrupt_handler(int num, ISR handler,char func[255]) {
         }
         else
         {
-            printf("Attempted to register IRQ %d a second time for %s\n", num,func);
+            dbgprintf("Attempted to register IRQ %d a second time for %s\n", num,func);
         }
         
 }

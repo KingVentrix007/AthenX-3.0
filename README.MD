@@ -167,14 +167,14 @@ You can make pull requests, but I do have limited time, so your code might take 
 4. If I have missed any copyright licenses, **Please tell me** and I will try to fix it as soon as possible
 5. Some code, mainly older parts of libk, are from AthenX-2.0, meaning that that part of the code can be treated as `GNU General Public License v3.0`
 <!-- up to commit 0042b667bb0f27fa8f3405d608e77dbf3c3ec78 on Tue Mar 12 06:15:09 2024 +0200 AthenX-3.0 was not publicly available   -->
-## Libraries used
+## Libraries and external code used used
 
 - [Ultraembedded/fat_io_lib](https://github.com/ultraembedded/fat_io_lib): FAT file system library
 - [mpaland/printf](https://github.com/mpaland/printf/tree/master): printf(and other functions) library
 - [benhoyt/inih](https://github.com/benhoyt/inih/tree/master): INI file parser library
 - [gcc-mirror/gcc](https://github.com/gcc-mirror/gcc/tree/master/libiberty): Implementations of compliant libc code
--[hisahi/scanf](https://github.com/hisahi/scanf): scanf(and other functions) library
-
+- [hisahi/scanf](https://github.com/hisahi/scanf): scanf(and other functions) library
+- [pdoane/osdev](https://github.com/pdoane/osdev/tree/master): ACPI code
 ## Acknowledgments
 
 I would like to say thank you to people and websites that have helped me learn about OS development

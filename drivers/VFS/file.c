@@ -24,7 +24,7 @@ int init_fs()
 {
     if(fs_active != true)
     {
-        printf("Ret -1\n");
+        // printf("Ret -1\n");
         return -1;
     }
     _cwd = kmalloc(FATFS_MAX_LONG_FILENAME);

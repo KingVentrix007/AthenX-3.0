@@ -145,7 +145,7 @@ void kmain(unsigned long magic, unsigned long addr)
 }
 size_t command_buffer_size = 1024;
 char *input_buffer;
-char **history;
+// char **history;
 int history_pos = 0;
 size_t cmd_count;
 void load_history_up()
@@ -158,10 +158,7 @@ void load_history_up()
         }
         
         memset(input_buffer,0,command_buffer_size+1);
-        // strcpy(input_buffer,history[history_pos]);
-        memcpy(input_buffer,history[history_pos],strlen(history[history_pos]));
-
-        history_pos++;
+        // strcpy(input_buffer,history[history_pos])
         printf("%s",input_buffer);
 
     }
@@ -178,7 +175,6 @@ void load_history_down()
         }
         history_pos--;
         memset(input_buffer,0,command_buffer_size+1);
-        memcpy(input_buffer,history[history_pos],strlen(history[history_pos]));
         
         printf("%s",input_buffer);
 
@@ -187,9 +183,9 @@ void load_history_down()
 void command_line(void)
 {
     
-    register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
-    register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
-    dev_0(10);
+    // register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
+    // register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
+    // dev_0(10);
    
     printf("Welcome to ");
     printf("\033[0;31m"); // Set color to red
@@ -214,12 +210,7 @@ void command_line(void)
     LOG_LOCATION;
     // sleep(3);
     
-    history = (char**)malloc(1024);
-    if(history == NULL)
-    {
-        perror("Failed to allocate for history buffer");
-
-    }
+    // history = (char**)malloc(1024);
     cmd_count = 0;
     input_buffer = (char *)malloc(command_buffer_size+1);
     // printf("HERE\n");
@@ -250,16 +241,7 @@ void command_line(void)
         {   //configuration
             // printf("input_buffer\n%s",input_buffer);
             cmd(input_buffer);
-            history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
-            if(history[cmd_count] == NULL)
-            {
-                perror("Failed to allocate memory for command history\n");
-            }
-            else
-            {
-            strcpy(history[cmd_count],input_buffer);
-// 
-            }
+            // history[cmd_count] = (char*)malloc(strlen(input_buffer) + 1);
             cmd_count++;
             memset(input_buffer, 0,command_buffer_size);
             // printf("\n%s@%s>",user,getcwd());

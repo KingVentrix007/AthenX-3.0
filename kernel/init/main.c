@@ -432,7 +432,7 @@ void init(unsigned long magic, unsigned long addr) {
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // printf("\n\nLoading multiboot info\n");
     
-    printf("Initializing com port 1\n");
+    printf("\n\nInitializing com port 1\n");
     init_com1();
     
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
@@ -469,7 +469,7 @@ void init(unsigned long magic, unsigned long addr) {
     printf("Scanning PCI\n");
     pci_scan();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-    printf("Attempting to initialize AHCI driver\n");
+    printf("Attempting to initialize Storage drivers\n");
     init_storage();
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
     // Initialize FAT file system
@@ -491,34 +491,17 @@ void init(unsigned long magic, unsigned long addr) {
     // Initialize timer
     printf("Initializing timer\n");
     timer_init();
-    printf("Time done\n");
+    // printf("Time done\n");
     draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
 
     LOG_LOCATION;
     
 
-    printf("allocated VESA\n");
+    // printf("allocated VESA\n");
     int ret_buf = vesa_init_buffers();
-    printf("Vesa is allocated\n");
-    dbgprintf("%d\n", ret_buf);
-    char *test_malloc = malloc(1024 * 1024 * 1024);
-    if (test_malloc == NULL) {
-        printf("\033[1;31mCouldn't allocate test memory\n"); // Set text color to red
-    } else {
-        printf_debug("\033[1;32mSuccessfully allocated memory of 1GB\n"); // Set text color to green
-    }
+    // printf("Vesa is allocated\n");
+    // dbgprintf("%d\n", ret_buf);
     
-    LOG_LOCATION;
-
-    // Free allocated memory
-    const char *test_b = "This allocated memory";
-    strcpy(test_malloc, test_b);
-    if (strcmp(test_b, test_malloc) != 0) {
-        printf("\033[1;31mMapping of test allocation may have failed\n"); // Set text color to red
-    }
-    free(test_malloc);
-    draw_loading_bar(++current_step, total_steps, draw_x, draw_y, VBE_RGB(255, 0, 0), 2);
-
     LOG_LOCATION;
 
     
@@ -528,7 +511,7 @@ void init(unsigned long magic, unsigned long addr) {
     
     if(fs_active == true)
     {
-        printf("looking for programs\n");
+        // printf("looking for programs\n");
         fl_count_files(config.program_path, &num_program_dirs, &num_programs);
         Entry *programs = malloc(sizeof(Entry) * num_programs);
         int num_programs_check;
@@ -594,6 +577,7 @@ void init(unsigned long magic, unsigned long addr) {
     setup_net_e1000();
     print_all_network_devs();
     
+    
 
     printf("Starting shell\n");
     if(strcmp(grub_command_line,"install")==0)
@@ -603,6 +587,7 @@ void init(unsigned long magic, unsigned long addr) {
         install_athenx();
 
     }
+    printf("Full initialization is complete\nFull control is over to you\nAd astra per aspera.\n");
     // while (1);	
     // call_interrupt_43();
     CreateProcess(command_line);

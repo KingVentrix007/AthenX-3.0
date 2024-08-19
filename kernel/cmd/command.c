@@ -279,7 +279,6 @@ const char* get_path_without_dev(const char *path) {
 uint64_t rand_v = 12345;
 int cmd(char *command)
 {
-    // printf("command: %s\n", command);
     int argc;
         LOG_LOCATION;
 

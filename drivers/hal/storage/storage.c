@@ -63,7 +63,7 @@ int list_devices()
                 size = -1;
             }
             char *device_size = formatBytes(size * 512);
-            printf("Device %d: %s - %u sectors %u bytes (%s) - File System: ", storage_devs[i].storage_count, msg, size, size * 512, device_size);
+            printf("-\tDevice %d: %s - %u sectors %u bytes (%s) - File System: ", storage_devs[i].storage_count, msg, size, size * 512, device_size);
             print_fs_type(storage_devs[i].file_system);
             printf("\n");
         }

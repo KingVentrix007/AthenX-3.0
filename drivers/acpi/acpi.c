@@ -292,6 +292,7 @@ int acpiEnable(void)
 //
 int initAcpi(void)
 {
+      AcpiInit();
     int s = sizeof(struct FADT);
    int size = sizeof(struct FACP);
    dbgprintf("s = %d, size = %d\n", s, size);

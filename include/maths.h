@@ -7,7 +7,7 @@ static uint32_t seed = 0;
 #define RAND_MAX 4294967295 // 2^32 - 1
 #define NORM 2.328306549295728e-10
 
-int rand();
+// int rand();
 void srand();
 #define PI 3.14159265358979323846
 #define EULER 2.71828182845904523536
