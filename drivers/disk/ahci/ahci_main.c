@@ -92,7 +92,7 @@ int add_ahci_drive(HBA_PORT *dev)
     {
         if(ahci_devices[i].valid != 1)
         {
-
+            // dbgprintf("Adding device\n");
             ahci_devices[i].valid = 1;
             ahci_devices[i].port = dev;
             pci_storage_device device;
@@ -121,10 +121,10 @@ uint32_t ahci_malloc(size_t size, size_t alignment,int line,char msg[1200])
         return NULL;
     }
 
-    uintptr_t aligned_addr = ((uintptr_t)raw_addr + alignment - 1) & ~(alignment - 1);
-    // map(aligned_addr, aligned_addr, PAGE_PRESENT | PAGE_WRITE);
+    // uintptr_t aligned_addr = ((uintptr_t)raw_addr + alignment - 1) & ~(alignment - 1);
+    map(raw_addr, raw_addr, PAGE_PRESENT | PAGE_WRITE);
     // dbgprintf("AHCI :: Allocating %d bytes of memory at %p for %s(%d)\n",total_size,aligned_addr,msg,line);
-    return (uint32_t)aligned_addr;
+    return (uint32_t)raw_addr;
 
 }
 void reset_ahci_controller(HBA_MEM *abar) {
@@ -138,7 +138,7 @@ void reset_ahci_controller(HBA_MEM *abar) {
 }
 void ahci_isr(REGISTERS16 *reg)
 {
-    printf("ahci isr called\n");
+    dbgprintf("ahci isr called\n");
 }
 void enable_ahci_mode_and_interrupts(HBA_MEM *abar) {
     // Set the AHCI Enable bit and Interrupt Enable bit
@@ -152,7 +152,7 @@ int ahci_main()
     if(dev == NULL)
     {
         char *no_ahci_msg = "\nNo AHCI\n";
-        printf("%s",no_ahci_msg);
+        dbgprintf("%s",no_ahci_msg);
         return;
     }
     HBA_MEM *abar = (HBA_MEM *)dev->base_address_5;
@@ -211,9 +211,11 @@ void probe_port(HBA_MEM *abar)
 				// port = &abar->ports[i];
                 add_ahci_drive(&abar->ports[i]);
                 get_drive_info(&abar->ports[i]);
+                
                 // add_device(pci_storage_device dev)
     			// Fill buffer with data to write (example data)
-			
+                int ret = ahci_read_sectors(&abar->ports[i], start_sector, buffer, 1);
+                dbgprintf("%d>%s",ret,buffer);
 
 				
                 // return;
@@ -374,27 +376,35 @@ void stop_cmd(HBA_PORT *port)
 
 int ahci_read_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count)
 {
+    dbgprintf("Line %d: Starting ahci_read_sectors function\n", __LINE__);
     port->is = (uint32_t)-1; // Clear pending interrupt bits
+    dbgprintf("Line %d: Cleared pending interrupt bits\n", __LINE__);
 
     HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)port->clb;
     cmdheader->cfl = sizeof(FIS_REG_H2D) / sizeof(uint32_t); // Command FIS size
     cmdheader->w = 0; // Read from device
     cmdheader->prdtl = (count + 7) / 8; // PRDT entries count
+    dbgprintf("Line %d: Set up command header\n", __LINE__);
 
     HBA_CMD_TBL *cmdtbl = (HBA_CMD_TBL*)(cmdheader->ctba);
     memset(cmdtbl, 0, sizeof(HBA_CMD_TBL) + (cmdheader->prdtl-1)*sizeof(HBA_PRDT_ENTRY));
+    dbgprintf("Line %d: Cleared command table\n", __LINE__);
 
     // Setup PRDT
+    dbgprintf("Line %d: Setting up PRDT entries\n", __LINE__);
     for (int i = 0; i < cmdheader->prdtl - 1; i++) {
         cmdtbl->prdt_entry[i].dba = (uint32_t)buf + (i * 4096);
         cmdtbl->prdt_entry[i].dbc = 4096 - 1; // 4KB
         cmdtbl->prdt_entry[i].i = 1; // Interrupt on completion
+        dbgprintf("Line %d: Set up PRDT entry %d\n", __LINE__, i);
     }
     cmdtbl->prdt_entry[cmdheader->prdtl - 1].dba = (uint32_t)buf + ((cmdheader->prdtl - 1) * 4096);
     cmdtbl->prdt_entry[cmdheader->prdtl - 1].dbc = ((count * 512) % 4096) - 1;
     cmdtbl->prdt_entry[cmdheader->prdtl - 1].i = 1; // Interrupt on completion
+    dbgprintf("Line %d: Set up final PRDT entry\n", __LINE__);
 
     // Setup command
+    dbgprintf("Line %d: Setting up command FIS\n", __LINE__);
     FIS_REG_H2D *cmdfis = (FIS_REG_H2D*)(&cmdtbl->cfis);
 
     cmdfis->fis_type = FIS_TYPE_REG_H2D;
@@ -412,8 +422,10 @@ int ahci_read_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t co
 
     cmdfis->countl = count & 0xFF; // Sector count
     cmdfis->counth = (count >> 8) & 0xFF;
+    dbgprintf("Line %d: Finished setting up command FIS\n", __LINE__);
 
     // Wait for port to be ready
+    dbgprintf("Line %d: Waiting for port to be ready\n", __LINE__);
     uint32_t timeout = 0;
     while ((port->tfd & (ATA_DEV_BUSY | ATA_DEV_DRQ)) && timeout < 1000000)
     {
@@ -422,17 +434,21 @@ int ahci_read_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t co
 
     if (timeout >= 1000000)
     {
+        dbgprintf("Line %d: Timeout waiting for port to be ready\n", __LINE__);
         return 0; // Timeout, return failure
     }
 
     port->ci = 1; // Issue command
+    dbgprintf("Line %d: Issued command\n", __LINE__);
 
     // Wait for completion
+    dbgprintf("Line %d: Waiting for command completion\n", __LINE__);
     while (1)
     {
         if ((port->ci & 1) == 0) break;
         if (port->is & HBA_PxIS_TFES) // Task file error
         {
+            dbgprintf("Line %d: Task file error detected\n", __LINE__);
             return 0; // Read disk error
         }
     }
@@ -440,9 +456,11 @@ int ahci_read_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t co
     // Check again
     if (port->is & HBA_PxIS_TFES)
     {
-        return 0; // Read disk error
+        dbgprintf("Line %d: Task file error detected after completion\n", __LINE__);
+        return -9; // Read disk error
     }
 
+    dbgprintf("Line %d: Read completed successfully\n", __LINE__);
     return 1; // Read successfully
 }
 int ahci_write_sectors(HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count)

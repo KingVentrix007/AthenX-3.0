@@ -69,8 +69,11 @@ void e1000_Get_Mac()
 void *e100_malloc(size_t size)
 {
     size_t new_size = ALIGN(size,PTR_SIZE);
-    return malloc(new_size);
+	 void *adder = malloc(new_size);
+	 map(adder,adder,PAGE_PRESENT|PAGE_WRITE);
+	 return adder;
 }
+    // return 
 /**
  * @brief Clears the transmit buffers for the e1000
  */

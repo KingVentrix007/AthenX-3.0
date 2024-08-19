@@ -5,6 +5,7 @@
 #include "stdlib.h"
 int system_call_handler_c(int syscall_number, int param1, int param2)
 {
+    // printf("System call handler called with syscall number: %d, param1: %d, param2: %d\n", syscall_number, param1, param2);
     // if(syscall_number == )
     if(syscall_number == -1)
     {

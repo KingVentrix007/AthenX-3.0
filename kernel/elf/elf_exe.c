@@ -252,7 +252,7 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
 
             for (size_t i = 0; i < num_pages; i++) {
                 // printf("mapping address 0x%08X\n",page_va);
-
+                // unmap(region);
                 map(page_va, region, PAGE_WRITE | PAGE_PRESENT); // Map memory
                 va_address[i] = page_va; 
                 va_count++;
@@ -260,8 +260,12 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
                 region += PAGE_SIZE;
             }
              LOG_LOCATION;
+             printf("Memset below line %d\n",__LINE__);
             memcpy((void *)program_header->p_vaddr, elf_data + program_header->p_offset, program_header->p_filesz);
+            printf("Memset below line %d\n",__LINE__);
+
             memset((void *)(program_header->p_vaddr) + program_header->p_filesz, 0, program_header->p_memsz - program_header->p_filesz);
+             
              LOG_LOCATION;
         }
          LOG_LOCATION;
@@ -274,6 +278,8 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
 
     // Initialize Stack
     uint8_t *stack = process_stack;
+    printf("Memset below line %d\n",__LINE__);
+
     memset(stack, 0, 8192);
      LOG_LOCATION;
     // Set up the stack pointer (ESP)
@@ -286,6 +292,7 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
     void (*elf_entry)(int, char **) = (void (*)(int, char **))(elf_header->e_entry); // Assuming ELF entry point is at offset 0
     //  LOG_LOCATION;
     // Call the ELF entry point function with the arguments
+    printf("Making entry\n");
     elf_entry(myArgc, myArgv);
 
     // Restore the stack pointer (ESP)
@@ -295,11 +302,14 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
         : "r"(&stack)
     );
     LOG_LOCATION;
+    printf("Memset below line %d\n",__LINE__);
+
     for (size_t i = 0; i < va_count; i++)
     {
         LOG_LOCATION;
         if(va_address[i] != 0)
         {
+            memset((void *)va_address[i], 0, 4096);
              unmap(va_address[i]);
             va_address[i] = 0;
         }
