@@ -7,6 +7,8 @@
 uint32_t *allocation_ptrs;
 uint32_t allocation_ptrs_count;
 uint32_t used_size = 0;
+
+
 int init_allocation_system()
 {
     allocation_ptrs = malloc_int(1024*10);

@@ -6,7 +6,7 @@
 #include "stdlib.h"
 #include "kernel.h"
 // Define the maximum length for function names
-#define MAX_FUNCTION_NAME 64
+// #define MAX_FUNCTION_NAME 64
 #define MAX_FRAMES 128
 FunctionInfo *smallest_function;
 FunctionInfo *biggest_function;
@@ -127,6 +127,19 @@ int is_movl_string(uintptr_t addr)
         return 1;
     }
 }
+int is_movl_allocation(uintptr_t addr)
+{
+    for (size_t i = 0; i <allocation_ptrs_count; i++)
+    {
+        if(addr == allocation_ptrs[i])
+        {
+            return 1;
+        }
+        
+    }
+    return -1;
+    
+}
 int get_movl_type(int32_t imm)
 {
     uintptr_t addr = (uintptr_t)imm;
@@ -142,6 +155,11 @@ int get_movl_type(int32_t imm)
     {
         return 1;
     }
+    else if (is_movl_allocation(addr) == 1)
+    {
+        return 3;
+    }
+    
     
     
     
@@ -211,12 +229,14 @@ const char* get_register_name_v2(uint8_t reg, uint8_t operand_size) {
 // Copy code
 #define STACK_SIZE 4096
 int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES], int error_code,uint32_t eip) {
+    printf("A value of 0x0(0) or 0x0 as a parameter typically means that it is using the value on the stack, something not simulated here\n");
     if(base == NULL)
     {
         printf("Error: Base address is NULL\n");
         return -1;
     } 
     int push_count = 0;
+    
     biggest_function = find_function_with_biggest_address(debug_map, strlen(debug_map));
     smallest_function = find_function_with_smallest_address(debug_map, strlen(debug_map));
     void *stack = malloc(size+100);
@@ -239,13 +259,15 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         }
     }
     printf("0x%x <%s>\n",base,func);
-    while (current < end) {
+    while (1) 
+    {
         uintptr_t value = *(uintptr_t *)current;
         uint8_t opcode = current[0];
         size_t instruction_length = 1;
         if(current == eip)
         {
             printf("\033[1;31m => ");
+            
             // printf("==> ");
         }
         else
@@ -551,9 +573,19 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 printf(")");
             }
         }
+        else if (data_type == 3)
+        {
+            printf(">%p<)",value);
+        }
+        
         else
         {
             printf("%d)",value);
+            if(value == 0)
+            {
+                printf(" <-- Not the actual value, exam source code");
+
+            }
             // printf("Type cannot be decoded");
         }
         printf("\n");
@@ -718,7 +750,7 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
                 
                 else
                 {
-                printf("    push   $0x%x(%d)\n", imm,imm);
+                    printf("    push   $0x%x(%d)\n", imm,imm);
 
                 }
             push_count+=1;
@@ -850,6 +882,12 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             // uintptr_t offset = (uintptr_t )base - (uintptr_t )target_addr;
             printf("    jmp    0x%x \n",target_addr);
             break;
+        case 0xeb:
+            instruction_length = 2;
+            uint8_t *jmp_addr = current+instruction_length + current[1];
+            printf("    jmp    0x%x \n",jmp_addr);
+            push_count = 0;
+            break;
         case 0x88: { // MOV r/m8, r8
     uint8_t modrm = current[1];
     uint8_t mod = (modrm >> 6) & 0x03;
@@ -934,6 +972,12 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
         }
 
         // print_register_state(&regs); // Print the updated register state
+        if(current == eip)
+        {
+            printf("-----------------Code is not reached----------------\n");
+            
+            // printf("==> ");
+        }
         current += instruction_length;
     }
     free(stack);

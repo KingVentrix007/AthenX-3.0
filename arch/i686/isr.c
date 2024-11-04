@@ -128,19 +128,19 @@ int exception_count = 0;
 
 int debug_c(char *cmd,int err_code)
 {
-    if(strcmp(cmd,"dec") == 0)
+    if(strcmp(cmd,"dis") == 0)
     {
         cls();
         size_t i = 0;
         bool display = true;
         char buf[100];
         int buf_count = 0;
-        while(1==1)
+        while(1)
         {   
             if(display == true)
             {
                 FunctionInfo *info  = &found_functions[i];
-                printf("%d: Function %s decompiled\n",i,info->function_name);
+                printf("%d: Function %s dissembled\n",i,info->function_name);
                 uint32_t eip;
                 if(info->is_error == true)
                 {
@@ -150,9 +150,9 @@ int debug_c(char *cmd,int err_code)
                 {
                     eip = 0;
                 }
-                print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 16,found_functions,err_code,eip); // Example frame size, adjust as needed
+                print_stack_frame((uintptr_t*)info->func_address, sizeof(uintptr_t) * 40,found_functions,err_code,eip); // Example frame size, adjust as needed
                 printf("\nPress the left/right arrows to change functions\n");
-                printf("Decompiler: ");
+                printf("Dissembler: ");
             }
             
             int input = kb_getchar_w();

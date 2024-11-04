@@ -2,7 +2,12 @@
 #define __STDLIB_H
 
 #include <stddef.h> // for size_t
-
+#include "stdint.h"
+typedef struct
+{
+    void *alloc;
+    char name[15];
+}allocations_t;
 // Declaration for calloc function
 void* calloc(size_t num_elements, size_t element_size);
 
@@ -19,4 +24,7 @@ void* realloc(void* ptr, size_t new_size);
 long strtol(const char* str, char** endptr, int base);
 
 double ldexp(double x, int exp);
+extern uint32_t *allocation_ptrs;
+extern uint32_t allocation_ptrs_count;
+
 #endif

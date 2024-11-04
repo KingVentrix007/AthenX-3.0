@@ -185,7 +185,7 @@ void command_line(void)
     
     // register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
     // register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
-    // dev_0(10);
+    dev_0(10);
    
     printf("Welcome to ");
     printf("\033[0;31m"); // Set color to red
@@ -290,6 +290,13 @@ int dev_3()
 int dev_4(int x)
 {
     // int x = 4;
+    char *test = malloc(100);
+    if(test == NULL)
+    {
+        return 0;
+    }
+    strcpy(test,"cat");
+    printf("%s\n",test);
     int y = 2;
     int z = x/y;
     
