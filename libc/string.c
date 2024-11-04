@@ -140,7 +140,7 @@ int strlen(const char *s) {
         len++;
     return len;
 }
-int strcmp(const char *s1, char *s2) {
+int strcmp(const char *s1, const  char *s2) {
     int i = 0;
 
     while ((s1[i] == s2[i])) {

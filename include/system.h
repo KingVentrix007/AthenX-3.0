@@ -60,4 +60,7 @@ typedef struct
 }system_info_t;
 
 extern system_info_t system_info;
+void init_system_info(void);
+void populate_cpu_info(cpu_info_t *info) ;
+void populate_system_info(system_info_t *sys_info) ;
 #endif

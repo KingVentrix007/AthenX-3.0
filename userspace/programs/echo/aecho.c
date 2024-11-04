@@ -30,6 +30,8 @@ int main(int argc, char argv[100][100])
         my_printf("Hello, %s!\n", "World");
         return 0;
     }
+    // char msg[100] = "HELLO";
+    // strcpy(msg,argv[1]);
     my_printf("%s",argv[1]);
     // if(argc < 2)
     // {

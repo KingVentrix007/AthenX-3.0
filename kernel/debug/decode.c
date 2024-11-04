@@ -160,7 +160,48 @@ const char* get_register_name(uint8_t reg) {
         default: return "unknown";
     }
 }
-
+const char* get_register_name_v2(uint8_t reg, uint8_t operand_size) {
+    switch (operand_size) {
+        case 8:
+            switch (reg) {
+                case 0x00: return "al";
+                case 0x01: return "cl";
+                case 0x02: return "dl";
+                case 0x03: return "bl";
+                case 0x04: return "ah";
+                case 0x05: return "ch";
+                case 0x06: return "dh";
+                case 0x07: return "bh";
+                default: return "unknown";
+            }
+        case 16:
+            switch (reg) {
+                case 0x00: return "ax";
+                case 0x01: return "cx";
+                case 0x02: return "dx";
+                case 0x03: return "bx";
+                case 0x04: return "sp";
+                case 0x05: return "bp";
+                case 0x06: return "si";
+                case 0x07: return "di";
+                default: return "unknown";
+            }
+        case 32:
+            switch (reg) {
+                case 0x00: return "eax";
+                case 0x01: return "ecx";
+                case 0x02: return "edx";
+                case 0x03: return "ebx";
+                case 0x04: return "esp";
+                case 0x05: return "ebp";
+                case 0x06: return "esi";
+                case 0x07: return "edi";
+                default: return "unknown";
+            }
+        default:
+            return "unknown";
+    }
+}
 // To simulate a stack and use registers for your disassembler, you can indeed allocate a region of memory to act as the stack and then set one of the registers (like esp or ebp) to point to this allocated region. Here's a step-by-step approach to achieve this:
 
 // 1. Allocate Memory for the Stack
@@ -178,7 +219,11 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
     int push_count = 0;
     biggest_function = find_function_with_biggest_address(debug_map, strlen(debug_map));
     smallest_function = find_function_with_smallest_address(debug_map, strlen(debug_map));
-    void *stack = malloc(STACK_SIZE+100);
+    void *stack = malloc(size+100);
+     if (stack == NULL) {
+        printf("Error: Failed to allocate memory for stack\n");
+        return -1;
+    }
     uint8_t *current = (uint8_t *)base;
     uint8_t *end = current + size;
     RegisterState regs = {0};
@@ -805,6 +850,82 @@ int print_stack_frame(uintptr_t *base, size_t size, FunctionInfo functions[MAX_F
             // uintptr_t offset = (uintptr_t )base - (uintptr_t )target_addr;
             printf("    jmp    0x%x \n",target_addr);
             break;
+        case 0x88: { // MOV r/m8, r8
+    uint8_t modrm = current[1];
+    uint8_t mod = (modrm >> 6) & 0x03;
+    uint8_t reg = (modrm >> 3) & 0x07;
+    uint8_t rm = modrm & 0x07;
+
+    int32_t displacement = 0;
+    size_t disp_size = 0;
+
+    if (mod == 0x01) {
+        disp_size = 1;
+        displacement = (int8_t)current[2];
+    } else if (mod == 0x02) {
+        disp_size = 4;
+        displacement = *(int32_t *)(current + 2);
+    }
+
+    instruction_length = 2 + disp_size;
+
+    // Assuming `operand_size` is 8 for 8-bit operations
+    const char *reg_name = get_register_name_v2(reg, 8);
+    const char *rm_name = get_register_name_v2(rm, 8);
+
+    if (mod == 0x00 && rm == 0x05) {
+        // Special case for direct memory address (%eax)
+        printf("    mov    %%%s, (%s)\n", reg_name, rm_name);
+
+        // For demonstration, simulate memory update. Actual implementation might vary.
+        // This example assumes `EAX` holds the memory address.
+        if (reg == 0) {
+            *(uint8_t *)(regs.eax) = regs.eax & 0xFF;
+        } else if (reg == 1) {
+            *(uint8_t *)(regs.eax) = regs.ecx & 0xFF;
+        } else if (reg == 2) {
+            *(uint8_t *)(regs.eax) = regs.edx & 0xFF;
+        } else if (reg == 3) {
+            *(uint8_t *)(regs.eax) = regs.ebx & 0xFF;
+        } else if (reg == 4) {
+            *(uint8_t *)(regs.eax) = regs.esp & 0xFF;
+        } else if (reg == 5) {
+            *(uint8_t *)(regs.eax) = regs.ebp & 0xFF;
+        } else if (reg == 6) {
+            *(uint8_t *)(regs.eax) = regs.esi & 0xFF;
+        } else if (reg == 7) {
+            *(uint8_t *)(regs.eax) = regs.edi & 0xFF;
+        }
+    } else if (mod == 0x01 || mod == 0x02) {
+        // General case: move data to/from memory with displacement
+        printf("    mov    %%%s, %d(%%%s)\n", reg_name, displacement, rm_name);
+
+        // Simulate memory update based on `reg`
+        if (rm == 0x05 && mod == 0x01) { // Example specific case
+            if (reg == 0) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.eax & 0xFF;
+            } else if (reg == 1) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.ecx & 0xFF;
+            } else if (reg == 2) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.edx & 0xFF;
+            } else if (reg == 3) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.ebx & 0xFF;
+            } else if (reg == 4) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.esp & 0xFF;
+            } else if (reg == 5) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.ebp & 0xFF;
+            } else if (reg == 6) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.esi & 0xFF;
+            } else if (reg == 7) {
+                *(uint8_t *)(regs.ebp + displacement) = regs.edi & 0xFF;
+            }
+        }
+    } else {
+        printf("    Unhandled 0x88 opcode with ModR/M [mod=0x%x, reg=0x%x, rm=0x%x]\n", mod, reg, rm);
+    }
+    break;
+}
+
         default:
             // printf("    Address 0x%08lx: 0x%08lx - ", (uintptr_t)current, value);
             printf("    Unhandled opcode [0x%x]\n", opcode);

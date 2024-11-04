@@ -11,7 +11,7 @@
 #include "debug.h"
 #include "kernel.h"
 #include "stdbool.h"
-
+#include "elf.h"
 char current_path[FATFS_MAX_LONG_FILENAME];
 extern fs_active;
 // Function prototypes
@@ -559,6 +559,7 @@ int cmd(char *command)
             LOG_LOCATION;
 
             char argv_elf[100][100];
+             memset(argv_elf, 0, sizeof(argv_elf));
             for (size_t i = 0; i < argc; i++)
             {
                 strcpy(argv_elf[i], argv[i]);
@@ -567,7 +568,7 @@ int cmd(char *command)
             LOG_LOCATION;
             for (size_t i = 0; i < argc; i++)
             {
-                // printf("%s\n", argv_elf[i]);
+                printf("%s\n", argv_elf[i]);
             }
             
             execute_file(tmp,argc,argv_elf);

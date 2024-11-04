@@ -12,11 +12,9 @@ void* memmove(void* dest, const void* src, size_t size);
 void parse_string(char *parser, char *string, char c);
 int memcmp(const void *str1, const void *str2, size_t count);
 int atoi(const char *s);
-int strlen(const char *s);
+size_t strlen(const char *s);
 int strncmp(const char *s1, const char *s2, size_t n);
 char *strncpy(char *dst, const char *src, size_t n);
-int strcmp(const char *s1, char *s2);
-
 int strcpy(char *dst, const char *src);
 char *ctos(char s[2], const char c);
 void strcat(char *dest, const char *src);
@@ -27,7 +25,6 @@ char lower(char c);
 bool backspace(char *buffer);
 char* strrchr(const char* str, int ch);
 void itoa(char *buf, int base, int d);
-int strncmp(const char *s1, const char *s2, size_t n);
 int string_length(char s[]);
 void append(char s[], char n);
 bool hex_string_to_uint16(const char* hexString, uint16_t* result);
@@ -43,4 +40,5 @@ char* strdup(const char* str);
 char* formatBytes(uint32_t bytes);
 
 char* formatBytes64(uint64_t bytes);
+int strcmp(const char *s1, const  char *s2);
 #endif

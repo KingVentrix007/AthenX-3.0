@@ -33,11 +33,11 @@ uint32 inportl(uint16 port);
  */
 void outportl(uint16 port, uint32 data);
 
-void init_com1();
 
-void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity);
+
+void configure_com1(uint16 baud_rate);
 void write_to_com1(uint8 data);
-void write_to_com1_string(char *s);
+void write_to_com1_string(const char *s);
 void printf_com(const char* format, ...);
 void cpuid(unsigned int code, unsigned int *a, unsigned int *b,
                          unsigned int *c, unsigned int *d);
@@ -46,4 +46,6 @@ void get_cpu_info(char *cpu_name, char *architecture, unsigned int *family,
                   unsigned int *model, unsigned int *stepping);
 #define LOG_LOCATION printf_com("%s:%d -->%s\n", __FILE__, __LINE__,__func__)
 #define dbgprintf(a, ...) printf_com("%s():" a, __func__, ##__VA_ARGS__)
+void printf_error(const char *format, ...);
+void init_com1(void);
 #endif

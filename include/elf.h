@@ -796,4 +796,5 @@ struct exec_package;
 int exec_elf_makecmds(struct proc *, struct exec_package *);
 #endif /* _KERNEL */
 void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv);
+int execute_file(const char *path,int argc, char **argv);
 #define ELF_TARG_VER 1 /* The ver for which this code is intended */

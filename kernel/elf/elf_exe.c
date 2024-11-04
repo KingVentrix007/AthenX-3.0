@@ -224,6 +224,12 @@ int pa_count = 0;
  *   void
  */
 void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
+    printf("Passing parmas:\n");
+    for (size_t i = 0; i < myArgc; i++)
+    {
+        printf("%d:%s\n",i,myArgv[i]);
+    }
+    
     Elf32_Ehdr* elf_header = (Elf32_Ehdr*)elf_data;
     LOG_LOCATION;
     if (memcmp(elf_header->e_ident, ELFMAG, SELFMAG) != 0) {
@@ -240,8 +246,8 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
                 return; // Failed to allocate memory
             }
              LOG_LOCATION;
-            va_address[pa_count] = region;
-            pa_count++;
+            // va_address[pa_count] = region;
+            // pa_count++;
             size_t num_pages = program_header->p_memsz / PAGE_SIZE;
             if (program_header->p_memsz % PAGE_SIZE != 0) {
                 num_pages++;
@@ -251,7 +257,7 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
             uint32_t page_offset = program_header->p_vaddr & (program_header->p_align - 1);
 
             for (size_t i = 0; i < num_pages; i++) {
-                // printf("mapping address 0x%08X\n",page_va);
+                printf("mapping address %p\n",page_va);
                 // unmap(region);
                 map(page_va, region, PAGE_WRITE | PAGE_PRESENT); // Map memory
                 va_address[i] = page_va; 
@@ -259,11 +265,12 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
                 page_va += PAGE_SIZE;
                 region += PAGE_SIZE;
             }
+            va_address[num_pages] = 0;
              LOG_LOCATION;
              printf("Memset below line %d\n",__LINE__);
             memcpy((void *)program_header->p_vaddr, elf_data + program_header->p_offset, program_header->p_filesz);
             printf("Memset below line %d\n",__LINE__);
-
+            printf("Memset adder %p\n",(void *)(program_header->p_vaddr) + program_header->p_filesz);
             memset((void *)(program_header->p_vaddr) + program_header->p_filesz, 0, program_header->p_memsz - program_header->p_filesz);
              
              LOG_LOCATION;
@@ -310,7 +317,7 @@ void load_elf_executable(uint8_t* elf_data, int myArgc, char** myArgv) {
         if(va_address[i] != 0)
         {
             memset((void *)va_address[i], 0, 4096);
-             unmap(va_address[i]);
+            unmap(va_address[i]);
             va_address[i] = 0;
         }
        
@@ -532,10 +539,16 @@ int execute_file(const char *path,int argc, char **argv)
 {
     // global_file_path = path;
     LOG_LOCATION;
-    strcpy(global_file_path,path);
-    global_argc = argc;
-    global_argv = argv;
-    internal_run_exe();
+    for (size_t i = 0; i < argc; i++)
+    {
+        printf("%d:%s\n",i,argv[i]);
+    }
+    
+    // internal_run_exe();
+    lock_kb_input(127);
+    LOG_LOCATION;
+    load_elf_file(path,argc,argv);
+    unlock_kb_input();
     
 
 }

@@ -1,6 +1,6 @@
 #include "system.h"
 #include "io_ports.h"
-
+#include <string.h>
 
 system_info_t system_info;
 

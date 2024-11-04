@@ -56,7 +56,7 @@ void write_to_com1(uint8 data) {
     outportb(COM1_PORT, data);
 
 }
-void write_to_com1_string(char *s)
+void write_to_com1_string(const char *s)
 {
     // write_to_com1(':');
     if(com_enabled == 1)
@@ -85,30 +85,10 @@ void printf_error(const char *format, ...)
     va_end(args);
 
     // Call write_to_com1_string to write the formatted string to COM1
-    char *msg = "ERROR: ";
+    const char *msg = "ERROR: ";
     write_to_com1_string(msg);
     write_to_com1_string(buffer);
 }
-// void printf_debug(const char *format, ...)
-// {
-//      // Define a buffer to hold the formatted string
-//     char buffer[256]; // Adjust the buffer size as needed
-
-//     // Initialize the variable argument list
-//     va_list args;
-//     va_start(args, format);
-
-//     // Format the string using vsnprintf
-//     vsnprintf(buffer, sizeof(buffer), format, args);
-
-//     // Cleanup the variable argument list
-//     va_end(args);
-
-//     // Call write_to_com1_string to write the formatted string to COM1
-//     char *msg = "DEBUG: ";
-//     write_to_com1_string(msg);
-//     write_to_com1_string(buffer);
-// }
 void printf_com(const char* format, ...)
 {
     // Define a buffer to hold the formatted string
@@ -128,7 +108,7 @@ void printf_com(const char* format, ...)
     // printf_debug("%s", buffer);
     write_to_com1_string(buffer);
 }
-void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 parity) {
+void configure_com1(uint16 baud_rate) {
     // Disable interrupts
     outportb(COM1_PORT + 1, 0x00);
     
@@ -146,7 +126,7 @@ void configure_com1(uint16 baud_rate, uint8 data_bits, uint8 stop_bits, uint8 pa
  * Initialize COM1 serial port with default settings
  */
 void init_com1() {
-    configure_com1(9600, 8, 1, 0); // Default settings: 9600 baud, 8 data bits, 1 stop bit, no parity
+    configure_com1(9600); // Default settings: 9600 baud, 8 data bits, 1 stop bit, no parity
     com_enabled = 1;
 }
 

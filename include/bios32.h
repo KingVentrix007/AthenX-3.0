@@ -21,8 +21,8 @@ extern void *bios32_int_number_ptr;
 
 // https://en.wikipedia.org/wiki/BIOS_interrupt_call
 
-void bios32_init();
+void bios32_init(void);
 // bios interrupt call
 void int86(uint8 interrupt, REGISTERS16 *in, REGISTERS16 *out);
-
+void bios32_service(uint8 interrupt, REGISTERS16 *in, REGISTERS16 *out);
 #endif
