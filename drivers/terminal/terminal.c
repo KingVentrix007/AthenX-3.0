@@ -11,7 +11,11 @@ size_t terminal_height;
 size_t scroll_count = 0;
 uint32_t font_fg_color;
 uint32_t font_bg_color;
+uint32_t scroll_x_pos = 0;
+
 extern unsigned char arr_8x16_font[];
+void set_font_bg_color_(int color);
+void set_font_fg_color_(int color);
 uint32_t get_font_fg()
 {
     return font_fg_color;
@@ -20,6 +24,19 @@ uint32_t get_font_bg()
 {
     return font_bg_color;
 }
+void set_scroll_x_pos(uint32_t x)
+{
+    scroll_x_pos = x;
+}
+void set_font_fg_color_(int color)
+{
+    font_fg_color = color;
+}
+void set_font_bg_color_(int color)
+{
+    font_bg_color = color;
+}
+
 void set_font_fg_color(int color_index) {
     switch (color_index) {
         case 0: // Black
@@ -119,7 +136,7 @@ int draw_vbe_char(char c)
     {
         if(terminal_postion_x > terminal_width-terminal_font_width)
         {
-            terminal_postion_x=0;
+            terminal_postion_x=scroll_x_pos;
             terminal_postion_y = terminal_postion_y + terminal_font_height;
         }
         update_cursor_manual();
@@ -132,14 +149,14 @@ int draw_vbe_char(char c)
         if(terminal_postion_y >= terminal_height-(terminal_font_height*2))
         {
             vesa_scroll(terminal_font_height*2);
-            terminal_postion_x = 0;
+            terminal_postion_x = scroll_x_pos;
             // printf("768 reached\n");
             // for(;;);
             terminal_postion_y=terminal_postion_y-(terminal_font_height);
         }
         else
         {
-            terminal_postion_x = 0;
+            terminal_postion_x = scroll_x_pos;
             terminal_postion_y+=terminal_font_height;
         }
         
@@ -149,7 +166,7 @@ int draw_vbe_char(char c)
     {
         if(terminal_postion_x > terminal_width-terminal_font_width)
         {
-            terminal_postion_x=0;
+            terminal_postion_x=scroll_x_pos;
             terminal_postion_y = terminal_postion_y + terminal_font_height;
         }
         update_cursor_manual();

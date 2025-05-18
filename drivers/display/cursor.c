@@ -18,7 +18,7 @@ void draw_cursor(int sx, int sy)
         {
             if(multi_buffers_enabled == 0)
             {
-            vbe_putpixel(sx+x,sy+y,VBE_RGB(32,194,14));
+                vbe_putpixel(sx+x,sy+y,VBE_RGB(32,194,14));
 
             }
             else
@@ -40,7 +40,7 @@ void undraw_cursor(int sx, int sy)
         {
             if(multi_buffers_enabled == 0)
             {
-             vbe_putpixel(sx+x,sy+y,VBE_RGB(0,0,0));
+             vbe_putpixel(sx+x,sy+y,get_font_bg());
 
             }
             else

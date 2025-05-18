@@ -70,7 +70,7 @@ run: AthenX.bin
     
 	python3 format_map_2.py
 	bash ./scripts/boot32.sh
-	qemu-system-i386 \
+	qemu-system-i386  -display gtk,gl=off\
     -drive id=disk,file=AthenX.img,format=raw,if=none \
     -drive id=disk2,file=ahci.img,format=raw,if=none \
     -device ahci,id=ahci \
@@ -89,7 +89,7 @@ run: AthenX.bin
 
 run-ide: AthenX.bin
 	bash ./scripts/boot32.sh
-	qemu-system-i386 \
+	qemu-system-i386  -display gtk,gl=off \
     -drive file=AthenX.img \
     -drive id=disk2,file=ahci.img,format=raw,if=none \
     -device ahci,id=ahci \

@@ -455,6 +455,9 @@ int cmd(char *command)
     else if(strcmp(argv[0],"cls") == 0)
     {
         cls();
+        draw_ui_layout(1024,768);
+        // set_terminal_postion_x(command_start_x);
+        // set_terminal_postion_y(command_start_y);
     }
     else if(strcmp(argv[0],"setd") == 0)
     {

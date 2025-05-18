@@ -35,6 +35,8 @@
 #include "stdlib.h"
 #include "immintrin.h"
 #include "keyboard.h"
+#include "login.h"
+
 void command_line(void);
 unsigned int get_random_number();
 void loop(void);
@@ -180,13 +182,14 @@ void load_history_down()
 
     }
 }
+   void draw_login_screen(int screenX, int screenY);
+int gui_mode();
 void command_line(void)
 {
-    
+    gui_mode();
     // register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
     // register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
-    dev_0(10);
-   
+    // dev_0(10);
     printf("Welcome to ");
     printf("\033[0;31m"); // Set color to red
     printf("I");
@@ -256,7 +259,54 @@ void command_line(void)
     }
     // TerminateProcess();
 }
+int gui_mode()
+{
+    draw_login_screen(1024,768);
+    set_terminal_postion_x(username_start_x);
+    set_terminal_postion_y(username_start_y);
+    while(1)
+    {
+        set_terminal_postion_x(username_start_x);
+        set_terminal_postion_y(username_start_y);
+        char username[16] = {0};
+        fgets(username,15,stdin);
+        set_terminal_postion_x(password_start_x);
+        set_terminal_postion_y(password_start_y);
+        char password[16] = {0};
+        get_password(password,15);
+        if(strcmp(username,"tristan") == 0 && strcmp(password,"tristan") == 0)
+        {
+            break;
+        }
 
+        
+    }
+    draw_ui_layout(1024,768);
+    set_terminal_postion_x(command_start_x);
+    set_terminal_postion_y(command_start_y);
+    while(1)
+    {
+        set_scroll_x_pos(command_start_x);
+        set_terminal_postion_x(command_start_x);
+        set_terminal_postion_y(command_start_y);
+
+        char command[500] = {0};
+        fgets(command,499,stdin);
+        set_terminal_postion_x(command_start_x);
+        for (size_t i = 0; i < strlen(command); i++)
+        {
+            printf(" ");
+        }
+        set_terminal_postion_x(output_start_x);
+        set_terminal_postion_y(output_start_y);
+        set_scroll_x_pos(output_start_x);
+        cmd(command);
+        
+
+
+
+    }
+}
 int check_buffer(char *string)
 {
     if(strcmp(string, "ls") == 0)
