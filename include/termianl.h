@@ -11,4 +11,6 @@ int set_terminal_postion_y(int y);
 int set_terminal_postion_x(int y);
 uint32_t get_font_bg();
 void set_scroll_x_pos(uint32_t x);
+size_t get_terminal_hight();
+size_t get_terminal_width();
 #endif

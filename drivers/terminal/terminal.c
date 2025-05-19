@@ -36,7 +36,14 @@ void set_font_bg_color_(int color)
 {
     font_bg_color = color;
 }
-
+size_t get_terminal_width()
+{
+    return terminal_width;
+}
+size_t get_terminal_hight()
+{
+    return terminal_height;
+}
 void set_font_fg_color(int color_index) {
     switch (color_index) {
         case 0: // Black

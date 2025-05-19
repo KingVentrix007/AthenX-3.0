@@ -2,747 +2,751 @@
 0000000000100004::0x4:0
 0000000000100008::0x4:0
 000000000010000c::__code:0
-000000000010005b:obj/arch/i686/random.c:srand:uint32_t s:835
-0000000000100102:obj/arch/i686/random.c:rand:void:836
-0000000000100126:obj/arch/i686/gdt.c:gdt_set_entry:int index, uint32 base, uint32 limit, uint8 access, uint8 gran:838
-00000000001001b1:obj/arch/i686/gdt.c:gdt_init:void:839
-0000000000100250:obj/arch/i686/idt.c:idt_set_entry:int index, uint32 base, uint16 seg_sel, uint8 flags:841
-00000000001002b1:obj/arch/i686/idt.c:idt_init:void:842
-000000000010074e:obj/arch/i686/system.c:populate_cpu_info:cpu_info_t *info:844
-0000000000100a0e:obj/arch/i686/system.c:populate_system_info:system_info_t *sys_info:845
-0000000000100aa3:obj/arch/i686/system.c:init_system_info:void:846
-0000000000100abc:obj/arch/i686/io_ports.c:inportb:uint16 port:848
-0000000000100ad9:obj/arch/i686/io_ports.c:outportb:uint16 port, uint8 val:849
-0000000000100afa:obj/arch/i686/io_ports.c:inports:uint16 port:850
-0000000000100b19:obj/arch/i686/io_ports.c:outports:uint16 port, uint16 data:851
-0000000000100b3a:obj/arch/i686/io_ports.c:inportl:uint16 port:852
-0000000000100b56:obj/arch/i686/io_ports.c:outportl:uint16 port, uint32 data:853
-0000000000100b6e:obj/arch/i686/io_ports.c:write_to_com1:uint8 data:854
-0000000000100b8f:obj/arch/i686/io_ports.c:write_to_com1_string:const char *s:855
-0000000000100bd9:obj/arch/i686/io_ports.c:printf_error:const char *format, ...:856
-0000000000100c33:obj/arch/i686/io_ports.c:printf_com:const char* format, ...:857
-0000000000100c78:obj/arch/i686/io_ports.c:configure_com1:uint16 baud_rate:858
-0000000000100d17:obj/arch/i686/io_ports.c:init_com1:void:859
+000000000010005b:obj/arch/i686/random.c:srand:uint32_t s:837
+0000000000100102:obj/arch/i686/random.c:rand:void:838
+0000000000100126:obj/arch/i686/gdt.c:gdt_set_entry:int index, uint32 base, uint32 limit, uint8 access, uint8 gran:840
+00000000001001b1:obj/arch/i686/gdt.c:gdt_init:void:841
+0000000000100250:obj/arch/i686/idt.c:idt_set_entry:int index, uint32 base, uint16 seg_sel, uint8 flags:843
+00000000001002b1:obj/arch/i686/idt.c:idt_init:void:844
+000000000010074e:obj/arch/i686/system.c:populate_cpu_info:cpu_info_t *info:846
+0000000000100a0e:obj/arch/i686/system.c:populate_system_info:system_info_t *sys_info:847
+0000000000100aa3:obj/arch/i686/system.c:init_system_info:void:848
+0000000000100abc:obj/arch/i686/io_ports.c:inportb:uint16 port:850
+0000000000100ad9:obj/arch/i686/io_ports.c:outportb:uint16 port, uint8 val:851
+0000000000100afa:obj/arch/i686/io_ports.c:inports:uint16 port:852
+0000000000100b19:obj/arch/i686/io_ports.c:outports:uint16 port, uint16 data:853
+0000000000100b3a:obj/arch/i686/io_ports.c:inportl:uint16 port:854
+0000000000100b56:obj/arch/i686/io_ports.c:outportl:uint16 port, uint32 data:855
+0000000000100b6e:obj/arch/i686/io_ports.c:write_to_com1:uint8 data:856
+0000000000100b8f:obj/arch/i686/io_ports.c:write_to_com1_string:const char *s:857
+0000000000100bd9:obj/arch/i686/io_ports.c:printf_error:const char *format, ...:858
+0000000000100c33:obj/arch/i686/io_ports.c:printf_com:const char* format, ...:859
+0000000000100c78:obj/arch/i686/io_ports.c:configure_com1:uint16 baud_rate:860
+0000000000100d17:obj/arch/i686/io_ports.c:init_com1:void:861
 0000000000100d34:obj/arch/i686/io_ports.c:cpuid:unsigned int code, unsigned int *a, unsigned int *b,
-                         unsigned int *c, unsigned int *d:860
-0000000000100d59:obj/arch/i686/io_ports.c:get_cpu_name:char *cpu_name:861
+                         unsigned int *c, unsigned int *d:862
+0000000000100d59:obj/arch/i686/io_ports.c:get_cpu_name:char *cpu_name:863
 0000000000100e43:obj/arch/i686/io_ports.c:get_cpu_info:char *cpu_name, char *architecture, unsigned int *family,
-                  unsigned int *model, unsigned int *stepping:862
-000000000010109c:obj/arch/i686/bios32.c:bios32_init:void:864
-00000000001010fb:obj/arch/i686/bios32.c:bios32_service:void:865
-0000000000101210:obj/arch/i686/bios32.c:int86:uint8 interrupt, REGISTERS16 *in, REGISTERS16 *out:866
-0000000000101235:obj/arch/i686/isr.c:isr_register_interrupt_handler:int num, ISR handler,char func[255]:868
-0000000000101294:obj/arch/i686/isr.c:isr_end_interrupt:int num:869
-00000000001012af:obj/arch/i686/isr.c:isr_irq_handler:REGISTERS *reg:870
-00000000001013d7:obj/arch/i686/isr.c:debug_output:REGISTERS *reg:871
-000000000010143c:obj/arch/i686/isr.c:debug_c:char *cmd,int err_code:872
-0000000000101679:obj/arch/i686/isr.c:test_int:void:873
-000000000010168f:obj/arch/i686/isr.c:test_int_rec:void:874
-00000000001016aa:obj/arch/i686/isr.c:isr_exception_handler:REGISTERS reg:875
-0000000000101874:obj/arch/i686/8259_pic.c:pic8259_init:void:877
-0000000000101945:obj/arch/i686/8259_pic.c:pic8259_eoi:uint8 irq:878
-0000000000101b1d:obj/kernel/multitasking/scheduler.c:InitScheduler:void:880
-0000000000101be3:obj/kernel/multitasking/scheduler.c:PcbAlloc:void:881
-0000000000101c4f:obj/kernel/multitasking/scheduler.c:PcbFree:PCB_t *pcb:882
-0000000000101c81:obj/kernel/multitasking/scheduler.c:AddReady:PCB_t *task:883
-0000000000101cd3:obj/kernel/multitasking/scheduler.c:NextReady:void:884
-0000000000101d20:obj/kernel/multitasking/scheduler.c:CreateProcess:void (*ent:885
-0000000000101dd8:obj/kernel/multitasking/scheduler.c:Schedule:void:886
-0000000000101e79:obj/kernel/multitasking/scheduler.c:UpdateTimeUsed:void:887
-0000000000101ed1:obj/kernel/multitasking/scheduler.c:LockScheduler:void:888
-0000000000101ee5:obj/kernel/multitasking/scheduler.c:UnlockScheduler:void:889
-0000000000101f02:obj/kernel/multitasking/scheduler.c:LockAndPostpone:void:890
-0000000000101f1a:obj/kernel/multitasking/scheduler.c:UnlockAndSchedule:void:891
-0000000000101f55:obj/kernel/multitasking/scheduler.c:BlockProcess:int reason:892
-0000000000101f78:obj/kernel/multitasking/scheduler.c:UnblockProcess:PCB_t *proc:893
-0000000000101f96:obj/kernel/multitasking/scheduler.c:AddSleeping:PCB_t *task:894
-0000000000101fde:obj/kernel/multitasking/scheduler.c:SleepUntil:unsigned long when:895
-000000000010202a:obj/kernel/multitasking/scheduler.c:IrqTimerHandler:void:896
-00000000001020d8:obj/kernel/multitasking/scheduler.c:AddTerminated:PCB_t *task:897
-0000000000102120:obj/kernel/multitasking/scheduler.c:TerminateProcess:void:898
-000000000010215f:obj/kernel/multitasking/scheduler.c:PerformButler:void:899
-00000000001021c4:obj/kernel/multitasking/scheduler.c:GetCurrentTask:void:900
-00000000001021d4:obj/kernel/multitasking/cpu.c:InitTimer:void:902
-00000000001021da:obj/kernel/multitasking/cpu.c:GetCurrentCounter:void:903
-0000000000102386:obj/kernel/elf/elf_exe.c:run_elf:struct elf_exe elf, int myArgc,char* myArgv[]:905
-00000000001023de:obj/kernel/elf/elf_exe.c:check_overlap:uintptr_t kernel_start, uintptr_t kernel_end, Elf32_Ehdr* elf_header:906
-000000000010241a:obj/kernel/elf/elf_exe.c:save_register_state:RegisterState* state:907
-000000000010242f:obj/kernel/elf/elf_exe.c:restore_register_state:RegisterState* state:908
-0000000000102444:obj/kernel/elf/elf_exe.c:is_kernel_memory_overlap:Elf32_Phdr* segment:909
-000000000010249a:obj/kernel/elf/elf_exe.c:switch_to_user_mode:UserProcessContext *user_context, KernelContext *kernel_context:910
-00000000001024bd:obj/kernel/elf/elf_exe.c:load_elf_executable:uint8_t* elf_data, int myArgc, char** myArgv:911
-00000000001029cc:obj/kernel/elf/elf_exe.c:exit_elf:KernelContext* location:912
-00000000001029d9:obj/kernel/elf/elf_exe.c:load_elf_file:const char* filename, int argc, char **argv:913
-0000000000102adc:obj/kernel/elf/elf_exe.c:execute_file:const char *path,int argc, char **argv:914
-0000000000102b7d:obj/kernel/elf/elf_exe.c:internal_run_exe:void:915
-0000000000102db5:obj/kernel/cmd/text_editor.c:edit_file:char *file_path:917
-00000000001031cd:obj/kernel/cmd/command.c:parse_command:char* cmd_line, int* argc:919
-000000000010342e:obj/kernel/cmd/command.c:cls:void:920
-0000000000103456:obj/kernel/cmd/command.c:move_back_one_folder:char* path:921
-0000000000103529:obj/kernel/cmd/command.c:free_command:char** argv, int argc:922
-000000000010358e:obj/kernel/cmd/command.c:set_cwd:char *path:923
-0000000000103687:obj/kernel/cmd/command.c:help:void:924
-0000000000103760:obj/kernel/cmd/command.c:get_cwd:void:925
-0000000000103789:obj/kernel/cmd/command.c:ls:void:926
-00000000001037ee:obj/kernel/cmd/command.c:date:void:927
-00000000001037f4:obj/kernel/cmd/command.c:draw_kmap:void:928
-000000000010380d:obj/kernel/cmd/command.c:shutdown:void:929
-0000000000103825:obj/kernel/cmd/command.c:key_map:void:930
-000000000010389e:obj/kernel/cmd/command.c:print_iris:void:931
-0000000000103937:obj/kernel/cmd/command.c:get_primary_dev_num:const char *path:932
-000000000010396c:obj/kernel/cmd/command.c:get_path_without_dev:const char *path:933
-0000000000103995:obj/kernel/cmd/command.c:cmd:char *command:934
-0000000000104542:obj/kernel/cmd/command.c:loop_test:void:935
-0000000000104718:obj/kernel/log/log.c:logging:int log_level,int line, char *function, char *path,const char* format, ...:937
-00000000001048a8:obj/kernel/kheap/kheap.c:init_kheap:uint32_t size:939
-00000000001049a3:obj/kernel/kheap/kheap.c:print_node_info:const Node *node:940
-0000000000104b34:obj/kernel/kheap/kheap.c:init_memory_allocation:void *start_addr, size_t size:941
-0000000000104b66:obj/kernel/kheap/kheap.c:sys_allocate_memory:int size:942
-0000000000104be1:obj/kernel/kheap/kheap.c:sys_free_memory:const void *addr:943
-0000000000104cbe:obj/kernel/kheap/kheap.c:sys_reallocate_memory:void *addr, int old_size, int new_size:944
-0000000000104da5:obj/kernel/kheap/kheap.c:print_memory_info:void:945
-0000000000105010:obj/kernel/kheap/kheap.c:init_memory_region:void *start_addr, size_t size:946
-000000000010525d:obj/kernel/kheap/kheap.c:extend_allocation_space:void *extra_region, size_t size:947
-00000000001052a8:obj/kernel/kheap/kheap.c:get_memory_size:const void *ptr:948
-0000000000105328:obj/kernel/kheap/kheap.c:memcleanup:void:949
-0000000000105389:obj/kernel/kheap/kheap.c:buffer_overflow_detector:void:950
-0000000000105481:obj/kernel/kheap/kheap.c:memory_leak_detector:void:951
-0000000000105519:obj/kernel/kheap/kheap.c:find_dangling_pointer:void:952
-00000000001055d3:obj/kernel/kheap/kheap.c:run_checks:void:953
-00000000001055f4:obj/kernel/kheap/kheap.c:is_heap_active:void:954
-0000000000105603:obj/kernel/kheap/kheap.c:kmalloc:size_t size:955
-0000000000105657:obj/kernel/kheap/kheap.c:kfree:void *ptr:956
-000000000010568c:obj/kernel/kheap/kheap.c:find_free_zone:current_node,size,num_blocks_needed:957
-000000000010576c:obj/kernel/kheap/kheap.c:create_map:void:958
-0000000000105890:obj/kernel/kheap/kheap.c:print_allocated:void:959
-00000000001058d8:obj/kernel/kheap/stdlib.c:init_allocation_system:void:961
-0000000000105918:obj/kernel/kheap/stdlib.c:calloc:size_t num_elements, size_t element_size:962
-0000000000105964:obj/kernel/kheap/stdlib.c:malloc_wrap:size_t size, char function[1000]:963
-0000000000105993:obj/kernel/kheap/stdlib.c:malloc_int:size_t size:964
-0000000000105a00:obj/kernel/kheap/stdlib.c:free:void *ptr:965
-0000000000105ac4:obj/kernel/kheap/stdlib.c:realloc:void* ptr, size_t new_size:966
-0000000000105c6b:obj/kernel/kheap/stdlib.c:kheap_shutdown:void:967
-0000000000105ca6:obj/kernel/kheap/stdlib.c:strtol:const char* str, char** endptr, int base:968
-0000000000105df2:obj/kernel/kheap/stdlib.c:ldexp:double x, int exp:969
-0000000000105e1f:obj/kernel/vmm/vmm.c:init_vmm:void:971
-0000000000106072:obj/kernel/vmm/vmm.c:switch_page_directory:page_directory_t* dir:972
-0000000000106088:obj/kernel/vmm/vmm.c:map:uint32_t va, uint32_t pa, uint32_t flags:973
-0000000000106169:obj/kernel/vmm/vmm.c:unmap:uint32_t va:974
-0000000000106197:obj/kernel/vmm/vmm.c:get_mapping:uint32_t va, uint32_t* pa:975
-000000000010621e:obj/kernel/vmm/vmm.c:find_free_range:uint32_t va_start, uint32_t va_end, uint32_t size,
-		uint8_t size_aligned:976
-00000000001062c3:obj/kernel/vmm/vmm.c:allocate_range:uint32_t va_start, uint32_t va_end, uint32_t flags:977
-00000000001064f1:obj/kernel/vmm/vmm.c:clone_directory:page_directory_t* src_dir:978
-0000000000106737:obj/kernel/vmm/vmm.c:destroy_directory:page_directory_t* dir:979
-0000000000106889:obj/kernel/vmm/vmm.c:diff_directories:page_directory_t* adir, page_directory_t* bdir:980
-00000000001069b6:obj/kernel/vmm/vmm.c:page_fault:REGISTERS *regs:981
-0000000000106a37:obj/kernel/vmm/vmm.c:sys_allocate_virtual_memory:uint32_t va, uint32_t size, uint32_t flags:982
-0000000000106c46:obj/kernel/debug/debug.c:print_kernel_memory_map:KERNEL_MEMORY_MAP *memory_map:984
-0000000000106e46:obj/kernel/debug/debug.c:disable_verbose:void:985
-0000000000106e57:obj/kernel/debug/debug.c:printf_t:const char *format, ...:986
-0000000000106e83:obj/kernel/debug/debug.c:removeTrailingWhitespace:char *str:987
-0000000000106ed5:obj/kernel/debug/debug.c:removeLeadingWhitespace:char *str:988
-0000000000106f32:obj/kernel/debug/debug.c:trim_whitespace:char *str:989
-0000000000106faf:obj/kernel/debug/debug.c:index_of_char:const char *str, char c:990
-0000000000106fe6:obj/kernel/debug/debug.c:parse_parameters:const char *parms, ParameterInfo *params:991
-0000000000107199:obj/kernel/debug/debug.c:find_function:const char *buffer, size_t buffer_size, unsigned int address:992
-000000000010731c:obj/kernel/debug/debug.c:strnlen:const char *str, size_t max_len:993
-000000000010734b:obj/kernel/debug/debug.c:strndup:const char *str, size_t n:994
-00000000001073a6:obj/kernel/debug/debug.c:print_parameter_value:uintptr_t ebp, int param_offset, const char *type:995
-000000000010766b:obj/kernel/debug/debug.c:estimate_frame_size:uintptr_t current_ebp, uintptr_t previous_ebp:996
-0000000000107685:obj/kernel/debug/debug.c:unwind_stack:REGISTERS *reg:997
-0000000000107ad9:obj/kernel/debug/debug_term.c:printf_debug:const char *fmt, ...:999
-0000000000107b9b:obj/kernel/debug/debug_term.c:init_debug_terminal:int x, int y:1000
-0000000000107bc9:obj/kernel/debug/debug_term.c:get_debug_terminal_postion_x:void:1001
-0000000000107bd3:obj/kernel/debug/debug_term.c:get_debug_terminal_postion_y:void:1002
-0000000000107bdd:obj/kernel/debug/debug_term.c:set_debug_terminal_postion_x:int x:1003
-0000000000107beb:obj/kernel/debug/debug_term.c:set_debug_terminal_postion_y:int y:1004
-0000000000107bf9:obj/kernel/debug/debug_term.c:draw__debug_vbe_char:char c:1005
-0000000000107d8e:obj/kernel/debug/debug_term.c:draw__debug_char_8x16:int x, int y, char character:1006
-0000000000107e5b:obj/kernel/debug/debug_term.c:kernel_panic:char *caller, char *reason:1007
-0000000000107e8e:obj/kernel/debug/decode.c:initialize_decoder_memory:void:1009
-0000000000107ec9:obj/kernel/debug/decode.c:decode_modrm_address:uint8_t mod, uint8_t rm, int8_t disp8, int32_t disp32:1010
-0000000000107fad:obj/kernel/debug/decode.c:disassemble_mov:uint8_t *current:1011
-00000000001080db:obj/kernel/debug/decode.c:disassemble_alu:uint8_t *current:1012
-0000000000108238:obj/kernel/debug/decode.c:disassemble_jne:uint8_t *current, uint32_t address:1013
-0000000000108289:obj/kernel/debug/decode.c:disassemble_call:uint8_t *current, uint32_t instruction_address,uint32_t *adder:1014
-0000000000108317:obj/kernel/debug/decode.c:disassemble_mov_imm:uint8_t *current:1015
-00000000001083ab:obj/kernel/debug/decode.c:disassemble_jmp:uint8_t *current, uint32_t instruction_address:1016
-00000000001083fe:obj/kernel/debug/decode.c:disassemble_movl:uint8_t *current:1017
-000000000010858b:obj/kernel/debug/decode.c:disassemble_push:uint8_t *current:1018
-00000000001087be:obj/kernel/debug/decode.c:print_stack_frame:uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES], int error_code,uint32_t eip:1019
-0000000000108d35:obj/kernel/debug/function.c:find_function_with_biggest_address:const char *buffer, size_t buffer_size:1021
-0000000000108e91:obj/kernel/debug/function.c:find_function_with_smallest_address:const char *buffer, size_t buffer_size:1022
-0000000000108fed:obj/kernel/pmm/pmm.c:init_pmm_page:uint32_t pmm_start,size_t size:1024
-0000000000109024:obj/kernel/pmm/pmm.c:pmm_alloc_page:void:1025
-00000000001090a4:obj/kernel/pmm/pmm.c:pmm_free_page:uint32_t p:1026
-0000000000109132:obj/kernel/pmm/pmm.c:pmm_collect_pages:MULTIBOOT_INFO* mboot_ptr:1027
-00000000001091ad:obj/kernel/pmm/pmm.c:pmm_alloc_pages:uint32_t num_pages:1028
-00000000001093bd:obj/kernel/kernel.c:Process:void:1030
-0000000000109439:obj/kernel/kernel.c:cursor_flash:void:1031
-0000000000109478:obj/kernel/kernel.c:get_kernel_memory_map:KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info:1032
-00000000001095f3:obj/kernel/kernel.c:kmain:unsigned long magic, unsigned long addr:1033
-000000000010960d:obj/kernel/kernel.c:load_history_up:void:1034
-0000000000109694:obj/kernel/kernel.c:load_history_down:void:1035
-000000000010972c:obj/kernel/kernel.c:command_line:void:1036
-0000000000109970:obj/kernel/kernel.c:gui_mode:void:1037
-0000000000109bb7:obj/kernel/kernel.c:check_buffer:char *string:1038
-0000000000109c17:obj/kernel/kernel.c:dev_0:int x:1039
-0000000000109c30:obj/kernel/kernel.c:dev_2:void:1040
-0000000000109c40:obj/kernel/kernel.c:dev_3:void:1041
-0000000000109c56:obj/kernel/kernel.c:dev_4:int x:1042
-0000000000109e69:obj/kernel/dwarf/dwarf.c:decode_uleb128:const uint8_t *ptr, uint32_t *value:1044
-0000000000109ec6:obj/kernel/dwarf/dwarf.c:decode_sleb128:const uint8_t *ptr, int32_t *value:1045
-0000000000109f44:obj/kernel/dwarf/dwarf.c:find_section_for_address:const char *elf_file_path:1046
-000000000010a271:obj/kernel/dwarf/dwarf.c:parse_debug_info:FILE *file, Elf32_Shdr *shdrs, int shnum, const char *shstrtab_data:1047
-000000000010a4ec:obj/kernel/dwarf/dwarf.c:parse_debug_abbrev_offset:FILE *file, Elf32_Shdr *shdrs, int shnum, const char *shstrtab_data, uint32_t offset:1048
-000000000010a4f2:obj/kernel/dwarf/dwarf.c:parse_debug_abbrev:FILE *file, Elf32_Shdr *shdr, uint32_t offset, uint32_t size:1049
-000000000010a856:obj/kernel/GUI/ui.c:draw_ui_layout:int screenX, int screenY:1051
-000000000010aa8d:obj/kernel/GUI/ui.c:fill_menu:void:1052
-000000000010aa93:obj/kernel/GUI/ui.c:fill_score:void:1053
-000000000010ac3b:obj/kernel/GUI/login.c:draw_login_screen:int screenX, int screenY:1055
-000000000010adbe:obj/kernel/GUI/login.c:draw_3d_rect:int x, int y, int width, int height, int border_color, int shadow_color, int highlight_color:1056
-000000000010aead:obj/kernel/GUI/login.c:draw_text_login:int x, int y, const char *text, int color:1057
-000000000010aee5:obj/kernel/GUI/login.c:draw_char:int x, int y, char c, int color:1058
-000000000010af28:obj/kernel/GUI/login.c:draw_rect_login:int x, int y, int width, int height, int color:1059
-000000000010af7b:obj/kernel/GUI/login.c:get_password:char *s, int n:1060
-000000000010b1e1:obj/kernel/init/main.c:store_modules:MULTIBOOT_INFO *mboot_info, MULTIBOOT_MODULE *stored_modules:1062
-000000000010b2d6:obj/kernel/init/main.c:print_ram_size:uint64_t ram_size_kb:1063
-000000000010b475:obj/kernel/init/main.c:write_first_module_to_file:MULTIBOOT_INFO *mboot_info:1064
-000000000010b52e:obj/kernel/init/main.c:draw_screen_dimensions_selection_menu:int pos,int *width,int *height:1065
-000000000010b76e:obj/kernel/init/main.c:set_screen_dimensions:int *width,int *hight:1066
-000000000010b831:obj/kernel/init/main.c:init:unsigned long magic, unsigned long addr:1067
-000000000010c2f3:obj/kernel/init/main.c:fill_program_list:int num_programs,Entry *entries:1068
-000000000010c3fb:obj/kernel/init/main.c:print_pci_devices:void:1069
-000000000010c8d0:obj/kernel/init/main.c:load_boot_config:const char *data,struct BootConfig *boot_config:1070
-000000000010c92e:obj/kernel/init/main.c:call_interrupt_43:void:1071
-000000000010c936:obj/kernel/init/main.c:edit_init:char *data,char *section,char *name,char *value:1072
-000000000010cc59:obj/kernel/init/ini.c:ini_malloc:size_t size:1074
-000000000010cdda:obj/kernel/init/ini.c:ini_parse_stream:ini_reader reader, void* stream, ini_handler handler,
-                     void* user:1075
-000000000010d0e5:obj/kernel/init/ini.c:ini_parse_file:FILE* file, ini_handler handler, void* user:1076
-000000000010d103:obj/kernel/init/ini.c:ini_parse:const char* data, ini_handler handler, void* user:1077
-000000000010d1b2:obj/kernel/init/ini.c:ini_parse_string:const char* string, ini_handler handler, void* user:1078
-000000000010d3a2:obj/drivers/hal/storage/storage.c:init_storage:void:1080
-000000000010d3f5:obj/drivers/hal/storage/storage.c:check_fs_types:void:1081
-000000000010d464:obj/drivers/hal/storage/storage.c:list_devices:void:1082
-000000000010d5ea:obj/drivers/hal/storage/storage.c:print_fs_type:int file_system:1083
-000000000010d64c:obj/drivers/hal/storage/storage.c:add_device:pci_storage_device dev:1084
-000000000010d6d3:obj/drivers/hal/storage/storage.c:get_primary_dev:void:1085
-000000000010d6dd:obj/drivers/hal/storage/storage.c:set_primary_dev:int dev:1086
-000000000010d7aa:obj/drivers/hal/storage/storage.c:secondary_storage_read:uint32 sector, uint8 *buffer, uint32 sector_count:1087
-000000000010d7d2:obj/drivers/hal/storage/storage.c:secondary_storage_write:uint32 sector, uint8 *buffer, uint32 sector_count:1088
-000000000010d80e:obj/drivers/hal/storage/storage.c:get_current_drive_sector_count:void:1089
-000000000010d853:obj/drivers/hal/storage/storage.c:write_iso_to_disk:uint8_t *iso_buffer, uint32_t iso_size:1090
-000000000010d903:obj/drivers/hal/storage/storage.c:install_athenx:void:1091
-000000000010d921:obj/drivers/hal/storage/storage.c:check_iso_bootable:uint8_t *iso_buffer, uint32_t iso_size:1092
-000000000010d969:obj/drivers/hal/storage/storage.c:install_mbr:void:1093
-000000000010da93:obj/drivers/hal/storage/storage.c:install_iso_to_disk:const char *iso_path:1094
-000000000010dc77:obj/drivers/virtual/devices.c:handle_virtual_device_fopen:char *device, char *mods:1096
-000000000010dd74:obj/drivers/virtual/devices.c:is_virtual_device_path:char *path:1097
-000000000010dda1:obj/drivers/virtual/devices.c:is_virtual_device:void *device:1098
-000000000010ddbf:obj/drivers/virtual/devices.c:decode_device:char *path:1099
-000000000010dfc3:obj/drivers/virtual/devices.c:device_read:void *ptr, size_t size, size_t nmemb, void *stream:1100
-000000000010e011:obj/drivers/virtual/devices.c:device_write:const void *ptr, size_t size, size_t nmemb, void *stream:1101
-000000000010e060:obj/drivers/virtual/devices.c:write_tty:char *buf,int pos,size_t count:1102
-000000000010e0a0:obj/drivers/virtual/devices.c:read_tty:char *buf, int pos, size_t count:1103
-000000000010e126:obj/drivers/virtual/devices.c:write_fmb:char *buf,int pos,size_t count:1104
-000000000010e145:obj/drivers/virtual/devices.c:read_fmb:char *buf,int pos,size_t count:1105
-000000000010e14f:obj/drivers/virtual/devices.c:write_ttySO:char *buf,int pos,size_t count:1106
-000000000010e187:obj/drivers/virtual/devices.c:read_ttySO:char *buf,int pos,size_t count:1107
-000000000010e191:obj/drivers/virtual/devices.c:read_mem:char *buf,int pos,size_t count:1108
-000000000010e197:obj/drivers/virtual/devices.c:write_NULL:char *buf,int pos,size_t count:1109
-000000000010e19d:obj/drivers/time/timer.c:timer_set_frequency:uint16 f:1111
-000000000010e204:obj/drivers/time/timer.c:timer_handler:REGISTERS* r:1112
-000000000010e2ae:obj/drivers/time/timer.c:timer_register_function:TIMER_FUNCTION function, TIMER_FUNC_ARGS *args:1113
-000000000010e32d:obj/drivers/time/timer.c:timer_init:void:1114
-000000000010e35a:obj/drivers/time/timer.c:sleep:int sec:1115
-000000000010e388:obj/drivers/time/timer.c:get_ticks:void:1116
-000000000010e392:obj/drivers/time/timer.c:get_RTC_register:int reg:1117
-000000000010e3c9:obj/drivers/time/clock.c:print_date:void:1119
-000000000010e59f:obj/drivers/time/clock.c:print_date_com:void:1120
-000000000010e77d:obj/drivers/time/clock.c:get_time:void:1121
-000000000010e929:obj/drivers/time/clock.c:time:time_t *t:1122
-000000000010e996:obj/drivers/time/clock.c:localtime:const time_t *timer:1123
-000000000010eb83:obj/drivers/keyboard/keyboard.c:alternate_chars:char ch:1125
-000000000010ec4a:obj/drivers/keyboard/keyboard.c:keyboard_handler:REGISTERS *r:1126
-000000000010efdd:obj/drivers/keyboard/keyboard.c:kb_getchar_w:void:1127
-000000000010f012:obj/drivers/keyboard/keyboard.c:get_char:int caller_process_id:1128
-000000000010f038:obj/drivers/keyboard/keyboard.c:lock_kb_input:int caller_process_id:1129
-000000000010f046:obj/drivers/keyboard/keyboard.c:unlock_kb_input:void:1130
-000000000010f056:obj/drivers/keyboard/keyboard.c:keyboard_init:void:1131
-000000000010f076:obj/drivers/keyboard/keyboard.c:handle_F1_press:int scancode:1132
-000000000010f092:obj/drivers/keyboard/keyboard.c:handle_F2_press:int scancode:1133
-000000000010f098:obj/drivers/keyboard/keyboard.c:handle_F3_press:int scancode:1134
-000000000010f0b4:obj/drivers/keyboard/keyboard.c:handle_F4_press:int scancode:1135
-000000000010f0d0:obj/drivers/keyboard/keyboard.c:handle_F5_press:int scancode:1136
-000000000010f0ec:obj/drivers/keyboard/keyboard.c:handle_F6_press:int scancode:1137
-000000000010f108:obj/drivers/keyboard/keyboard.c:handle_F7_press:int scancode:1138
-000000000010f124:obj/drivers/keyboard/keyboard.c:handle_F8_press:int scancode:1139
-000000000010f140:obj/drivers/keyboard/keyboard.c:handle_F9_press:int scancode:1140
-000000000010f15c:obj/drivers/keyboard/keyboard.c:handle_F10_press:int scancode:1141
-000000000010f178:obj/drivers/keyboard/keyboard.c:handle_F11_press:int scancode:1142
-000000000010f194:obj/drivers/keyboard/keyboard.c:handle_F12_press:int scancode:1143
-000000000010f1b0:obj/drivers/keyboard/keyboard.c:register_arrow_callback:int scancode, arrow_callback_t callback:1144
-000000000010f1dd:obj/drivers/keyboard/keyboard.c:arrow_press:int scancode:1145
-000000000010f20f:obj/drivers/vga/vga.c:print_char_at:char character, uint8_t color, int x, int y:1147
-000000000010f268:obj/drivers/vga/vga.c:print_char:char character, uint8_t color:1148
-000000000010f2a2:obj/drivers/vga/vga.c:kprints:const char *string:1149
-000000000010f331:obj/drivers/net/utils.c:is_little_endian:void:1151
-000000000010f34d:obj/drivers/net/utils.c:htons:uint16_t hostshort:1152
-000000000010f37e:obj/drivers/net/utils.c:htonl:uint32_t hostlong:1153
-000000000010f3bb:obj/drivers/net/utils.c:ntohs:uint16_t netshort:1154
-000000000010f3d7:obj/drivers/net/utils.c:ntohl:uint32_t netlong:1155
-000000000010f3e7:obj/drivers/net/utils.c:calculate_checksum:uint16_t *buf, int nwords:1156
-000000000010f441:obj/drivers/net/stack/dhcp.c:create_dhcp_discover:uint8_t *packet, uint8_t *src_mac:1158
-000000000010f707:obj/drivers/net/stack/receive.c:process_received_packet:void:1160
-000000000010fca1:obj/drivers/net/stack/receive.c:wait_for_receive:int packet_type:1161
-000000000010fd09:obj/drivers/net/stack/send.c:send_dhcp_request:void:1163
-000000000010fd5e:obj/drivers/net/network.c:print_mac_address:uint8_t mac[6]:1165
-000000000010fdcb:obj/drivers/net/network.c:request_ip_and_wait:int dev:1166
-0000000000110033:obj/drivers/net/network.c:set_current_netdev:network_interface_t *iface:1167
-0000000000110041:obj/drivers/net/network.c:get_current_netdev:void:1168
-000000000011004b:obj/drivers/net/network.c:register_iface:network_interface_t* iface, char iface_name[100], int (*transmit_func:1169
-00000000001100f5:obj/drivers/net/network.c:print_all_network_devs:void:1170
-000000000011012c:obj/drivers/net/e1000/e1000.c:e1000_Get_Mac:void:1172
-00000000001101ab:obj/drivers/net/e1000/e1000.c:e100_malloc:size_t size:1173
-000000000011034b:obj/drivers/net/e1000/e1000.c:_e1000_tx_init:void:1174
-00000000001103e6:obj/drivers/net/e1000/e1000.c:_e1000_rx_init:void:1175
-0000000000110475:obj/drivers/net/e1000/e1000.c:e1000_receive:char* buffer, uint32_t size:1176
-0000000000110554:obj/drivers/net/e1000/e1000.c:e1000_transmit:char* buffer, uint32_t size:1177
-0000000000110663:obj/drivers/net/e1000/e1000.c:e1000_callback:REGISTERS* r:1178
-00000000001106a1:obj/drivers/net/e1000/e1000.c:init_e1000:void:1179
-000000000011081d:obj/drivers/net/e1000/e1000.c:setup_net_e1000:void:1180
-0000000000110a25:obj/drivers/pci/pci_io.c:enable_bus_mastering:uint8_t bus, uint8_t slot, uint8_t func:1182
-0000000000110a87:obj/drivers/pci/pci_io.c:init_pci_device:uint8_t bus, uint8_t slot, uint8_t func:1183
-0000000000110b3a:obj/drivers/pci/pci_io.c:pci_enable_device_busmaster:uint16_t bus, uint16_t slot, uint16_t function:1184
-0000000000110bdb:obj/drivers/pci/pci_io.c:init_pci_device_interrupts:uint8_t bus, uint8_t slot, uint8_t func:1185
-0000000000110c3e:obj/drivers/pci/pci_io.c:pci_config_read_dword:uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset:1186
-0000000000110cd2:obj/drivers/pci/pci_io.c:pci_config_read_word:uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset:1187
-0000000000110d30:obj/drivers/pci/pci_io.c:pci_read:uint8_t bus, uint8_t device, uint8_t function, uint8_t offset:1188
-0000000000110da5:obj/drivers/pci/pci_io.c:pci_write:uint8_t bus, uint8_t device, uint8_t function, uint8_t offset, uint32_t data:1189
-0000000000110e1e:obj/drivers/pci/pci_io.c:pci_read_mini:uint8_t bus, uint8_t device, uint8_t function, uint8_t offset:1190
-0000000000110e93:obj/drivers/pci/pci_io.c:found_device:uint8_t bus, uint8_t slot, uint8_t func, pci_config_register *device:1191
-0000000000111271:obj/drivers/pci/pci_mian.c:pci_scan:void:1193
-0000000000111365:obj/drivers/pci/pci_mian.c:create_device:pci_config_register *config:1194
-00000000001116da:obj/drivers/pci/pci_mian.c:is_ahci:pci_config_register *config:1195
-00000000001116f1:obj/drivers/pci/pci_mian.c:get_ahci_abar:void:1196
-00000000001117c7:obj/drivers/pci/pci_mian.c:get_e1000_data:void:1197
-0000000000111909:obj/drivers/pci/pci_mian.c:read_bar5:uint8_t bus, uint8_t slot, uint8_t func:1198
-000000000011193c:obj/drivers/pci/pci_mian.c:get_num_unclassified_devices:void:1199
-0000000000111946:obj/drivers/pci/pci_mian.c:get_num_mass_storage_devices:void:1200
-0000000000111950:obj/drivers/pci/pci_mian.c:get_num_network_devices:void:1201
-000000000011195a:obj/drivers/pci/pci_mian.c:get_num_display_devices:void:1202
-0000000000111964:obj/drivers/pci/pci_mian.c:get_num_multimedia_devices:void:1203
-000000000011196e:obj/drivers/pci/pci_mian.c:get_num_memory_devices:void:1204
-0000000000111978:obj/drivers/pci/pci_mian.c:get_num_bridge_devices:void:1205
-0000000000111982:obj/drivers/pci/pci_mian.c:get_num_simple_comm_devices:void:1206
-000000000011198c:obj/drivers/pci/pci_mian.c:get_num_base_system_periph_devices:void:1207
-0000000000111996:obj/drivers/pci/pci_mian.c:get_num_input_devices:void:1208
-00000000001119a0:obj/drivers/pci/pci_mian.c:get_num_docking_devices:void:1209
-00000000001119aa:obj/drivers/pci/pci_mian.c:get_num_processor_devices:void:1210
-00000000001119b4:obj/drivers/pci/pci_mian.c:get_num_serial_bus_devices:void:1211
-00000000001119be:obj/drivers/pci/pci_mian.c:get_num_wireless_devices:void:1212
-00000000001119c8:obj/drivers/pci/pci_mian.c:get_num_intelligent_io_devices:void:1213
-00000000001119d2:obj/drivers/pci/pci_mian.c:get_num_satellite_devices:void:1214
-00000000001119dc:obj/drivers/pci/pci_mian.c:get_num_encryption_devices:void:1215
-00000000001119e6:obj/drivers/pci/pci_mian.c:get_num_signal_processing_devices:void:1216
-00000000001119f0:obj/drivers/pci/pci_mian.c:get_num_processing_accel_devices:void:1217
-00000000001119fa:obj/drivers/pci/pci_mian.c:get_num_non_essential_devices:void:1218
-0000000000111a04:obj/drivers/pci/pci_mian.c:get_num_coprocessor_devices:void:1219
-0000000000111a0e:obj/drivers/pci/pci_mian.c:remap_irq:pci_config_register *info, int irq:1220
-0000000000111b20:obj/drivers/terminal/terminal.c:get_font_fg:void:1222
-0000000000111b2a:obj/drivers/terminal/terminal.c:get_font_bg:void:1223
-0000000000111b34:obj/drivers/terminal/terminal.c:set_scroll_x_pos:uint32_t x:1224
-0000000000111b42:obj/drivers/terminal/terminal.c:set_font_fg_color_:int color:1225
-0000000000111b50:obj/drivers/terminal/terminal.c:set_font_bg_color_:int color:1226
-0000000000111b5e:obj/drivers/terminal/terminal.c:set_font_fg_color:int color_index:1227
-0000000000111c84:obj/drivers/terminal/terminal.c:set_font_bg_color:int color_index:1228
-0000000000111da7:obj/drivers/terminal/terminal.c:init_terminal:int x, int y:1229
-0000000000111e1d:obj/drivers/terminal/terminal.c:get_terminal_postion_x:void:1230
-0000000000111e27:obj/drivers/terminal/terminal.c:get_terminal_postion_y:void:1231
-0000000000111e31:obj/drivers/terminal/terminal.c:set_terminal_postion_x:int x:1232
-0000000000111e3f:obj/drivers/terminal/terminal.c:set_terminal_postion_y:int y:1233
-0000000000111e4d:obj/drivers/terminal/terminal.c:draw_vbe_char:char c:1234
-0000000000111fe4:obj/drivers/terminal/terminal.c:draw_char_8x16:int x, int y, char character:1235
-0000000000112121:obj/drivers/terminal/terminal.c:scroll_up:void:1236
-0000000000112152:obj/drivers/terminal/terminal.c:scroll_down:void:1237
-000000000011216e:obj/drivers/terminal/terminal.c:reset_poss_from_scroll:void:1238
-00000000001121a6:obj/drivers/terminal/terminal.c:reset_terminal_settings:void:1239
-00000000001121e4:obj/drivers/terminal/graphics.c:draw_loading_bar:int current_value, int total_value, int x, int y, uint32_t color, int distance_between_bars:1241
-0000000000112589:obj/drivers/acpi/acpi2.c:AcpiInit:void:1243
-00000000001125f4:obj/drivers/acpi/acpi2.c:AcpiRemapIrq:unsigned int irq:1244
-000000000011266b:obj/drivers/acpi/acpi.c:acpiCheckRSDPtr:unsigned int *ptr:1246
-00000000001126d6:obj/drivers/acpi/acpi.c:acpiGetRSDPtr:void:1247
-0000000000112768:obj/drivers/acpi/acpi.c:acpiCheckHeader:unsigned int *ptr, char *sig:1248
-00000000001127d2:obj/drivers/acpi/acpi.c:acpiEnable:void:1249
-0000000000112937:obj/drivers/acpi/acpi.c:initAcpi:void:1250
-0000000000112c02:obj/drivers/acpi/acpi.c:acpiPowerOff:void:1251
-0000000000112c87:obj/drivers/acpi/acpi.c:reboot:void:1252
-0000000000112ca0:obj/drivers/acpi/acpi.c:findFACP:void:1253
-0000000000112d17:obj/drivers/vesa/vesa.c:get_vbe_info:void:1255
-0000000000112e12:obj/drivers/vesa/vesa.c:get_vbe_mode_info:uint16 mode, VBE20_MODEINFOBLOCK *mode_info:1256
-0000000000112ea1:obj/drivers/vesa/vesa.c:vbe_set_mode:uint32 mode:1257
-0000000000112f0a:obj/drivers/vesa/vesa.c:vbe_find_mode:uint32 width, uint32 height, uint32 bpp:1258
-0000000000112fba:obj/drivers/vesa/vesa.c:vbe_print_available_modes:void:1259
-0000000000113053:obj/drivers/vesa/vesa.c:vbe_rgb:uint8 red, uint8 green, uint8 blue:1260
-000000000011308c:obj/drivers/vesa/vesa.c:get_vbe_loaction:int x, int y:1261
-00000000001130a1:obj/drivers/vesa/vesa.c:vbe_putpixel:int x, int y, int color:1262
-00000000001130cf:obj/drivers/vesa/vesa.c:vesa_init:uint32 width, uint32 height, uint32 bpp:1263
-00000000001131e5:obj/drivers/vesa/vesa.c:map_vesa:void:1264
-000000000011329e:obj/drivers/vesa/vesa.c:test_memory_mapping:uint32_t start_address, uint32_t size:1265
-00000000001132f9:obj/drivers/vesa/vesa.c:leave_vesa_mode:void:1266
-0000000000113322:obj/drivers/vesa/vesa.c:vesa_scroll:int lines:1267
-0000000000113379:obj/drivers/vesa/vesa.c:debug_scroll:int lines:1268
-00000000001133d0:obj/drivers/vesa/vesa.c:scroll_screen:uint32_t* framebuffer, int width, int height, int num_lines:1269
-0000000000113443:obj/drivers/vesa/vesa.c:scroll_screen_history:uint32_t* framebuffer, int width, int height, int num_lines:1270
-0000000000113649:obj/drivers/vesa/vesa.c:vesa_init_buffers:void:1271
-00000000001136f6:obj/drivers/vesa/vesa.c:draw_pixel_buffer_1:int x, int y, int color:1272
-0000000000113735:obj/drivers/vesa/vesa.c:draw_pixel_buffer_1_tty:uint32_t pos,int count,uint32_t *buffer:1273
-0000000000113797:obj/drivers/vesa/vesa.c:draw_pixel_buffer_2:int x, int y, int color:1274
-00000000001137d6:obj/drivers/vesa/vesa.c:cycle_buffers_vbe:void:1275
-00000000001138d8:obj/drivers/vesa/vesa.c:update_pixel_display:void:1276
-0000000000113959:obj/drivers/vesa/vesa.c:update_pixel:int x, int y:1277
-00000000001139da:obj/drivers/vesa/vesa.c:clear_screen:void:1278
-0000000000113a61:obj/drivers/io/stream.c:init_io_system:void:1280
-0000000000113ac2:obj/drivers/io/stream.c:getchar:void:1281
-0000000000113b15:obj/drivers/io/stream.c:get_io_pos:void:1282
-0000000000113b2b:obj/drivers/io/stream.c:set_io_pos:int pos:1283
-0000000000113b60:obj/drivers/io/stream.c:push_io:int c:1284
-0000000000113bb2:obj/drivers/io/stream.c:disable_io_stream:void:1285
-0000000000113bbf:obj/drivers/io/stream.c:enable_io_stream:void:1286
-0000000000115128:obj/drivers/io/scanf.c:vscanf_:const char *format, va_list arg:1288
-000000000011514d:obj/drivers/io/scanf.c:scanf_:const char *format, ...:1289
-0000000000115173:obj/drivers/io/scanf.c:vspscanf_:const char **sp, const char *format, va_list arg:1290
-00000000001151a9:obj/drivers/io/scanf.c:spscanf_:const char **sp, const char *format, ...:1291
-00000000001151d2:obj/drivers/io/scanf.c:vsscanf_:const char *s, const char *format, va_list arg:1292
-00000000001151f6:obj/drivers/io/scanf.c:sscanf_:const char *s, const char *format, ...:1293
-000000000011521f:obj/drivers/io/scanf.c:vfctscanf_:int (*getch:1294
-0000000000115241:obj/drivers/io/scanf.c:fctscanf_:int (*getch:1295
-0000000000115270:obj/drivers/io/scanf.c:getch_:void:1296
-000000000011530c:obj/drivers/io/scanf.c:aquire_stdin_lock:int id:1297
-0000000000115312:obj/drivers/io/scanf.c:release_stdin_lock:int id:1298
-0000000000115318:obj/drivers/io/scanf.c:ungetch_:int ch:1299
-0000000000115335:obj/drivers/io/scanf.c:enable_echo:void:1300
-0000000000115345:obj/drivers/io/scanf.c:disable_echo:void:1301
-0000000000115355:obj/drivers/io/scanf.c:set_echo_char:char ch:1302
-000000000011550f:obj/drivers/VFS/fs.c:init_file_system:int drive:1304
-00000000001155bb:obj/drivers/VFS/fs.c:try_fat:void:1305
-00000000001155f2:obj/drivers/VFS/fs.c:try_ext:void:1306
-000000000011579e:obj/drivers/VFS/file.c:init_fs:void:1308
-0000000000115840:obj/drivers/VFS/file.c:remove_double_path_separators:char* path:1309
-000000000011593b:obj/drivers/VFS/file.c:chdir:const char *path:1310
-0000000000115b35:obj/drivers/VFS/file.c:getcwd:void:1311
-0000000000115b6e:obj/drivers/VFS/file.c:is_valid_char:char c:1312
-0000000000115ba8:obj/drivers/VFS/file.c:filter_cwd:char* cwd:1313
-0000000000115c58:obj/drivers/VFS/file.c:remove_leading_whitespace:char* path:1314
-0000000000115ca9:obj/drivers/VFS/file.c:process_path:const char* input_string:1315
-0000000000115dff:obj/drivers/VFS/file.c:fopen:const char *path,const char *modifiers:1316
-0000000000115f4e:obj/drivers/VFS/file.c:fread:void *ptr, size_t size, size_t nmemb, void *stream:1317
-0000000000116003:obj/drivers/VFS/file.c:fwrite:const void *ptr, size_t size, size_t nmemb, void *stream:1318
-0000000000116113:obj/drivers/VFS/file.c:fputc:int c, void *stream:1319
-000000000011619a:obj/drivers/VFS/file.c:fputs:const char *str, void *stream:1320
-0000000000116283:obj/drivers/VFS/file.c:fclose:void *stream:1321
-0000000000116388:obj/drivers/VFS/file.c:fseek:void *stream, long offset, int whence:1322
-0000000000116429:obj/drivers/VFS/file.c:fgetpos:void *stream, fpos_t *pos:1323
-0000000000116457:obj/drivers/VFS/file.c:ftell:void *stream:1324
-0000000000116495:obj/drivers/VFS/file.c:feof:void *stream:1325
-00000000001164c0:obj/drivers/VFS/file.c:fgets:char *s, int n, void *f:1326
-00000000001165c4:obj/drivers/VFS/file.c:fgetc:void *f:1327
-0000000000116619:obj/drivers/VFS/file.c:mkdir:const char *path:1328
-0000000000116644:obj/drivers/VFS/file.c:rmdir:const char *path:1329
-0000000000116663:obj/drivers/VFS/file.c:fprintf:void *fp,const char *format,...:1330
-0000000000116759:obj/drivers/VFS/file.c:ungetc:int c,void *stream:1331
-00000000001167a6:obj/drivers/VFS/file.c:fflush:void *stream:1332
-00000000001167d1:obj/drivers/VFS/file.c:fs_shutdown:void:1333
-0000000000116829:obj/drivers/fs/fat32/fat_access.c:fatfs_init:struct fatfs *fs:1335
-0000000000116dc6:obj/drivers/fs/fat32/fat_access.c:fatfs_lba_of_cluster:struct fatfs *fs, uint32 Cluster_Number:1336
-0000000000116e22:obj/drivers/fs/fat32/fat_access.c:fatfs_sector_read:struct fatfs *fs, uint32 lba, uint8 *target, uint32 count:1337
-0000000000116e41:obj/drivers/fs/fat32/fat_access.c:fatfs_sector_write:struct fatfs *fs, uint32 lba, uint8 *target, uint32 count:1338
-0000000000116e60:obj/drivers/fs/fat32/fat_access.c:fatfs_sector_reader:struct fatfs *fs, uint32 start_cluster, uint32 offset, uint8 *target:1339
-0000000000116fa1:obj/drivers/fs/fat32/fat_access.c:fatfs_read_sector:struct fatfs *fs, uint32 cluster, uint32 sector, uint8 *target:1340
-00000000001170b5:obj/drivers/fs/fat32/fat_access.c:fatfs_write_sector:struct fatfs *fs, uint32 cluster, uint32 sector, uint8 *target:1341
-00000000001171dd:obj/drivers/fs/fat32/fat_access.c:fatfs_show_details:struct fatfs *fs:1342
-000000000011727d:obj/drivers/fs/fat32/fat_access.c:fatfs_get_root_cluster:struct fatfs *fs:1343
-0000000000117288:obj/drivers/fs/fat32/fat_access.c:fatfs_get_file_entry:struct fatfs *fs, uint32 Cluster, char *name_to_find, struct fat_dir_entry *sfEntry:1344
-000000000011751d:obj/drivers/fs/fat32/fat_access.c:fatfs_sfn_exists:struct fatfs *fs, uint32 Cluster, char *shortname:1345
-00000000001175e8:obj/drivers/fs/fat32/fat_access.c:fatfs_update_timestamps:struct fat_dir_entry *directoryEntry, int create, int modify, int access:1346
-0000000000117720:obj/drivers/fs/fat32/fat_access.c:fatfs_update_file_length:struct fatfs *fs, uint32 Cluster, char *shortname, uint32 fileLength:1347
-0000000000117861:obj/drivers/fs/fat32/fat_access.c:fatfs_mark_file_deleted:struct fatfs *fs, uint32 Cluster, char *shortname:1348
-000000000011799f:obj/drivers/fs/fat32/fat_access.c:fatfs_list_directory_start:struct fatfs *fs, struct fs_dir_list_status *dirls, uint32 StartCluster:1349
-00000000001179be:obj/drivers/fs/fat32/fat_access.c:fatfs_list_directory_next:struct fatfs *fs, struct fs_dir_list_status *dirls, struct fs_dir_ent *entry:1350
-0000000000118d20:obj/drivers/fs/fat32/fat_filelib.c:fl_init:void:1352
-0000000000118d84:obj/drivers/fs/fat32/fat_filelib.c:fl_attach_locks:void (*lock:1353
-0000000000118d9a:obj/drivers/fs/fat32/fat_filelib.c:fl_attach_media:fn_diskio_read rd, fn_diskio_write wr:1354
-0000000000118e05:obj/drivers/fs/fat32/fat_filelib.c:fl_shutdown:void:1355
-0000000000118e4c:obj/drivers/fs/fat32/fat_filelib.c:fl_fopen:const char *path, const char *mode:1356
-0000000000119260:obj/drivers/fs/fat32/fat_filelib.c:fl_fflush:void *f:1357
-00000000001192e6:obj/drivers/fs/fat32/fat_filelib.c:fl_fclose:void *f:1358
-00000000001193d6:obj/drivers/fs/fat32/fat_filelib.c:fl_fgetc:void *f:1359
-000000000011940a:obj/drivers/fs/fat32/fat_filelib.c:fl_fgets:char *s, int n, void *f:1360
-0000000000119485:obj/drivers/fs/fat32/fat_filelib.c:fl_fread:void * buffer, int size, int length, void *f:1361
-00000000001196a4:obj/drivers/fs/fat32/fat_filelib.c:fl_fseek:void *f, long offset, int origin:1362
-00000000001197f4:obj/drivers/fs/fat32/fat_filelib.c:fl_fgetpos:void *f , uint32 * position:1363
-000000000011983f:obj/drivers/fs/fat32/fat_filelib.c:fl_ftell:void *f:1364
-0000000000119863:obj/drivers/fs/fat32/fat_filelib.c:fl_feof:void *f:1365
-00000000001198c1:obj/drivers/fs/fat32/fat_filelib.c:fl_fputc:int c, void *f:1366
-00000000001198f3:obj/drivers/fs/fat32/fat_filelib.c:fl_fwrite:const void * data, int size, int count, void *f:1367
-0000000000119bc0:obj/drivers/fs/fat32/fat_filelib.c:fl_fputs:const char * str, void *f:1368
-0000000000119bff:obj/drivers/fs/fat32/fat_filelib.c:fl_remove:const char * filename:1369
-0000000000119ca1:obj/drivers/fs/fat32/fat_filelib.c:fl_createdirectory:const char *path:1370
-0000000000119ceb:obj/drivers/fs/fat32/fat_filelib.c:fl_listdirectory:const char *path, Entry dirs[MAX], Entry files[MAX], int *dir_count, int *file_count:1371
-0000000000119e6c:obj/drivers/fs/fat32/fat_filelib.c:fl_count_files:const char *path, int *dir_count, int *file_count:1372
-0000000000119f0b:obj/drivers/fs/fat32/fat_filelib.c:fl_populate_file_list:const char *path, Entry *files, int *file_count:1373
-0000000000119fda:obj/drivers/fs/fat32/fat_filelib.c:fl_opendir:const char* path, FL_DIR *dir:1374
-000000000011a091:obj/drivers/fs/fat32/fat_filelib.c:fl_readdir:FL_DIR *dirls, fl_dirent *entry:1375
-000000000011a0f9:obj/drivers/fs/fat32/fat_filelib.c:fl_closedir:FL_DIR* dir:1376
-000000000011a103:obj/drivers/fs/fat32/fat_filelib.c:fl_is_dir:const char *path:1377
-000000000011a154:obj/drivers/fs/fat32/fat_filelib.c:fl_format:uint32 volume_sectors, const char *name:1378
-000000000011a172:obj/drivers/fs/fat32/fat_filelib.c:ferror:FL_FILE *stream:1379
-000000000011a17c:obj/drivers/fs/fat32/fat_filelib.c:fatfs_add_special_entries:struct fatfs *fs, uint32 dirCluster, uint32 parentCluster:1380
-000000000011a274:obj/drivers/fs/fat32/fat_filelib.c:get_file_size:FL_FILE *file:1381
-000000000011a354:obj/drivers/fs/fat32/fat_filelib.c:is_file:const char *path:1382
-000000000011a384:obj/drivers/fs/fat32/fat_filelib.c:rename:const char* old_name, const char* new_name:1383
-000000000011a445:obj/drivers/fs/fat32/fat_filelib.c:fat_inited:void:1384
-000000000011a5f1:obj/drivers/fs/fat32/fat_cache.c:fatfs_cache_init:struct fatfs *fs, FL_FILE *file:1386
-000000000011a5fb:obj/drivers/fs/fat32/fat_cache.c:fatfs_cache_get_next_cluster:struct fatfs *fs, FL_FILE *file, uint32 clusterIdx, uint32 *pNextCluster:1387
-000000000011a605:obj/drivers/fs/fat32/fat_cache.c:fatfs_cache_set_next_cluster:struct fatfs *fs, FL_FILE *file, uint32 clusterIdx, uint32 nextCluster:1388
-000000000011a60f:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_init:struct fatfs *fs:1390
-000000000011a8f8:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_purge:struct fatfs *fs:1391
-000000000011a94e:obj/drivers/fs/fat32/fat_table.c:fatfs_find_next_cluster:struct fatfs *fs, uint32 current_cluster:1392
-000000000011aad8:obj/drivers/fs/fat32/fat_table.c:fatfs_set_fs_info_next_free_cluster:struct fatfs *fs, uint32 newValue:1393
-000000000011abd2:obj/drivers/fs/fat32/fat_table.c:fatfs_find_blank_cluster:struct fatfs *fs, uint32 start_cluster, uint32 *free_cluster:1394
-000000000011ad53:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_set_cluster:struct fatfs *fs, uint32 cluster, uint32 next_cluster:1395
-000000000011aea6:obj/drivers/fs/fat32/fat_table.c:fatfs_free_cluster_chain:struct fatfs *fs, uint32 start_cluster:1396
-000000000011aef4:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_add_cluster_to_chain:struct fatfs *fs, uint32 start_cluster, uint32 newEntry:1397
-000000000011af6f:obj/drivers/fs/fat32/fat_table.c:fatfs_count_free_clusters:struct fatfs *fs:1398
-000000000011b0b8:obj/drivers/fs/fat32/fat_write.c:fatfs_add_free_space:struct fatfs *fs, uint32 *startCluster, uint32 clusters:1400
-000000000011b160:obj/drivers/fs/fat32/fat_write.c:fatfs_allocate_free_space:struct fatfs *fs, int newFile, uint32 *startCluster, uint32 size:1401
-000000000011b478:obj/drivers/fs/fat32/fat_write.c:fatfs_add_file_entry:struct fatfs *fs, uint32 dirCluster, char *filename, char *shortfilename, uint32 startCluster, uint32 size, int dir:1402
-000000000011b6c0:obj/drivers/fs/fat32/fat_string.c:fatfs_total_path_levels:char *path:1404
-000000000011b750:obj/drivers/fs/fat32/fat_string.c:fatfs_get_substring:char *path, int levelreq, char *output, int max_len:1405
-000000000011b855:obj/drivers/fs/fat32/fat_string.c:fatfs_split_path:char *full_path, char *path, int max_path, char *filename, int max_filename:1406
-000000000011ba1b:obj/drivers/fs/fat32/fat_string.c:fatfs_compare_names:char* strA, char* strB:1407
-000000000011bb88:obj/drivers/fs/fat32/fat_string.c:fatfs_string_ends_with_slash:char *path:1408
-000000000011bbd0:obj/drivers/fs/fat32/fat_string.c:fatfs_get_sfn_display_name:char* out, char* in:1409
-000000000011bc3c:obj/drivers/fs/fat32/fat_string.c:fatfs_get_extension:char* filename, char* out, int maxlen:1410
-000000000011bcd5:obj/drivers/fs/fat32/fat_string.c:fatfs_create_path_string:char* path, char *filename, char* out, int maxlen:1411
-000000000011c64f:obj/drivers/fs/fat32/fat_format.c:fatfs_format_fat16:struct fatfs *fs, uint32 volume_sectors, const char *name:1413
-000000000011c7d0:obj/drivers/fs/fat32/fat_format.c:fatfs_format_fat32:struct fatfs *fs, uint32 volume_sectors, const char *name:1414
-000000000011c934:obj/drivers/fs/fat32/fat_format.c:fatfs_format:struct fatfs *fs, uint32 volume_sectors, const char *name:1415
-000000000011c96f:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_cache_init:struct lfn_cache *lfn, int wipeTable:1417
-000000000011c9c5:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_cache_entry:struct lfn_cache *lfn, uint8 *entryBuffer:1418
-000000000011cc31:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_cache_get:struct lfn_cache *lfn:1419
-000000000011cc89:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_lfn_text:struct fat_dir_entry *entry:1420
-000000000011ccac:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_lfn_invalid:struct fat_dir_entry *entry:1421
-000000000011cced:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_lfn_exists:struct lfn_cache *lfn, struct fat_dir_entry *entry:1422
-000000000011cd47:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_sfn_only:struct fat_dir_entry *entry:1423
-000000000011cd93:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_is_dir:struct fat_dir_entry *entry:1424
-000000000011cdb5:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_is_file:struct fat_dir_entry *entry:1425
-000000000011cdd7:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_entries_required:char *filename:1426
-000000000011ce18:obj/drivers/fs/fat32/fat_misc.c:fatfs_filename_to_lfn:char *filename, uint8 *buffer, int entry, uint8 sfnChk:1427
-000000000011cf86:obj/drivers/fs/fat32/fat_misc.c:fatfs_sfn_create_entry:char *shortfilename, uint32 size, uint32 startCluster, struct fat_dir_entry *entry, int dir:1428
-000000000011d053:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_create_sfn:char *sfn_output, char *filename:1429
-000000000011d2d7:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_generate_tail:char *sfn_output, char *sfn_input, uint32 tailNum:1430
-000000000011d368:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_from_fat_time:uint16 fat_time, int *hours, int *minutes, int *seconds:1431
-000000000011d3bd:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_from_fat_date:uint16 fat_date, int *day, int *month, int *year:1432
-000000000011d415:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_to_fat_time:int hours, int minutes, int seconds:1433
-000000000011d468:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_to_fat_date:int day, int month, int year:1434
-000000000011d4bc:obj/drivers/disk/ahci/ahci_main.c:select_ahci_drive:int index:1436
-000000000011d4ec:obj/drivers/disk/ahci/ahci_main.c:ahci_write_sector_hal:uint32 sector, uint8 *buffer, uint32 sector_count:1437
-000000000011d53d:obj/drivers/disk/ahci/ahci_main.c:ahci_read_sector_hal:uint32 sector, uint8 *buffer, uint32 sector_count:1438
-000000000011d58e:obj/drivers/disk/ahci/ahci_main.c:add_ahci_drive:HBA_PORT *dev:1439
-000000000011d606:obj/drivers/disk/ahci/ahci_main.c:ahci_malloc:size_t size, size_t alignment,int line,char msg[1200]:1440
-000000000011d66b:obj/drivers/disk/ahci/ahci_main.c:reset_ahci_controller:HBA_MEM *abar:1441
-000000000011d6a8:obj/drivers/disk/ahci/ahci_main.c:ahci_isr:REGISTERS16 *reg:1442
-000000000011d6c6:obj/drivers/disk/ahci/ahci_main.c:enable_ahci_mode_and_interrupts:HBA_MEM *abar:1443
-000000000011d6df:obj/drivers/disk/ahci/ahci_main.c:ahci_main:void:1444
-000000000011d8ce:obj/drivers/disk/ahci/ahci_main.c:probe_port:HBA_MEM *abar:1445
-000000000011daf7:obj/drivers/disk/ahci/ahci_main.c:port_rebase:HBA_PORT *port, int portno:1446
-000000000011dd87:obj/drivers/disk/ahci/ahci_main.c:start_cmd:HBA_PORT *port:1447
-000000000011dddd:obj/drivers/disk/ahci/ahci_main.c:stop_cmd:HBA_PORT *port:1448
-000000000011de29:obj/drivers/disk/ahci/ahci_main.c:ahci_read_sectors:HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count:1449
-000000000011e29b:obj/drivers/disk/ahci/ahci_main.c:ahci_write_sectors:HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count:1450
-000000000011e566:obj/drivers/disk/ahci/ahci_main.c:get_drive_info:HBA_PORT *port:1451
-000000000011e6a5:obj/drivers/disk/ahci/ahci_main.c:ahci_identify_device:HBA_PORT *port, IDENTIFY_DEVICE_DATA *identify_data:1452
-000000000011e7ea:obj/drivers/disk/ahci/ahci_main.c:get_ahci_sector_count:void:1453
-000000000011e80a:obj/drivers/disk/ahci/ahci_main.c:int_get_sector_count:HBA_PORT *port:1454
-000000000011ea5b:obj/drivers/disk/ata/ide.c:select_ide_drive:int drive_num:1456
-000000000011eab0:obj/drivers/disk/ata/ide.c:get_drive_size:int count:1457
-000000000011eac2:obj/drivers/disk/ata/ide.c:add_ide_drive:int drive_num:1458
-000000000011ed7b:obj/drivers/disk/ata/ide.c:insl:uint16 reg, uint32 *buffer, int quads:1459
-000000000011edc6:obj/drivers/disk/ata/ide.c:outsl:uint16 reg, uint32 *buffer, int quads:1460
-000000000011ee0d:obj/drivers/disk/ata/ide.c:ide_read_buffer:uint8 channel, uint8 reg, uint32 *buffer, uint32 quads:1461
-000000000011ef54:obj/drivers/disk/ata/ide.c:ide_write_buffer:uint8 channel, uint8 reg, uint32 *buffer, uint32 quads:1462
-000000000011f09b:obj/drivers/disk/ata/ide.c:ide_polling:uint8 channel, uint8 advanced_check:1463
-000000000011f141:obj/drivers/disk/ata/ide.c:ide_print_error:uint32 drive, uint8 err:1464
-000000000011f351:obj/drivers/disk/ata/ide.c:ide_init:uint32 prim_channel_base_addr, uint32 prim_channel_control_base_addr,
+                  unsigned int *model, unsigned int *stepping:864
+000000000010109c:obj/arch/i686/bios32.c:bios32_init:void:866
+00000000001010fb:obj/arch/i686/bios32.c:bios32_service:void:867
+0000000000101210:obj/arch/i686/bios32.c:int86:uint8 interrupt, REGISTERS16 *in, REGISTERS16 *out:868
+0000000000101235:obj/arch/i686/isr.c:isr_register_interrupt_handler:int num, ISR handler,char func[255]:870
+0000000000101294:obj/arch/i686/isr.c:isr_end_interrupt:int num:871
+00000000001012af:obj/arch/i686/isr.c:isr_irq_handler:REGISTERS *reg:872
+00000000001013d7:obj/arch/i686/isr.c:debug_output:REGISTERS *reg:873
+000000000010143c:obj/arch/i686/isr.c:debug_c:char *cmd,int err_code:874
+0000000000101679:obj/arch/i686/isr.c:test_int:void:875
+000000000010168f:obj/arch/i686/isr.c:test_int_rec:void:876
+00000000001016aa:obj/arch/i686/isr.c:isr_exception_handler:REGISTERS reg:877
+0000000000101874:obj/arch/i686/8259_pic.c:pic8259_init:void:879
+0000000000101945:obj/arch/i686/8259_pic.c:pic8259_eoi:uint8 irq:880
+0000000000101b1d:obj/kernel/multitasking/scheduler.c:InitScheduler:void:882
+0000000000101be3:obj/kernel/multitasking/scheduler.c:PcbAlloc:void:883
+0000000000101c4f:obj/kernel/multitasking/scheduler.c:PcbFree:PCB_t *pcb:884
+0000000000101c81:obj/kernel/multitasking/scheduler.c:AddReady:PCB_t *task:885
+0000000000101cd3:obj/kernel/multitasking/scheduler.c:NextReady:void:886
+0000000000101d20:obj/kernel/multitasking/scheduler.c:CreateProcess:void (*ent:887
+0000000000101dd8:obj/kernel/multitasking/scheduler.c:Schedule:void:888
+0000000000101e79:obj/kernel/multitasking/scheduler.c:UpdateTimeUsed:void:889
+0000000000101ed1:obj/kernel/multitasking/scheduler.c:LockScheduler:void:890
+0000000000101ee5:obj/kernel/multitasking/scheduler.c:UnlockScheduler:void:891
+0000000000101f02:obj/kernel/multitasking/scheduler.c:LockAndPostpone:void:892
+0000000000101f1a:obj/kernel/multitasking/scheduler.c:UnlockAndSchedule:void:893
+0000000000101f55:obj/kernel/multitasking/scheduler.c:BlockProcess:int reason:894
+0000000000101f78:obj/kernel/multitasking/scheduler.c:UnblockProcess:PCB_t *proc:895
+0000000000101f96:obj/kernel/multitasking/scheduler.c:AddSleeping:PCB_t *task:896
+0000000000101fde:obj/kernel/multitasking/scheduler.c:SleepUntil:unsigned long when:897
+000000000010202a:obj/kernel/multitasking/scheduler.c:IrqTimerHandler:void:898
+00000000001020d8:obj/kernel/multitasking/scheduler.c:AddTerminated:PCB_t *task:899
+0000000000102120:obj/kernel/multitasking/scheduler.c:TerminateProcess:void:900
+000000000010215f:obj/kernel/multitasking/scheduler.c:PerformButler:void:901
+00000000001021c4:obj/kernel/multitasking/scheduler.c:GetCurrentTask:void:902
+00000000001021d4:obj/kernel/multitasking/cpu.c:InitTimer:void:904
+00000000001021da:obj/kernel/multitasking/cpu.c:GetCurrentCounter:void:905
+0000000000102386:obj/kernel/elf/elf_exe.c:run_elf:struct elf_exe elf, int myArgc,char* myArgv[]:907
+00000000001023de:obj/kernel/elf/elf_exe.c:check_overlap:uintptr_t kernel_start, uintptr_t kernel_end, Elf32_Ehdr* elf_header:908
+000000000010241a:obj/kernel/elf/elf_exe.c:save_register_state:RegisterState* state:909
+000000000010242f:obj/kernel/elf/elf_exe.c:restore_register_state:RegisterState* state:910
+0000000000102444:obj/kernel/elf/elf_exe.c:is_kernel_memory_overlap:Elf32_Phdr* segment:911
+000000000010249a:obj/kernel/elf/elf_exe.c:switch_to_user_mode:UserProcessContext *user_context, KernelContext *kernel_context:912
+00000000001024bd:obj/kernel/elf/elf_exe.c:load_elf_executable:uint8_t* elf_data, int myArgc, char** myArgv:913
+00000000001029cc:obj/kernel/elf/elf_exe.c:exit_elf:KernelContext* location:914
+00000000001029d9:obj/kernel/elf/elf_exe.c:load_elf_file:const char* filename, int argc, char **argv:915
+0000000000102adc:obj/kernel/elf/elf_exe.c:execute_file:const char *path,int argc, char **argv:916
+0000000000102b7d:obj/kernel/elf/elf_exe.c:internal_run_exe:void:917
+0000000000102db5:obj/kernel/cmd/text_editor.c:edit_file:char *file_path:919
+00000000001031cd:obj/kernel/cmd/command.c:parse_command:char* cmd_line, int* argc:921
+000000000010342e:obj/kernel/cmd/command.c:cls:void:922
+0000000000103456:obj/kernel/cmd/command.c:move_back_one_folder:char* path:923
+0000000000103529:obj/kernel/cmd/command.c:free_command:char** argv, int argc:924
+000000000010358e:obj/kernel/cmd/command.c:set_cwd:char *path:925
+0000000000103687:obj/kernel/cmd/command.c:help:void:926
+0000000000103760:obj/kernel/cmd/command.c:get_cwd:void:927
+0000000000103789:obj/kernel/cmd/command.c:ls:void:928
+00000000001037ee:obj/kernel/cmd/command.c:date:void:929
+00000000001037f4:obj/kernel/cmd/command.c:draw_kmap:void:930
+000000000010380d:obj/kernel/cmd/command.c:shutdown:void:931
+0000000000103825:obj/kernel/cmd/command.c:key_map:void:932
+000000000010389e:obj/kernel/cmd/command.c:print_iris:void:933
+0000000000103937:obj/kernel/cmd/command.c:get_primary_dev_num:const char *path:934
+000000000010396c:obj/kernel/cmd/command.c:get_path_without_dev:const char *path:935
+0000000000103995:obj/kernel/cmd/command.c:cmd:char *command:936
+0000000000104557:obj/kernel/cmd/command.c:loop_test:void:937
+000000000010472d:obj/kernel/log/log.c:logging:int log_level,int line, char *function, char *path,const char* format, ...:939
+00000000001048bd:obj/kernel/kheap/kheap.c:init_kheap:uint32_t size:941
+00000000001049b8:obj/kernel/kheap/kheap.c:print_node_info:const Node *node:942
+0000000000104b49:obj/kernel/kheap/kheap.c:init_memory_allocation:void *start_addr, size_t size:943
+0000000000104b7b:obj/kernel/kheap/kheap.c:sys_allocate_memory:int size:944
+0000000000104bf6:obj/kernel/kheap/kheap.c:sys_free_memory:const void *addr:945
+0000000000104cd3:obj/kernel/kheap/kheap.c:sys_reallocate_memory:void *addr, int old_size, int new_size:946
+0000000000104dba:obj/kernel/kheap/kheap.c:print_memory_info:void:947
+0000000000105025:obj/kernel/kheap/kheap.c:init_memory_region:void *start_addr, size_t size:948
+0000000000105272:obj/kernel/kheap/kheap.c:extend_allocation_space:void *extra_region, size_t size:949
+00000000001052bd:obj/kernel/kheap/kheap.c:get_memory_size:const void *ptr:950
+000000000010533d:obj/kernel/kheap/kheap.c:memcleanup:void:951
+000000000010539e:obj/kernel/kheap/kheap.c:buffer_overflow_detector:void:952
+0000000000105496:obj/kernel/kheap/kheap.c:memory_leak_detector:void:953
+000000000010552e:obj/kernel/kheap/kheap.c:find_dangling_pointer:void:954
+00000000001055e8:obj/kernel/kheap/kheap.c:run_checks:void:955
+0000000000105609:obj/kernel/kheap/kheap.c:is_heap_active:void:956
+0000000000105618:obj/kernel/kheap/kheap.c:kmalloc:size_t size:957
+000000000010566c:obj/kernel/kheap/kheap.c:kfree:void *ptr:958
+00000000001056a1:obj/kernel/kheap/kheap.c:find_free_zone:current_node,size,num_blocks_needed:959
+0000000000105781:obj/kernel/kheap/kheap.c:create_map:void:960
+00000000001058a5:obj/kernel/kheap/kheap.c:print_allocated:void:961
+00000000001058ed:obj/kernel/kheap/stdlib.c:init_allocation_system:void:963
+000000000010592d:obj/kernel/kheap/stdlib.c:calloc:size_t num_elements, size_t element_size:964
+0000000000105979:obj/kernel/kheap/stdlib.c:malloc_wrap:size_t size, char function[1000]:965
+00000000001059a8:obj/kernel/kheap/stdlib.c:malloc_int:size_t size:966
+0000000000105a15:obj/kernel/kheap/stdlib.c:free:void *ptr:967
+0000000000105ad9:obj/kernel/kheap/stdlib.c:realloc:void* ptr, size_t new_size:968
+0000000000105c80:obj/kernel/kheap/stdlib.c:kheap_shutdown:void:969
+0000000000105cbb:obj/kernel/kheap/stdlib.c:strtol:const char* str, char** endptr, int base:970
+0000000000105e07:obj/kernel/kheap/stdlib.c:ldexp:double x, int exp:971
+0000000000105e34:obj/kernel/vmm/vmm.c:init_vmm:void:973
+0000000000106087:obj/kernel/vmm/vmm.c:switch_page_directory:page_directory_t* dir:974
+000000000010609d:obj/kernel/vmm/vmm.c:map:uint32_t va, uint32_t pa, uint32_t flags:975
+000000000010617e:obj/kernel/vmm/vmm.c:unmap:uint32_t va:976
+00000000001061ac:obj/kernel/vmm/vmm.c:get_mapping:uint32_t va, uint32_t* pa:977
+0000000000106233:obj/kernel/vmm/vmm.c:find_free_range:uint32_t va_start, uint32_t va_end, uint32_t size,
+		uint8_t size_aligned:978
+00000000001062d8:obj/kernel/vmm/vmm.c:allocate_range:uint32_t va_start, uint32_t va_end, uint32_t flags:979
+0000000000106506:obj/kernel/vmm/vmm.c:clone_directory:page_directory_t* src_dir:980
+000000000010674c:obj/kernel/vmm/vmm.c:destroy_directory:page_directory_t* dir:981
+000000000010689e:obj/kernel/vmm/vmm.c:diff_directories:page_directory_t* adir, page_directory_t* bdir:982
+00000000001069cb:obj/kernel/vmm/vmm.c:page_fault:REGISTERS *regs:983
+0000000000106a4c:obj/kernel/vmm/vmm.c:sys_allocate_virtual_memory:uint32_t va, uint32_t size, uint32_t flags:984
+0000000000106c5b:obj/kernel/debug/debug.c:print_kernel_memory_map:KERNEL_MEMORY_MAP *memory_map:986
+0000000000106e5b:obj/kernel/debug/debug.c:disable_verbose:void:987
+0000000000106e6c:obj/kernel/debug/debug.c:printf_t:const char *format, ...:988
+0000000000106e98:obj/kernel/debug/debug.c:removeTrailingWhitespace:char *str:989
+0000000000106eea:obj/kernel/debug/debug.c:removeLeadingWhitespace:char *str:990
+0000000000106f47:obj/kernel/debug/debug.c:trim_whitespace:char *str:991
+0000000000106fc4:obj/kernel/debug/debug.c:index_of_char:const char *str, char c:992
+0000000000106ffb:obj/kernel/debug/debug.c:parse_parameters:const char *parms, ParameterInfo *params:993
+00000000001071ae:obj/kernel/debug/debug.c:find_function:const char *buffer, size_t buffer_size, unsigned int address:994
+0000000000107331:obj/kernel/debug/debug.c:strnlen:const char *str, size_t max_len:995
+0000000000107360:obj/kernel/debug/debug.c:strndup:const char *str, size_t n:996
+00000000001073bb:obj/kernel/debug/debug.c:print_parameter_value:uintptr_t ebp, int param_offset, const char *type:997
+0000000000107680:obj/kernel/debug/debug.c:estimate_frame_size:uintptr_t current_ebp, uintptr_t previous_ebp:998
+000000000010769a:obj/kernel/debug/debug.c:unwind_stack:REGISTERS *reg:999
+0000000000107aee:obj/kernel/debug/debug_term.c:printf_debug:const char *fmt, ...:1001
+0000000000107bb0:obj/kernel/debug/debug_term.c:init_debug_terminal:int x, int y:1002
+0000000000107bde:obj/kernel/debug/debug_term.c:get_debug_terminal_postion_x:void:1003
+0000000000107be8:obj/kernel/debug/debug_term.c:get_debug_terminal_postion_y:void:1004
+0000000000107bf2:obj/kernel/debug/debug_term.c:set_debug_terminal_postion_x:int x:1005
+0000000000107c00:obj/kernel/debug/debug_term.c:set_debug_terminal_postion_y:int y:1006
+0000000000107c0e:obj/kernel/debug/debug_term.c:draw__debug_vbe_char:char c:1007
+0000000000107da3:obj/kernel/debug/debug_term.c:draw__debug_char_8x16:int x, int y, char character:1008
+0000000000107e70:obj/kernel/debug/debug_term.c:kernel_panic:char *caller, char *reason:1009
+0000000000107ea3:obj/kernel/debug/decode.c:initialize_decoder_memory:void:1011
+0000000000107ede:obj/kernel/debug/decode.c:decode_modrm_address:uint8_t mod, uint8_t rm, int8_t disp8, int32_t disp32:1012
+0000000000107fc2:obj/kernel/debug/decode.c:disassemble_mov:uint8_t *current:1013
+00000000001080f0:obj/kernel/debug/decode.c:disassemble_alu:uint8_t *current:1014
+000000000010824d:obj/kernel/debug/decode.c:disassemble_jne:uint8_t *current, uint32_t address:1015
+000000000010829e:obj/kernel/debug/decode.c:disassemble_call:uint8_t *current, uint32_t instruction_address,uint32_t *adder:1016
+000000000010832c:obj/kernel/debug/decode.c:disassemble_mov_imm:uint8_t *current:1017
+00000000001083c0:obj/kernel/debug/decode.c:disassemble_jmp:uint8_t *current, uint32_t instruction_address:1018
+0000000000108413:obj/kernel/debug/decode.c:disassemble_movl:uint8_t *current:1019
+00000000001085a0:obj/kernel/debug/decode.c:disassemble_push:uint8_t *current:1020
+00000000001087d3:obj/kernel/debug/decode.c:print_stack_frame:uintptr_t *base, size_t size, FunctionInfo functions[MAX_FRAMES], int error_code,uint32_t eip:1021
+0000000000108d4a:obj/kernel/debug/function.c:find_function_with_biggest_address:const char *buffer, size_t buffer_size:1023
+0000000000108ea6:obj/kernel/debug/function.c:find_function_with_smallest_address:const char *buffer, size_t buffer_size:1024
+0000000000109002:obj/kernel/pmm/pmm.c:init_pmm_page:uint32_t pmm_start,size_t size:1026
+0000000000109039:obj/kernel/pmm/pmm.c:pmm_alloc_page:void:1027
+00000000001090b9:obj/kernel/pmm/pmm.c:pmm_free_page:uint32_t p:1028
+0000000000109147:obj/kernel/pmm/pmm.c:pmm_collect_pages:MULTIBOOT_INFO* mboot_ptr:1029
+00000000001091c2:obj/kernel/pmm/pmm.c:pmm_alloc_pages:uint32_t num_pages:1030
+00000000001093d2:obj/kernel/kernel.c:Process:void:1032
+000000000010944e:obj/kernel/kernel.c:cursor_flash:void:1033
+000000000010948d:obj/kernel/kernel.c:get_kernel_memory_map:KERNEL_MEMORY_MAP *kmap, MULTIBOOT_INFO *mboot_info:1034
+0000000000109608:obj/kernel/kernel.c:kmain:unsigned long magic, unsigned long addr:1035
+0000000000109622:obj/kernel/kernel.c:load_history_up:void:1036
+00000000001096a9:obj/kernel/kernel.c:load_history_down:void:1037
+0000000000109741:obj/kernel/kernel.c:command_line:void:1038
+00000000001099bc:obj/kernel/kernel.c:gui_mode:void:1039
+0000000000109bfb:obj/kernel/kernel.c:check_buffer:char *string:1040
+0000000000109c5b:obj/kernel/kernel.c:dev_0:int x:1041
+0000000000109c74:obj/kernel/kernel.c:dev_2:void:1042
+0000000000109c84:obj/kernel/kernel.c:dev_3:void:1043
+0000000000109c9a:obj/kernel/kernel.c:dev_4:int x:1044
+0000000000109ead:obj/kernel/dwarf/dwarf.c:decode_uleb128:const uint8_t *ptr, uint32_t *value:1046
+0000000000109f0a:obj/kernel/dwarf/dwarf.c:decode_sleb128:const uint8_t *ptr, int32_t *value:1047
+0000000000109f88:obj/kernel/dwarf/dwarf.c:find_section_for_address:const char *elf_file_path:1048
+000000000010a2b5:obj/kernel/dwarf/dwarf.c:parse_debug_info:FILE *file, Elf32_Shdr *shdrs, int shnum, const char *shstrtab_data:1049
+000000000010a530:obj/kernel/dwarf/dwarf.c:parse_debug_abbrev_offset:FILE *file, Elf32_Shdr *shdrs, int shnum, const char *shstrtab_data, uint32_t offset:1050
+000000000010a536:obj/kernel/dwarf/dwarf.c:parse_debug_abbrev:FILE *file, Elf32_Shdr *shdr, uint32_t offset, uint32_t size:1051
+000000000010a89a:obj/kernel/GUI/ui.c:draw_ui_layout:int screenX, int screenY:1053
+000000000010aad1:obj/kernel/GUI/ui.c:fill_menu:void:1054
+000000000010aad7:obj/kernel/GUI/ui.c:fill_score:void:1055
+000000000010ac7f:obj/kernel/GUI/login.c:draw_login_screen:int screenX, int screenY:1057
+000000000010ae02:obj/kernel/GUI/login.c:draw_3d_rect:int x, int y, int width, int height, int border_color, int shadow_color, int highlight_color:1058
+000000000010aef1:obj/kernel/GUI/login.c:draw_text_login:int x, int y, const char *text, int color:1059
+000000000010af29:obj/kernel/GUI/login.c:draw_char:int x, int y, char c, int color:1060
+000000000010af6c:obj/kernel/GUI/login.c:draw_rect_login:int x, int y, int width, int height, int color:1061
+000000000010afbf:obj/kernel/GUI/login.c:get_password:char *s, int n:1062
+000000000010b225:obj/kernel/init/main.c:store_modules:MULTIBOOT_INFO *mboot_info, MULTIBOOT_MODULE *stored_modules:1064
+000000000010b31a:obj/kernel/init/main.c:print_ram_size:uint64_t ram_size_kb:1065
+000000000010b4b9:obj/kernel/init/main.c:write_first_module_to_file:MULTIBOOT_INFO *mboot_info:1066
+000000000010b572:obj/kernel/init/main.c:draw_screen_dimensions_selection_menu:int pos,int *width,int *height:1067
+000000000010b7b2:obj/kernel/init/main.c:set_screen_dimensions:int *width,int *hight:1068
+000000000010b875:obj/kernel/init/main.c:init:unsigned long magic, unsigned long addr:1069
+000000000010c36b:obj/kernel/init/main.c:fill_program_list:int num_programs,Entry *entries:1070
+000000000010c473:obj/kernel/init/main.c:print_pci_devices:void:1071
+000000000010c9a4:obj/kernel/init/main.c:load_boot_config:const char *data,struct BootConfig *boot_config:1072
+000000000010ca02:obj/kernel/init/main.c:call_interrupt_43:void:1073
+000000000010ca0a:obj/kernel/init/main.c:edit_init:char *data,char *section,char *name,char *value:1074
+000000000010cd2d:obj/kernel/init/ini.c:ini_malloc:size_t size:1076
+000000000010ceae:obj/kernel/init/ini.c:ini_parse_stream:ini_reader reader, void* stream, ini_handler handler,
+                     void* user:1077
+000000000010d1b9:obj/kernel/init/ini.c:ini_parse_file:FILE* file, ini_handler handler, void* user:1078
+000000000010d1d7:obj/kernel/init/ini.c:ini_parse:const char* data, ini_handler handler, void* user:1079
+000000000010d286:obj/kernel/init/ini.c:ini_parse_string:const char* string, ini_handler handler, void* user:1080
+000000000010d2d4:obj/kernel/init/init_options.c:get_tui_state:void:1082
+000000000010d2e0:obj/kernel/init/init_options.c:set_tui:bool state:1083
+000000000010d4a0:obj/drivers/hal/storage/storage.c:init_storage:void:1085
+000000000010d4f3:obj/drivers/hal/storage/storage.c:check_fs_types:void:1086
+000000000010d562:obj/drivers/hal/storage/storage.c:list_devices:void:1087
+000000000010d6e8:obj/drivers/hal/storage/storage.c:print_fs_type:int file_system:1088
+000000000010d74a:obj/drivers/hal/storage/storage.c:add_device:pci_storage_device dev:1089
+000000000010d7d1:obj/drivers/hal/storage/storage.c:get_primary_dev:void:1090
+000000000010d7db:obj/drivers/hal/storage/storage.c:set_primary_dev:int dev:1091
+000000000010d8a8:obj/drivers/hal/storage/storage.c:secondary_storage_read:uint32 sector, uint8 *buffer, uint32 sector_count:1092
+000000000010d8d0:obj/drivers/hal/storage/storage.c:secondary_storage_write:uint32 sector, uint8 *buffer, uint32 sector_count:1093
+000000000010d90c:obj/drivers/hal/storage/storage.c:get_current_drive_sector_count:void:1094
+000000000010d951:obj/drivers/hal/storage/storage.c:write_iso_to_disk:uint8_t *iso_buffer, uint32_t iso_size:1095
+000000000010da01:obj/drivers/hal/storage/storage.c:install_athenx:void:1096
+000000000010da1f:obj/drivers/hal/storage/storage.c:check_iso_bootable:uint8_t *iso_buffer, uint32_t iso_size:1097
+000000000010da67:obj/drivers/hal/storage/storage.c:install_mbr:void:1098
+000000000010db91:obj/drivers/hal/storage/storage.c:install_iso_to_disk:const char *iso_path:1099
+000000000010dd75:obj/drivers/virtual/devices.c:handle_virtual_device_fopen:char *device, char *mods:1101
+000000000010de72:obj/drivers/virtual/devices.c:is_virtual_device_path:char *path:1102
+000000000010de9f:obj/drivers/virtual/devices.c:is_virtual_device:void *device:1103
+000000000010debd:obj/drivers/virtual/devices.c:decode_device:char *path:1104
+000000000010e0c1:obj/drivers/virtual/devices.c:device_read:void *ptr, size_t size, size_t nmemb, void *stream:1105
+000000000010e10f:obj/drivers/virtual/devices.c:device_write:const void *ptr, size_t size, size_t nmemb, void *stream:1106
+000000000010e15e:obj/drivers/virtual/devices.c:write_tty:char *buf,int pos,size_t count:1107
+000000000010e19e:obj/drivers/virtual/devices.c:read_tty:char *buf, int pos, size_t count:1108
+000000000010e224:obj/drivers/virtual/devices.c:write_fmb:char *buf,int pos,size_t count:1109
+000000000010e243:obj/drivers/virtual/devices.c:read_fmb:char *buf,int pos,size_t count:1110
+000000000010e24d:obj/drivers/virtual/devices.c:write_ttySO:char *buf,int pos,size_t count:1111
+000000000010e285:obj/drivers/virtual/devices.c:read_ttySO:char *buf,int pos,size_t count:1112
+000000000010e28f:obj/drivers/virtual/devices.c:read_mem:char *buf,int pos,size_t count:1113
+000000000010e295:obj/drivers/virtual/devices.c:write_NULL:char *buf,int pos,size_t count:1114
+000000000010e29b:obj/drivers/time/timer.c:timer_set_frequency:uint16 f:1116
+000000000010e302:obj/drivers/time/timer.c:timer_handler:REGISTERS* r:1117
+000000000010e3ac:obj/drivers/time/timer.c:timer_register_function:TIMER_FUNCTION function, TIMER_FUNC_ARGS *args:1118
+000000000010e42b:obj/drivers/time/timer.c:timer_init:void:1119
+000000000010e458:obj/drivers/time/timer.c:sleep:int sec:1120
+000000000010e486:obj/drivers/time/timer.c:get_ticks:void:1121
+000000000010e490:obj/drivers/time/timer.c:get_RTC_register:int reg:1122
+000000000010e4c7:obj/drivers/time/clock.c:print_date:void:1124
+000000000010e69d:obj/drivers/time/clock.c:print_date_com:void:1125
+000000000010e87b:obj/drivers/time/clock.c:get_time:void:1126
+000000000010ea27:obj/drivers/time/clock.c:time:time_t *t:1127
+000000000010ea94:obj/drivers/time/clock.c:localtime:const time_t *timer:1128
+000000000010ec81:obj/drivers/keyboard/keyboard.c:alternate_chars:char ch:1130
+000000000010ed48:obj/drivers/keyboard/keyboard.c:keyboard_handler:REGISTERS *r:1131
+000000000010f0db:obj/drivers/keyboard/keyboard.c:kb_getchar_w:void:1132
+000000000010f110:obj/drivers/keyboard/keyboard.c:get_char:int caller_process_id:1133
+000000000010f136:obj/drivers/keyboard/keyboard.c:lock_kb_input:int caller_process_id:1134
+000000000010f144:obj/drivers/keyboard/keyboard.c:unlock_kb_input:void:1135
+000000000010f154:obj/drivers/keyboard/keyboard.c:keyboard_init:void:1136
+000000000010f174:obj/drivers/keyboard/keyboard.c:handle_F1_press:int scancode:1137
+000000000010f190:obj/drivers/keyboard/keyboard.c:handle_F2_press:int scancode:1138
+000000000010f196:obj/drivers/keyboard/keyboard.c:handle_F3_press:int scancode:1139
+000000000010f1b2:obj/drivers/keyboard/keyboard.c:handle_F4_press:int scancode:1140
+000000000010f1ce:obj/drivers/keyboard/keyboard.c:handle_F5_press:int scancode:1141
+000000000010f1ea:obj/drivers/keyboard/keyboard.c:handle_F6_press:int scancode:1142
+000000000010f206:obj/drivers/keyboard/keyboard.c:handle_F7_press:int scancode:1143
+000000000010f222:obj/drivers/keyboard/keyboard.c:handle_F8_press:int scancode:1144
+000000000010f23e:obj/drivers/keyboard/keyboard.c:handle_F9_press:int scancode:1145
+000000000010f25a:obj/drivers/keyboard/keyboard.c:handle_F10_press:int scancode:1146
+000000000010f276:obj/drivers/keyboard/keyboard.c:handle_F11_press:int scancode:1147
+000000000010f292:obj/drivers/keyboard/keyboard.c:handle_F12_press:int scancode:1148
+000000000010f2ae:obj/drivers/keyboard/keyboard.c:register_arrow_callback:int scancode, arrow_callback_t callback:1149
+000000000010f2db:obj/drivers/keyboard/keyboard.c:arrow_press:int scancode:1150
+000000000010f30d:obj/drivers/vga/vga.c:print_char_at:char character, uint8_t color, int x, int y:1152
+000000000010f366:obj/drivers/vga/vga.c:print_char:char character, uint8_t color:1153
+000000000010f3a0:obj/drivers/vga/vga.c:kprints:const char *string:1154
+000000000010f42f:obj/drivers/net/utils.c:is_little_endian:void:1156
+000000000010f44b:obj/drivers/net/utils.c:htons:uint16_t hostshort:1157
+000000000010f47c:obj/drivers/net/utils.c:htonl:uint32_t hostlong:1158
+000000000010f4b9:obj/drivers/net/utils.c:ntohs:uint16_t netshort:1159
+000000000010f4d5:obj/drivers/net/utils.c:ntohl:uint32_t netlong:1160
+000000000010f4e5:obj/drivers/net/utils.c:calculate_checksum:uint16_t *buf, int nwords:1161
+000000000010f53f:obj/drivers/net/stack/dhcp.c:create_dhcp_discover:uint8_t *packet, uint8_t *src_mac:1163
+000000000010f805:obj/drivers/net/stack/receive.c:process_received_packet:void:1165
+000000000010fd9f:obj/drivers/net/stack/receive.c:wait_for_receive:int packet_type:1166
+000000000010fe07:obj/drivers/net/stack/send.c:send_dhcp_request:void:1168
+000000000010fe5c:obj/drivers/net/network.c:print_mac_address:uint8_t mac[6]:1170
+000000000010fec9:obj/drivers/net/network.c:request_ip_and_wait:int dev:1171
+0000000000110131:obj/drivers/net/network.c:set_current_netdev:network_interface_t *iface:1172
+000000000011013f:obj/drivers/net/network.c:get_current_netdev:void:1173
+0000000000110149:obj/drivers/net/network.c:register_iface:network_interface_t* iface, char iface_name[100], int (*transmit_func:1174
+00000000001101f3:obj/drivers/net/network.c:print_all_network_devs:void:1175
+000000000011022a:obj/drivers/net/e1000/e1000.c:e1000_Get_Mac:void:1177
+00000000001102a9:obj/drivers/net/e1000/e1000.c:e100_malloc:size_t size:1178
+0000000000110449:obj/drivers/net/e1000/e1000.c:_e1000_tx_init:void:1179
+00000000001104e4:obj/drivers/net/e1000/e1000.c:_e1000_rx_init:void:1180
+0000000000110573:obj/drivers/net/e1000/e1000.c:e1000_receive:char* buffer, uint32_t size:1181
+0000000000110652:obj/drivers/net/e1000/e1000.c:e1000_transmit:char* buffer, uint32_t size:1182
+0000000000110761:obj/drivers/net/e1000/e1000.c:e1000_callback:REGISTERS* r:1183
+000000000011079f:obj/drivers/net/e1000/e1000.c:init_e1000:void:1184
+000000000011091b:obj/drivers/net/e1000/e1000.c:setup_net_e1000:void:1185
+0000000000110b23:obj/drivers/pci/pci_io.c:enable_bus_mastering:uint8_t bus, uint8_t slot, uint8_t func:1187
+0000000000110b85:obj/drivers/pci/pci_io.c:init_pci_device:uint8_t bus, uint8_t slot, uint8_t func:1188
+0000000000110c38:obj/drivers/pci/pci_io.c:pci_enable_device_busmaster:uint16_t bus, uint16_t slot, uint16_t function:1189
+0000000000110cd9:obj/drivers/pci/pci_io.c:init_pci_device_interrupts:uint8_t bus, uint8_t slot, uint8_t func:1190
+0000000000110d3c:obj/drivers/pci/pci_io.c:pci_config_read_dword:uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset:1191
+0000000000110dd0:obj/drivers/pci/pci_io.c:pci_config_read_word:uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset:1192
+0000000000110e2e:obj/drivers/pci/pci_io.c:pci_read:uint8_t bus, uint8_t device, uint8_t function, uint8_t offset:1193
+0000000000110ea3:obj/drivers/pci/pci_io.c:pci_write:uint8_t bus, uint8_t device, uint8_t function, uint8_t offset, uint32_t data:1194
+0000000000110f1c:obj/drivers/pci/pci_io.c:pci_read_mini:uint8_t bus, uint8_t device, uint8_t function, uint8_t offset:1195
+0000000000110f91:obj/drivers/pci/pci_io.c:found_device:uint8_t bus, uint8_t slot, uint8_t func, pci_config_register *device:1196
+000000000011136f:obj/drivers/pci/pci_mian.c:pci_scan:void:1198
+0000000000111463:obj/drivers/pci/pci_mian.c:create_device:pci_config_register *config:1199
+00000000001117d8:obj/drivers/pci/pci_mian.c:is_ahci:pci_config_register *config:1200
+00000000001117ef:obj/drivers/pci/pci_mian.c:get_ahci_abar:void:1201
+00000000001118c5:obj/drivers/pci/pci_mian.c:get_e1000_data:void:1202
+0000000000111a07:obj/drivers/pci/pci_mian.c:read_bar5:uint8_t bus, uint8_t slot, uint8_t func:1203
+0000000000111a3a:obj/drivers/pci/pci_mian.c:get_num_unclassified_devices:void:1204
+0000000000111a44:obj/drivers/pci/pci_mian.c:get_num_mass_storage_devices:void:1205
+0000000000111a4e:obj/drivers/pci/pci_mian.c:get_num_network_devices:void:1206
+0000000000111a58:obj/drivers/pci/pci_mian.c:get_num_display_devices:void:1207
+0000000000111a62:obj/drivers/pci/pci_mian.c:get_num_multimedia_devices:void:1208
+0000000000111a6c:obj/drivers/pci/pci_mian.c:get_num_memory_devices:void:1209
+0000000000111a76:obj/drivers/pci/pci_mian.c:get_num_bridge_devices:void:1210
+0000000000111a80:obj/drivers/pci/pci_mian.c:get_num_simple_comm_devices:void:1211
+0000000000111a8a:obj/drivers/pci/pci_mian.c:get_num_base_system_periph_devices:void:1212
+0000000000111a94:obj/drivers/pci/pci_mian.c:get_num_input_devices:void:1213
+0000000000111a9e:obj/drivers/pci/pci_mian.c:get_num_docking_devices:void:1214
+0000000000111aa8:obj/drivers/pci/pci_mian.c:get_num_processor_devices:void:1215
+0000000000111ab2:obj/drivers/pci/pci_mian.c:get_num_serial_bus_devices:void:1216
+0000000000111abc:obj/drivers/pci/pci_mian.c:get_num_wireless_devices:void:1217
+0000000000111ac6:obj/drivers/pci/pci_mian.c:get_num_intelligent_io_devices:void:1218
+0000000000111ad0:obj/drivers/pci/pci_mian.c:get_num_satellite_devices:void:1219
+0000000000111ada:obj/drivers/pci/pci_mian.c:get_num_encryption_devices:void:1220
+0000000000111ae4:obj/drivers/pci/pci_mian.c:get_num_signal_processing_devices:void:1221
+0000000000111aee:obj/drivers/pci/pci_mian.c:get_num_processing_accel_devices:void:1222
+0000000000111af8:obj/drivers/pci/pci_mian.c:get_num_non_essential_devices:void:1223
+0000000000111b02:obj/drivers/pci/pci_mian.c:get_num_coprocessor_devices:void:1224
+0000000000111b0c:obj/drivers/pci/pci_mian.c:remap_irq:pci_config_register *info, int irq:1225
+0000000000111c1e:obj/drivers/terminal/terminal.c:get_font_fg:void:1227
+0000000000111c28:obj/drivers/terminal/terminal.c:get_font_bg:void:1228
+0000000000111c32:obj/drivers/terminal/terminal.c:set_scroll_x_pos:uint32_t x:1229
+0000000000111c40:obj/drivers/terminal/terminal.c:set_font_fg_color_:int color:1230
+0000000000111c4e:obj/drivers/terminal/terminal.c:set_font_bg_color_:int color:1231
+0000000000111c5c:obj/drivers/terminal/terminal.c:get_terminal_width:void:1232
+0000000000111c66:obj/drivers/terminal/terminal.c:get_terminal_hight:void:1233
+0000000000111c70:obj/drivers/terminal/terminal.c:set_font_fg_color:int color_index:1234
+0000000000111d96:obj/drivers/terminal/terminal.c:set_font_bg_color:int color_index:1235
+0000000000111eb9:obj/drivers/terminal/terminal.c:init_terminal:int x, int y:1236
+0000000000111f2f:obj/drivers/terminal/terminal.c:get_terminal_postion_x:void:1237
+0000000000111f39:obj/drivers/terminal/terminal.c:get_terminal_postion_y:void:1238
+0000000000111f43:obj/drivers/terminal/terminal.c:set_terminal_postion_x:int x:1239
+0000000000111f51:obj/drivers/terminal/terminal.c:set_terminal_postion_y:int y:1240
+0000000000111f5f:obj/drivers/terminal/terminal.c:draw_vbe_char:char c:1241
+00000000001120f6:obj/drivers/terminal/terminal.c:draw_char_8x16:int x, int y, char character:1242
+0000000000112233:obj/drivers/terminal/terminal.c:scroll_up:void:1243
+0000000000112264:obj/drivers/terminal/terminal.c:scroll_down:void:1244
+0000000000112280:obj/drivers/terminal/terminal.c:reset_poss_from_scroll:void:1245
+00000000001122b8:obj/drivers/terminal/terminal.c:reset_terminal_settings:void:1246
+00000000001122f6:obj/drivers/terminal/graphics.c:draw_loading_bar:int current_value, int total_value, int x, int y, uint32_t color, int distance_between_bars:1248
+000000000011269b:obj/drivers/acpi/acpi2.c:AcpiInit:void:1250
+0000000000112706:obj/drivers/acpi/acpi2.c:AcpiRemapIrq:unsigned int irq:1251
+000000000011277d:obj/drivers/acpi/acpi.c:acpiCheckRSDPtr:unsigned int *ptr:1253
+00000000001127e8:obj/drivers/acpi/acpi.c:acpiGetRSDPtr:void:1254
+000000000011287a:obj/drivers/acpi/acpi.c:acpiCheckHeader:unsigned int *ptr, char *sig:1255
+00000000001128e4:obj/drivers/acpi/acpi.c:acpiEnable:void:1256
+0000000000112a49:obj/drivers/acpi/acpi.c:initAcpi:void:1257
+0000000000112d14:obj/drivers/acpi/acpi.c:acpiPowerOff:void:1258
+0000000000112d99:obj/drivers/acpi/acpi.c:reboot:void:1259
+0000000000112db2:obj/drivers/acpi/acpi.c:findFACP:void:1260
+0000000000112e29:obj/drivers/vesa/vesa.c:get_vbe_info:void:1262
+0000000000112f24:obj/drivers/vesa/vesa.c:get_vbe_mode_info:uint16 mode, VBE20_MODEINFOBLOCK *mode_info:1263
+0000000000112fb3:obj/drivers/vesa/vesa.c:vbe_set_mode:uint32 mode:1264
+000000000011301c:obj/drivers/vesa/vesa.c:vbe_find_mode:uint32 width, uint32 height, uint32 bpp:1265
+00000000001130cc:obj/drivers/vesa/vesa.c:vbe_print_available_modes:void:1266
+0000000000113165:obj/drivers/vesa/vesa.c:vbe_rgb:uint8 red, uint8 green, uint8 blue:1267
+000000000011319e:obj/drivers/vesa/vesa.c:get_vbe_loaction:int x, int y:1268
+00000000001131b3:obj/drivers/vesa/vesa.c:vbe_putpixel:int x, int y, int color:1269
+00000000001131e1:obj/drivers/vesa/vesa.c:vesa_init:uint32 width, uint32 height, uint32 bpp:1270
+00000000001132f7:obj/drivers/vesa/vesa.c:map_vesa:void:1271
+00000000001133b0:obj/drivers/vesa/vesa.c:test_memory_mapping:uint32_t start_address, uint32_t size:1272
+000000000011340b:obj/drivers/vesa/vesa.c:leave_vesa_mode:void:1273
+0000000000113434:obj/drivers/vesa/vesa.c:vesa_scroll:int lines:1274
+000000000011348b:obj/drivers/vesa/vesa.c:debug_scroll:int lines:1275
+00000000001134e2:obj/drivers/vesa/vesa.c:scroll_screen:uint32_t* framebuffer, int width, int height, int num_lines:1276
+0000000000113555:obj/drivers/vesa/vesa.c:scroll_screen_history:uint32_t* framebuffer, int width, int height, int num_lines:1277
+000000000011375b:obj/drivers/vesa/vesa.c:vesa_init_buffers:void:1278
+0000000000113808:obj/drivers/vesa/vesa.c:draw_pixel_buffer_1:int x, int y, int color:1279
+0000000000113847:obj/drivers/vesa/vesa.c:draw_pixel_buffer_1_tty:uint32_t pos,int count,uint32_t *buffer:1280
+00000000001138a9:obj/drivers/vesa/vesa.c:draw_pixel_buffer_2:int x, int y, int color:1281
+00000000001138e8:obj/drivers/vesa/vesa.c:cycle_buffers_vbe:void:1282
+00000000001139ea:obj/drivers/vesa/vesa.c:update_pixel_display:void:1283
+0000000000113a6b:obj/drivers/vesa/vesa.c:update_pixel:int x, int y:1284
+0000000000113aec:obj/drivers/vesa/vesa.c:clear_screen:void:1285
+0000000000113b73:obj/drivers/io/stream.c:init_io_system:void:1287
+0000000000113bd4:obj/drivers/io/stream.c:getchar:void:1288
+0000000000113c27:obj/drivers/io/stream.c:get_io_pos:void:1289
+0000000000113c3d:obj/drivers/io/stream.c:set_io_pos:int pos:1290
+0000000000113c72:obj/drivers/io/stream.c:push_io:int c:1291
+0000000000113cc4:obj/drivers/io/stream.c:disable_io_stream:void:1292
+0000000000113cd1:obj/drivers/io/stream.c:enable_io_stream:void:1293
+000000000011523a:obj/drivers/io/scanf.c:vscanf_:const char *format, va_list arg:1295
+000000000011525f:obj/drivers/io/scanf.c:scanf_:const char *format, ...:1296
+0000000000115285:obj/drivers/io/scanf.c:vspscanf_:const char **sp, const char *format, va_list arg:1297
+00000000001152bb:obj/drivers/io/scanf.c:spscanf_:const char **sp, const char *format, ...:1298
+00000000001152e4:obj/drivers/io/scanf.c:vsscanf_:const char *s, const char *format, va_list arg:1299
+0000000000115308:obj/drivers/io/scanf.c:sscanf_:const char *s, const char *format, ...:1300
+0000000000115331:obj/drivers/io/scanf.c:vfctscanf_:int (*getch:1301
+0000000000115353:obj/drivers/io/scanf.c:fctscanf_:int (*getch:1302
+0000000000115382:obj/drivers/io/scanf.c:getch_:void:1303
+000000000011541e:obj/drivers/io/scanf.c:aquire_stdin_lock:int id:1304
+0000000000115424:obj/drivers/io/scanf.c:release_stdin_lock:int id:1305
+000000000011542a:obj/drivers/io/scanf.c:ungetch_:int ch:1306
+0000000000115447:obj/drivers/io/scanf.c:enable_echo:void:1307
+0000000000115457:obj/drivers/io/scanf.c:disable_echo:void:1308
+0000000000115467:obj/drivers/io/scanf.c:set_echo_char:char ch:1309
+0000000000115621:obj/drivers/VFS/fs.c:init_file_system:int drive:1311
+00000000001156cd:obj/drivers/VFS/fs.c:try_fat:void:1312
+0000000000115704:obj/drivers/VFS/fs.c:try_ext:void:1313
+00000000001158b0:obj/drivers/VFS/file.c:init_fs:void:1315
+0000000000115952:obj/drivers/VFS/file.c:remove_double_path_separators:char* path:1316
+0000000000115a4d:obj/drivers/VFS/file.c:chdir:const char *path:1317
+0000000000115c47:obj/drivers/VFS/file.c:getcwd:void:1318
+0000000000115c80:obj/drivers/VFS/file.c:is_valid_char:char c:1319
+0000000000115cba:obj/drivers/VFS/file.c:filter_cwd:char* cwd:1320
+0000000000115d6a:obj/drivers/VFS/file.c:remove_leading_whitespace:char* path:1321
+0000000000115dbb:obj/drivers/VFS/file.c:process_path:const char* input_string:1322
+0000000000115f11:obj/drivers/VFS/file.c:fopen:const char *path,const char *modifiers:1323
+0000000000116060:obj/drivers/VFS/file.c:fread:void *ptr, size_t size, size_t nmemb, void *stream:1324
+0000000000116115:obj/drivers/VFS/file.c:fwrite:const void *ptr, size_t size, size_t nmemb, void *stream:1325
+0000000000116225:obj/drivers/VFS/file.c:fputc:int c, void *stream:1326
+00000000001162ac:obj/drivers/VFS/file.c:fputs:const char *str, void *stream:1327
+0000000000116395:obj/drivers/VFS/file.c:fclose:void *stream:1328
+000000000011649a:obj/drivers/VFS/file.c:fseek:void *stream, long offset, int whence:1329
+000000000011653b:obj/drivers/VFS/file.c:fgetpos:void *stream, fpos_t *pos:1330
+0000000000116569:obj/drivers/VFS/file.c:ftell:void *stream:1331
+00000000001165a7:obj/drivers/VFS/file.c:feof:void *stream:1332
+00000000001165d2:obj/drivers/VFS/file.c:fgets:char *s, int n, void *f:1333
+00000000001166d6:obj/drivers/VFS/file.c:fgetc:void *f:1334
+000000000011672b:obj/drivers/VFS/file.c:mkdir:const char *path:1335
+0000000000116756:obj/drivers/VFS/file.c:rmdir:const char *path:1336
+0000000000116775:obj/drivers/VFS/file.c:fprintf:void *fp,const char *format,...:1337
+000000000011686b:obj/drivers/VFS/file.c:ungetc:int c,void *stream:1338
+00000000001168b8:obj/drivers/VFS/file.c:fflush:void *stream:1339
+00000000001168e3:obj/drivers/VFS/file.c:fs_shutdown:void:1340
+000000000011693b:obj/drivers/fs/fat32/fat_access.c:fatfs_init:struct fatfs *fs:1342
+0000000000116ed8:obj/drivers/fs/fat32/fat_access.c:fatfs_lba_of_cluster:struct fatfs *fs, uint32 Cluster_Number:1343
+0000000000116f34:obj/drivers/fs/fat32/fat_access.c:fatfs_sector_read:struct fatfs *fs, uint32 lba, uint8 *target, uint32 count:1344
+0000000000116f53:obj/drivers/fs/fat32/fat_access.c:fatfs_sector_write:struct fatfs *fs, uint32 lba, uint8 *target, uint32 count:1345
+0000000000116f72:obj/drivers/fs/fat32/fat_access.c:fatfs_sector_reader:struct fatfs *fs, uint32 start_cluster, uint32 offset, uint8 *target:1346
+00000000001170b3:obj/drivers/fs/fat32/fat_access.c:fatfs_read_sector:struct fatfs *fs, uint32 cluster, uint32 sector, uint8 *target:1347
+00000000001171c7:obj/drivers/fs/fat32/fat_access.c:fatfs_write_sector:struct fatfs *fs, uint32 cluster, uint32 sector, uint8 *target:1348
+00000000001172ef:obj/drivers/fs/fat32/fat_access.c:fatfs_show_details:struct fatfs *fs:1349
+000000000011738f:obj/drivers/fs/fat32/fat_access.c:fatfs_get_root_cluster:struct fatfs *fs:1350
+000000000011739a:obj/drivers/fs/fat32/fat_access.c:fatfs_get_file_entry:struct fatfs *fs, uint32 Cluster, char *name_to_find, struct fat_dir_entry *sfEntry:1351
+000000000011762f:obj/drivers/fs/fat32/fat_access.c:fatfs_sfn_exists:struct fatfs *fs, uint32 Cluster, char *shortname:1352
+00000000001176fa:obj/drivers/fs/fat32/fat_access.c:fatfs_update_timestamps:struct fat_dir_entry *directoryEntry, int create, int modify, int access:1353
+0000000000117832:obj/drivers/fs/fat32/fat_access.c:fatfs_update_file_length:struct fatfs *fs, uint32 Cluster, char *shortname, uint32 fileLength:1354
+0000000000117973:obj/drivers/fs/fat32/fat_access.c:fatfs_mark_file_deleted:struct fatfs *fs, uint32 Cluster, char *shortname:1355
+0000000000117ab1:obj/drivers/fs/fat32/fat_access.c:fatfs_list_directory_start:struct fatfs *fs, struct fs_dir_list_status *dirls, uint32 StartCluster:1356
+0000000000117ad0:obj/drivers/fs/fat32/fat_access.c:fatfs_list_directory_next:struct fatfs *fs, struct fs_dir_list_status *dirls, struct fs_dir_ent *entry:1357
+0000000000118e32:obj/drivers/fs/fat32/fat_filelib.c:fl_init:void:1359
+0000000000118e96:obj/drivers/fs/fat32/fat_filelib.c:fl_attach_locks:void (*lock:1360
+0000000000118eac:obj/drivers/fs/fat32/fat_filelib.c:fl_attach_media:fn_diskio_read rd, fn_diskio_write wr:1361
+0000000000118f17:obj/drivers/fs/fat32/fat_filelib.c:fl_shutdown:void:1362
+0000000000118f5e:obj/drivers/fs/fat32/fat_filelib.c:fl_fopen:const char *path, const char *mode:1363
+0000000000119372:obj/drivers/fs/fat32/fat_filelib.c:fl_fflush:void *f:1364
+00000000001193f8:obj/drivers/fs/fat32/fat_filelib.c:fl_fclose:void *f:1365
+00000000001194e8:obj/drivers/fs/fat32/fat_filelib.c:fl_fgetc:void *f:1366
+000000000011951c:obj/drivers/fs/fat32/fat_filelib.c:fl_fgets:char *s, int n, void *f:1367
+0000000000119597:obj/drivers/fs/fat32/fat_filelib.c:fl_fread:void * buffer, int size, int length, void *f:1368
+00000000001197b6:obj/drivers/fs/fat32/fat_filelib.c:fl_fseek:void *f, long offset, int origin:1369
+0000000000119906:obj/drivers/fs/fat32/fat_filelib.c:fl_fgetpos:void *f , uint32 * position:1370
+0000000000119951:obj/drivers/fs/fat32/fat_filelib.c:fl_ftell:void *f:1371
+0000000000119975:obj/drivers/fs/fat32/fat_filelib.c:fl_feof:void *f:1372
+00000000001199d3:obj/drivers/fs/fat32/fat_filelib.c:fl_fputc:int c, void *f:1373
+0000000000119a05:obj/drivers/fs/fat32/fat_filelib.c:fl_fwrite:const void * data, int size, int count, void *f:1374
+0000000000119cd2:obj/drivers/fs/fat32/fat_filelib.c:fl_fputs:const char * str, void *f:1375
+0000000000119d11:obj/drivers/fs/fat32/fat_filelib.c:fl_remove:const char * filename:1376
+0000000000119db3:obj/drivers/fs/fat32/fat_filelib.c:fl_createdirectory:const char *path:1377
+0000000000119dfd:obj/drivers/fs/fat32/fat_filelib.c:fl_listdirectory:const char *path, Entry dirs[MAX], Entry files[MAX], int *dir_count, int *file_count:1378
+0000000000119f7e:obj/drivers/fs/fat32/fat_filelib.c:fl_count_files:const char *path, int *dir_count, int *file_count:1379
+000000000011a01d:obj/drivers/fs/fat32/fat_filelib.c:fl_populate_file_list:const char *path, Entry *files, int *file_count:1380
+000000000011a0ec:obj/drivers/fs/fat32/fat_filelib.c:fl_opendir:const char* path, FL_DIR *dir:1381
+000000000011a1a3:obj/drivers/fs/fat32/fat_filelib.c:fl_readdir:FL_DIR *dirls, fl_dirent *entry:1382
+000000000011a20b:obj/drivers/fs/fat32/fat_filelib.c:fl_closedir:FL_DIR* dir:1383
+000000000011a215:obj/drivers/fs/fat32/fat_filelib.c:fl_is_dir:const char *path:1384
+000000000011a266:obj/drivers/fs/fat32/fat_filelib.c:fl_format:uint32 volume_sectors, const char *name:1385
+000000000011a284:obj/drivers/fs/fat32/fat_filelib.c:ferror:FL_FILE *stream:1386
+000000000011a28e:obj/drivers/fs/fat32/fat_filelib.c:fatfs_add_special_entries:struct fatfs *fs, uint32 dirCluster, uint32 parentCluster:1387
+000000000011a386:obj/drivers/fs/fat32/fat_filelib.c:get_file_size:FL_FILE *file:1388
+000000000011a466:obj/drivers/fs/fat32/fat_filelib.c:is_file:const char *path:1389
+000000000011a496:obj/drivers/fs/fat32/fat_filelib.c:rename:const char* old_name, const char* new_name:1390
+000000000011a557:obj/drivers/fs/fat32/fat_filelib.c:fat_inited:void:1391
+000000000011a703:obj/drivers/fs/fat32/fat_cache.c:fatfs_cache_init:struct fatfs *fs, FL_FILE *file:1393
+000000000011a70d:obj/drivers/fs/fat32/fat_cache.c:fatfs_cache_get_next_cluster:struct fatfs *fs, FL_FILE *file, uint32 clusterIdx, uint32 *pNextCluster:1394
+000000000011a717:obj/drivers/fs/fat32/fat_cache.c:fatfs_cache_set_next_cluster:struct fatfs *fs, FL_FILE *file, uint32 clusterIdx, uint32 nextCluster:1395
+000000000011a721:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_init:struct fatfs *fs:1397
+000000000011aa0a:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_purge:struct fatfs *fs:1398
+000000000011aa60:obj/drivers/fs/fat32/fat_table.c:fatfs_find_next_cluster:struct fatfs *fs, uint32 current_cluster:1399
+000000000011abea:obj/drivers/fs/fat32/fat_table.c:fatfs_set_fs_info_next_free_cluster:struct fatfs *fs, uint32 newValue:1400
+000000000011ace4:obj/drivers/fs/fat32/fat_table.c:fatfs_find_blank_cluster:struct fatfs *fs, uint32 start_cluster, uint32 *free_cluster:1401
+000000000011ae65:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_set_cluster:struct fatfs *fs, uint32 cluster, uint32 next_cluster:1402
+000000000011afb8:obj/drivers/fs/fat32/fat_table.c:fatfs_free_cluster_chain:struct fatfs *fs, uint32 start_cluster:1403
+000000000011b006:obj/drivers/fs/fat32/fat_table.c:fatfs_fat_add_cluster_to_chain:struct fatfs *fs, uint32 start_cluster, uint32 newEntry:1404
+000000000011b081:obj/drivers/fs/fat32/fat_table.c:fatfs_count_free_clusters:struct fatfs *fs:1405
+000000000011b1ca:obj/drivers/fs/fat32/fat_write.c:fatfs_add_free_space:struct fatfs *fs, uint32 *startCluster, uint32 clusters:1407
+000000000011b272:obj/drivers/fs/fat32/fat_write.c:fatfs_allocate_free_space:struct fatfs *fs, int newFile, uint32 *startCluster, uint32 size:1408
+000000000011b58a:obj/drivers/fs/fat32/fat_write.c:fatfs_add_file_entry:struct fatfs *fs, uint32 dirCluster, char *filename, char *shortfilename, uint32 startCluster, uint32 size, int dir:1409
+000000000011b7d2:obj/drivers/fs/fat32/fat_string.c:fatfs_total_path_levels:char *path:1411
+000000000011b862:obj/drivers/fs/fat32/fat_string.c:fatfs_get_substring:char *path, int levelreq, char *output, int max_len:1412
+000000000011b967:obj/drivers/fs/fat32/fat_string.c:fatfs_split_path:char *full_path, char *path, int max_path, char *filename, int max_filename:1413
+000000000011bb2d:obj/drivers/fs/fat32/fat_string.c:fatfs_compare_names:char* strA, char* strB:1414
+000000000011bc9a:obj/drivers/fs/fat32/fat_string.c:fatfs_string_ends_with_slash:char *path:1415
+000000000011bce2:obj/drivers/fs/fat32/fat_string.c:fatfs_get_sfn_display_name:char* out, char* in:1416
+000000000011bd4e:obj/drivers/fs/fat32/fat_string.c:fatfs_get_extension:char* filename, char* out, int maxlen:1417
+000000000011bde7:obj/drivers/fs/fat32/fat_string.c:fatfs_create_path_string:char* path, char *filename, char* out, int maxlen:1418
+000000000011c761:obj/drivers/fs/fat32/fat_format.c:fatfs_format_fat16:struct fatfs *fs, uint32 volume_sectors, const char *name:1420
+000000000011c8e2:obj/drivers/fs/fat32/fat_format.c:fatfs_format_fat32:struct fatfs *fs, uint32 volume_sectors, const char *name:1421
+000000000011ca46:obj/drivers/fs/fat32/fat_format.c:fatfs_format:struct fatfs *fs, uint32 volume_sectors, const char *name:1422
+000000000011ca81:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_cache_init:struct lfn_cache *lfn, int wipeTable:1424
+000000000011cad7:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_cache_entry:struct lfn_cache *lfn, uint8 *entryBuffer:1425
+000000000011cd43:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_cache_get:struct lfn_cache *lfn:1426
+000000000011cd9b:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_lfn_text:struct fat_dir_entry *entry:1427
+000000000011cdbe:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_lfn_invalid:struct fat_dir_entry *entry:1428
+000000000011cdff:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_lfn_exists:struct lfn_cache *lfn, struct fat_dir_entry *entry:1429
+000000000011ce59:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_sfn_only:struct fat_dir_entry *entry:1430
+000000000011cea5:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_is_dir:struct fat_dir_entry *entry:1431
+000000000011cec7:obj/drivers/fs/fat32/fat_misc.c:fatfs_entry_is_file:struct fat_dir_entry *entry:1432
+000000000011cee9:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_entries_required:char *filename:1433
+000000000011cf2a:obj/drivers/fs/fat32/fat_misc.c:fatfs_filename_to_lfn:char *filename, uint8 *buffer, int entry, uint8 sfnChk:1434
+000000000011d098:obj/drivers/fs/fat32/fat_misc.c:fatfs_sfn_create_entry:char *shortfilename, uint32 size, uint32 startCluster, struct fat_dir_entry *entry, int dir:1435
+000000000011d165:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_create_sfn:char *sfn_output, char *filename:1436
+000000000011d3e9:obj/drivers/fs/fat32/fat_misc.c:fatfs_lfn_generate_tail:char *sfn_output, char *sfn_input, uint32 tailNum:1437
+000000000011d47a:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_from_fat_time:uint16 fat_time, int *hours, int *minutes, int *seconds:1438
+000000000011d4cf:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_from_fat_date:uint16 fat_date, int *day, int *month, int *year:1439
+000000000011d527:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_to_fat_time:int hours, int minutes, int seconds:1440
+000000000011d57a:obj/drivers/fs/fat32/fat_misc.c:fatfs_convert_to_fat_date:int day, int month, int year:1441
+000000000011d5ce:obj/drivers/disk/ahci/ahci_main.c:select_ahci_drive:int index:1443
+000000000011d5fe:obj/drivers/disk/ahci/ahci_main.c:ahci_write_sector_hal:uint32 sector, uint8 *buffer, uint32 sector_count:1444
+000000000011d64f:obj/drivers/disk/ahci/ahci_main.c:ahci_read_sector_hal:uint32 sector, uint8 *buffer, uint32 sector_count:1445
+000000000011d6a0:obj/drivers/disk/ahci/ahci_main.c:add_ahci_drive:HBA_PORT *dev:1446
+000000000011d718:obj/drivers/disk/ahci/ahci_main.c:ahci_malloc:size_t size, size_t alignment,int line,char msg[1200]:1447
+000000000011d77d:obj/drivers/disk/ahci/ahci_main.c:reset_ahci_controller:HBA_MEM *abar:1448
+000000000011d7ba:obj/drivers/disk/ahci/ahci_main.c:ahci_isr:REGISTERS16 *reg:1449
+000000000011d7d8:obj/drivers/disk/ahci/ahci_main.c:enable_ahci_mode_and_interrupts:HBA_MEM *abar:1450
+000000000011d7f1:obj/drivers/disk/ahci/ahci_main.c:ahci_main:void:1451
+000000000011d9e0:obj/drivers/disk/ahci/ahci_main.c:probe_port:HBA_MEM *abar:1452
+000000000011dc09:obj/drivers/disk/ahci/ahci_main.c:port_rebase:HBA_PORT *port, int portno:1453
+000000000011de99:obj/drivers/disk/ahci/ahci_main.c:start_cmd:HBA_PORT *port:1454
+000000000011deef:obj/drivers/disk/ahci/ahci_main.c:stop_cmd:HBA_PORT *port:1455
+000000000011df3b:obj/drivers/disk/ahci/ahci_main.c:ahci_read_sectors:HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count:1456
+000000000011e3ad:obj/drivers/disk/ahci/ahci_main.c:ahci_write_sectors:HBA_PORT *port, uint64_t start_lba, void *buf, uint32_t count:1457
+000000000011e678:obj/drivers/disk/ahci/ahci_main.c:get_drive_info:HBA_PORT *port:1458
+000000000011e7b7:obj/drivers/disk/ahci/ahci_main.c:ahci_identify_device:HBA_PORT *port, IDENTIFY_DEVICE_DATA *identify_data:1459
+000000000011e8fc:obj/drivers/disk/ahci/ahci_main.c:get_ahci_sector_count:void:1460
+000000000011e91c:obj/drivers/disk/ahci/ahci_main.c:int_get_sector_count:HBA_PORT *port:1461
+000000000011eb6d:obj/drivers/disk/ata/ide.c:select_ide_drive:int drive_num:1463
+000000000011ebc2:obj/drivers/disk/ata/ide.c:get_drive_size:int count:1464
+000000000011ebd4:obj/drivers/disk/ata/ide.c:add_ide_drive:int drive_num:1465
+000000000011ee8d:obj/drivers/disk/ata/ide.c:insl:uint16 reg, uint32 *buffer, int quads:1466
+000000000011eed8:obj/drivers/disk/ata/ide.c:outsl:uint16 reg, uint32 *buffer, int quads:1467
+000000000011ef1f:obj/drivers/disk/ata/ide.c:ide_read_buffer:uint8 channel, uint8 reg, uint32 *buffer, uint32 quads:1468
+000000000011f066:obj/drivers/disk/ata/ide.c:ide_write_buffer:uint8 channel, uint8 reg, uint32 *buffer, uint32 quads:1469
+000000000011f1ad:obj/drivers/disk/ata/ide.c:ide_polling:uint8 channel, uint8 advanced_check:1470
+000000000011f253:obj/drivers/disk/ata/ide.c:ide_print_error:uint32 drive, uint8 err:1471
+000000000011f463:obj/drivers/disk/ata/ide.c:ide_init:uint32 prim_channel_base_addr, uint32 prim_channel_control_base_addr,
               uint32 sec_channel_base_addr, uint32 sec_channel_control_addr,
-              uint32 bus_master_addr:1465
-000000000011f85a:obj/drivers/disk/ata/ide.c:ide_ata_access:uint8 direction, uint8 drive, uint32 lba, uint8 num_sectors, uint32 buffer:1466
-000000000011fdb1:obj/drivers/disk/ata/ide.c:ide_wait_irq:void:1467
-000000000011fdca:obj/drivers/disk/ata/ide.c:ide_irq:void:1468
-000000000011fdd7:obj/drivers/disk/ata/ide.c:ide_read_sectors:uint8 drive, uint8 num_sectors, uint32 lba, uint32 buffer:1469
-000000000011fec2:obj/drivers/disk/ata/ide.c:ide_write_sectors:uint8 drive, uint8 num_sectors, uint32 lba, uint32 buffer:1470
-000000000011ffad:obj/drivers/disk/ata/ide.c:ata_init:void:1471
-000000000011ffd7:obj/drivers/disk/ata/ide.c:ata_get_drive_by_model:const char *model:1472
-0000000000120020:obj/drivers/disk/ata/ide.c:ide_write_sectors_fat:uint32 sector, uint8 *buffer, uint32 sector_count:1473
-00000000001200bd:obj/drivers/disk/ata/ide.c:ide_read_sectors_fat:uint32 sector, uint8 *buffer, uint32 sector_count:1474
-000000000012010c:obj/drivers/disk/ata/ide.c:get_sectors:int driver:1475
-000000000012011b:obj/drivers/disk/ata/ide.c:set_drive_num:int drive:1476
-0000000000120129:obj/drivers/disk/ata/ide.c:get_ata_drive_num:void:1477
-0000000000120133:obj/drivers/display/cursor.c:draw_cursor:int sx, int sy:1479
-00000000001201e8:obj/drivers/display/cursor.c:undraw_cursor:int sx, int sy:1480
-0000000000120284:obj/drivers/display/cursor.c:update_cursor:void:1481
-000000000012031b:obj/drivers/display/cursor.c:update_cursor_manual:void:1482
-00000000001218dd:obj/drivers/display/printf.c:printf__:const char* format, ...:1484
-000000000012190e:obj/drivers/display/printf.c:printf:const char *format, ...:1485
-0000000000121a7e:obj/drivers/display/printf.c:set_color:int color_code:1486
-0000000000121a95:obj/drivers/display/printf.c:handle_ansi:const char *fmt:1487
-0000000000121dd9:obj/drivers/display/printf.c:parse_ansi:const char *fmt:1488
-0000000000121e89:obj/drivers/display/printf.c:sprintf_:char* buffer, const char* format, ...:1489
-0000000000121eb9:obj/drivers/display/printf.c:snprintf_:char* buffer, size_t count, const char* format, ...:1490
-0000000000121eea:obj/drivers/display/printf.c:vprintf_:const char* format, va_list va:1491
-0000000000121f0e:obj/drivers/display/printf.c:vsnprintf_:char* buffer, size_t count, const char* format, va_list va:1492
-0000000000121f32:obj/drivers/display/printf.c:fctprintf:void (*out:1493
-0000000000121f6f:obj/drivers/display/printf.c:_putchar:char chr:1494
-0000000000122017:obj/drivers/display/printf.c:set_print_mode:int mode:1495
-0000000000122048:obj/libk/ctypes.c:isspace:char c:1497
-0000000000122086:obj/libk/ctypes.c:isalpha:char c:1498
-00000000001220b8:obj/libk/ctypes.c:tolower:int c:1499
-00000000001220d4:obj/libk/ctypes.c:isdigit:int c:1500
-00000000001220f1:obj/libk/ctypes.c:isxdigit:int c:1501
-0000000000122129:obj/libk/ctypes.c:toupper:int c:1502
-000000000012214e:obj/libk/ctypes.c:islower:int c:1503
-000000000012216b:obj/libk/ctypes.c:upper:char c:1504
-0000000000122192:obj/libk/errno.c:perror:const char *string:1506
-00000000001221af:obj/libk/errno.c:strerror:int errno_val:1507
-00000000001222f0:obj/libk/maths.c:max:double a, double b:1509
-0000000000122324:obj/libk/maths.c:min:double a, double b:1510
-0000000000122358:obj/libk/maths.c:log2:uint32_t x:1511
-000000000012239c:obj/libk/maths.c:machine_eps:double x:1512
-00000000001223ce:obj/libk/maths.c:fact:uint32_t n:1513
-00000000001223ff:obj/libk/maths.c:abs:int n:1514
-000000000012240f:obj/libk/maths.c:exp:double x:1515
-000000000012249c:obj/libk/maths.c:inv_sqrt:double x:1516
-0000000000122517:obj/libk/maths.c:sqrt:double x:1517
-000000000012253d:obj/libk/maths.c:msb:uint32_t v:1518
-000000000012258c:obj/libk/maths.c:ln:double y:1519
-000000000012264d:obj/libk/maths.c:pow:double x, double y:1520
-00000000001227c7:obj/libk/maths.c:log:double x, double y:1521
-0000000000122809:obj/libk/maths.c:log10:double x:1522
-0000000000122833:obj/libk/maths.c:ipow:double x, uint32_t n:1523
-000000000012286d:obj/libk/maths.c:sin_1st_quadrant:double x:1524
-0000000000122904:obj/libk/maths.c:sin:double x:1525
-0000000000122a4f:obj/libk/maths.c:cos:double x:1526
-0000000000122a7b:obj/libk/maths.c:tan:double x:1527
-0000000000122ab1:obj/libk/maths.c:sinh:double x:1528
-0000000000122af7:obj/libk/maths.c:cosh:double x:1529
-0000000000122b3d:obj/libk/maths.c:tanh:double x:1530
-0000000000122b78:obj/libk/maths.c:asinh:double x:1531
-0000000000122bb7:obj/libk/maths.c:acosh:double x:1532
-0000000000122bf6:obj/libk/maths.c:atanh:double x:1533
-0000000000122c2f:obj/libk/maths.c:asin:double x:1534
-0000000000122d06:obj/libk/maths.c:acos:double x:1535
-0000000000122df0:obj/libk/maths.c:atan:double x:1536
-0000000000122e39:obj/libk/maths.c:fac:unsigned int x:1537
-0000000000122e64:obj/libk/maths.c:small_rand:void:1538
-0000000000122ec3:obj/libk/maths.c:fabs:double x:1539
-0000000000122eec:obj/libk/maths.c:fmax:double x, double y:1540
-0000000000122f20:obj/libk/string.c:memset:void *dst, char c, uint32 n:1542
-0000000000122f52:obj/libk/string.c:strchr:const char* str, int character:1543
-0000000000122f7f:obj/libk/string.c:strtok:char* str, const char* delimiters:1544
-0000000000123040:obj/libk/string.c:memmove:void* dest, const void* src, size_t size:1545
-00000000001230cc:obj/libk/string.c:memcpy:void *dst, const void *src, uint32 n:1546
-000000000012310f:obj/libk/string.c:strtok_r:char* str, const char* delim, char** saveptr:1547
-000000000012319d:obj/libk/string.c:memcmp:const void *str1, const void *str2, size_t count:1548
-00000000001231f2:obj/libk/string.c:memcmp_string:const void *aptr, const void *bptr, size_t size:1549
-0000000000123262:obj/libk/string.c:strlen:const char *s:1550
-000000000012328a:obj/libk/string.c:strcmp:const char *s1, const char *s2:1551
-00000000001232d8:obj/libk/string.c:strstr:char *s1, const char *s2:1552
-0000000000123323:obj/libk/string.c:ctos:char s[2], const char c:1553
-0000000000123346:obj/libk/string.c:strcpy:char *dst, const char *src:1554
-000000000012337c:obj/libk/string.c:backspace:char *buffer:1555
-00000000001233b6:obj/libk/string.c:atoi:const char *s:1556
-000000000012345a:obj/libk/string.c:strcat:char *dest, const char *src:1557
-00000000001234a6:obj/libk/string.c:lower:char c:1558
-00000000001234cd:obj/libk/string.c:strncpy:char *dst, const char *src, size_t n:1559
-000000000012352c:obj/libk/string.c:strncmp:const char *s1, const char *s2, register size_t n:1560
-000000000012357b:obj/libk/string.c:itoa:char *buf, int base, int d:1561
-0000000000123659:obj/libk/string.c:string_length:char s[]:1562
-0000000000123680:obj/libk/string.c:append:char s[], char n:1563
-00000000001236b9:obj/libk/string.c:parse_string:char *parser, char *string, char c:1564
-0000000000123705:obj/libk/string.c:hex_string_to_uint16:const char* hexString, uint16_t* result:1565
-0000000000123776:obj/libk/string.c:strtoul:const char* str, char** endptr, int base:1566
-0000000000123903:obj/libk/string.c:isalnum:int c:1567
-000000000012393b:obj/libk/string.c:strtoull:const char *str, char **endptr, int base:1568
-0000000000123ab9:obj/libk/string.c:strrchr:const char* str, int ch:1569
-0000000000123b09:obj/libk/string.c:strcspn:const char* str, const char* reject:1570
-0000000000123b51:obj/libk/string.c:strncat:char* dest, const char* src, size_t destSize:1571
-0000000000123bb7:obj/libk/memory/memory.c:formatBytes:uint32_t bytes:1573
-0000000000123c6c:obj/libk/memory/memory.c:formatBytes64:uint64_t bytes:1574
-0000000000123d2d:obj/syscalls/syscall_handler.c:system_call_handler_c:int syscall_number, int param1, int param2:1576
-0000000000123db7:./ch/i686/irq.s:irq_0:none:1579
-0000000000123dbe:./ch/i686/irq.s:irq_1:none:1580
-0000000000123dc5:./ch/i686/irq.s:irq_2:none:1581
-0000000000123dcc:./ch/i686/irq.s:irq_3:none:1582
-0000000000123dd3:./ch/i686/irq.s:irq_4:none:1583
-0000000000123dda:./ch/i686/irq.s:irq_5:none:1584
-0000000000123de1:./ch/i686/irq.s:irq_6:none:1585
-0000000000123de8:./ch/i686/irq.s:irq_7:none:1586
-0000000000123def:./ch/i686/irq.s:irq_8:none:1587
-0000000000123df6:./ch/i686/irq.s:irq_9:none:1588
-0000000000123dfd:./ch/i686/irq.s:irq_10:none:1589
-0000000000123e04:./ch/i686/irq.s:irq_11:none:1590
-0000000000123e0b:./ch/i686/irq.s:irq_12:none:1591
-0000000000123e15:./ch/i686/irq.s:irq_13:none:1592
-0000000000123e1f:./ch/i686/irq.s:irq_14:none:1593
-0000000000123e29:./ch/i686/irq.s:irq_15:none:1594
-0000000000123e40:./ch/i686/load_idt.s:load_idt:none:1597
-0000000000123e50:./ch/i686/load_gdt.s:load_gdt:none:1600
-0000000000123e80:./ch/i686/boot.s:_start:none:1603
-0000000000123ec5:./ch/i686/exception.s:exception_0:none:1606
-0000000000123ecc:./ch/i686/exception.s:exception_1:none:1607
-0000000000123ed3:./ch/i686/exception.s:exception_2:none:1608
-0000000000123eda:./ch/i686/exception.s:exception_3:none:1609
-0000000000123ee1:./ch/i686/exception.s:exception_4:none:1610
-0000000000123ee8:./ch/i686/exception.s:exception_5:none:1611
-0000000000123eef:./ch/i686/exception.s:exception_6:none:1612
-0000000000123ef6:./ch/i686/exception.s:exception_7:none:1613
-0000000000123efd:./ch/i686/exception.s:exception_8:none:1614
-0000000000123f02:./ch/i686/exception.s:exception_9:none:1615
-0000000000123f09:./ch/i686/exception.s:exception_10:none:1616
-0000000000123f0e:./ch/i686/exception.s:exception_11:none:1617
-0000000000123f13:./ch/i686/exception.s:exception_12:none:1618
-0000000000123f18:./ch/i686/exception.s:exception_13:none:1619
-0000000000123f1d:./ch/i686/exception.s:exception_14:none:1620
-0000000000123f25:./ch/i686/exception.s:exception_15:none:1621
-0000000000123f2f:./ch/i686/exception.s:exception_16:none:1622
-0000000000123f39:./ch/i686/exception.s:exception_17:none:1623
-0000000000123f43:./ch/i686/exception.s:exception_18:none:1624
-0000000000123f4d:./ch/i686/exception.s:exception_19:none:1625
-0000000000123f57:./ch/i686/exception.s:exception_20:none:1626
-0000000000123f61:./ch/i686/exception.s:exception_21:none:1627
-0000000000123f6b:./ch/i686/exception.s:exception_22:none:1628
-0000000000123f75:./ch/i686/exception.s:exception_23:none:1629
-0000000000123f7f:./ch/i686/exception.s:exception_24:none:1630
-0000000000123f89:./ch/i686/exception.s:exception_25:none:1631
-0000000000123f93:./ch/i686/exception.s:exception_26:none:1632
-0000000000123f9d:./ch/i686/exception.s:exception_27:none:1633
-0000000000123fa7:./ch/i686/exception.s:exception_28:none:1634
-0000000000123fb1:./ch/i686/exception.s:exception_29:none:1635
-0000000000123fbb:./ch/i686/exception.s:exception_30:none:1636
-0000000000123fc5:./ch/i686/exception.s:exception_31:none:1637
-0000000000123fcf:./ch/i686/exception.s:exception_128:none:1638
-0000000000123fe0:./ch/i686/bios32_call.s:BIOS32_START:none:1641
-0000000000124050:./ch/i686/bios32_call.s:bios32_int_number_ptr:none:1642
-00000000001240ab:./ch/i686/bios32_call.s:bios32_gdt_entries:none:1643
-00000000001240eb:./ch/i686/bios32_call.s:bios32_gdt_ptr:none:1644
-00000000001240f3:./ch/i686/bios32_call.s:bios32_idt_ptr:none:1645
-00000000001240fb:./ch/i686/bios32_call.s:bios32_in_reg16_ptr:none:1646
-0000000000124117:./ch/i686/bios32_call.s:bios32_out_reg16_ptr:none:1647
-0000000000124135:./ch/i686/bios32_call.s:BIOS32_END:none:1648
-0000000000124140:./ch/i686/sys_call.s:system_call_handler:none:1651
-0000000000124180:./m/pageing/page.s:copy_page_physical:none:1654
-00000000001241c0:./m/scheduler/scheduler.s:SwitchToTask:none:1657
-0000000000124219:./m/scheduler/scheduler.s:GetCR3:none:1658
+              uint32 bus_master_addr:1472
+000000000011f96c:obj/drivers/disk/ata/ide.c:ide_ata_access:uint8 direction, uint8 drive, uint32 lba, uint8 num_sectors, uint32 buffer:1473
+000000000011fec3:obj/drivers/disk/ata/ide.c:ide_wait_irq:void:1474
+000000000011fedc:obj/drivers/disk/ata/ide.c:ide_irq:void:1475
+000000000011fee9:obj/drivers/disk/ata/ide.c:ide_read_sectors:uint8 drive, uint8 num_sectors, uint32 lba, uint32 buffer:1476
+000000000011ffd4:obj/drivers/disk/ata/ide.c:ide_write_sectors:uint8 drive, uint8 num_sectors, uint32 lba, uint32 buffer:1477
+00000000001200bf:obj/drivers/disk/ata/ide.c:ata_init:void:1478
+00000000001200e9:obj/drivers/disk/ata/ide.c:ata_get_drive_by_model:const char *model:1479
+0000000000120132:obj/drivers/disk/ata/ide.c:ide_write_sectors_fat:uint32 sector, uint8 *buffer, uint32 sector_count:1480
+00000000001201cf:obj/drivers/disk/ata/ide.c:ide_read_sectors_fat:uint32 sector, uint8 *buffer, uint32 sector_count:1481
+000000000012021e:obj/drivers/disk/ata/ide.c:get_sectors:int driver:1482
+000000000012022d:obj/drivers/disk/ata/ide.c:set_drive_num:int drive:1483
+000000000012023b:obj/drivers/disk/ata/ide.c:get_ata_drive_num:void:1484
+0000000000120245:obj/drivers/display/cursor.c:draw_cursor:int sx, int sy:1486
+00000000001202fa:obj/drivers/display/cursor.c:undraw_cursor:int sx, int sy:1487
+0000000000120396:obj/drivers/display/cursor.c:update_cursor:void:1488
+000000000012042d:obj/drivers/display/cursor.c:update_cursor_manual:void:1489
+00000000001219ef:obj/drivers/display/printf.c:printf__:const char* format, ...:1491
+0000000000121a20:obj/drivers/display/printf.c:printf:const char *format, ...:1492
+0000000000121b90:obj/drivers/display/printf.c:set_color:int color_code:1493
+0000000000121ba7:obj/drivers/display/printf.c:handle_ansi:const char *fmt:1494
+0000000000121eeb:obj/drivers/display/printf.c:parse_ansi:const char *fmt:1495
+0000000000121f9b:obj/drivers/display/printf.c:sprintf_:char* buffer, const char* format, ...:1496
+0000000000121fcb:obj/drivers/display/printf.c:snprintf_:char* buffer, size_t count, const char* format, ...:1497
+0000000000121ffc:obj/drivers/display/printf.c:vprintf_:const char* format, va_list va:1498
+0000000000122020:obj/drivers/display/printf.c:vsnprintf_:char* buffer, size_t count, const char* format, va_list va:1499
+0000000000122044:obj/drivers/display/printf.c:fctprintf:void (*out:1500
+0000000000122081:obj/drivers/display/printf.c:_putchar:char chr:1501
+0000000000122129:obj/drivers/display/printf.c:set_print_mode:int mode:1502
+000000000012215a:obj/libk/ctypes.c:isspace:char c:1504
+0000000000122198:obj/libk/ctypes.c:isalpha:char c:1505
+00000000001221ca:obj/libk/ctypes.c:tolower:int c:1506
+00000000001221e6:obj/libk/ctypes.c:isdigit:int c:1507
+0000000000122203:obj/libk/ctypes.c:isxdigit:int c:1508
+000000000012223b:obj/libk/ctypes.c:toupper:int c:1509
+0000000000122260:obj/libk/ctypes.c:islower:int c:1510
+000000000012227d:obj/libk/ctypes.c:upper:char c:1511
+00000000001222a4:obj/libk/errno.c:perror:const char *string:1513
+00000000001222c1:obj/libk/errno.c:strerror:int errno_val:1514
+0000000000122402:obj/libk/maths.c:max:double a, double b:1516
+0000000000122436:obj/libk/maths.c:min:double a, double b:1517
+000000000012246a:obj/libk/maths.c:log2:uint32_t x:1518
+00000000001224ae:obj/libk/maths.c:machine_eps:double x:1519
+00000000001224e0:obj/libk/maths.c:fact:uint32_t n:1520
+0000000000122511:obj/libk/maths.c:abs:int n:1521
+0000000000122521:obj/libk/maths.c:exp:double x:1522
+00000000001225ae:obj/libk/maths.c:inv_sqrt:double x:1523
+0000000000122629:obj/libk/maths.c:sqrt:double x:1524
+000000000012264f:obj/libk/maths.c:msb:uint32_t v:1525
+000000000012269e:obj/libk/maths.c:ln:double y:1526
+000000000012275f:obj/libk/maths.c:pow:double x, double y:1527
+00000000001228d9:obj/libk/maths.c:log:double x, double y:1528
+000000000012291b:obj/libk/maths.c:log10:double x:1529
+0000000000122945:obj/libk/maths.c:ipow:double x, uint32_t n:1530
+000000000012297f:obj/libk/maths.c:sin_1st_quadrant:double x:1531
+0000000000122a16:obj/libk/maths.c:sin:double x:1532
+0000000000122b61:obj/libk/maths.c:cos:double x:1533
+0000000000122b8d:obj/libk/maths.c:tan:double x:1534
+0000000000122bc3:obj/libk/maths.c:sinh:double x:1535
+0000000000122c09:obj/libk/maths.c:cosh:double x:1536
+0000000000122c4f:obj/libk/maths.c:tanh:double x:1537
+0000000000122c8a:obj/libk/maths.c:asinh:double x:1538
+0000000000122cc9:obj/libk/maths.c:acosh:double x:1539
+0000000000122d08:obj/libk/maths.c:atanh:double x:1540
+0000000000122d41:obj/libk/maths.c:asin:double x:1541
+0000000000122e18:obj/libk/maths.c:acos:double x:1542
+0000000000122f02:obj/libk/maths.c:atan:double x:1543
+0000000000122f4b:obj/libk/maths.c:fac:unsigned int x:1544
+0000000000122f76:obj/libk/maths.c:small_rand:void:1545
+0000000000122fd5:obj/libk/maths.c:fabs:double x:1546
+0000000000122ffe:obj/libk/maths.c:fmax:double x, double y:1547
+0000000000123032:obj/libk/string.c:memset:void *dst, char c, uint32 n:1549
+0000000000123064:obj/libk/string.c:strchr:const char* str, int character:1550
+0000000000123091:obj/libk/string.c:strtok:char* str, const char* delimiters:1551
+0000000000123152:obj/libk/string.c:memmove:void* dest, const void* src, size_t size:1552
+00000000001231de:obj/libk/string.c:memcpy:void *dst, const void *src, uint32 n:1553
+0000000000123221:obj/libk/string.c:strtok_r:char* str, const char* delim, char** saveptr:1554
+00000000001232af:obj/libk/string.c:memcmp:const void *str1, const void *str2, size_t count:1555
+0000000000123304:obj/libk/string.c:memcmp_string:const void *aptr, const void *bptr, size_t size:1556
+0000000000123374:obj/libk/string.c:strlen:const char *s:1557
+000000000012339c:obj/libk/string.c:strcmp:const char *s1, const char *s2:1558
+00000000001233ea:obj/libk/string.c:strstr:char *s1, const char *s2:1559
+0000000000123435:obj/libk/string.c:ctos:char s[2], const char c:1560
+0000000000123458:obj/libk/string.c:strcpy:char *dst, const char *src:1561
+000000000012348e:obj/libk/string.c:backspace:char *buffer:1562
+00000000001234c8:obj/libk/string.c:atoi:const char *s:1563
+000000000012356c:obj/libk/string.c:strcat:char *dest, const char *src:1564
+00000000001235b8:obj/libk/string.c:lower:char c:1565
+00000000001235df:obj/libk/string.c:strncpy:char *dst, const char *src, size_t n:1566
+000000000012363e:obj/libk/string.c:strncmp:const char *s1, const char *s2, register size_t n:1567
+000000000012368d:obj/libk/string.c:itoa:char *buf, int base, int d:1568
+000000000012376b:obj/libk/string.c:string_length:char s[]:1569
+0000000000123792:obj/libk/string.c:append:char s[], char n:1570
+00000000001237cb:obj/libk/string.c:parse_string:char *parser, char *string, char c:1571
+0000000000123817:obj/libk/string.c:hex_string_to_uint16:const char* hexString, uint16_t* result:1572
+0000000000123888:obj/libk/string.c:strtoul:const char* str, char** endptr, int base:1573
+0000000000123a15:obj/libk/string.c:isalnum:int c:1574
+0000000000123a4d:obj/libk/string.c:strtoull:const char *str, char **endptr, int base:1575
+0000000000123bcb:obj/libk/string.c:strrchr:const char* str, int ch:1576
+0000000000123c1b:obj/libk/string.c:strcspn:const char* str, const char* reject:1577
+0000000000123c63:obj/libk/string.c:strncat:char* dest, const char* src, size_t destSize:1578
+0000000000123cc9:obj/libk/memory/memory.c:formatBytes:uint32_t bytes:1580
+0000000000123d7e:obj/libk/memory/memory.c:formatBytes64:uint64_t bytes:1581
+0000000000123e3f:obj/syscalls/syscall_handler.c:system_call_handler_c:int syscall_number, int param1, int param2:1583
+0000000000123ec7:./ch/i686/irq.s:irq_0:none:1585
+0000000000123ece:./ch/i686/irq.s:irq_1:none:1586
+0000000000123ed5:./ch/i686/irq.s:irq_2:none:1587
+0000000000123edc:./ch/i686/irq.s:irq_3:none:1588
+0000000000123ee3:./ch/i686/irq.s:irq_4:none:1589
+0000000000123eea:./ch/i686/irq.s:irq_5:none:1590
+0000000000123ef1:./ch/i686/irq.s:irq_6:none:1591
+0000000000123ef8:./ch/i686/irq.s:irq_7:none:1592
+0000000000123eff:./ch/i686/irq.s:irq_8:none:1593
+0000000000123f06:./ch/i686/irq.s:irq_9:none:1594
+0000000000123f0d:./ch/i686/irq.s:irq_10:none:1595
+0000000000123f14:./ch/i686/irq.s:irq_11:none:1596
+0000000000123f1b:./ch/i686/irq.s:irq_12:none:1597
+0000000000123f25:./ch/i686/irq.s:irq_13:none:1598
+0000000000123f2f:./ch/i686/irq.s:irq_14:none:1599
+0000000000123f39:./ch/i686/irq.s:irq_15:none:1600
+0000000000123f50:./ch/i686/load_idt.s:load_idt:none:1603
+0000000000123f60:./ch/i686/load_gdt.s:load_gdt:none:1606
+0000000000123f90:./ch/i686/boot.s:_start:none:1609
+0000000000123fd5:./ch/i686/exception.s:exception_0:none:1612
+0000000000123fdc:./ch/i686/exception.s:exception_1:none:1613
+0000000000123fe3:./ch/i686/exception.s:exception_2:none:1614
+0000000000123fea:./ch/i686/exception.s:exception_3:none:1615
+0000000000123ff1:./ch/i686/exception.s:exception_4:none:1616
+0000000000123ff8:./ch/i686/exception.s:exception_5:none:1617
+0000000000123fff:./ch/i686/exception.s:exception_6:none:1618
+0000000000124006:./ch/i686/exception.s:exception_7:none:1619
+000000000012400d:./ch/i686/exception.s:exception_8:none:1620
+0000000000124012:./ch/i686/exception.s:exception_9:none:1621
+0000000000124019:./ch/i686/exception.s:exception_10:none:1622
+000000000012401e:./ch/i686/exception.s:exception_11:none:1623
+0000000000124023:./ch/i686/exception.s:exception_12:none:1624
+0000000000124028:./ch/i686/exception.s:exception_13:none:1625
+000000000012402d:./ch/i686/exception.s:exception_14:none:1626
+0000000000124035:./ch/i686/exception.s:exception_15:none:1627
+000000000012403f:./ch/i686/exception.s:exception_16:none:1628
+0000000000124049:./ch/i686/exception.s:exception_17:none:1629
+0000000000124053:./ch/i686/exception.s:exception_18:none:1630
+000000000012405d:./ch/i686/exception.s:exception_19:none:1631
+0000000000124067:./ch/i686/exception.s:exception_20:none:1632
+0000000000124071:./ch/i686/exception.s:exception_21:none:1633
+000000000012407b:./ch/i686/exception.s:exception_22:none:1634
+0000000000124085:./ch/i686/exception.s:exception_23:none:1635
+000000000012408f:./ch/i686/exception.s:exception_24:none:1636
+0000000000124099:./ch/i686/exception.s:exception_25:none:1637
+00000000001240a3:./ch/i686/exception.s:exception_26:none:1638
+00000000001240ad:./ch/i686/exception.s:exception_27:none:1639
+00000000001240b7:./ch/i686/exception.s:exception_28:none:1640
+00000000001240c1:./ch/i686/exception.s:exception_29:none:1641
+00000000001240cb:./ch/i686/exception.s:exception_30:none:1642
+00000000001240d5:./ch/i686/exception.s:exception_31:none:1643
+00000000001240df:./ch/i686/exception.s:exception_128:none:1644
+00000000001240f0:./ch/i686/bios32_call.s:BIOS32_START:none:1647
+0000000000124160:./ch/i686/bios32_call.s:bios32_int_number_ptr:none:1648
+00000000001241bb:./ch/i686/bios32_call.s:bios32_gdt_entries:none:1649
+00000000001241fb:./ch/i686/bios32_call.s:bios32_gdt_ptr:none:1650
+0000000000124203:./ch/i686/bios32_call.s:bios32_idt_ptr:none:1651
+000000000012420b:./ch/i686/bios32_call.s:bios32_in_reg16_ptr:none:1652
+0000000000124227:./ch/i686/bios32_call.s:bios32_out_reg16_ptr:none:1653
+0000000000124245:./ch/i686/bios32_call.s:BIOS32_END:none:1654
+0000000000124250:./ch/i686/sys_call.s:system_call_handler:none:1657
+0000000000124290:./m/pageing/page.s:copy_page_physical:none:1660
+00000000001242d0:./m/scheduler/scheduler.s:SwitchToTask:none:1663
+0000000000124329:./m/scheduler/scheduler.s:GetCR3:none:1664

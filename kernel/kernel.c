@@ -36,7 +36,7 @@
 #include "immintrin.h"
 #include "keyboard.h"
 #include "login.h"
-
+#include "init_options.h"
 void command_line(void);
 unsigned int get_random_number();
 void loop(void);
@@ -186,7 +186,12 @@ void load_history_down()
 int gui_mode();
 void command_line(void)
 {
-    gui_mode();
+    // 
+    printf("TUI MODE %d[true: %d|false: %d]\n",get_tui_state(),true,false);
+    if(get_tui_state() == true)
+    {
+        gui_mode(get_terminal_width(),get_terminal_hight());
+    }
     // register_arrow_callback(SCAN_CODE_KEY_UP,load_history_up);
     // register_arrow_callback(SCAN_CODE_KEY_DOWN,load_history_down);
     // dev_0(10);
@@ -259,9 +264,9 @@ void command_line(void)
     }
     // TerminateProcess();
 }
-int gui_mode()
+int gui_mode(int screen_x, int screen_y)
 {
-    draw_login_screen(1024,768);
+    draw_login_screen(screen_x,screen_y);
     set_terminal_postion_x(username_start_x);
     set_terminal_postion_y(username_start_y);
     while(1)
@@ -281,7 +286,7 @@ int gui_mode()
 
         
     }
-    draw_ui_layout(1024,768);
+    draw_ui_layout(screen_x,screen_y);
     set_terminal_postion_x(command_start_x);
     set_terminal_postion_y(command_start_y);
     while(1)

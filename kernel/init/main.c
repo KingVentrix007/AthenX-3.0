@@ -41,6 +41,7 @@
 #include "vfs.h"
 #include "system.h"
 #include "net/network.h"
+#include "init_options.h"
 extern bool fs_active;
 MULTIBOOT_INFO *mboot_info;
 struct BootConfig {
@@ -52,6 +53,7 @@ struct BootConfig {
     bool verbose;
     int width;
     int height;
+    bool tui;
 };
 typedef struct {
     uint32 mod_start;
@@ -296,6 +298,11 @@ void init(unsigned long magic, unsigned long addr) {
     if(config.verbose != true)
     {
         disable_verbose();
+    }
+    if(config.tui == true)
+    {
+        printf("%s\n",ini_data);
+        set_tui(config.tui);
     }
     // Initialize VESA graphics mode
     int width = 800;
@@ -694,7 +701,7 @@ int print_pci_devices()
 static int config_handler(void *user, const char *section, const char *name,
                           const char *value) {
     struct BootConfig *config = (struct BootConfig *)user;
-
+    // printf("CONFIG\n");
     if (strcmp(section, "version") == 0) {
         if (strcmp(name, "version_number") == 0) {
             strncpy(config->version_number, value, sizeof(config->version_number));
@@ -715,6 +722,11 @@ static int config_handler(void *user, const char *section, const char *name,
         } else if (strcmp(name, "DefaultBootDrive") == 0) {
             config->default_drive = atoi(value);
         }
+        else if (strcmp(name,"tui") == 0)
+        {
+            config->tui = (strcmp(value, "true") == 0);
+            // config->tui = atoi(value);
+        }
     }
     else if (strcmp(section, "Screen") == 0)
     {
@@ -724,6 +736,7 @@ static int config_handler(void *user, const char *section, const char *name,
             config->height = atoi(value);
         }
     }
+    
     
 
     return 1; // Continue parsing
