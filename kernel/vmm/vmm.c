@@ -4,6 +4,10 @@
 #include "pagepmm.h"
 #include "io_ports.h"
 #include "stdbool.h"
+#include "kheap.h"
+#include "stdio.h"
+void pmm_free_page(uint32_t p);
+uint32_t pmm_alloc_page();
 extern uint8_t pmm_paging_active;
 
 page_directory_t* current_directory;

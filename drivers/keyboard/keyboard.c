@@ -219,7 +219,7 @@ char* kb_getchar_w() {
     g_ch = 0;
     g_scan_code = 0;
     //printf("CX");
-    return c;
+    return (int)c;
 }
 // Define a variable to store the ID of the process that currently holds the IO lock
 int current_caller_process_id = 0;

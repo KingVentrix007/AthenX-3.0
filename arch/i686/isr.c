@@ -10,6 +10,8 @@
 #include "string.h"
 #include "dwarf.h"
 #include "clock.h"
+#include "stdio.h"
+int cls();
 #define MAX_EXCEPTIONS 10
 #define EOI(irq) \
     do {\
@@ -155,7 +157,7 @@ int debug_c(char *cmd,int err_code)
                 printf("Dissembler: ");
             }
             
-            int input = kb_getchar_w();
+            int input = (int)kb_getchar_w();
             if(input == SCAN_CODE_KEY_RIGHT)
             {
                 if(i < num_found_functions)
@@ -206,7 +208,7 @@ int debug_c(char *cmd,int err_code)
 
                     if(buf_count > 0)
                     {
-                        buf[buf_count] = "\0";
+                        buf[buf_count] = '\0';
                         buf_count--;
                         printf("\b");
                     }
@@ -264,7 +266,7 @@ int test_int()
 
     return 0;
 }
-int test_int_rec()
+void test_int_rec(REGISTERS *reg)
 {
     printf("Interrupts are working %d\n", IRQ_BASE+15);
 }
@@ -304,7 +306,7 @@ void isr_exception_handler(REGISTERS reg) {
             {
                 printf("Debug>>");
                 
-                int input = kb_getchar_w();
+                int input = (int)kb_getchar_w();
                 while(input != '\n')
                 {
                     if(input == '\b' && num_chars > 0)
@@ -320,7 +322,7 @@ void isr_exception_handler(REGISTERS reg) {
                         cmd_buffer[num_chars] = input;
                         num_chars++;
                     }
-                    input = kb_getchar_w();
+                    input = (int)kb_getchar_w();
 
                     
                 }
